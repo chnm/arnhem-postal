@@ -1,0 +1,24 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Reading Journal{% endblock title %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {% tailwind_css %}
+        <script src="{% static 'js/alpine.min.js' %}" defer></script>
+    </head>
+
+    <body>
+        <div class="container mx-auto">
+            {% block content %}
+                <div class="bg-blue-100">
+                    <section class="flex items-center justify-center h-screen">
+                        <h1 class="text-5xl">Content Here</h1>
+                    </section>
+                </div>
+            {% endblock content %}
+        </div>
+    </body>
+</html>
