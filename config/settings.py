@@ -15,7 +15,7 @@ import environ
 from dotenv import load_dotenv
 
 load_dotenv()
-# TODO: when we move this to Postgres, we'll update .env to include the 
+# TODO: when we move this to Postgres, we'll update .env to include the
 # database connection string
 # https://github.com/joke2k/django-environ
 
