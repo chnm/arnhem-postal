@@ -1,7 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group
 from django.utils import timezone
 
+student_group, created = Group.objects.get_or_create(name='Student')
+contributor_group, created = Group.objects.get_or_create(name='Contributor')
+volunteer_group, created = Group.objects.get_or_create(name='Volunteer')
+admin_group, created = Group.objects.get_or_create(name='Admin')
 
 class CustomUserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):
@@ -44,12 +48,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     commands.
     """
 
+    ROLE_CHOICES = (
+        (1, "Student"),
+        (2, "Contributor"),
+        (3, "Volunteer"),
+        (4, "Admin"),
+    )
+
     email = models.EmailField(blank=True, default="", unique=True)
     name = models.CharField(max_length=200, blank=True, default="")
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=2, blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+    is_contributor = models.BooleanField(default=False)
+    is_volunteer = models.BooleanField(default=False)
 
     last_login = models.DateTimeField(blank=True, null=True)
     date_joined = models.DateTimeField(default=timezone.now)
