@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>{% block title %}Reading Journal{% endblock title %}</title>
+        <title>{% block title %}Arnhem Postal History{% endblock title %}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,10 +12,11 @@
 
     <body>
         <div class="container mx-auto">
+            {% include 'postcards/partials/nav.html' %}
             {% block content %}
                 <div class="bg-blue-100">
                     <section class="flex items-center justify-center h-screen">
-                        <h1 class="text-5xl">Content Here</h1>
+                        <h1 class="text-5xl">Arnhem</h1>
                     </section>
                 </div>
             {% endblock content %}

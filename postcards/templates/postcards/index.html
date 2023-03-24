@@ -1,8 +1,25 @@
-{% extends 'postcards/base.html' %}
+{% extends "postcards/base.html" %}
 {% block content %}
-    <div class="bg-green-500">
-        <div class="w-screen h-screen">
-            <h1 class="text-8xl">Arnhem</h1>
+    <div class="border-gray-700 border-1 rounded-xl p-4 m-4">
+        <div class="flex space-x-4">
+            <div class="flex items-end"><h2 class="text-xl text-gray-900 font-bold">Library</h2></div>
+            <div class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-sky-700 bg-sky-100 hover:bg-sky-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"><a href="{% url 'add_postcard' %}" class="text-l text-sky-500 font-medium">Add Postcard</a></div>
+        </div>
+        <div class="bg-white shadow overflow-hidden sm:rounded-md p-2 m-2">
+            <ul class="divide-y divide-gray 200" role="list">
+                    <li>
+                    <div class="flex justify-between">
+                        <a href="#" class="block hover:bg-sky-100">
+                            <p class="text-lg font-medium text-gray-700">item</p>
+                            <p class="text-sm text-gray-500">tags</p>
+                        </a>
+                        <div class="flex items-center justify-center md:space-x-2">
+                            <a href="#" class="inline-flex items-center px-2.5 py-1.5 border border-blue-300 shadow-sm text-xs font-medium rounded text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Edit</a>
+                            <a class="inline-flex items-center px-2.5 py-1.5 border border-blue-300 shadow-sm text-xs font-medium rounded text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" href="#">Delete</a>
+                        </div>
+                    </div>
+                    </li>
+            </ul>
         </div>
     </div>
 {% endblock content %}
