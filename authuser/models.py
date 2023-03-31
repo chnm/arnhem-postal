@@ -1,11 +1,12 @@
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group
 from django.utils import timezone
 
-student_group, created = Group.objects.get_or_create(name='Student')
-contributor_group, created = Group.objects.get_or_create(name='Contributor')
-volunteer_group, created = Group.objects.get_or_create(name='Volunteer')
-admin_group, created = Group.objects.get_or_create(name='Admin')
+# student_group, created = Group.objects.get_or_create(name='Student')
+# contributor_group, created = Group.objects.get_or_create(name='Contributor')
+# volunteer_group, created = Group.objects.get_or_create(name='Volunteer')
+# admin_group, created = Group.objects.get_or_create(name='Admin')
+
 
 class CustomUserManager(UserManager):
     def _create_user(self, email, password, **extra_fields):
@@ -57,7 +58,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(blank=True, default="", unique=True)
     name = models.CharField(max_length=200, blank=True, default="")
-    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=2, blank=True, null=True)
+    role = models.PositiveSmallIntegerField(
+        choices=ROLE_CHOICES, default=2, blank=True, null=True
+    )
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
