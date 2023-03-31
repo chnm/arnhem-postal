@@ -1,7 +1,7 @@
 from django import forms
-from .models import Postcard
+from .models import Object
 
-class PostcardForm(forms.ModelForm):
+class ObjectForm(forms.ModelForm):
     class Meta:
-        model = Postcard
+        model = Object
         fields = ['tags']

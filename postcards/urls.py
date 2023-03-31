@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name = "index"),
-    path("postcard/", views.get_postcard, name = "postcard"),
-    path("postcard/<int:postcard_id>/", views.postcard_details, name = "postcard"),
-    path("postcard/add", views.add_postcard, name="add_postcard"),
+    path("postcard/", views.get_object, name = "object"),
+    path("postcard/<int:id>/", views.object_details, name = "object"),
+    path("postcard/add", views.add_object, name="add_object"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

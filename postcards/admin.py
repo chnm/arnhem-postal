@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Image, Person, Location, Tag, Postcard, Postmark
+from .models import Image, Person, Location, Tag, Object, Postmark
 
 admin.site.register(Person)
 admin.site.register(Location)
@@ -8,14 +8,14 @@ admin.site.register(Tag)
 admin.site.register(Postmark)
 
 
-class PostcardAdmin(admin.ModelAdmin):
+class ObjectAdmin(admin.ModelAdmin):
     list_display = ('item_id', 'sender_name', 'addressee_name')
     list_filter = ['tags']
     search_fields = ['item_number', 'sender_name', 'addressee_name', 'tags']
-    model = Postcard.item_id
+    model = Object.item_id
     extra = 1
 
-admin.site.register(Postcard, PostcardAdmin)   
+admin.site.register(Object, ObjectAdmin)   
 
 # Display images in the admin interface
 # https://stackoverflow.com/questions/10390244/how-to-display-images-in-django-admin

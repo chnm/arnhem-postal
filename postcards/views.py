@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import HttpRequest
-from .models import Postcard
-from .forms import PostcardForm
+from .models import Object
+from .forms import ObjectForm
 
 def get_nav_links(current_page: str):
     nav_links = {
@@ -40,40 +40,40 @@ def index(request: HttpRequest):
     ctx = {"nav_links": nav_links}
     return render(request, "postcards/index.html", ctx)
 
-def get_postcard(request: HttpRequest):
-    postcard = Postcard.objects.all()
-    return postcard
+def get_object(request: HttpRequest):
+    object = Object.objects.all()
+    return object
 
-def postcard_details(request: HttpRequest, postcard_id: int):
-    postcard = get_object_or_404(Postcard, pk=postcard_id)
+def object_details(request: HttpRequest, id: int):
+    object = get_object_or_404(Object, pk=id)
     nav_links = get_nav_links("")
     ctx = {
-        "postcard": postcard,
+        "object": object,
         "nav_links": nav_links,
     }
     return render(request, "postcards/book_details.html", ctx)
 
 def library(request: HttpRequest):
     nav_links = get_nav_links("postcard")
-    books = get_postcard(request)
+    objects = get_object(request)
     ctx = {
         "nav_links": nav_links,
-        "books": books,
+        "books": objects,
     }
     return render(request, "postcards/postcards.html", ctx)
 
-def add_postcard(request: HttpRequest):
-    form = PostcardForm(request.POST or None)
+def add_object(request: HttpRequest):
+    form = ObjectForm(request.POST or None)
     nav_links = get_nav_links("")
     ctx = {
         "form": form,
         "nav_links": nav_links,
     }
-    return render(request, "postcards/edit_book.html", ctx)
+    return render(request, "postcards/edit_object.html", ctx)
 
 
-def add_book(request: HttpRequest):
-    form = PostcardForm(request.POST or None)
+def add_object(request: HttpRequest):
+    form = ObjectForm(request.POST or None)
     nav_links = get_nav_links("")
     ctx = {
         "form": form,
@@ -82,7 +82,7 @@ def add_book(request: HttpRequest):
     if request.method == "POST":
         if form.is_valid():
             form.save()
-            postcard = form.instance
-            return redirect(reverse("book", kwargs={"postcard_id":postcard.pk}))
+            object = form.instance
+            return redirect(reverse("object", kwargs={"id":object.pk}))
 
-    return render(request, "reading_journal/edit_book.html", ctx)
+    return render(request, "postcards/edit_object.html", ctx)
