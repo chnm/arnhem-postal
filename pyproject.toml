@@ -20,7 +20,7 @@ django-browser-reload = "^1.7.0"
 python-dotenv = "^1.0.0"
 pillow = "^9.4.0"
 pygraphviz = "^1.10"
-django-jazzmin = "^2.6.0"
+django-admin-interface = "^0.24.2"
 
 
 [tool.poetry.group.dev.dependencies]
