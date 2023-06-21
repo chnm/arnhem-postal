@@ -8,9 +8,18 @@ from taggit_selectize.managers import TaggableManager
 logger = logging.getLogger(__name__)
 
 
+class Archive(models.Model):
+    """The location of the postcard in the archival collection (folder/box)"""
+
+    location = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.location
+
+
 class Person(models.Model):
     person_id = models.BigAutoField(primary_key=True)
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, null=True, blank=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     house_number = models.CharField(max_length=50)
@@ -93,11 +102,16 @@ class Object(models.Model):
         ("pow", "POW"),
     )
 
+    LETTER_TYPES = (
+        ("postcard", "Postcard"),
+        ("letter", "Letter"),
+        ("package", "Package"),
+        ("envolope", "Envelope"),
+    )
+
     id = models.AutoField(primary_key=True)
     item_id = models.CharField(max_length=255, default="N/A", verbose_name="Item ID")
-
     postmark = models.ManyToManyField(Postmark, verbose_name="postmark")
-
     return_to_sender = models.BooleanField(
         help_text="Check the box if the postcard was returned to sender."
     )
@@ -107,7 +121,6 @@ class Object(models.Model):
         help_text="Insert the date as YYYY-MM-DD or use the date picker. Leave blank if unknown.",
     )
     reason_for_return = models.TextField(max_length=255, null=True, blank=True)
-
     regime_censor = models.CharField(max_length=50, choices=CENSOR_CHOICES)
     addressee_name = models.ForeignKey(
         Person,
@@ -122,14 +135,31 @@ class Object(models.Model):
         related_name="sender_name",
     )
     type = models.CharField(max_length=50, choices=TYPE_CHOICES)
+    letter_type = models.CharField(max_length=50, choices=LETTER_TYPES)
     date_of_correspondence = models.DateField()
     letter_enclosed = models.BooleanField()
+    file = models.FileField(
+        upload_to="files/", null=True, blank=True, verbose_name="Upload a file"
+    )
     translated = models.CharField(max_length=50, choices=TRANSLATION_CHOICES)
+    translation = models.TextField(max_length=600, blank=True, null=True)
+    transcription = models.TextField(max_length=600, blank=True, null=True)
     other = models.CharField(
         max_length=50, choices=OTHER_CHOICES, blank=True, null=True
     )
-    tags = TaggableManager(blank=True, related_name="tagged_document")
-    notes = models.TextField(max_length=600)
+    tags = TaggableManager(
+        blank=True, related_name="tagged_document", verbose_name="Keywords"
+    )
+    notes = models.TextField(
+        max_length=600,
+        blank=True,
+        null=True,
+        verbose_name="Internal notes",
+        help_text="These notes are not visible to the public.",
+    )
+    collection_location = models.ForeignKey(
+        Archive, on_delete=models.CASCADE, verbose_name="Location in the Collection"
+    )
     check_sensative_content = models.BooleanField(
         help_text="Check this box if you think this postcard contains sensitive imagery or events.",
         default=False,
@@ -152,7 +182,18 @@ class Object(models.Model):
     )
 
     def __str__(self):
-        return self.item_id
+        # "Return the sender's name, addressee's name, and date of correspondence."
+        return (
+            self.sender_name.first_name
+            + " "
+            + self.sender_name.last_name
+            + " to "
+            + self.addressee_name.first_name
+            + " "
+            + self.addressee_name.last_name
+            + ", "
+            + str(self.date_of_correspondence)
+        )
 
     def get_absolute_url(self):
         return reverse("postcard_detail", kwargs={"pk": self.pk})

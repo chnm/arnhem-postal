@@ -1,15 +1,22 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Image, Location, Object, Person, Postmark
+from .models import Archive, Image, Location, Object, Person, Postmark
 
 admin.site.register(Person)
 admin.site.register(Location)
 admin.site.register(Postmark)
+admin.site.register(Archive)
 
 
 class ObjectAdmin(admin.ModelAdmin):
-    list_display = ("item_id", "sender_name", "addressee_name")
+    list_display = (
+        "date_of_correspondence",
+        "sender_name",
+        "addressee_name",
+        "collection_location",
+        "letter_enclosed",
+    )
     search_fields = ["item_number", "sender_name", "addressee_name"]
     model = Object.item_id
     extra = 1
