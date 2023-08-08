@@ -88,14 +88,6 @@ class Object(models.Model):
         ("partial", "Partial"),
     )
 
-    TYPE_CHOICES = (
-        ("envelope", "Envelope"),
-        ("postcard", "Postcard"),
-        ("letter form", "Letter Form"),
-        ("newsprint", "Newsprint"),
-        ("other", "Other"),
-    )
-
     OTHER_CHOICES = (
         ("red cross", "Red Cross"),
         ("uberroller", "Uberroller"),
@@ -106,7 +98,7 @@ class Object(models.Model):
         ("postcard", "Postcard"),
         ("letter", "Letter"),
         ("package", "Package"),
-        ("envolope", "Envelope"),
+        ("envelope", "Envelope"),
     )
 
     id = models.AutoField(primary_key=True)
@@ -134,12 +126,15 @@ class Object(models.Model):
         verbose_name="sender's name",
         related_name="sender_name",
     )
-    type = models.CharField(max_length=50, choices=TYPE_CHOICES)
+    # type = models.CharField(max_length=50, choices=TYPE_CHOICES)
     letter_type = models.CharField(max_length=50, choices=LETTER_TYPES)
     date_of_correspondence = models.DateField()
     letter_enclosed = models.BooleanField()
     file = models.FileField(
         upload_to="files/", null=True, blank=True, verbose_name="Upload a file"
+    )
+    related_images = models.ManyToManyField(
+        "Image", blank=True, verbose_name="Related images"
     )
     translated = models.CharField(max_length=50, choices=TRANSLATION_CHOICES)
     translation = models.TextField(max_length=600, blank=True, null=True)
