@@ -24,6 +24,7 @@ django-taggit = "^3.1.0"
 taggit-selectize = "^2.11.0"
 django-multiselectfield = "^0.1.12"
 six = "^1.16.0"
+geopy = "^2.3.0"
 
 
 [tool.poetry.group.dev.dependencies]

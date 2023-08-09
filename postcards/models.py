@@ -67,13 +67,32 @@ class Location(models.Model):
     town_city = models.CharField(max_length=100)
     province_state = models.CharField(max_length=50, blank=True, null=True)
     country = models.CharField(max_length=100)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latlon = models.PointField(geography=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.town_city + ", " + self.country
+
+    # On save, the following tries to derive the latlon from the town_city and country
+    # fields. If successful, it stores the latlon in the latlon field.
+    def save(self, *args, **kwargs):
+        if self.latlon is None:
+            try:
+                from geopy.geocoders import Nominatim
+
+                geolocator = Nominatim(user_agent="postcards")
+                location = geolocator.geocode(self.town_city + ", " + self.country)
+                self.latlon = (
+                    "POINT("
+                    + str(location.longitude)
+                    + " "
+                    + str(location.latitude)
+                    + ")"
+                )
+            except Exception as e:
+                logger.error("Error in geocoding: " + str(e))
+        super().save(*args, **kwargs)
 
 
 # A Postmark can contain multiple Dates and Locations,
