@@ -1,12 +1,13 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Archive, Image, Location, Object, Person, Postmark
+from .models import Archive, Collection, Image, Location, Object, Person, Postmark
 
 admin.site.register(Person)
 admin.site.register(Location)
 admin.site.register(Postmark)
 admin.site.register(Archive)
+admin.site.register(Collection)
 
 
 class ObjectAdmin(admin.ModelAdmin):

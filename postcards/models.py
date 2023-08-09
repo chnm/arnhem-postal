@@ -39,6 +39,9 @@ class Collection(models.Model):
     collection_id = models.BigAutoField(primary_key=True, verbose_name="Collection ID")
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Person(models.Model):
     person_id = models.BigAutoField(primary_key=True)
