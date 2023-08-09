@@ -17,6 +17,29 @@ class Archive(models.Model):
         return self.location
 
 
+# The Image model has a foreign key relationship with the Object model, and
+# each Object object can have multiple Image objects associated with it.
+class Image(models.Model):
+    """The image of an object, photograph, or ancillary source"""
+
+    image_id = models.BigAutoField(primary_key=True, verbose_name="Image ID")
+    image = models.ImageField(upload_to="images/")
+    image_caption = models.CharField(max_length=255)
+    postcard = models.ForeignKey(
+        "Object", on_delete=models.CASCADE, related_name="images", null=True
+    )
+
+    def __str__(self):
+        return self.image_caption
+
+
+class Collection(models.Model):
+    """A collection is the owner of an object"""
+
+    collection_id = models.BigAutoField(primary_key=True, verbose_name="Collection ID")
+    name = models.CharField(max_length=255)
+
+
 class Person(models.Model):
     person_id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=50, null=True, blank=True)
@@ -103,6 +126,7 @@ class Object(models.Model):
 
     id = models.AutoField(primary_key=True)
     item_id = models.CharField(max_length=255, default="N/A", verbose_name="Item ID")
+    collection = models.ManyToManyField(Collection, verbose_name="collection")
     postmark = models.ManyToManyField(Postmark, verbose_name="postmark")
     return_to_sender = models.BooleanField(
         help_text="Check the box if the postcard was returned to sender."
@@ -134,7 +158,7 @@ class Object(models.Model):
         upload_to="files/", null=True, blank=True, verbose_name="Upload a file"
     )
     related_images = models.ManyToManyField(
-        "Image", blank=True, verbose_name="Related images"
+        Image, blank=True, verbose_name="Related images"
     )
     translated = models.CharField(max_length=50, choices=TRANSLATION_CHOICES)
     translation = models.TextField(max_length=600, blank=True, null=True)
@@ -192,17 +216,3 @@ class Object(models.Model):
 
     def get_absolute_url(self):
         return reverse("postcard_detail", kwargs={"pk": self.pk})
-
-
-# The Image model has a foreign key relationship with the Object model, and
-# each Object object can have multiple Image objects associated with it.
-class Image(models.Model):
-    image_id = models.BigAutoField(primary_key=True, verbose_name="Image ID")
-    image = models.ImageField(upload_to="images/")
-    image_caption = models.CharField(max_length=255)
-    postcard = models.ForeignKey(
-        Object, on_delete=models.CASCADE, related_name="images", null=True
-    )
-
-    def __str__(self):
-        return self.image_caption
