@@ -1,5 +1,7 @@
 import logging
 
+# import settings
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.html import format_html
@@ -67,7 +69,12 @@ class Location(models.Model):
     town_city = models.CharField(max_length=100)
     province_state = models.CharField(max_length=50, blank=True, null=True)
     country = models.CharField(max_length=100)
-    latlon = models.PointField(geography=True, blank=True, null=True)
+    latitude = models.DecimalField(
+        blank=True, null=True, max_digits=9, decimal_places=6
+    )
+    longitude = models.DecimalField(
+        blank=True, null=True, max_digits=9, decimal_places=6
+    )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -77,19 +84,14 @@ class Location(models.Model):
     # On save, the following tries to derive the latlon from the town_city and country
     # fields. If successful, it stores the latlon in the latlon field.
     def save(self, *args, **kwargs):
-        if self.latlon is None:
+        if self.latitude is None or self.longitude is None:
             try:
                 from geopy.geocoders import Nominatim
 
                 geolocator = Nominatim(user_agent="postcards")
                 location = geolocator.geocode(self.town_city + ", " + self.country)
-                self.latlon = (
-                    "POINT("
-                    + str(location.longitude)
-                    + " "
-                    + str(location.latitude)
-                    + ")"
-                )
+                self.latitude = str(location.latitude)
+                self.longitude = str(location.longitude)
             except Exception as e:
                 logger.error("Error in geocoding: " + str(e))
         super().save(*args, **kwargs)
@@ -208,7 +210,8 @@ class Object(models.Model):
 
     # If reviewered, record the reviewer
     reviewed_by = models.ForeignKey(
-        "authuser.User",
+        # provide list from allauth users
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
