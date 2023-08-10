@@ -28,6 +28,7 @@ geopy = "^2.3.0"
 psycopg2 = "^2.9.7"
 django-allauth = "^0.54.0"
 argon2-cffi = "^21.3.0"
+pytest = "^7.4.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -39,3 +40,11 @@ django-debug-toolbar = "^4.1.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+# ==== pytest ====
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = [
+    "tests.py",
+    "test_*.py",
+]
