@@ -49,9 +49,9 @@ class Person(models.Model):
     person_id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=50, null=True, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=True)
-    last_name = models.CharField(max_length=255)
-    house_number = models.CharField(max_length=50)
-    street = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
+    house_number = models.CharField(max_length=50, null=True, blank=True)
+    street = models.CharField(max_length=255, null=True, blank=True)
     location = models.ForeignKey(
         "Location", on_delete=models.CASCADE, blank=True, null=True
     )

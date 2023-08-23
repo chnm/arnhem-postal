@@ -35,6 +35,11 @@ admin.site.register(Object, ObjectAdmin)
 
 
 class PersonAdmin(ImportExportMixin, admin.ModelAdmin):
+    list_display = (
+        "last_name",
+        "first_name",
+        "location",
+    )
     resource_class = PersonResource
     search_fields = ["first_name", "last_name"]
 
