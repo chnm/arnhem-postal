@@ -73,4 +73,4 @@ Unit Tests
 ----------
 
 Python tests are written with `py.test <http://doc.pytest.org/>`_
-and should be run with ``pytest``.
+and should be run with ``pytest``. To run a test, make sure to call pytest with poetry.

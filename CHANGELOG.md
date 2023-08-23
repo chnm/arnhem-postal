@@ -5,6 +5,7 @@
 - Added starter templates for the homepage, about page, and object display.
 - Updated model to account for related images.
 - Updated model to account for a collection an individual object belongs to.
+- Migrated AuthUser to AllAuth.
 
 ## 0.3
 
