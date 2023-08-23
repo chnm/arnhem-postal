@@ -48,8 +48,8 @@ class Collection(models.Model):
 class Person(models.Model):
     person_id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=50, null=True, blank=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255)
     house_number = models.CharField(max_length=50)
     street = models.CharField(max_length=255)
     location = models.ForeignKey(

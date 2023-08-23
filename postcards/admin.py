@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from import_export.admin import ImportExportMixin
 
 from .models import Archive, Collection, Image, Location, Object, Person, Postmark
-from .resources import LocationResource
+from .resources import LocationResource, PersonResource
 
 admin.site.register(Postmark)
 admin.site.register(Archive)
@@ -35,6 +35,7 @@ admin.site.register(Object, ObjectAdmin)
 
 
 class PersonAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = PersonResource
     search_fields = ["first_name", "last_name"]
 
 
