@@ -1,16 +1,24 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from import_export.admin import ImportExportMixin
 
 from .models import Archive, Collection, Image, Location, Object, Person, Postmark
+from .resources import LocationResource
 
-admin.site.register(Person)
-admin.site.register(Location)
 admin.site.register(Postmark)
 admin.site.register(Archive)
 admin.site.register(Collection)
 
 
-class ObjectAdmin(admin.ModelAdmin):
+class LocationAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = LocationResource
+    list_display = ("town_city", "province_state", "country")
+
+
+admin.site.register(Location, LocationAdmin)
+
+
+class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display = (
         "date_of_correspondence",
         "sender_name",
@@ -24,6 +32,13 @@ class ObjectAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Object, ObjectAdmin)
+
+
+class PersonAdmin(ImportExportMixin, admin.ModelAdmin):
+    search_fields = ["first_name", "last_name"]
+
+
+admin.site.register(Person, PersonAdmin)
 
 
 # Display images in the admin interface

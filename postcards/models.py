@@ -55,8 +55,8 @@ class Person(models.Model):
     location = models.ForeignKey(
         "Location", on_delete=models.CASCADE, blank=True, null=True
     )
-    date_of_birth = models.DateField()
-    date_of_death = models.DateField()
+    date_of_birth = models.DateField(blank=True, null=True)
+    date_of_death = models.DateField(blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -66,9 +66,13 @@ class Person(models.Model):
 
 class Location(models.Model):
     location_id = models.BigAutoField(primary_key=True)
-    town_city = models.CharField(max_length=100)
-    province_state = models.CharField(max_length=50, blank=True, null=True)
-    country = models.CharField(max_length=100)
+    town_city = models.CharField(
+        max_length=100, verbose_name="Town/City", blank=True, null=True
+    )
+    province_state = models.CharField(
+        max_length=50, blank=True, null=True, verbose_name="State/Province"
+    )
+    country = models.CharField(max_length=100, blank=True, null=True)
     latitude = models.DecimalField(
         blank=True, null=True, max_digits=9, decimal_places=6
     )
