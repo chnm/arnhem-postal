@@ -5,9 +5,15 @@ from import_export.admin import ImportExportMixin
 from .models import Archive, Collection, Image, Location, Object, Person, Postmark
 from .resources import LocationResource, PersonResource
 
-admin.site.register(Postmark)
 admin.site.register(Archive)
 admin.site.register(Collection)
+
+
+class PostmarkAdmin(ImportExportMixin, admin.ModelAdmin):
+    list_display = ("location", "date")
+
+
+admin.site.register(Postmark, PostmarkAdmin)
 
 
 class LocationAdmin(ImportExportMixin, admin.ModelAdmin):

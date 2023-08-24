@@ -1,7 +1,7 @@
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget
 
-from .models import Location, Person
+from .models import Location, Person, Postmark
 
 
 class LocationResource(resources.ModelResource):
@@ -149,6 +149,45 @@ class PersonResource(resources.ModelResource):
             or not row["addressee_street"]
             or not row["addressee_town_city"]
         ):
+            kwargs["skip_row"] = True
+        else:
+            pass
+
+
+class PostmarkResource(resources.ModelResource):
+    location = fields.Field(
+        attribute="location",
+        column_name="location",
+    )
+    date = fields.Field(attribute="date", column_name="date")
+
+    class Meta:
+        model = Postmark
+        fields = (
+            "location",
+            "date",
+        )
+        import_id_fields = (
+            "location",
+            "date",
+        )
+        skip_unchanged = True
+        report_skipped = True
+        clean_model_instances = True
+        exclude = ("postmark_id",)
+
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        # This method is called before the import begins. We want to make sure that the dataset has
+        # a header row. If it doesn't, we want to raise an exception.
+        if not dataset.headers:
+            raise Exception("The CSV file must have a header row.")
+        else:
+            pass
+
+    def before_import_row(self, row, **kwargs):
+        # This method is called before each row is imported. If a field is empty, we want to skip the row.
+        # We do not want to raise an exception, because we want to skip the row silently.
+        if not row["location"] or not row["date"]:
             kwargs["skip_row"] = True
         else:
             pass
