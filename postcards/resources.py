@@ -20,7 +20,7 @@ class LocationResource(resources.ModelResource):
         skip_unchanged = True
         report_skipped = True
         clean_model_instances = True
-        exclude = ("location_id",)
+        exclude = "location_id"
 
     def before_import_row(self, row, **kwargs):
         # This method is called before each row is imported. If a field is empty, we want to skip the row.
@@ -61,7 +61,7 @@ class LocationResource(resources.ModelResource):
 
 
 class LocationWidget(ForeignKeyWidget):
-    # This method is for matching the location field in the Person model to the Location model.
+    # This method is for matching the location field in a model to the Location model.
     # We need to match against each of the fields in the Location model for the import
     # to work correctly.
     def get_queryset(self, value, row, *args, **kwargs):
@@ -154,10 +154,32 @@ class PersonResource(resources.ModelResource):
             pass
 
 
+class PostmarkWidget(ForeignKeyWidget):
+    # This method is for matching the location field in the Postmark model to the Location model.
+    # We need to match against each of the fields in the Postmark model for the import
+    # to work correctly.
+    def get_queryset(self, value, row, *args, **kwargs):
+        return self.model.objects.filter(location=row["location"])
+
+    def clean(self, value, row=None, *args, **kwargs):
+        # This method is for cleaning the location field in the Postmark model. We need to match
+        # against each of the fields in the Location model for the import to work correctly.
+        try:
+            return self.model.objects.get(location=row["location"])
+        except self.model.DoesNotExist:
+            return None
+
+    def get_export_value(self, obj):
+        # This method is for exporting the location field in the Person model. We need to match
+        # against each of the fields in the Location model for the import to work correctly.
+        return obj.location
+
+
 class PostmarkResource(resources.ModelResource):
     location = fields.Field(
         attribute="location",
         column_name="location",
+        widget=PostmarkWidget(Location, "town_city"),
     )
     date = fields.Field(attribute="date", column_name="date")
 
