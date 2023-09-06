@@ -86,6 +86,7 @@ THIRD_PARTY_APPS = [
     "django_browser_reload",
     "django_extensions",
     "import_export",
+    "django_dbml",
 ]
 
 LOCAL_APPS = [
