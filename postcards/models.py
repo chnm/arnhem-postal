@@ -178,7 +178,6 @@ class Object(models.Model):
         verbose_name="sender's name",
         related_name="sender_name",
     )
-    # type = models.CharField(max_length=50, choices=TYPE_CHOICES)
     letter_type = models.CharField(max_length=50, choices=LETTER_TYPES)
     date_of_correspondence = models.DateField()
     letter_enclosed = models.BooleanField()

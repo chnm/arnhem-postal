@@ -3,13 +3,14 @@ from django.utils.html import format_html
 from import_export.admin import ImportExportMixin
 
 from .models import Archive, Collection, Image, Location, Object, Person, Postmark
-from .resources import LocationResource, PersonResource
+from .resources import LocationResource, PersonResource, PostmarkResource
 
 admin.site.register(Archive)
 admin.site.register(Collection)
 
 
 class PostmarkAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = PostmarkResource
     list_display = ("location", "date")
 
 
