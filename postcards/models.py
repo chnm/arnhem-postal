@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 from taggit_selectize.managers import TaggableManager
 
 logger = logging.getLogger(__name__)
@@ -155,6 +156,9 @@ class Object(models.Model):
     id = models.AutoField(primary_key=True)
     item_id = models.CharField(max_length=255, default="N/A", verbose_name="Item ID")
     collection = models.ManyToManyField(Collection, verbose_name="collection")
+    collection_location = models.ForeignKey(
+        Archive, on_delete=models.CASCADE, verbose_name="Location in the Collection"
+    )
     postmark = models.ManyToManyField(Postmark, verbose_name="postmark")
     return_to_sender = models.BooleanField(
         help_text="Check the box if the postcard was returned to sender."
@@ -203,9 +207,7 @@ class Object(models.Model):
         verbose_name="Internal notes",
         help_text="These notes are not visible to the public.",
     )
-    collection_location = models.ForeignKey(
-        Archive, on_delete=models.CASCADE, verbose_name="Location in the Collection"
-    )
+
     check_sensative_content = models.BooleanField(
         help_text="Check this box if you think this postcard contains sensitive imagery or events.",
         default=False,
@@ -244,3 +246,13 @@ class Object(models.Model):
 
     def get_absolute_url(self):
         return reverse("postcard_detail", kwargs={"pk": self.pk})
+
+    def image_canvas(self):
+        if self.file:
+            return mark_safe(
+                '<img src="%s" style="width:100px; height:100px;" />' % self.file.url
+            )
+        else:
+            return "None attached"
+
+    image_canvas.short_description = "Image"
