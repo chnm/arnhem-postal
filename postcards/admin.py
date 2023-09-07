@@ -66,6 +66,7 @@ class PersonAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display = (
         "last_name",
         "first_name",
+        "title",
         "location",
     )
     resource_class = PersonResource
