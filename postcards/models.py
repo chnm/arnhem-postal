@@ -62,7 +62,11 @@ class Person(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return self.last_name + ", " + self.first_name
+
+    # Sort alphabetically by last name
+    class Meta:
+        ordering = ["last_name"]
 
 
 class Location(models.Model):
@@ -85,6 +89,10 @@ class Location(models.Model):
 
     def __str__(self):
         return self.town_city + ", " + self.country
+
+    # Always sort alphabetically
+    class Meta:
+        ordering = ["town_city"]
 
     # On save, the following tries to derive the latlon from the town_city and country
     # fields. If successful, it stores the latlon in the latlon field.
