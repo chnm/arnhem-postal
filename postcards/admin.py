@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.admin.widgets import AdminFileWidget
+from django.db import models
 from django.utils.html import format_html
 from import_export.admin import ImportExportMixin
 
@@ -7,6 +9,23 @@ from .resources import LocationResource, PersonResource, PostmarkResource
 
 admin.site.register(Archive)
 admin.site.register(Collection)
+
+
+class CustomAdminFileWidget(AdminFileWidget):
+    def render(self, name, value, attrs=None, renderer=None):
+        result = []
+        if hasattr(value, "url"):
+            result.append(
+                f"""<a href="{value.url}" target="_blank">
+                      <img 
+                        src="{value.url}" alt="{value}" 
+                        width="500" height="500"
+                        style="object-fit: cover;"
+                      />
+                    </a>"""
+            )
+        result.append(super().render(name, value, attrs, renderer))
+        return format_html("".join(result))
 
 
 class PostmarkAdmin(ImportExportMixin, admin.ModelAdmin):
@@ -32,9 +51,11 @@ class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
         "addressee_name",
         "collection_location",
         "letter_enclosed",
+        "image_canvas",
     )
     search_fields = ["item_number", "sender_name", "addressee_name"]
     model = Object.item_id
+    formfield_overrides = {models.FileField: {"widget": CustomAdminFileWidget}}
     extra = 1
 
 
