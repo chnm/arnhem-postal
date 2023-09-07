@@ -28,6 +28,19 @@ class CustomAdminFileWidget(AdminFileWidget):
         return format_html("".join(result))
 
 
+class CustomAdminMapWidget(AdminFileWidget):
+    """This provides an embedded map view showing the point on the lat/lon of the data using OSM"""
+
+    def render(self, name, value, attrs=None, renderer=None):
+        result = []
+        if hasattr(value, "url"):
+            result.append(
+                f"""<iframe width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{value.url}" style="border: 1px solid black"></iframe><br/><small><a href="{value.url}">View Larger Map</a></small>"""
+            )
+        result.append(super().render(name, value, attrs, renderer))
+        return format_html("".join(result))
+
+
 class PostmarkAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = PostmarkResource
     list_display = ("location", "date")
@@ -38,7 +51,8 @@ admin.site.register(Postmark, PostmarkAdmin)
 
 class LocationAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = LocationResource
-    list_display = ("town_city", "province_state", "country")
+    list_display = ("town_city", "province_state", "country", "map_preview")
+    formfield_overrides = {models.FileField: {"widget": CustomAdminMapWidget}}
 
 
 admin.site.register(Location, LocationAdmin)

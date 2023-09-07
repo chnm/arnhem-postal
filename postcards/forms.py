@@ -1,6 +1,7 @@
 from django import forms
+from django.utils.html import format_html
 
-from .models import Object, Postmark
+from .models import Object, Person, Postmark
 
 
 class ObjectForm(forms.ModelForm):
