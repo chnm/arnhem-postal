@@ -11,42 +11,61 @@
     </head>
     <body class="bg-white">
     <!-- Navigation Bar -->
-        <nav class="bg-orange-700 text-white p-4">
+        <nav class="bg-green-700 text-white p-4">
             <div class="container mx-auto flex items-center justify-between">
                 <div class="flex items-center space-x-4">
                     <a href="#" class="text-lg font-bold">Arnhem Postal History Project</a>
                     <a href="#" class="hover:text-gray-300">About</a>
-                    <a href="#" class="hover:text-gray-300">The Collection</a>
+                    <a href="#" class="hover:text-gray-300">Exhibits</a>
                     <a href="#" class="hover:text-gray-300">Map</a>
-                    <a href="#" class="hover:text-gray-300">News</a>
+                    <a href="#" class="hover:text-gray-300">Timeline</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="#" class="text-gray-300 hover:text-white">Advanced Search</a>
-                    <a href="#" class="text-gray-300 hover:text-white">Log In</a>
+                    <a href="/admin/" class="text-gray-300 hover:text-white">Log In</a>
                 </div>
             </div>
         </nav>
 
     <!-- Main Content -->
-        <main class="container mx-auto py-8">
-        <!-- Large Image Section -->
-            <div class="flex items-center justify-between">
-                <div class="w-1/2">
-                    <h1 class="text-4xl font-bold">Main Title</h1>
-                    <p class="mt-4 text-gray-700">Description of the preview</p>
-                </div>
-                <div class="w-1/2">
-                    <img src="https://picsum.photos/seed/picsum/300/300" alt="Main Image" class="w-full rounded-lg">
+
+        <div class="relative h-screen">
+  <!-- Fullscreen Image -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Aerial_view_of_the_bridge_over_the_Neder_Rijn%2C_Arnhem.jpg" alt="Project Image" class="absolute inset-0 w-full h-full object-cover">
+
+  <!-- Darkened overlay -->
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <!-- Content container -->
+            <div class="absolute inset-0 flex justify-center items-center">
+                <div class="max-w-xl px-4 text-white">
+      <!-- Project Title -->
+                    <h1 class="text-4xl font-bold mb-4">The Arnhem Postal History Project</h1>
+
+      <!-- Brief Description -->
+                    <p class="text-lg mb-6">A brief description of the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+      <!-- Buttons -->
+                    <div class="space-x-4">
+        <!-- Exhibits Button -->
+                        <a href="#" class="bg-green-800 hover:bg-green-700 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">Exhibits</a>
+
+        <!-- Timeline Button -->
+                        <a href="#" class="bg-green-800 hover:bg-green-700 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">Timeline</a>
+
+        <!-- Map Button -->
+                        <a href="#" class="bg-green-800 hover:bg-green-700 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">Map</a>
+                    </div>
                 </div>
             </div>
+        </div>
 
-        <!-- Preview List Section -->
-        <!-- Add preview list section here -->
+
+        <main class="container mx-auto py-8">
 
         <!-- About Project Section -->
             <section class="container mx-auto py-8">
                 <a href="about.html" class="block no-underline">
-                    <div class="bg-orange-700 p-8 hover:shadow-md hover:bg-orange-600 transition duration-300">
+                    <div class="bg-green-700 p-8 hover:shadow-md hover:bg-green-600 transition duration-300">
                         <div class="flex items-center">
                             <h2 class="text-lg font-bold text-white mr-2">About the project</h2>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white transform rotate-90" viewBox="0 0 20 20" fill="currentColor">
