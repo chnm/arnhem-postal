@@ -58,15 +58,64 @@ class Person(models.Model):
     )
     date_of_birth = models.DateField(blank=True, null=True)
     date_of_death = models.DateField(blank=True, null=True)
+    latitude = models.DecimalField(
+        blank=True, null=True, max_digits=9, decimal_places=6
+    )
+    longitude = models.DecimalField(
+        blank=True, null=True, max_digits=9, decimal_places=6
+    )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.last_name + ", " + self.first_name
+        # return either first name or last name, but don't throw an error if one is missing
+        if self.first_name and self.last_name:
+            return self.last_name + " " + self.first_name
+        elif self.first_name:
+            return self.first_name
+        elif self.last_name:
+            return self.last_name
+        else:
+            return "No name provided"
 
     # Sort alphabetically by last name
     class Meta:
         ordering = ["last_name"]
+
+    # On save, the following tries to derive the latlon from the town_city and country
+    # fields. If successful, it stores the latlon in the latlon field.
+    def save(self, *args, **kwargs):
+        if self.latitude is None or self.longitude is None:
+            try:
+                from geopy.geocoders import Nominatim
+
+                geolocator = Nominatim(user_agent="postcards")
+                # set location to house number, street, and the information linked in Location model
+                location = geolocator.geocode(
+                    self.house_number
+                    + " "
+                    + self.street
+                    + " "
+                    + self.location.town_city
+                    + " "
+                    + self.location.country
+                )
+                # log this to see if it's working
+                logger.info(
+                    "Geocoding: "
+                    + self.house_number
+                    + " "
+                    + self.street
+                    + " "
+                    + self.location.town_city
+                    + " "
+                    + self.location.country
+                )
+                self.latitude = str(location.latitude)
+                self.longitude = str(location.longitude)
+            except Exception as e:
+                logger.error("Error in geocoding: " + str(e))
+        super().save(*args, **kwargs)
 
 
 class Location(models.Model):
@@ -93,6 +142,24 @@ class Location(models.Model):
     # Always sort alphabetically
     class Meta:
         ordering = ["town_city"]
+
+    def map_preview(self):
+        # if lat and if lon, display a point on a map using OSM
+        if self.latitude and self.longitude:
+            return format_html(
+                '<iframe width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox={},{},{},{}&amp;layer=mapnik&amp;marker={}%2C{}" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=4/{}/{}">View Larger Map</a></small>',
+                self.longitude,
+                self.latitude,
+                self.longitude,
+                self.latitude,
+                self.latitude,
+                self.longitude,
+                self.latitude,
+                self.longitude,
+                self.latitude,
+            )
+        else:
+            return "No location data provided"
 
     # On save, the following tries to derive the latlon from the town_city and country
     # fields. If successful, it stores the latlon in the latlon field.
