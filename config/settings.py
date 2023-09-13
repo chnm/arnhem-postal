@@ -47,11 +47,15 @@ ALLOWED_HOSTS = []
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 # ------------------------------------------------------------------------------
 DATABASES = {
-    "default": env.db(
-        "ARNHEM_URL", default="postgres://postgres:postgres@localhost:5432/arnhem"
-    ),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": env("DB_HOST", default="localhost"),
+        "NAME": env("DB_NAME", default="arnhem"),
+        "USER": env("DB_USER", default="arnhem"),
+        "PASSWORD": env("DB_PASSWORD"),
+    }
 }
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
