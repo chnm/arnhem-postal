@@ -32,7 +32,7 @@ services:
       - POSTGRES_PASSWORD={{ template.env.db_pass }}
       - POSTGRES_HOST=db
     ports:
-      - "{{ template.env.host_db_host }}:5432"
+      - "{{ template.env.host_db_port }}:5432"
 
 volumes:
   postgres_data:
