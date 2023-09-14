@@ -441,3 +441,4 @@ flycheck_*.el
 
 
 staticfiles
+arnhem.backup.sql
