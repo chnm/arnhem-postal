@@ -6,11 +6,11 @@ services:
   web:
     build: .
     ports:
-      - "{{ template.host_app_port }}:8000"
+      - "{{ template.env.host_app_port }}:8000"
     environment:
       - DEBUG={{ template.env.debug_flag }}
       - DB_HOST=db
-      - DB_PORT={{ template.host_db_port }}
+      - DB_PORT={{ template.env.host_db_port }}
       - DB_NAME={{ template.env.db_name }}
       - DB_USER={{ template.env.db_user }}
       - DB_PASSWORD={{ template.env.db_pass }}
@@ -32,7 +32,7 @@ services:
       - POSTGRES_PASSWORD={{ template.env.db_pass }}
       - POSTGRES_HOST=db
     ports:
-      - "{{ template.host_db_post }}:5432"
+      - "{{ template.env.host_db_post }}:5432"
 
 volumes:
   postgres_data:
