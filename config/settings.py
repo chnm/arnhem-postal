@@ -1,7 +1,3 @@
-"""
-Base settings to build other settings files upon.
-"""
-import os
 from pathlib import Path
 
 import environ
@@ -64,17 +60,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
-# ASGI_APPLICATION = "config.asgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
+    "daphne",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    # "daphne",
     "django.contrib.staticfiles",
     "django.contrib.admin",
     "django.forms",
