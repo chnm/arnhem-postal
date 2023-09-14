@@ -39,7 +39,7 @@ LANGUAGE_CODE = "en-us"
 USE_I18N = True
 USE_TZ = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 
 # DATABASES
@@ -64,6 +64,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
+# ASGI_APPLICATION = "config.asgi.application"
 
 
 # APPS
@@ -73,6 +74,7 @@ DJANGO_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    # "daphne",
     "django.contrib.staticfiles",
     "django.contrib.admin",
     "django.forms",
