@@ -4,11 +4,7 @@ services:
     build: .
     ports:
       - "8000:8000"
-    environment:
-      - DB_HOST=db
-      - DB_NAME=arnhem
-      - DB_USER=arnhem
-      - DB_PASSWORD=password
+    env_file: .env
     depends_on:
       - db
     command: >
@@ -21,11 +17,7 @@ services:
     image: postgres:12
     # volumes:
     #   - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_DB=arnhem
-      - POSTGRES_USER=arnhem
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_HOST=db
+    env_file: .env
     ports:
       - "5432:5432"
 
