@@ -23,11 +23,11 @@ services:
       poetry run python manage.py collectstatic --no-input &&
       poetry run python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - django_data:/app/media
+      - /mnt/arnhem-postal/media:/app/media
   db:
     image: postgres:12
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - /mnt/arnhem-postal/db:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB={{ template.env.db_name }}
       - POSTGRES_USER={{ template.env.db_user }}
@@ -36,6 +36,6 @@ services:
     ports:
       - "{{ template.env.host_db_port }}:5432"
 
-volumes:
-  postgres_data:
-  django_data:
+#volumes:
+  #postgres_data:
+  #django_data:
