@@ -87,7 +87,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "tailwind",
-    "django_browser_reload",
+    #"django_browser_reload",
     "django_extensions",
     "import_export",
     "django_dbml",
