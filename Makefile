@@ -16,7 +16,7 @@ graph_illustrate :
 
 # Docker helpers
 docker-up : 
-	docker-compose up
+	docker-compose up -d
 
 docker-down : 
 	docker-compose down
