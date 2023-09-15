@@ -11,6 +11,7 @@ services:
       - DEBUG={{ template.env.debug_flag }}
       - DJANGO_SECRET_KEY={{ template.env.secret_key }}
       - DJANGO_ALLOWED_HOSTS={{ template.env.allowed_hosts }}
+      - DJANGO_CSRF_TRUSTED_ORIGINS={{ template.env.trusted_origins }}
       - DB_HOST=db
       - DB_PORT={{ template.env.host_db_port }}
       - DB_NAME={{ template.env.db_name }}
