@@ -1,7 +1,3 @@
-"""
-Base settings to build other settings files upon.
-"""
-import os
 from pathlib import Path
 
 import environ
@@ -39,7 +35,8 @@ LANGUAGE_CODE = "en-us"
 USE_I18N = True
 USE_TZ = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS")
 
 
 # DATABASES
@@ -47,11 +44,16 @@ ALLOWED_HOSTS = []
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 # ------------------------------------------------------------------------------
 DATABASES = {
-    "default": env.db(
-        "ARNHEM_URL", default="postgres://postgres:postgres@localhost:5432/arnhem"
-    ),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": env("DB_HOST", default="localhost"),
+        "PORT": env("DB_PORT", default="5432"),
+        "NAME": env("DB_NAME", default="arnhem"),
+        "USER": env("DB_USER", default="arnhem"),
+        "PASSWORD": env("DB_PASSWORD"),
+    }
 }
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -60,11 +62,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
+    "daphne",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -83,7 +87,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "tailwind",
-    "django_browser_reload",
+    # "django_browser_reload",
     "django_extensions",
     "import_export",
     "django_dbml",
@@ -109,7 +113,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 # DEBUG
