@@ -86,7 +86,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "tailwind",
-    "django_browser_reload",
+    # "django_browser_reload",
     "django_extensions",
     "import_export",
     "django_dbml",
@@ -112,7 +112,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 # DEBUG
