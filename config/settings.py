@@ -27,7 +27,7 @@ DEBUG = env("DEBUG")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
-TIME_ZONE = "America/New_York"
+# TIME_ZONE = "America/New_York"
 LANGUAGE_CODE = "en-us"
 
 # Internationalization
@@ -74,20 +74,19 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "admin_interface",
+    "colorfield",
     "django.contrib.admin",
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
-    "admin_interface",
     "taggit",
     "taggit_selectize",
-    "colorfield",
     "crispy_forms",
     "crispy_tailwind",
     "allauth",
     "allauth.account",
     "tailwind",
-    # "django_browser_reload",
     "django_extensions",
     "import_export",
     "django_dbml",
@@ -102,6 +101,9 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
 # MIDDLEWARE
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
@@ -113,7 +115,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 # DEBUG
