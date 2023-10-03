@@ -442,3 +442,5 @@ flycheck_*.el
 
 staticfiles
 arnhem.backup.sql
+todo.taskpaper
+export.sql
