@@ -4,3 +4,4 @@ from django.apps import AppConfig
 class PostcardsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "postcards"
+    verbose_name = "Postal Items"
