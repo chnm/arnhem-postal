@@ -5,7 +5,15 @@ from django.db import models
 from django.utils.html import format_html
 from import_export.admin import ImportExportMixin
 
-from .models import Language, Location, Object, Person, Postmark, Transcription
+from .models import (
+    Language,
+    Location,
+    Object,
+    Person,
+    Postmark,
+    ReasonReturn,
+    Transcription,
+)
 from .resources import LocationResource, PersonResource, PostmarkResource
 
 # Rename our admin panel
@@ -13,15 +21,16 @@ admin.site.site_header = "Arnhem Postal History Project"
 admin.site.site_title = "Arnhem Postal History Project"
 admin.site.index_title = "Arnhem Postal History Project"
 
-# Register models we haven't added custom adjustments to
-# admin.site.register(Archive)
-# admin.site.register(Collection)
+# Register models we haven't added custom adjustments to but still want access to in
+# the admin interface.
 admin.site.register(Language)
 
 
 # Custom adjustments to our admin views
 class CustomAdminFileWidget(AdminFileWidget):
-    """This custom view allows us to create a preview image in the individual Object view"""
+    """This custom view allows us to create a preview image in the individual Object view.
+    If no file is attached, provide the ability to upload one. Otherwise, display the image.
+    """
 
     def render(self, name, value, attrs=None, renderer=None):
         if value:
@@ -69,7 +78,7 @@ class LocationAdmin(ImportExportMixin, admin.ModelAdmin):
     """We provide import/export abilities to the locations, as well as display the custom map widget."""
 
     resource_class = LocationResource
-    list_per_page = 25
+    list_per_page = 15
     list_display = ("town_city", "province_state", "country", "map_preview")
     formfield_overrides = {models.FileField: {"widget": CustomAdminMapWidget}}
 
@@ -81,6 +90,12 @@ class TranscriptionInline(admin.TabularInline):
     """We provide the ability for transcriptions to happen as an in-line component to the Objects"""
 
     model = Transcription
+
+
+class ReasonReturnInline(admin.TabularInline):
+    """Provide the ability for notes about the reason for a letter's return as an in-line component to the Objects"""
+
+    model = ReasonReturn
 
 
 class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
@@ -97,6 +112,7 @@ class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
     )
     inlines = [TranscriptionInline]
     search_fields = ["item_number", "sender_name", "addressee_name"]
+    filter_horizontal = ("postmark",)
     model = Object.item_id
     formfield_overrides = {models.FileField: {"widget": CustomAdminFileWidget}}
     extra = 1
