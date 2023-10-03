@@ -10,4 +10,5 @@ urlpatterns = [
     path("postcard/<int:id>/", views.object_details, name="object"),
     path("postcard/add", views.add_object, name="add_object"),
     path("taggit/", include("taggit_selectize.urls")),
+    path("table/", views.item_table, name="table"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
