@@ -27,13 +27,63 @@ class Image(models.Model):
 
     image_id = models.BigAutoField(primary_key=True, verbose_name="Image ID")
     image = models.ImageField(upload_to="images/")
-    image_caption = models.CharField(max_length=255)
-    postcard = models.ForeignKey(
-        "Object", on_delete=models.CASCADE, related_name="images", null=True
+    image_caption = models.CharField(
+        max_length=255,
+        help_text="Related images refers to photographs or ancillary sources related to a postal item.",
+        null=True,
+        blank=True,
     )
+    # postcard = models.ForeignKey(
+    #     "Object", on_delete=models.CASCADE, related_name="images", null=True
+    # )
 
     def __str__(self):
         return self.image_caption
+
+
+class LanguageManager(models.Manager):
+    """Manager for Language model."""
+
+    def get_by_natural_key(self, language):
+        """natural key"""
+        return self.get(language=language)
+
+
+class Language(models.Model):
+    """Language of a transcription."""
+
+    language = models.CharField(max_length=55, blank=True)
+    display_name = models.CharField(
+        max_length=255,
+        blank=True,
+        unique=True,
+        null=True,
+    )
+    iso_code = models.CharField(
+        "ISO Code",
+        max_length=3,
+        blank=True,
+        help_text="ISO 639 code for this language (2 or 3 letters)",
+    )
+
+    objects = LanguageManager()
+
+    def __str__(self):
+        return self.language
+
+    def natural_key(self):
+        """natural key"""
+        return self.language
+
+    class Meta:
+        verbose_name = "Language"
+        verbose_name_plural = "Languages"
+        ordering = ["language"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["language", "display_name"], name="unique_language_display_name"
+            )
+        ]
 
 
 class Collection(models.Model):
@@ -202,6 +252,65 @@ class Postmark(models.Model):
         )
 
 
+class ReasonReturnManager(models.Manager):
+    def get_by_natural_key(self, collection):
+        return self.get(collection=collection)
+
+
+class ReasonReturn(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    language = models.ManyToManyField(
+        Language, blank=True, help_text="Select the language of this return."
+    )
+    postal_object = models.ForeignKey(
+        "Object",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        help_text="Link a document to the reason for return.",
+    )
+    text = models.TextField(
+        blank=True, null=True, help_text="Notes on the reason for return."
+    )
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["created"]
+
+
+class TranscriptionManager(models.Manager):
+    def get_by_natural_key(self, collection):
+        return self.get(collection=collection)
+
+
+class Transcription(models.Model):
+    transcription_id = models.BigAutoField(primary_key=True)
+    language = models.ManyToManyField(
+        Language, blank=True, help_text="Select the language of this transcription"
+    )
+    postal_object = models.ForeignKey(
+        "Object",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        help_text="Link a document to the transcription.",
+    )
+    transcription = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Transcription of the document",
+    )
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["created"]
+
+    def __str__(self):
+        return str(self.language.first().language)
+
+
 class Object(models.Model):
     CENSOR_CHOICES = (
         ("yes", "Yes"),
@@ -229,12 +338,26 @@ class Object(models.Model):
     )
 
     id = models.AutoField(primary_key=True)
-    item_id = models.CharField(max_length=255, default="N/A", verbose_name="Item ID")
+    item_id = models.CharField(
+        max_length=255,
+        default="N/A",
+        verbose_name="Item ID",
+        help_text="Record the file name of the image here.",
+    )
     collection = models.ManyToManyField(Collection, verbose_name="collection")
     collection_location = models.ForeignKey(
-        Archive, on_delete=models.CASCADE, verbose_name="Location in the Collection"
+        Archive,
+        on_delete=models.CASCADE,
+        verbose_name="Location in the Collection",
+        help_text="The location in the collection (folder and box).",
     )
     postmark = models.ManyToManyField(Postmark, verbose_name="postmark")
+    check_sensative_content = models.BooleanField(
+        verbose_name="Material contains sensitive content",
+        help_text="Check this box if you think this postcard contains sensitive imagery or events.",
+        default=False,
+    )
+    letter_enclosed = models.BooleanField()
     return_to_sender = models.BooleanField(
         help_text="Check the box if the postcard was returned to sender."
     )
@@ -245,6 +368,11 @@ class Object(models.Model):
     )
     reason_for_return = models.TextField(max_length=255, null=True, blank=True)
     regime_censor = models.CharField(max_length=50, choices=CENSOR_CHOICES)
+    regime_censor_location = models.ManyToManyField(
+        Location,
+        blank=True,
+        help_text="Select the location of the censor. If the location does not exist, click the plus and add the new location.",
+    )
     addressee_name = models.ForeignKey(
         Person,
         on_delete=models.CASCADE,
@@ -259,16 +387,23 @@ class Object(models.Model):
     )
     letter_type = models.CharField(max_length=50, choices=LETTER_TYPES)
     date_of_correspondence = models.DateField()
-    letter_enclosed = models.BooleanField()
     file = models.FileField(
-        upload_to="files/", null=True, blank=True, verbose_name="Upload a file"
+        upload_to="files/",
+        null=True,
+        blank=True,
+        verbose_name="Upload images",
+        help_text="Upload images of the object(s).",
     )
     related_images = models.ManyToManyField(
         Image, blank=True, verbose_name="Related images"
     )
-    translated = models.CharField(max_length=50, choices=TRANSLATION_CHOICES)
-    translation = models.TextField(max_length=600, blank=True, null=True)
-    transcription = models.TextField(max_length=600, blank=True, null=True)
+    translated = models.CharField(
+        max_length=50,
+        choices=TRANSLATION_CHOICES,
+        help_text="Has the material been translated?",
+    )
+    # translation = models.TextField(max_length=600, blank=True, null=True)
+    # transcription = models.TextField(max_length=600, blank=True, null=True)
     other = models.CharField(
         max_length=50, choices=OTHER_CHOICES, blank=True, null=True
     )
@@ -276,16 +411,16 @@ class Object(models.Model):
         blank=True, related_name="tagged_document", verbose_name="Keywords"
     )
     notes = models.TextField(
-        max_length=600,
         blank=True,
         null=True,
         verbose_name="Internal notes",
         help_text="These notes are not visible to the public.",
     )
-
-    check_sensative_content = models.BooleanField(
-        help_text="Check this box if you think this postcard contains sensitive imagery or events.",
-        default=False,
+    public_notes = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Public notes",
+        help_text="These notes are visible to the public.",
     )
 
     # If reviewered, record the reviewer
