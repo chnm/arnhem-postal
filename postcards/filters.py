@@ -1,14 +1,18 @@
 import django_filters
 from django.db.models import Q
-from django.forms import TextInput
+from django_filters import FilterSet
 
 from postcards.models import Object
 
 
-class ItemFilter(django_filters.FilterSet):
-    id = django_filters.NumberFilter(label="")
-    regime_censor = django_filters.CharFilter(label="", lookup_expr="isstartswith")
+class ItemFilter(FilterSet):
+    query = django_filters.CharFilter(method="universal_search", label="")
 
     class Meta:
         model = Object
-        fields = ["id", "regime_censor", "letter_type"]
+        fields = ["addressee_name", "sender_name"]
+
+    def universal_search(self, queryset, name, value):
+        return queryset.filter(
+            Q(addressee_name__icontains=value) | Q(sender_name__icontains=value)
+        )

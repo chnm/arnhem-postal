@@ -84,12 +84,14 @@ THIRD_PARTY_APPS = [
     "taggit_selectize",
     "crispy_forms",
     "crispy_tailwind",
+    "django_tables2",
     "allauth",
     "allauth.account",
     "tailwind",
     "django_extensions",
     "import_export",
     "django_dbml",
+    "django_filters",
 ]
 
 LOCAL_APPS = [
@@ -159,7 +161,7 @@ MEDIA_URL = "/media/"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "theme/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

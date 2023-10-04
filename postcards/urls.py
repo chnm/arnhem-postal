@@ -8,7 +8,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("postcard/", views.get_object, name="object"),
     path("postcard/<int:id>/", views.object_details, name="object"),
-    path("postcard/add", views.add_object, name="add_object"),
     path("taggit/", include("taggit_selectize.urls")),
-    path("table/", views.item_table, name="table"),
+    path("table/", views.ItemTableView.as_view(), name="table"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
