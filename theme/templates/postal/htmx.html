@@ -1,0 +1,21 @@
+{% extends "postal/base.html" %}
+{% block content %}
+
+    {% load render_table from django_tables2 %}
+    {% load i18n %}
+    {% load crispy_forms_tags %}
+
+    {% block main %}
+        <h1 class="font-bold text-3xl">Item table example</h1>
+
+        <form action="" method="GET" class="mt-4">
+            {% crispy filter.form %}
+        <!-- submit -->
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        {% render_table table %}
+
+    {% endblock %}
+
+{% endblock content %}
