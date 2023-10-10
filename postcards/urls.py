@@ -3,11 +3,18 @@ from django.conf.urls.static import static
 from django.urls import include, path
 
 from . import views
+from .models import Object
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("postcard/", views.get_object, name="object"),
-    path("postcard/<int:id>/", views.object_details, name="object"),
+    path("about/", views.about, name="about"),
+    path("exhibits/", views.exhibits, name="exhibits"),
+    path("map/", views.mapinterface, name="map"),
+    path("timeline/", views.timeline, name="timeline"),
+    path("items/", views.ItemHtmxTableView.as_view(), name="table"),
+    path("items/<int:id>/", views.object_details, name="postal-item"),
+    # path('login/', auth_views.LoginView.as_view(template_name='postal/login.html'), name='login'),
+    # path('logout/', auth_views.LogoutView.as_view(template_name='postal/logout.html'), name='logout'),
+    # path('profile/', users_views.profile, name='profile'),
     path("taggit/", include("taggit_selectize.urls")),
-    path("table/", views.ItemTableView.as_view(), name="table"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

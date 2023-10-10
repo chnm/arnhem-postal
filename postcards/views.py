@@ -1,17 +1,16 @@
 from django.core.paginator import EmptyPage, Paginator
 from django.http import HttpRequest
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.shortcuts import get_object_or_404, render
 from django_filters.views import FilterView
-from django_tables2.views import SingleTableMixin
+from django_tables2 import SingleTableMixin
 
-from postcards.filters import ItemFilter
-from postcards.forms import ObjectForm
+from postcards.filters import ObjectFilter
 from postcards.models import Object
-from postcards.tables import ObjectHTMxMultiColumnTable
+from postcards.tables import ItemHtmxTable
 
 
 def get_nav_links(current_page: str):
+    """Navigation links for the site."""
     nav_links = {
         "about": {
             "active": False,
@@ -36,7 +35,7 @@ def get_nav_links(current_page: str):
         "items": {
             "active": False,
             "text": "Browse Items",
-            "href": "table/",
+            "href": "items/",
         },
     }
     if current_page in nav_links:
@@ -56,10 +55,28 @@ def about(request: HttpRequest):
     return render(request, "postal/about.html", ctx)
 
 
+def exhibits(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/exhibits.html", ctx)
+
+
+def timeline(request: HttpRequest):
+    nav_links = get_nav_links("timeline")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/timeline.html", ctx)
+
+
+def mapinterface(request: HttpRequest):
+    nav_links = get_nav_links("map")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/map.html", ctx)
+
+
 def table(request: HttpRequest):
     nav_links = get_nav_links("items")
     ctx = {"nav_links": nav_links}
-    return render(request, "postal/htmx.html", ctx)
+    return render(request, "postal/item_table.html", ctx)
 
 
 def get_object(request: HttpRequest):
@@ -77,42 +94,34 @@ def object_details(request: HttpRequest, id: int):
     return render(request, "postal/object_details.html", ctx)
 
 
-def library(request: HttpRequest):
-    nav_links = get_nav_links("items")
-    objects = get_object(request)
-    ctx = {
-        "nav_links": nav_links,
-        "objects": objects,
-    }
-    return render(request, "postal/objects.html", ctx)
+class CustomPaginator(Paginator):
+    def validate_number(self, number):
+        try:
+            return super().validate_number(number)
+        except EmptyPage:
+            if int(number) > 1:
+                # return the last page
+                return self.num_pages
+            elif int(number) < 1:
+                # return the first page
+                return 1
+            else:
+                raise
 
 
-class ItemHTMxTableView(SingleTableMixin, FilterView):
-    table_class = ObjectHTMxMultiColumnTable
+# this will render the table
+class ItemHtmxTableView(SingleTableMixin, FilterView):
+    table_class = ItemHtmxTable
     queryset = Object.objects.all()
-    filterset_class = ItemFilter
+    filterset_class = ObjectFilter
     paginate_by = 10
+    paginator_class = CustomPaginator
 
+    # adjust the template depending on whether an htmx request was made
     def get_template_names(self):
         if self.request.htmx:
-            template_name = ["postal/htmx_partial.html"]
+            template_name = "postal/item_table_partial.html"
         else:
-            template_name = ["postal/htmx.html"]
+            template_name = "postal/item_base_table.html"
 
         return template_name
-
-
-# class SimpleTable(tables.Table):
-#    class Meta:
-#       model = Object
-
-
-# this will render table
-class ItemTableView(SingleTableMixin, FilterView):
-    table_class = ObjectHTMxMultiColumnTable
-    queryset = Object.objects.all()
-    filterset_class = ItemFilter
-    template_name = "postal/htmx.html"
-
-    class Meta:
-        model = Object

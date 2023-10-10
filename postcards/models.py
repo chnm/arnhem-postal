@@ -120,7 +120,7 @@ class Person(models.Model):
     def __str__(self):
         # return either first name or last name, but don't throw an error if one is missing
         if self.first_name and self.last_name:
-            return self.last_name + " " + self.first_name
+            return self.last_name + ", " + self.first_name
         elif self.first_name:
             return self.first_name
         elif self.last_name:

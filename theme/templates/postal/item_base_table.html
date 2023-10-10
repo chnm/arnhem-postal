@@ -48,7 +48,9 @@
                     </tr>
                     <tr>
                         {% for field in filter.form %}
-                            <td>{{ field|as_crispy_field }}</td>
+                            <td>
+                                {{ field | as_crispy_field }}
+                            </td>
                         {% endfor %}
                     </tr>
                 </thead>
