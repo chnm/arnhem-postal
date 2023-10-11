@@ -13,14 +13,14 @@ def combine_all_names():
     sender_names = (
         Object.objects.all()
         .order_by("sender_name")
-        .values("sender_name", "sender_name")
+        .values_list("sender_name", "sender_name")
     )
     if Object.objects.all().values("addressee_name") == "NA NA":
         pass
     addressee_names = (
         Object.objects.all()
         .order_by("addressee_name")
-        .values("addressee_name", "addressee_name")
+        .values_list("addressee_name", "addressee_name")
     )
     # combine the names
     all_names = list(sender_names) + list(addressee_names)
