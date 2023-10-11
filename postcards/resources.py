@@ -1,7 +1,7 @@
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget
 
-from .models import Location, Person, Postmark
+from .models import Location, Object, Person, Postmark
 
 
 class LocationResource(resources.ModelResource):
@@ -213,3 +213,117 @@ class PostmarkResource(resources.ModelResource):
             kwargs["skip_row"] = True
         else:
             pass
+
+
+class ObjectResource(resources.ModelResource):
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        # This method is called before the import begins. We want to make sure that the dataset has
+        # a header row. If it doesn't, we want to raise an exception.
+        if not dataset.headers:
+            raise Exception("The CSV file must have a header row.")
+        else:
+            pass
+
+        # Now, we want to place data into the appropriate models.
+        # People need to be placed into the People model.
+        # Locations need to be placed into the Locations model.
+        # Postmarks need to be placed into the Postmarks model.
+        # Objects need to be placed into the Objects model.
+
+        self.people = {}
+        self.locations = {}
+        self.postmarks = {}
+
+        # We need to iterate through the rows in the dataset.
+        for row in dataset.dict:
+            # We need to check if the sender is in the people dictionary.
+            # If they are, we need to get the person object from the dictionary.
+            # If they are not, we need to create a new person object and add it to the dictionary.
+            sender_name = row["sender_name"]
+            if sender_name in self.people:
+                sender = self.people[sender_name]
+            else:
+                sender = Person.objects.create(
+                    title=row["sender_title"],
+                    first_name=row["sender_first_name"],
+                    last_name=row["sender_last_name"],
+                    house_number=row["sender_house_number"],
+                    street=row["sender_street"],
+                    location=row["sender_location"],
+                )
+                self.people[sender_name] = sender
+
+            # We need to check if the addressee is in the people dictionary.
+            # If they are, we need to get the person object from the dictionary.
+            # If they are not, we need to create a new person object and add it to the dictionary.
+            addressee_name = row["addressee_name"]
+            if addressee_name in self.people:
+                addressee = self.people[addressee_name]
+            else:
+                addressee = Person.objects.create(
+                    title=row["addressee_title"],
+                    first_name=row["addressee_first_name"],
+                    last_name=row["addressee_last_name"],
+                    house_number=row["addressee_house_number"],
+                    street=row["addressee_street"],
+                    location=row["addressee_location"],
+                )
+                self.people[addressee_name] = addressee
+
+            # We need to check if the location is in the locations dictionary.
+            # If it is, we need to get the location object from the dictionary.
+            # If it is not, we need to create a new location object and add it to the dictionary.
+            location_name = row["location"]
+            if location_name in self.locations:
+                location = self.locations[location_name]
+            else:
+                location = Location.objects.create(
+                    town_city=row["location_town_city"],
+                    province_state=row["location_province_state"],
+                    country=row["location_country"],
+                )
+                self.locations[location_name] = location
+
+            # We need to check if the postmark is in the postmarks dictionary.
+            # If it is, we need to get the postmark object from the dictionary.
+            # If it is not, we need to create a new postmark object and add it to the dictionary.
+            postmark_name = row["postmark"]
+            if postmark_name in self.postmarks:
+                postmarks = self.postmarks[postmark_name]
+            else:
+                postmarks = Postmark.objects.create()
+                self.postmarks[postmark_name] = postmarks
+
+            # We need to check if the object is in the objects dictionary.
+            # If it is, we need to get the object object from the dictionary.
+            # If it is not, we need to create a new object object and add it to the dictionary.
+            object_name = row["object"]
+            if object_name in self.objects:
+                postalitem = self.objects[object_name]
+            else:
+                postalitem = Object.objects.create(
+                    sender_name=sender,
+                    addressee_name=addressee,
+                    date_of_correspondence=row["date_of_correspondence"],
+                    collection=row["collection"],
+                )
+                self.objects[object_name] = postalitem
+
+    class Meta:
+        model = Object
+        fields = (
+            "sender_name",
+            "addressee_name",
+            "date_of_correspondence",
+            "collection",
+        )
+        import_id_fields = (
+            "sender_name",
+            "addressee_name",
+            "date_of_correspondence",
+            "collection",
+        )
+        skip_unchanged = True
+        report_skipped = True
+        clean_model_instances = True
+        exclude = ("object_id",)
