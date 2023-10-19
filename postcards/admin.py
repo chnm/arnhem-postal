@@ -6,6 +6,7 @@ from django.utils.html import format_html
 from import_export.admin import ImportExportMixin
 
 from .models import (
+    AncillarySource,
     Language,
     Location,
     Object,
@@ -24,6 +25,7 @@ admin.site.index_title = "Arnhem Postal History Project"
 # Register models we haven't added custom adjustments to but still want access to in
 # the admin interface.
 admin.site.register(Language)
+admin.site.register(AncillarySource)
 
 
 # Custom adjustments to our admin views

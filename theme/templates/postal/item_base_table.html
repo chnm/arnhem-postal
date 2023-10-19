@@ -33,6 +33,13 @@
             <table {% render_attrs table.attrs class="table multi-col-header" %}>
                 <thead {{ table.attrs.thead.as_html }}>
                     <tr>
+                        {% for field in filter.form %}
+                            <td>
+                                {{ field | as_crispy_field }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
                         {% for column in table.columns %}
                             <th {{ column.attrs.th.as_html }}
                                 x-data="{ col_name: '{{ column.order_by_alias }}',
@@ -44,13 +51,6 @@
                                 style="cursor: pointer;">
                                 {{ column.header }}
                             </th>
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        {% for field in filter.form %}
-                            <td>
-                                {{ field | as_crispy_field }}
-                            </td>
                         {% endfor %}
                     </tr>
                 </thead>

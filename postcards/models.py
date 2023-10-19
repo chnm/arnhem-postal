@@ -466,3 +466,86 @@ class Object(models.Model):
             return "None attached"
 
     image_canvas.short_description = "Image"
+
+
+class AncillarySource(models.Model):
+    DOC_TYPE = (
+        ("service record", "Service Record"),
+        ("military record", "Military Record"),
+        ("newspaper", "Newspaper"),
+        ("report", "Report"),
+        ("other", "Other"),
+    )
+
+    id = models.AutoField(primary_key=True)
+    document_type = models.CharField(max_length=50, choices=DOC_TYPE)
+    person = models.ForeignKey(
+        Person,
+        on_delete=models.CASCADE,
+        verbose_name="person",
+        related_name="person",
+    )
+    date = models.DateField()
+    file = models.FileField(
+        upload_to="files/",
+        null=True,
+        blank=True,
+        verbose_name="Upload images",
+        help_text="Upload images of the object(s).",
+    )
+    description = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Description",
+        help_text="Describe the document.",
+    )
+    transcription = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Transcription",
+        help_text="Transcribe the document.",
+    )
+    tags = TaggableManager(
+        blank=True, related_name="tagged_source", verbose_name="Keywords"
+    )
+    notes = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Internal notes",
+        help_text="These notes are not visible to the public.",
+    )
+    public_notes = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Public notes",
+        help_text="These notes are visible to the public.",
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="date created", blank=False, null=False
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True, verbose_name="last updated", blank=False, null=False
+    )
+
+    def __str__(self):
+        return (
+            self.document_type
+            + " for "
+            + self.person.first_name
+            + " "
+            + self.person.last_name
+        )
+
+    def get_absolute_url(self):
+        return reverse("ancillary_detail", kwargs={"pk": self.pk})
+
+    def image_canvas(self):
+        if self.file:
+            return mark_safe(
+                '<img src="%s" style="width:100px; height:100px;" />' % self.file.url
+            )
+        else:
+            return "None attached"
+
+    image_canvas.short_description = "Image"
