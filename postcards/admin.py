@@ -6,12 +6,13 @@ from django.utils.html import format_html
 from import_export.admin import ImportExportMixin
 
 from .models import (
-    AncillarySource,
+    Image,
     Language,
     Location,
     Object,
     Person,
     Postmark,
+    PrimarySource,
     ReasonReturn,
     Transcription,
 )
@@ -25,13 +26,13 @@ admin.site.index_title = "Arnhem Postal History Project"
 # Register models we haven't added custom adjustments to but still want access to in
 # the admin interface.
 admin.site.register(Language)
-admin.site.register(AncillarySource)
+admin.site.register(PrimarySource)
 
 
 # Custom adjustments to our admin views
 class CustomAdminFileWidget(AdminFileWidget):
-    """This custom view allows us to create a preview image in the individual Object view.
-    If no file is attached, provide the ability to upload one. Otherwise, display the image.
+    """This custom view allows us to create a preview image in the individual Historical Source or
+    Image view. If no file is attached, provide the ability to upload one. Otherwise, display the image.
     """
 
     def render(self, name, value, attrs=None, renderer=None):
@@ -66,6 +67,20 @@ class CustomAdminMapWidget(AdminFileWidget):
         return format_html("".join(result))
 
 
+class PostmarkInline(admin.TabularInline):
+    """When looking at an individual Postcard, we want to see the Postmark and the Image.
+    We can do this by adding a PostmarkInline and ImageInline to the PostcardAdmin class.
+    """
+
+    model = Postmark
+    extra = 1
+
+
+class PersonTabularInline(admin.TabularInline):
+    model = Person
+    extra = 1
+
+
 class PostmarkAdmin(ImportExportMixin, admin.ModelAdmin):
     """We provide import/export abilities to the postmarks."""
 
@@ -82,7 +97,7 @@ class LocationAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = LocationResource
     list_per_page = 15
     list_display = ("town_city", "province_state", "country", "map_preview")
-    formfield_overrides = {models.FileField: {"widget": CustomAdminMapWidget}}
+    # formfield_overrides = {models.FileField: {"widget": CustomAdminMapWidget}}
 
 
 admin.site.register(Location, LocationAdmin)
@@ -100,9 +115,16 @@ class ReasonReturnInline(admin.TabularInline):
     model = ReasonReturn
 
 
+class ImageInline(admin.StackedInline):
+    model = Image
+    readonly_fields = ("image_preview",)
+
+
 class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
     """We provide import/export abilities to the objects, as well as the inline transcriptions for
     the objects."""
+
+    model = Object.item_id
 
     list_display = (
         "date_of_correspondence",
@@ -110,13 +132,18 @@ class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
         "addressee_name",
         "collection_location",
         "letter_enclosed",
-        "image_canvas",
+        # "image_canvas",
     )
-    inlines = [TranscriptionInline]
+    inlines = [TranscriptionInline, ImageInline]
     search_fields = ["item_number", "sender_name", "addressee_name"]
+    list_filter = (
+        "collection",
+        "letter_enclosed",
+        "sender_name",
+        "addressee_name",
+        "postmark",
+    )
     filter_horizontal = ("postmark",)
-    model = Object.item_id
-    formfield_overrides = {models.FileField: {"widget": CustomAdminFileWidget}}
     extra = 1
 
 
@@ -137,12 +164,3 @@ class PersonAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 admin.site.register(Person, PersonAdmin)
-
-
-class PostmarkInline(admin.TabularInline):
-    """When looking at an individual Postcard, we want to see the Postmark and the Image.
-    We can do this by adding a PostmarkInline and ImageInline to the PostcardAdmin class.
-    """
-
-    model = Postmark
-    extra = 1

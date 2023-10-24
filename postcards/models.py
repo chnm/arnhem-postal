@@ -23,22 +23,29 @@ class Archive(models.Model):
 # The Image model has a foreign key relationship with the Object model, and
 # each Object object can have multiple Image objects associated with it.
 class Image(models.Model):
-    """The image of an object, photograph, or ancillary source"""
+    """The image of an object, photograph, or historical source"""
 
     image_id = models.BigAutoField(primary_key=True, verbose_name="Image ID")
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(upload_to="images/", blank=True, null=True)
     image_caption = models.CharField(
         max_length=255,
-        help_text="Related images refers to photographs or ancillary sources related to a postal item.",
         null=True,
         blank=True,
     )
-    # postcard = models.ForeignKey(
-    #     "Object", on_delete=models.CASCADE, related_name="images", null=True
-    # )
+    postcard = models.ForeignKey(
+        "Object", on_delete=models.CASCADE, related_name="images", null=True
+    )
 
     def __str__(self):
-        return self.image_caption
+        return str(self.image_id)
+
+    def image_preview(self):
+        if self.image:
+            return mark_safe(
+                '<img src="%s" style="width:100px; height:100px;" />' % self.image.url
+            )
+        else:
+            return "No image attached"
 
 
 class LanguageManager(models.Manager):
@@ -387,13 +394,13 @@ class Object(models.Model):
     )
     letter_type = models.CharField(max_length=50, choices=LETTER_TYPES)
     date_of_correspondence = models.DateField()
-    file = models.FileField(
-        upload_to="files/",
-        null=True,
-        blank=True,
-        verbose_name="Upload images",
-        help_text="Upload images of the object(s).",
-    )
+    # file = models.FileField(
+    #     upload_to="files/",
+    #     null=True,
+    #     blank=True,
+    #     verbose_name="Upload images",
+    #     help_text="Upload images of the object(s).",
+    # )
     related_images = models.ManyToManyField(
         Image, blank=True, verbose_name="Related images"
     )
@@ -457,35 +464,78 @@ class Object(models.Model):
     def get_absolute_url(self):
         return reverse("postcard_detail", kwargs={"pk": self.pk})
 
-    def image_canvas(self):
-        if self.file:
-            return mark_safe(
-                '<img src="%s" style="width:100px; height:100px;" />' % self.file.url
-            )
-        else:
-            return "None attached"
+    # def image_canvas(self):
+    #     if self.file:
+    #         return mark_safe(
+    #             '<img src="%s" style="width:100px; height:100px;" />' % self.file.url
+    #         )
+    #     else:
+    #         return "None attached"
 
-    image_canvas.short_description = "Image"
+    # image_canvas.short_description = "Image"
 
 
-class AncillarySource(models.Model):
+class PrimarySource(models.Model):
     DOC_TYPE = (
         ("service record", "Service Record"),
         ("military record", "Military Record"),
         ("newspaper", "Newspaper"),
+        ("certificate", "Certificate"),
+        ("typed letter", "Typed Letter"),
+        ("identification card", "Identification Card"),
+        ("book", "Book"),
+        ("loose pages", "Loose Pages"),
+        ("photograph", "Photograph"),
+        ("license", "License"),
+        ("membership card", "Membership Card"),
+        ("letter", "Letter"),
+        ("letter/license", "Letter/License"),
+        ("pay record", "Pay Record"),
+        ("account balance", "Account Balance"),
+        ("papers", "Papers"),
+        ("discharge form", "Discharge Form"),
+        ("pamphlet", "Pamphlet"),
+        ("flyer", "Flyer"),
+        ("program", "Program"),
+        ("typewritten certificate", "Typewritten Certificate"),
+        ("card", "Card"),
+        ("identity card", "Identity Card"),
+        ("booklet", "Booklet"),
+        ("folded card", "Folded Card"),
+        ("voucher", "Voucher"),
+        ("pass", "Pass"),
         ("report", "Report"),
+        ("stamps", "Stamps"),
+        ("lettersheet", "Lettersheet"),
         ("other", "Other"),
     )
 
     id = models.AutoField(primary_key=True)
+    item_id = models.CharField(
+        default="N/A",
+        max_length=50,
+        help_text="Record the file name of the image here.",
+    )
     document_type = models.CharField(max_length=50, choices=DOC_TYPE)
-    person = models.ForeignKey(
+    person = models.ManyToManyField(
         Person,
-        on_delete=models.CASCADE,
         verbose_name="person",
         related_name="person",
+        # optional
+        help_text="Select the person this document is about. If the person does not exist, click the plus and add the new person.",
+        blank=True,
     )
-    date = models.DateField()
+    printer = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name="Printer",
+        help_text="Name of the printer.",
+    )
+    date = models.DateField(
+        null=True,
+        blank=True,
+    )
     file = models.FileField(
         upload_to="files/",
         null=True,
@@ -504,6 +554,12 @@ class AncillarySource(models.Model):
         null=True,
         verbose_name="Transcription",
         help_text="Transcribe the document.",
+    )
+    related_postal_items = models.ManyToManyField(
+        Object,
+        blank=True,
+        verbose_name="Related postal items",
+        help_text="If necessary, link to postal items related to this document. Hold down “Control”, or “Command” on a Mac, to select more than one.",
     )
     tags = TaggableManager(
         blank=True, related_name="tagged_source", verbose_name="Keywords"
