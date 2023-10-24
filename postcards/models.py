@@ -35,6 +35,12 @@ class Image(models.Model):
     postcard = models.ForeignKey(
         "Object", on_delete=models.CASCADE, related_name="images", null=True
     )
+    historical_source = models.ForeignKey(
+        "PrimarySource",
+        on_delete=models.CASCADE,
+        related_name="images",
+        null=True,
+    )
 
     def __str__(self):
         return str(self.image_id)
@@ -536,13 +542,13 @@ class PrimarySource(models.Model):
         null=True,
         blank=True,
     )
-    file = models.FileField(
-        upload_to="files/",
-        null=True,
-        blank=True,
-        verbose_name="Upload images",
-        help_text="Upload images of the object(s).",
-    )
+    # file = models.FileField(
+    #     upload_to="files/",
+    #     null=True,
+    #     blank=True,
+    #     verbose_name="Upload images",
+    #     help_text="Upload images of the object(s).",
+    # )
     description = models.TextField(
         blank=True,
         null=True,

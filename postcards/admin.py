@@ -26,7 +26,6 @@ admin.site.index_title = "Arnhem Postal History Project"
 # Register models we haven't added custom adjustments to but still want access to in
 # the admin interface.
 admin.site.register(Language)
-admin.site.register(PrimarySource)
 
 
 # Custom adjustments to our admin views
@@ -164,3 +163,12 @@ class PersonAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 admin.site.register(Person, PersonAdmin)
+
+
+class PrimarySourceAdmin(admin.ModelAdmin):
+    model = PrimarySource
+    list_display = ("document_type", "date", "description")
+    inlines = [ImageInline]
+
+
+admin.site.register(PrimarySource, PrimarySourceAdmin)
