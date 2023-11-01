@@ -16,7 +16,12 @@ from .models import (
     ReasonReturn,
     Transcription,
 )
-from .resources import LocationResource, PersonResource, PostmarkResource
+from .resources import (
+    LocationResource,
+    ObjectResource,
+    PersonResource,
+    PostmarkResource,
+)
 
 # Rename our admin panel
 admin.site.site_header = "Arnhem Postal History Project"
@@ -119,16 +124,22 @@ class ImageInline(admin.StackedInline):
     readonly_fields = ("image_preview",)
 
 
+class RelatedImagesInline(admin.StackedInline):
+    model = Image
+    readonly_fields = ("image_preview",)
+
+
 class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
     """We provide import/export abilities to the objects, as well as the inline transcriptions for
     the objects."""
 
     model = Object.item_id
+    resource_class = ObjectResource
 
     list_display = (
-        "date_of_correspondence",
         "sender_name",
         "addressee_name",
+        "date_of_correspondence",
         "collection_location",
         "letter_enclosed",
         # "image_canvas",
@@ -169,6 +180,7 @@ class PrimarySourceAdmin(admin.ModelAdmin):
     model = PrimarySource
     list_display = ("document_type", "date", "description")
     inlines = [ImageInline]
+    filter_horizontal = ("person",)
 
 
 admin.site.register(PrimarySource, PrimarySourceAdmin)

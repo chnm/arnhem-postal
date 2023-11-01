@@ -33,7 +33,10 @@ class Image(models.Model):
         blank=True,
     )
     postcard = models.ForeignKey(
-        "Object", on_delete=models.CASCADE, related_name="images", null=True
+        "Object",
+        on_delete=models.CASCADE,
+        related_name="images",
+        null=True,
     )
     historical_source = models.ForeignKey(
         "PrimarySource",
@@ -370,7 +373,11 @@ class Object(models.Model):
         help_text="Check this box if you think this postcard contains sensitive imagery or events.",
         default=False,
     )
-    letter_enclosed = models.BooleanField()
+    letter_enclosed = models.BooleanField(
+        verbose_name="Letter enclosed",
+        help_text="Check this box if there is a letter enclosed.",
+        default=False,
+    )
     return_to_sender = models.BooleanField(
         help_text="Check the box if the postcard was returned to sender."
     )
@@ -399,7 +406,10 @@ class Object(models.Model):
         related_name="sender_name",
     )
     letter_type = models.CharField(max_length=50, choices=LETTER_TYPES)
-    date_of_correspondence = models.DateField()
+    date_of_correspondence = models.DateField(
+        null=True,
+        blank=True,
+    )
     # file = models.FileField(
     #     upload_to="files/",
     #     null=True,

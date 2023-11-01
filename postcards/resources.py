@@ -216,113 +216,83 @@ class PostmarkResource(resources.ModelResource):
 
 
 class ObjectResource(resources.ModelResource):
-    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
-        # This method is called before the import begins. We want to make sure that the dataset has
-        # a header row. If it doesn't, we want to raise an exception.
-        if not dataset.headers:
-            raise Exception("The CSV file must have a header row.")
+    # We need to handle data checking and cleanup. First, if date_of_correspondence includes the string
+    # "NA" or "N/A", we want to set it to None. Second, if date_returned_to_sender includes the string
+    # "NA" or "N/A", we want to set it to None.
+    def clean_date_of_correspondence(self, value):
+        if value == "NA" or value == "N/A":
+            return None
+        else:
+            return value
+
+    def clean_date_returned_to_sender(self, value):
+        if value == "NA" or value == "N/A":
+            return None
+        else:
+            return value
+
+    # The dates also need validation. They come in the form 9/1/39, but we need to convert them to
+    # 1939-09-01. We do this for the date fields in date_of_correspondence and date_returned_to_sender.
+    def dehydrate_date_of_correspondence(self, object):
+        # if the date is None, we return None
+        if object.date_of_correspondence is None:
+            return None
+        else:
+            return object.date_of_correspondence.strftime("%Y-%m-%d")
+
+    def dehydrate_date_returned_to_sender(self, object):
+        if object.date_returned_to_sender is None:
+            return None
+        else:
+            return object.date_returned_to_sender.strftime("%Y-%m-%d")
+
+    # Next, we need to set the collection_location to default to the appropriate Archives entry.
+    def before_import_row(self, row, **kwargs):
+        # check that the data in collection_location matches the Archives location field.
+        # If it does, we assign the correct pk value to the collection_location field.
+        if row["location_in_collection"] == "Archives":
+            row["collection_location"] = 1
         else:
             pass
 
-        # Now, we want to place data into the appropriate models.
-        # People need to be placed into the People model.
-        # Locations need to be placed into the Locations model.
-        # Postmarks need to be placed into the Postmarks model.
-        # Objects need to be placed into the Objects model.
+        # Next, we set regime_censor to default to No
+        if row["censor"] == "Yes":
+            row["regime_censor"] = 1
+        else:
+            pass
 
-        self.people = {}
-        self.locations = {}
-        self.postmarks = {}
+        # If censor is blank, we default to No
+        if not row["censor"]:
+            row["regime_censor"] = 1
+        else:
+            pass
 
-        # We need to iterate through the rows in the dataset.
-        for row in dataset.dict:
-            # We need to check if the sender is in the people dictionary.
-            # If they are, we need to get the person object from the dictionary.
-            # If they are not, we need to create a new person object and add it to the dictionary.
-            sender_name = row["sender_name"]
-            if sender_name in self.people:
-                sender = self.people[sender_name]
+        # Next, if the 'translated' field is a string of Yes or No or Unknown, we set
+        # the value based on the TRANSlATION_CHOICES in the model.
+        if row["translated"] == "Yes":
+            row["translated"] = 1
+        elif row["translated"] == "No":
+            row["translated"] = 2
+        elif row["translated"] == "Unknown":
+            row["translated"] = 3
+        else:
+            pass
+
+        # Next, we make sure that the addressee_name field is tied to the Person.first_name/Person.last_name pk field
+        # We need to match against each of the fields in the Person model for the import to work correctly.
+        for person in Person.objects.all():
+            # we check that addressee_first_name and addressee_last_name match the Person.first_name and Person.last_name
+            # fields. If they do, we assign the correct pk value to the addressee_name field.
+            if (
+                row["addressee_first_name"] == person.first_name
+                and row["addressee_last_name"] == person.last_name
+            ):
+                row["addressee_name"] = person.person_id
             else:
-                sender = Person.objects.create(
-                    title=row["sender_title"],
-                    first_name=row["sender_first_name"],
-                    last_name=row["sender_last_name"],
-                    house_number=row["sender_house_number"],
-                    street=row["sender_street"],
-                    location=row["sender_location"],
-                )
-                self.people[sender_name] = sender
-
-            # We need to check if the addressee is in the people dictionary.
-            # If they are, we need to get the person object from the dictionary.
-            # If they are not, we need to create a new person object and add it to the dictionary.
-            addressee_name = row["addressee_name"]
-            if addressee_name in self.people:
-                addressee = self.people[addressee_name]
-            else:
-                addressee = Person.objects.create(
-                    title=row["addressee_title"],
-                    first_name=row["addressee_first_name"],
-                    last_name=row["addressee_last_name"],
-                    house_number=row["addressee_house_number"],
-                    street=row["addressee_street"],
-                    location=row["addressee_location"],
-                )
-                self.people[addressee_name] = addressee
-
-            # We need to check if the location is in the locations dictionary.
-            # If it is, we need to get the location object from the dictionary.
-            # If it is not, we need to create a new location object and add it to the dictionary.
-            location_name = row["location"]
-            if location_name in self.locations:
-                location = self.locations[location_name]
-            else:
-                location = Location.objects.create(
-                    town_city=row["location_town_city"],
-                    province_state=row["location_province_state"],
-                    country=row["location_country"],
-                )
-                self.locations[location_name] = location
-
-            # We need to check if the postmark is in the postmarks dictionary.
-            # If it is, we need to get the postmark object from the dictionary.
-            # If it is not, we need to create a new postmark object and add it to the dictionary.
-            postmark_name = row["postmark"]
-            if postmark_name in self.postmarks:
-                postmarks = self.postmarks[postmark_name]
-            else:
-                postmarks = Postmark.objects.create()
-                self.postmarks[postmark_name] = postmarks
-
-            # We need to check if the object is in the objects dictionary.
-            # If it is, we need to get the object object from the dictionary.
-            # If it is not, we need to create a new object object and add it to the dictionary.
-            object_name = row["object"]
-            if object_name in self.objects:
-                postalitem = self.objects[object_name]
-            else:
-                postalitem = Object.objects.create(
-                    sender_name=sender,
-                    addressee_name=addressee,
-                    date_of_correspondence=row["date_of_correspondence"],
-                    collection=row["collection"],
-                )
-                self.objects[object_name] = postalitem
+                pass
 
     class Meta:
         model = Object
-        fields = (
-            "sender_name",
-            "addressee_name",
-            "date_of_correspondence",
-            "collection",
-        )
-        import_id_fields = (
-            "sender_name",
-            "addressee_name",
-            "date_of_correspondence",
-            "collection",
-        )
         skip_unchanged = True
         report_skipped = True
         clean_model_instances = True
