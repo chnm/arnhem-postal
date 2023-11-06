@@ -137,6 +137,7 @@ class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = ObjectResource
 
     list_display = (
+        "item_id",
         "sender_name",
         "addressee_name",
         "date_of_correspondence",
@@ -145,7 +146,7 @@ class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
         # "image_canvas",
     )
     inlines = [TranscriptionInline, ImageInline]
-    search_fields = ["item_number", "sender_name", "addressee_name"]
+    search_fields = ["item_id", "sender_name", "addressee_name"]
     list_filter = (
         "collection",
         "letter_enclosed",

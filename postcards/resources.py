@@ -1,5 +1,5 @@
 from import_export import fields, resources
-from import_export.widgets import ForeignKeyWidget
+from import_export.widgets import DateWidget, ForeignKeyWidget
 
 from .models import Location, Object, Person, Postmark
 
@@ -66,9 +66,9 @@ class LocationWidget(ForeignKeyWidget):
     # to work correctly.
     def get_queryset(self, value, row, *args, **kwargs):
         return self.model.objects.filter(
-            town_city=row["addressee_town_city"],
-            province_state=row["addressee_province_state"],
-            country=row["addressee_country"],
+            town_city=row["town"],
+            province_state=row["state"],
+            country=row["country"],
         )
 
     def clean(self, value, row=None, *args, **kwargs):
@@ -76,9 +76,9 @@ class LocationWidget(ForeignKeyWidget):
         # against each of the fields in the Location model for the import to work correctly.
         try:
             return self.model.objects.get(
-                town_city=row["addressee_town_city"],
-                province_state=row["addressee_province_state"],
-                country=row["addressee_country"],
+                town_city=row["town"],
+                province_state=row["state"],
+                country=row["country"],
             )
         except self.model.DoesNotExist:
             return None
@@ -90,20 +90,16 @@ class LocationWidget(ForeignKeyWidget):
 
 
 class PersonResource(resources.ModelResource):
-    title = fields.Field(attribute="title", column_name="addressee_title")
-    first_name = fields.Field(
-        attribute="first_name", column_name="addressee_first_name"
-    )
-    last_name = fields.Field(attribute="last_name", column_name="addressee_last_name")
-    house_number = fields.Field(
-        attribute="house_number", column_name="addressee_house_number"
-    )
-    street = fields.Field(attribute="street", column_name="addressee_street")
+    title = fields.Field(attribute="title", column_name="title")
+    first_name = fields.Field(attribute="first_name", column_name="first_name")
+    last_name = fields.Field(attribute="last_name", column_name="last_name")
+    house_number = fields.Field(attribute="house_number", column_name="house_number")
+    street = fields.Field(attribute="street", column_name="street")
     # the location field is a foreign key so we need to map to the Location model. We do this with
     # the ForeignKeyWidget, and need to match against each of the fields in the Location model.
     location = fields.Field(
         attribute="location",
-        column_name="addressee_town_city",
+        column_name="town",
         widget=LocationWidget(Location, "town_city"),
     )
 
@@ -142,12 +138,12 @@ class PersonResource(resources.ModelResource):
         # This method is called before each row is imported. If a field is empty, we want to skip the row.
         # We do not want to raise an exception, because we want to skip the row silently.
         if (
-            not row["addressee_title"]
-            or not row["addressee_first_name"]
-            or not row["addressee_last_name"]
-            or not row["addressee_house_number"]
-            or not row["addressee_street"]
-            or not row["addressee_town_city"]
+            not row["title"]
+            or not row["first_name"]
+            or not row["last_name"]
+            or not row["house_number"]
+            or not row["street"]
+            or not row["town"]
         ):
             kwargs["skip_row"] = True
         else:
@@ -215,85 +211,102 @@ class PostmarkResource(resources.ModelResource):
             pass
 
 
+# class FullNameForeignKeyWidget(ForeignKeyWidget):
+#     def get_queryset(self, value, row, *args, **kwargs):
+#         return self.model.objects.filter(
+#             # we match addressee_first_name/sender_first_name and addressee_last_name/sender_last_name
+#             # against the first_name last_name Person model
+#             first_name=row["addressee_first_name"] or row["sender_first_name"],
+#             last_name=row["addressee_last_name"] or row["sender_last_name"],
+#         )
+
+
 class ObjectResource(resources.ModelResource):
-    # We need to handle data checking and cleanup. First, if date_of_correspondence includes the string
-    # "NA" or "N/A", we want to set it to None. Second, if date_returned_to_sender includes the string
-    # "NA" or "N/A", we want to set it to None.
-    def clean_date_of_correspondence(self, value):
-        if value == "NA" or value == "N/A":
-            return None
-        else:
-            return value
-
-    def clean_date_returned_to_sender(self, value):
-        if value == "NA" or value == "N/A":
-            return None
-        else:
-            return value
-
-    # The dates also need validation. They come in the form 9/1/39, but we need to convert them to
-    # 1939-09-01. We do this for the date fields in date_of_correspondence and date_returned_to_sender.
-    def dehydrate_date_of_correspondence(self, object):
-        # if the date is None, we return None
-        if object.date_of_correspondence is None:
-            return None
-        else:
-            return object.date_of_correspondence.strftime("%Y-%m-%d")
-
-    def dehydrate_date_returned_to_sender(self, object):
-        if object.date_returned_to_sender is None:
-            return None
-        else:
-            return object.date_returned_to_sender.strftime("%Y-%m-%d")
-
-    # Next, we need to set the collection_location to default to the appropriate Archives entry.
     def before_import_row(self, row, **kwargs):
-        # check that the data in collection_location matches the Archives location field.
-        # If it does, we assign the correct pk value to the collection_location field.
-        if row["location_in_collection"] == "Archives":
-            row["collection_location"] = 1
+        row["item_id"] = row["item_number"].strip()
+        if row["return_to_sender"] == "Yes":
+            row["return_to_sender"] = True
         else:
-            pass
+            row["return_to_sender"] = False
 
-        # Next, we set regime_censor to default to No
+        row["date_returned_to_sender"] = row["date_returned_to_sender"].strip()
+        if row["date_returned_to_sender"] == "No":
+            row["date_returned_to_sender"] = None
+        row["date_of_correspondence"] = row["date_of_correspondence"].strip()
+        if row["date_of_correspondence"] == "No":
+            row["date_of_correspondence"] = None
+
+        # Next, we set regime_censor values
+        row["regime_censor"] = row["censor"].lower().strip()
         if row["censor"] == "Yes":
-            row["regime_censor"] = 1
-        else:
-            pass
+            row["regime_censor"] = "yes"
+        elif row["censor"] == "No":
+            row["regime_censor"] = "no"
+        elif row["censor"] == "---":
+            row["regime_censor"] = "no"
+        elif not row["censor"]:
+            row["regime_censor"] = "no"
 
-        # If censor is blank, we default to No
-        if not row["censor"]:
-            row["regime_censor"] = 1
-        else:
-            pass
+        row["type_(postcard/letter/package)"] = (
+            row["type_(postcard/letter/package)"].lower().strip()
+        )
+        row["letter_type"] = row["type_(postcard/letter/package)"]
+        if not row["type_(postcard/letter/package)"]:
+            row["type_(postcard/letter/package)"] = "letter"
 
-        # Next, if the 'translated' field is a string of Yes or No or Unknown, we set
-        # the value based on the TRANSlATION_CHOICES in the model.
+        row["letter_enclosed"] = row["letter_enclosed_(yes/no)"].lower().strip()
+        if row["letter_enclosed_(yes/no)"] == "yes":
+            row["letter_enclosed"] = True
+        elif row["letter_enclosed_(yes/no)"] == "no":
+            row["letter_enclosed"] = False
+
         if row["translated"] == "Yes":
-            row["translated"] = 1
+            row["translated"] = "yes"
         elif row["translated"] == "No":
-            row["translated"] = 2
+            row["translated"] = "no"
         elif row["translated"] == "Unknown":
-            row["translated"] = 3
+            row["translated"] = "unknown"
         else:
-            pass
+            row["translated"] = "yes"
 
-        # Next, we make sure that the addressee_name field is tied to the Person.first_name/Person.last_name pk field
-        # We need to match against each of the fields in the Person model for the import to work correctly.
-        for person in Person.objects.all():
-            # we check that addressee_first_name and addressee_last_name match the Person.first_name and Person.last_name
-            # fields. If they do, we assign the correct pk value to the addressee_name field.
-            if (
-                row["addressee_first_name"] == person.first_name
-                and row["addressee_last_name"] == person.last_name
-            ):
-                row["addressee_name"] = person.person_id
-            else:
-                pass
+        row["public_notes"] = row["notes"]
+        row["collection_location"] = row["location_in_collection"].strip()
+        if not row["collection_location"]:
+            row["collection_location"] = "Box 1"
+
+    date_of_correspondence = fields.Field(
+        attribute="date_of_correspondence",
+        column_name="date_of_correspondence",
+        widget=DateWidget(format="%Y-%m-%d %H:%M:%S"),
+    )
+    date_returned = fields.Field(
+        attribute="date_returned",
+        column_name="date_returned_to_sender",
+        widget=DateWidget(format="%Y-%m-%d %H:%M:%S"),
+    )
+    return_to_sender = fields.Field(
+        attribute="return_to_sender",
+        column_name="return_to_sender",
+    )
 
     class Meta:
         model = Object
         skip_unchanged = True
         report_skipped = True
         clean_model_instances = True
-        exclude = ("object_id",)
+        import_id_fields = ("item_id",)
+        fields = (
+            "item_id",
+            "collection_location",
+            "date_of_correspondence",
+            "date_returned",
+            "letter_enclosed",
+            "translated",
+            "regime_censor",
+            "letter_type",
+            "public_notes",
+        )
+        exclude = (
+            "id",
+            "postmark",
+        )

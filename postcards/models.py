@@ -291,6 +291,8 @@ class ReasonReturn(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
+    manager = ReasonReturnManager()
+
     class Meta:
         ordering = ["created"]
 
@@ -319,6 +321,8 @@ class Transcription(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+
+    manager = TranscriptionManager()
 
     class Meta:
         ordering = ["created"]
@@ -351,6 +355,11 @@ class Object(models.Model):
         ("letter", "Letter"),
         ("package", "Package"),
         ("envelope", "Envelope"),
+        ("folded card", "Folded Card"),
+        ("envelope printed matter", "Envelope ('printed matter')"),
+        ("letter sheet", "Letter Sheet"),
+        ("giro envelope", "Giro Envelope"),
+        ('envelope ("printed matter")', 'Envelope ("printed matter")'),
     )
 
     id = models.AutoField(primary_key=True)
@@ -361,10 +370,9 @@ class Object(models.Model):
         help_text="Record the file name of the image here.",
     )
     collection = models.ManyToManyField(Collection, verbose_name="collection")
-    collection_location = models.ForeignKey(
-        Archive,
-        on_delete=models.CASCADE,
-        verbose_name="Location in the Collection",
+    collection_location = models.CharField(
+        max_length=255,
+        verbose_name="collection location",
         help_text="The location in the collection (folder and box).",
     )
     postmark = models.ManyToManyField(Postmark, verbose_name="postmark")
@@ -398,12 +406,16 @@ class Object(models.Model):
         on_delete=models.CASCADE,
         verbose_name="addressee's name",
         related_name="addressee_name",
+        blank=True,
+        null=True,
     )
     sender_name = models.ForeignKey(
         Person,
         on_delete=models.CASCADE,
         verbose_name="sender's name",
         related_name="sender_name",
+        blank=True,
+        null=True,
     )
     letter_type = models.CharField(max_length=50, choices=LETTER_TYPES)
     date_of_correspondence = models.DateField(
@@ -463,19 +475,19 @@ class Object(models.Model):
         auto_now_add=True, verbose_name="date created", blank=False, null=False
     )
 
-    def __str__(self):
-        # "Return the sender's name, addressee's name, and date of correspondence."
-        return (
-            self.sender_name.first_name
-            + " "
-            + self.sender_name.last_name
-            + " to "
-            + self.addressee_name.first_name
-            + " "
-            + self.addressee_name.last_name
-            + ", "
-            + str(self.date_of_correspondence)
-        )
+    # def __str__(self):
+    #     # "Return the sender's name, addressee's name, and date of correspondence."
+    #     return (
+    #         self.sender_name.first_name
+    #         + " "
+    #         + self.sender_name.last_name
+    #         + " to "
+    #         + self.addressee_name.first_name
+    #         + " "
+    #         + self.addressee_name.last_name
+    #         + ", "
+    #         + str(self.date_of_correspondence)
+    #     )
 
     def get_absolute_url(self):
         return reverse("postcard_detail", kwargs={"pk": self.pk})
@@ -524,6 +536,7 @@ class PrimarySource(models.Model):
         ("stamps", "Stamps"),
         ("lettersheet", "Lettersheet"),
         ("other", "Other"),
+        ('envelope ("printed matter")', 'Envelope ("printed matter")'),
     )
 
     id = models.AutoField(primary_key=True)
@@ -538,7 +551,7 @@ class PrimarySource(models.Model):
         verbose_name="person",
         related_name="person",
         # optional
-        help_text="Select the person this document is about. If the person does not exist, click the plus and add the new person.",
+        help_text="Select the person(s) this document is about. If the person does not exist, click the plus and add the new person.",
         blank=True,
     )
     printer = models.CharField(
