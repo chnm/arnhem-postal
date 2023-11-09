@@ -136,7 +136,6 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
     the objects."""
 
     model = Object.item_id
-    resource_class = ObjectResource
 
     list_display = (
         "item_id",

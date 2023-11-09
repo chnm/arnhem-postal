@@ -1,4 +1,4 @@
-from import_export import fields, resources
+from import_export import fields, resources, widgets
 from import_export.widgets import DateWidget, ForeignKeyWidget
 
 from .models import Location, Object, Person, Postmark
@@ -90,64 +90,9 @@ class LocationWidget(ForeignKeyWidget):
 
 
 class PersonResource(resources.ModelResource):
-    title = fields.Field(attribute="title", column_name="title")
-    first_name = fields.Field(attribute="first_name", column_name="first_name")
-    last_name = fields.Field(attribute="last_name", column_name="last_name")
-    house_number = fields.Field(attribute="house_number", column_name="house_number")
-    street = fields.Field(attribute="street", column_name="street")
-    # the location field is a foreign key so we need to map to the Location model. We do this with
-    # the ForeignKeyWidget, and need to match against each of the fields in the Location model.
-    location = fields.Field(
-        attribute="location",
-        column_name="town",
-        widget=LocationWidget(Location, "town_city"),
-    )
-
     class Meta:
         model = Person
-        fields = (
-            "title",
-            "first_name",
-            "last_name",
-            "house_number",
-            "street",
-            "location",
-        )
-        import_id_fields = (
-            "title",
-            "first_name",
-            "last_name",
-            "house_number",
-            "street",
-            "location",
-        )
-        skip_unchanged = True
-        report_skipped = True
-        clean_model_instances = True
-        exclude = ("person_id",)
-
-    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
-        # This method is called before the import begins. We want to make sure that the dataset has
-        # a header row. If it doesn't, we want to raise an exception.
-        if not dataset.headers:
-            raise Exception("The CSV file must have a header row.")
-        else:
-            pass
-
-    def before_import_row(self, row, **kwargs):
-        # This method is called before each row is imported. If a field is empty, we want to skip the row.
-        # We do not want to raise an exception, because we want to skip the row silently.
-        if (
-            not row["title"]
-            or not row["first_name"]
-            or not row["last_name"]
-            or not row["house_number"]
-            or not row["street"]
-            or not row["town"]
-        ):
-            kwargs["skip_row"] = True
-        else:
-            pass
+        import_id_fields = ("addressee_last_name", "sender_last_name")
 
 
 class PostmarkWidget(ForeignKeyWidget):
@@ -211,17 +156,14 @@ class PostmarkResource(resources.ModelResource):
             pass
 
 
-# class FullNameForeignKeyWidget(ForeignKeyWidget):
-#     def get_queryset(self, value, row, *args, **kwargs):
-#         return self.model.objects.filter(
-#             # we match addressee_first_name/sender_first_name and addressee_last_name/sender_last_name
-#             # against the first_name last_name Person model
-#             first_name=row["addressee_first_name"] or row["sender_first_name"],
-#             last_name=row["addressee_last_name"] or row["sender_last_name"],
-#         )
-
-
 class ObjectResource(resources.ModelResource):
+    sender_first_name = fields.Field(column_name="sender_first_name")
+    sender_last_name = fields.Field(column_name="sender_last_name")
+    addressee_first_name = fields.Field(column_name="addressee_first_name")
+    addressee_last_name = fields.Field(column_name="addressee_last_name")
+    sender_title = fields.Field(column_name="sender_title")
+    addressee_title = fields.Field(column_name="addressee_title")
+
     def before_import_row(self, row, **kwargs):
         row["item_id"] = row["item_number"].strip()
         if row["return_to_sender"] == "Yes":
@@ -274,6 +216,83 @@ class ObjectResource(resources.ModelResource):
         if not row["collection_location"]:
             row["collection_location"] = "Box 1"
 
+        # Now, we accept sender_first_name and sender_last_name. These are Foreign Keys
+        # to the Person model, so we do a couple things here:
+        # 1) If the name does not exist in the database, we create that Person. The Person includes their first name
+        # and last name, as well as their house number, street, and location. Location is a FK to the Location
+        # data and we will have to match against the Location model.
+        # 2) If the name does exist, we associate the Object with that Person.
+        # 3) If the name is blank, we do nothing.
+        if row["sender_first_name"] or row["sender_last_name"]:
+            sender_data = {
+                "title": row["sender_title"],
+                "first_name": row["sender_first_name"],
+                "last_name": row["sender_last_name"],
+                "house_number": row["sender_house_number"],
+                "street": row["sender_street"],
+            }
+            sender_instance = Person(**sender_data)
+            sender_instance.save()
+            row["sender_name"] = sender_instance
+        else:
+            pass
+
+        # Now we do the same for addressees
+        if row["addressee_first_name"] or row["addressee_last_name"]:
+            addressee_data = {
+                "title": row["addressee_title"],
+                "first_name": row["addressee_first_name"],
+                "last_name": row["addressee_last_name"],
+                "house_number": row["addressee_house_number"],
+                "street": row["addressee_street"],
+            }
+            addressee_instance = Person(**addressee_data)
+            addressee_instance.save()
+            row["addressee_name"] = addressee_instance
+        else:
+            pass
+
+        first_name = row.get("sender_first_name", "")
+        last_name = row.get("sender_last_name", "")
+        if last_name:
+            row["sender_name"], created = Person.objects.get_or_create(
+                last_name=last_name, first_name=first_name
+            )
+
+    def get_instance(self, instance_loader, row):
+        sender_name = row.get("sender_name", None)
+        addressee_name = row.get("addressee_name", None)
+
+        if sender_name:
+            # Handle potential conflicts using last_name and first_name
+            sender_last_name = row.get("sender_name__last_name", "")
+            sender_first_name = row.get("sender_name__first_name", "")
+            sender = Person.objects.filter(
+                last_name=sender_last_name, first_name=sender_first_name
+            ).first()
+            if sender is None:
+                # Create a new Person instance if not found
+                sender = Person.objects.create(
+                    last_name=sender_last_name, first_name=sender_first_name
+                )
+            row["sender"] = sender
+
+        if addressee_name:
+            # Handle potential conflicts using last_name and first_name
+            addressee_last_name = row.get("addressee_name__last_name", "")
+            addressee_first_name = row.get("addressee_name__first_name", "")
+            addressee = Person.objects.filter(
+                last_name=addressee_last_name, first_name=addressee_first_name
+            ).first()
+            if addressee is None:
+                # Create a new Person instance if not found
+                addressee = Person.objects.create(
+                    last_name=addressee_last_name, first_name=addressee_first_name
+                )
+            row["addressee"] = addressee
+
+        return instance_loader.get_instance(row)
+
     date_of_correspondence = fields.Field(
         attribute="date_of_correspondence",
         column_name="date_of_correspondence",
@@ -289,12 +308,65 @@ class ObjectResource(resources.ModelResource):
         column_name="return_to_sender",
     )
 
+    sender_name = fields.Field(
+        column_name="sender_name",
+        attribute="sender",
+        widget=widgets.ForeignKeyWidget(Person, field="last_name"),
+    )
+    addressee_name = fields.Field(
+        column_name="addressee_name",
+        attribute="addressee",
+        widget=widgets.ForeignKeyWidget(Person, field="last_name"),
+    )
+
+    # def after_import(self, dataset, result, using_transactions, dry_run, **kwargs):
+    #     # This method is called after the import is complete. We want to make sure that the dataset
+    #     # has at least one row. If it doesn't, we want to raise an exception.
+    #     if not dataset:
+    #         raise Exception("The CSV file must have at least one row.")
+    #     else:
+    #         pass
+
+    #     # Now we link together the Object and Person by associating the sender_name and addressee_name
+    #     # in the Object model with the first_name and last_name in the Person model.
+    #     # We do this by iterating through the dataset and matching the sender_name and addressee_name
+    #     # with the first_name and last_name in the Person model.
+    #     for row in dataset.dict:
+    #         # because sender_name / addressee_name is the full name of a person and first_name / last_name
+    #         # is the first and last name of a person, we need to split the sender_name / addressee_name
+    #         # into first_name and last_name. We do this by splitting the sender_name / addressee_name
+    #         # by the space character.
+    #         sender_name = row["sender_name"].split(" ")
+    #         addressee_name = row["addressee_name"].split(" ")
+    #         # Now we iterate through the Person model and match the first_name and last_name with the
+    #         # sender_name and addressee_name. If there is a match, we associate the Object with the Person.
+    #         for person in Person.objects.all():
+    #             if person.first_name == sender_name[0] and person.last_name == sender_name[1]:
+    #                 row["sender_name"] = person
+    #             elif person.first_name == addressee_name[0] and person.last_name == addressee_name[1]:
+    #                 row["addressee_name"] = person
+    #             else:
+    #                 pass
+
+    # def get_instance(self, instance_loader, row):
+    #     # This method is called when the import is ready to create a new instance. We want to make
+    #     # sure that the instance doesn't already exist. If it does, we want to skip the row.
+    #     item_id = row.get("item_id")
+    #     try:
+    #         return self._meta.model.objects.get(item_id=item_id)
+    #     except self._meta.model.DoesNotExist:
+    #         return None
+
     class Meta:
         model = Object
         skip_unchanged = True
         report_skipped = True
         clean_model_instances = True
-        import_id_fields = ("item_id",)
+        import_id_fields = (
+            "item_id",
+            "sender_name",
+            "addressee_name",
+        )
         fields = (
             "item_id",
             "collection_location",
