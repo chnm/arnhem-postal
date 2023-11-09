@@ -3,13 +3,14 @@ from django.contrib.admin.widgets import AdminFileWidget
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.utils.html import format_html
-from import_export.admin import ImportExportMixin
+from import_export.admin import ExportMixin
 
 from .models import (
     Image,
     Language,
     Location,
     Object,
+    Organization,
     Person,
     Postmark,
     PrimarySource,
@@ -31,6 +32,7 @@ admin.site.index_title = "Arnhem Postal History Project"
 # Register models we haven't added custom adjustments to but still want access to in
 # the admin interface.
 admin.site.register(Language)
+admin.site.register(Organization)
 
 
 # Custom adjustments to our admin views
@@ -85,7 +87,7 @@ class PersonTabularInline(admin.TabularInline):
     extra = 1
 
 
-class PostmarkAdmin(ImportExportMixin, admin.ModelAdmin):
+class PostmarkAdmin(ExportMixin, admin.ModelAdmin):
     """We provide import/export abilities to the postmarks."""
 
     resource_class = PostmarkResource
@@ -95,7 +97,7 @@ class PostmarkAdmin(ImportExportMixin, admin.ModelAdmin):
 admin.site.register(Postmark, PostmarkAdmin)
 
 
-class LocationAdmin(ImportExportMixin, admin.ModelAdmin):
+class LocationAdmin(ExportMixin, admin.ModelAdmin):
     """We provide import/export abilities to the locations, as well as display the custom map widget."""
 
     resource_class = LocationResource
@@ -129,7 +131,7 @@ class RelatedImagesInline(admin.StackedInline):
     readonly_fields = ("image_preview",)
 
 
-class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
+class ObjectAdmin(ExportMixin, admin.ModelAdmin):
     """We provide import/export abilities to the objects, as well as the inline transcriptions for
     the objects."""
 
@@ -161,7 +163,7 @@ class ObjectAdmin(ImportExportMixin, admin.ModelAdmin):
 admin.site.register(Object, ObjectAdmin)
 
 
-class PersonAdmin(ImportExportMixin, admin.ModelAdmin):
+class PersonAdmin(ExportMixin, admin.ModelAdmin):
     """We provide the ability to import/export people."""
 
     list_display = (

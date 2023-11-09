@@ -112,11 +112,31 @@ class Collection(models.Model):
         return self.name
 
 
+class Organization(models.Model):
+    org_id = models.BigAutoField(primary_key=True, verbose_name="Organization ID")
+    name = models.CharField(max_length=255)
+    location = models.ForeignKey(
+        "Location", on_delete=models.CASCADE, blank=True, null=True
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class Person(models.Model):
     person_id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=50, null=True, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=True)
+    first_name_unknown = models.BooleanField(
+        default=False,
+        verbose_name="First name unknown",
+        help_text="Check this box if the first name is unknown.",
+    )
     last_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name_unknown = models.BooleanField(
+        default=False,
+        verbose_name="Last name unknown",
+        help_text="Check this box if the last name is unknown.",
+    )
     house_number = models.CharField(max_length=50, null=True, blank=True)
     street = models.CharField(max_length=255, null=True, blank=True)
     location = models.ForeignKey(
@@ -253,6 +273,11 @@ class Postmark(models.Model):
         blank=True,
         help_text="Insert the date as YYYY-MM-DD or use the date picker. Leave blank if unknown.",
     )
+    ordered_by_arrival = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="If there are multiple postmarks, indicate the order by arrival (1, 2, 3, etc.).",
+    )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -369,14 +394,20 @@ class Object(models.Model):
         verbose_name="Item ID",
         help_text="Record the file name of the image here.",
     )
-    collection = models.ManyToManyField(Collection, verbose_name="collection")
+    collection = models.ForeignKey(
+        Collection,
+        verbose_name="collection",
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+    )
     collection_location = models.CharField(
         max_length=255,
         verbose_name="collection location",
         help_text="The location in the collection (folder and box).",
     )
     postmark = models.ManyToManyField(Postmark, verbose_name="postmark")
-    check_sensative_content = models.BooleanField(
+    check_sensitive_content = models.BooleanField(
         verbose_name="Material contains sensitive content",
         help_text="Check this box if you think this postcard contains sensitive imagery or events.",
         default=False,
@@ -394,7 +425,18 @@ class Object(models.Model):
         blank=True,
         help_text="Insert the date as YYYY-MM-DD or use the date picker. Leave blank if unknown.",
     )
-    reason_for_return = models.TextField(max_length=255, null=True, blank=True)
+    reason_for_return_original = models.TextField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="The reason for return in the original language.",
+    )
+    reason_for_return_translated = models.TextField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="The reason for return translated to English.",
+    )
     regime_censor = models.CharField(max_length=50, choices=CENSOR_CHOICES)
     regime_censor_location = models.ManyToManyField(
         Location,
@@ -417,7 +459,9 @@ class Object(models.Model):
         blank=True,
         null=True,
     )
-    letter_type = models.CharField(max_length=50, choices=LETTER_TYPES)
+    letter_type = models.CharField(
+        max_length=50, choices=LETTER_TYPES, blank=True, null=True
+    )
     date_of_correspondence = models.DateField(
         null=True,
         blank=True,
@@ -475,19 +519,19 @@ class Object(models.Model):
         auto_now_add=True, verbose_name="date created", blank=False, null=False
     )
 
-    # def __str__(self):
-    #     # "Return the sender's name, addressee's name, and date of correspondence."
-    #     return (
-    #         self.sender_name.first_name
-    #         + " "
-    #         + self.sender_name.last_name
-    #         + " to "
-    #         + self.addressee_name.first_name
-    #         + " "
-    #         + self.addressee_name.last_name
-    #         + ", "
-    #         + str(self.date_of_correspondence)
-    #     )
+    def __str__(self):
+        # "Return the sender's name, addressee's name, and date of correspondence."
+        return (
+            self.sender_name.first_name
+            + " "
+            + self.sender_name.last_name
+            + " to "
+            + self.addressee_name.first_name
+            + " "
+            + self.addressee_name.last_name
+            + ", "
+            + str(self.date_of_correspondence)
+        )
 
     def get_absolute_url(self):
         return reverse("postcard_detail", kwargs={"pk": self.pk})
