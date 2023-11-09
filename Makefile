@@ -7,6 +7,9 @@ migrate :
 preview :
 	poetry run python3 manage.py runserver
 
+check : 
+	poetry run python3 manage.py check
+
 # Compile TailwindCSS
 tailwind :
 	poetry run python3 manage.py tailwind start
