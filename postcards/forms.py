@@ -3,7 +3,7 @@ from crispy_forms.layout import Submit
 from django import forms
 from django.utils.html import format_html
 
-from .models import Object, Person, Postmark
+from .models import Object, Postmark
 
 
 class ObjectForm(forms.ModelForm):

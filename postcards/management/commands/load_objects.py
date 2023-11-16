@@ -8,7 +8,14 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from taggit.models import Tag
 
-from postcards.models import Collection, Location, Object, Person, Postmark
+from postcards.models import (
+    Collection,
+    Location,
+    Object,
+    Organization,
+    Person,
+    Postmark,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +24,7 @@ class Command(BaseCommand):
     help = "Load data from an Excel file for the postal objects."
 
     def handle(self, *args, **options):
-        file_path = "~/Dropbox/30-39 Projects/30.06 CHNM/Projects/Arnhem/arnhem.xlsx"
+        file_path = "~/Downloads/arnhem.xlsx"
         try:
             with transaction.atomic():
                 self.load_data(file_path)
@@ -37,6 +44,7 @@ class Command(BaseCommand):
             for index, row in df.iterrows():
                 try:
                     # Extract data from the row
+                    entity_type = str(row["correspondence_type"]).lower()
                     item_number = str(row["Item Number"])
                     collection_location = str(row["Location in Collection"])
                     sensitive_content = str(row["Sensitive"]).lower() == "yes"
@@ -46,7 +54,6 @@ class Command(BaseCommand):
                     return_to_sender = str(row["Return to Sender"]).lower() == "yes"
 
                     date_of_correspondence = row["Date of Correspondence"]
-                    # date_returned = pd.to_datetime(date_returned, errors='coerce') if pd.notna(date_returned) else None
 
                     # Check for NaT and 'NA' before converting to datetime
                     date_returned = row["Date Returned to sender"]
@@ -64,8 +71,6 @@ class Command(BaseCommand):
                         )
                     else:
                         date_of_correspondence = None
-
-                    # date_of_correspondence = pd.to_datetime(date_of_correspondence, errors='coerce') if pd.notna(date_of_correspondence) and not pd.isna(date_of_correspondence) and date_of_correspondence != 'NA' else None
 
                     reason_for_return_original = str(
                         row["Reason for Return (Original language)"]
@@ -86,10 +91,12 @@ class Command(BaseCommand):
                     addressee_first_name = str(row["Addressee First Name"])
                     addressee_last_name = str(row["Addressee Last Name"])
                     addressee = Person.objects.filter(
-                        first_name=addressee_first_name, last_name=addressee_last_name
+                        first_name=addressee_first_name,
+                        last_name=addressee_last_name,
                     ).first()
                     if not addressee:
                         addressee = Person.objects.create(
+                            entity_type=entity_type,
                             first_name=addressee_first_name,
                             last_name=addressee_last_name,
                         )
@@ -101,7 +108,9 @@ class Command(BaseCommand):
                     ).first()
                     if not sender:
                         sender = Person.objects.create(
-                            first_name=sender_first_name, last_name=sender_last_name
+                            entity_type=entity_type,
+                            first_name=sender_first_name,
+                            last_name=sender_last_name,
                         )
 
                     letter_type_mapping = {
@@ -136,6 +145,25 @@ class Command(BaseCommand):
                         name="Tim Gale"
                     )  # Default to "Tim Gale"
 
+                    # if correspondence_type == "person":
+                    #     sender, _ = Person.objects.get_or_create(
+                    #         first_name=sender_first_name,
+                    #         last_name=sender_last_name,
+                    #     )
+                    #     addressee, _ = Person.objects.get_or_create(
+                    #         first_name=addressee_first_name,
+                    #         last_name=addressee_last_name,
+                    #     )
+                    # elif correspondence_type == "organization":
+                    #     sender, _ = Organization.objects.get_or_create(
+                    #         name=sender_first_name + " " + sender_last_name,
+                    #         associated_with_person=None,
+                    #     )
+                    #     addressee, _ = Organization.objects.get_or_create(
+                    #         name=addressee_first_name + " " + addressee_last_name,
+                    #         associated_with_person=None,
+                    #     )
+
                     # Create or update Objects instance
                     obj, _ = Object.objects.get_or_create(
                         item_id=item_number,
@@ -157,7 +185,6 @@ class Command(BaseCommand):
                     )
 
                     try:
-                        # Inside your loop after creating or updating the Object instance
                         postmark_1_date = row["Postmark 1 Date"]
                         postmark_1_location_name = row["Postmark 1 Location"]
                         postmark_2_date = row["Postmark 2 Date"]
@@ -184,12 +211,6 @@ class Command(BaseCommand):
                         else:
                             # Handle the case when postmark_1_location is not found
                             postmark_1 = None
-
-                        # if postmark_2_location:
-                        #     postmark_2, _ = Postmark.objects.get_or_create(date=postmark_2_date, location=postmark_2_location, ordered_by_arrival=2)
-                        # else:
-                        #     # Handle the case when postmark_2_location is not found
-                        #     postmark_2 = None
 
                         if postmark_2_date and postmark_2_location:
                             try:

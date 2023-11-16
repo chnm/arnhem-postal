@@ -112,18 +112,19 @@ class Collection(models.Model):
         return self.name
 
 
-class Organization(models.Model):
-    org_id = models.BigAutoField(primary_key=True, verbose_name="Organization ID")
-    name = models.CharField(max_length=255)
-    location = models.ForeignKey(
-        "Location", on_delete=models.CASCADE, blank=True, null=True
-    )
-    updated_at = models.DateTimeField(auto_now=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-
 class Person(models.Model):
+    ENTITY_TYPES = (
+        ("person", "Person"),
+        ("organization", "Organization"),
+    )
+
     person_id = models.BigAutoField(primary_key=True)
+    entity_type = models.CharField(
+        max_length=50,
+        choices=ENTITY_TYPES,
+        default="person",
+        help_text="If this is an organization or some other non-person entity, select the appropriate type.",
+    )
     title = models.CharField(max_length=50, null=True, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=True)
     first_name_unknown = models.BooleanField(
@@ -137,6 +138,7 @@ class Person(models.Model):
         verbose_name="Last name unknown",
         help_text="Check this box if the last name is unknown.",
     )
+    entity_name = models.CharField(max_length=255, null=True, blank=True)
     house_number = models.CharField(max_length=50, null=True, blank=True)
     street = models.CharField(max_length=255, null=True, blank=True)
     location = models.ForeignKey(
@@ -145,10 +147,18 @@ class Person(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     date_of_death = models.DateField(blank=True, null=True)
     latitude = models.DecimalField(
-        blank=True, null=True, max_digits=9, decimal_places=6
+        blank=True,
+        null=True,
+        max_digits=9,
+        decimal_places=6,
+        help_text="This will be auto-generated if left empty.",
     )
     longitude = models.DecimalField(
-        blank=True, null=True, max_digits=9, decimal_places=6
+        blank=True,
+        null=True,
+        max_digits=9,
+        decimal_places=6,
+        help_text="This will be auto-generated if left empty.",
     )
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -167,6 +177,7 @@ class Person(models.Model):
     # Sort alphabetically by last name
     class Meta:
         ordering = ["last_name"]
+        verbose_name = "Entities and Person"
 
     # On save, the following tries to derive the latlon from the town_city and country
     # fields. If successful, it stores the latlon in the latlon field.

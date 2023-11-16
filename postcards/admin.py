@@ -7,22 +7,15 @@ from import_export.admin import ExportMixin
 
 from .models import (
     Image,
-    Language,
     Location,
     Object,
-    Organization,
     Person,
     Postmark,
     PrimarySource,
     ReasonReturn,
     Transcription,
 )
-from .resources import (
-    LocationResource,
-    ObjectResource,
-    PersonResource,
-    PostmarkResource,
-)
+from .resources import LocationResource, PersonResource, PostmarkResource
 
 # Rename our admin panel
 admin.site.site_header = "Arnhem Postal History Project"
@@ -31,8 +24,7 @@ admin.site.index_title = "Arnhem Postal History Project"
 
 # Register models we haven't added custom adjustments to but still want access to in
 # the admin interface.
-admin.site.register(Language)
-admin.site.register(Organization)
+# admin.site.register(Language)
 
 
 # Custom adjustments to our admin views
@@ -169,7 +161,52 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
         "last_name",
         "first_name",
         "title",
+        "entity_type",
+    )
+    list_filter = (
+        "entity_type",
+        "title",
         "location",
+        "last_name",
+    )
+    fieldsets = (
+        (
+            "Entity Type",
+            {
+                "fields": ("entity_type",),
+            },
+        ),
+        (
+            "Person Details",
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "title",
+                    "first_name",
+                    "last_name",
+                ),
+            },
+        ),
+        (
+            "Entity Details",
+            {
+                "classes": ("collapse",),  # This makes the section collapsible
+                "fields": ("entity_name",),
+            },
+        ),
+        (
+            "Location Details",
+            {
+                "classes": ("collapse",),  # This makes the section collapsible
+                "fields": (
+                    "house_number",
+                    "street",
+                    "location",
+                    "latitude",
+                    "longitude",
+                ),
+            },
+        ),
     )
     resource_class = PersonResource
     search_fields = ["first_name", "last_name"]
