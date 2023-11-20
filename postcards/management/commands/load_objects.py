@@ -15,8 +15,11 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
     help = "Load data from an Excel file for the postal objects."
 
+    def add_arguments(self, parser):
+      parser.add_argument('filepath', type=str, help='filepath of excel file to load')
+
     def handle(self, *args, **options):
-        file_path = "~/Downloads/arnhem.xlsx"
+        file_path = options['filepath']
         try:
             with transaction.atomic():
                 self.load_data(file_path)
