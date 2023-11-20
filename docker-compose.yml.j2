@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     command: >
-      sh -c "poetry run python manage.py migrate &&
+      sh -c "poetry run python manage.py migrate --skip-checks &&
       poetry run python manage.py collectstatic --no-input &&
       poetry run python manage.py runserver 0.0.0.0:8000"
     volumes:
