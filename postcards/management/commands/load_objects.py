@@ -6,16 +6,8 @@ import pandas as pd
 from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from taggit.models import Tag
 
-from postcards.models import (
-    Collection,
-    Location,
-    Object,
-    Organization,
-    Person,
-    Postmark,
-)
+from postcards.models import Collection, Location, Object, Person, Postmark
 
 logger = logging.getLogger(__name__)
 
@@ -144,25 +136,6 @@ class Command(BaseCommand):
                     collection, _ = Collection.objects.get_or_create(
                         name="Tim Gale"
                     )  # Default to "Tim Gale"
-
-                    # if correspondence_type == "person":
-                    #     sender, _ = Person.objects.get_or_create(
-                    #         first_name=sender_first_name,
-                    #         last_name=sender_last_name,
-                    #     )
-                    #     addressee, _ = Person.objects.get_or_create(
-                    #         first_name=addressee_first_name,
-                    #         last_name=addressee_last_name,
-                    #     )
-                    # elif correspondence_type == "organization":
-                    #     sender, _ = Organization.objects.get_or_create(
-                    #         name=sender_first_name + " " + sender_last_name,
-                    #         associated_with_person=None,
-                    #     )
-                    #     addressee, _ = Organization.objects.get_or_create(
-                    #         name=addressee_first_name + " " + addressee_last_name,
-                    #         associated_with_person=None,
-                    #     )
 
                     # Create or update Objects instance
                     obj, _ = Object.objects.get_or_create(
