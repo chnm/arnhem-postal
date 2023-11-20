@@ -1,15 +1,27 @@
+# load_objects.py
 import logging
 import math
+import os
 from datetime import datetime
 
 import pandas as pd
+import paramiko
 from django.core.exceptions import ValidationError
+from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from dotenv import load_dotenv
 
-from postcards.models import Collection, Location, Object, Person, Postmark
+from postcards.models import Collection, Image, Location, Object, Person, Postmark
 
 logger = logging.getLogger(__name__)
+
+# Load our Synology env variables
+load_dotenv()
+
+SYNOLOGY_IP = os.getenv("SYNOLOGY_IP")
+SYNOLOGY_USERNAME = os.getenv("SYNOLOGY_USERNAME")
+SYNOLOGY_PASSWORD = os.getenv("SYNOLOGY_PASSWORD")
 
 
 class Command(BaseCommand):
@@ -32,10 +44,24 @@ class Command(BaseCommand):
     def load_data(self, file_path):
         try:
             df = pd.read_excel(file_path, sheet_name="Box 1 Folders I-VIII")
+            image_path = "~/dev/arnhem_images"
+            remote_image_path = "/volume1/arnhem_images"
 
             for index, row in df.iterrows():
+                # Connect to Synology
+                ssh = paramiko.SSHClient()
+                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                ssh.connect(
+                    SYNOLOGY_IP, username=SYNOLOGY_USERNAME, password=SYNOLOGY_PASSWORD
+                )
+
+                # Use SFTP to get the image file
+                with ssh.open_sftp() as sftp:
+                    remote_file = sftp.file(remote_image_path, "rb")
+                    content = remote_file.read()
+
                 try:
-                    # Extract data from the row
+                    # Extract data from the rows
                     entity_type = str(row["correspondence_type"]).lower()
                     item_number = str(row["Item Number"])
                     collection_location = str(row["Location in Collection"])
@@ -136,6 +162,24 @@ class Command(BaseCommand):
                     collection, _ = Collection.objects.get_or_create(
                         name="Tim Gale"
                     )  # Default to "Tim Gale"
+
+                    # Check if the model instance with the given item_id exists
+                    try:
+                        instance = Image.objects.get(image_id=item_number)
+                    except Image.DoesNotExist:
+                        # Handle the case where the instance doesn't exist
+                        continue
+
+                    # Associate the image with the model instance
+                    instance.image_field.save(
+                        f"images/{item_number}.jpg", File(content)
+                    )
+
+                    # Save the model instance
+                    instance.save()
+
+                    # Close the SSH connection
+                    ssh.close()
 
                     # Create or update Objects instance
                     obj, _ = Object.objects.get_or_create(
