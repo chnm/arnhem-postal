@@ -154,6 +154,12 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
 admin.site.register(Object, ObjectAdmin)
 
 
+class ObjectsInline(admin.TabularInline):
+    model = Object
+    extra = 1
+    fk_name = "sender_name"
+
+
 class PersonAdmin(ExportMixin, admin.ModelAdmin):
     """We provide the ability to import/export people."""
 
@@ -210,6 +216,7 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
     )
     resource_class = PersonResource
     search_fields = ["first_name", "last_name"]
+    inlines = [ObjectsInline]
 
 
 admin.site.register(Person, PersonAdmin)
