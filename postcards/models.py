@@ -211,7 +211,7 @@ class Person(models.Model):
                 self.latitude = str(location.latitude)
                 self.longitude = str(location.longitude)
             except Exception as e:
-                logger.error("Error in geocoding: " + str(e))
+                logger.error("Error in geocoding a Person: " + str(e) + str(self))
         super().save(*args, **kwargs)
 
 
