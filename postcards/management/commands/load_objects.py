@@ -40,12 +40,12 @@ class Command(BaseCommand):
     def load_data(self, file_path, sheet_name=None):
         try:
             xls = pd.ExcelFile(file_path)
-            # sheets = xls.sheet_names
             dfs = {}
 
             if sheet_name:
                 df = pd.read_excel(xls, sheet_name=sheet_name, dtype=str)
                 df.columns = df.columns.str.strip()
+                df.columns = df.columns.str.lower()
                 dfs = {sheet_name: df}
             else:
                 sheet_names = xls.sheet_names
@@ -53,13 +53,8 @@ class Command(BaseCommand):
                 for sheet_name in sheet_names:
                     df = pd.read_excel(xls, sheet_name=sheet_name, dtype=str)
                     df.columns = df.columns.str.strip()
+                    df.columns = df.columns.str.lower()
                     dfs[sheet_name] = df
-
-            # df = pd.read_excel(file_path, sheet_name="Box 1 Folders I-VIII")
-            # for sheet_name in sheets:
-            #     dfs[sheet_name] = pd.read_excel(
-            #         file_path, sheet_name=sheet_name, dtype=str
-            #     )
 
             for sheet_name, df in dfs.items():
                 for index, row in df.iterrows():
@@ -68,18 +63,18 @@ class Command(BaseCommand):
                         entity_type = str(
                             row.get("correspondence_type") or "Person"
                         ).lower()
-                        item_number = str(row["Item Number"])
-                        collection_location = str(row["Location in Collection"])
-                        sensitive_content = str(row["Sensitive"]).lower() == "yes"
+                        item_number = str(row["item number"])
+                        collection_location = str(row["location in collection"])
+                        sensitive_content = str(row["sensitive"]).lower() == "yes"
                         letter_enclosed = (
-                            str(row["Letter Enclosed (yes/no)"]).lower() == "yes"
+                            str(row["letter enclosed (yes/no)"]).lower() == "yes"
                         )
-                        return_to_sender = str(row["Return to Sender"]).lower() == "yes"
+                        return_to_sender = str(row["return to sender"]).lower() == "yes"
 
-                        date_of_correspondence = row["Date of Correspondence"]
+                        date_of_correspondence = row["date of correspondence"]
 
                         # Check for NaT and 'NA' before converting to datetime
-                        date_returned = row["Date Returned to sender"]
+                        date_returned = row["date returned to sender"]
                         if pd.notna(date_returned) and date_returned not in [
                             "NA",
                             "No",
@@ -90,7 +85,7 @@ class Command(BaseCommand):
                         else:
                             date_returned = None
 
-                        date_of_correspondence = row["Date of Correspondence"]
+                        date_of_correspondence = row["date of correspondence"]
                         if pd.notna(
                             date_of_correspondence
                         ) and date_of_correspondence not in ["NA", "No"]:
@@ -101,10 +96,10 @@ class Command(BaseCommand):
                             date_of_correspondence = None
 
                         reason_for_return_original = str(
-                            row["Reason for Return (Original language)"]
+                            row["reason for return (original language)"]
                         )
                         reason_for_return_translated = str(
-                            row["Reason for Return (English)"]
+                            row["reason for return (english)"]
                         )
                         # if reason_for_return_original or reason_for_return_translated includes the string "NA"
                         # then set the value to None
@@ -113,17 +108,17 @@ class Command(BaseCommand):
                         if "NA" in reason_for_return_translated:
                             reason_for_return_translated = None
 
-                        regime_censor = str(row["Censor"])
+                        regime_censor = str(row["censor"])
 
                         # Create or update Persons
-                        addressee_title = str(row["Addressee Title"])
-                        addressee_first_name = str(row["Addressee First Name"])
-                        addressee_last_name = str(row["Addressee Last Name"])
-                        addressee_house_number = str(row["Addressee House Number"])
-                        addressee_street = str(row["Addressee Street"])
-                        addressee_town_city = str(row["Addressee Town/City"])
-                        addressee_province_state = str(row["Addressee Province/State"])
-                        addressee_country = str(row["Addressee Country"])
+                        addressee_title = str(row["addressee title"])
+                        addressee_first_name = str(row["addressee first name"])
+                        addressee_last_name = str(row["addressee last name"])
+                        addressee_house_number = str(row["addressee house number"])
+                        addressee_street = str(row["addressee street"])
+                        addressee_town_city = str(row["addressee town/city"])
+                        addressee_province_state = str(row["addressee province/state"])
+                        addressee_country = str(row["addressee country"])
                         addressee = Person.objects.filter(
                             first_name=addressee_first_name,
                             last_name=addressee_last_name,
@@ -143,14 +138,14 @@ class Command(BaseCommand):
                                 ).first(),
                             )
 
-                        sender_title = str(row["Sender Title"])
-                        sender_first_name = str(row["Sender First Name"])
-                        sender_last_name = str(row["Sender Last Name"])
-                        sender_house_number = str(row["Sender House Number"])
-                        sender_street = str(row["Sender Street"])
-                        sender_town_city = str(row["Sender Town/City"])
-                        sender_province_state = str(row["Sender Province/State"])
-                        sender_country = str(row["Sender Country"])
+                        sender_title = str(row["sender title"])
+                        sender_first_name = str(row["sender first name"])
+                        sender_last_name = str(row["sender last name"])
+                        sender_house_number = str(row["sender house number"])
+                        sender_street = str(row["sender street"])
+                        sender_town_city = str(row["sender town/city"])
+                        sender_province_state = str(row["sender province/state"])
+                        sender_country = str(row["sender country"])
                         sender = Person.objects.filter(
                             first_name=sender_first_name, last_name=sender_last_name
                         ).first()
@@ -181,7 +176,7 @@ class Command(BaseCommand):
                             'envelope ("printed matter")': 'Envelope ("printed matter")',
                         }
                         letter_type = letter_type_mapping.get(
-                            str(row["Type (Postcard/Letter/Package)"]).lower()
+                            str(row["type (postcard/letter/package)"]).lower()
                         )
 
                         other_choices_mapping = {
@@ -190,10 +185,10 @@ class Command(BaseCommand):
                             "pow": "pow",
                         }
                         other = other_choices_mapping.get(
-                            str(row["Other- RC, Uberroller, POW"]).lower()
+                            str(row["other- rc, uberroller, pow"]).lower()
                         )
 
-                        public_notes = str(row["Notes"])
+                        public_notes = str(row["notes"])
                         if pd.isna(public_notes) or public_notes.lower() == "nan":
                             public_notes = None
 
@@ -201,10 +196,10 @@ class Command(BaseCommand):
                             name="Tim Gale"
                         )  # Default to "Tim Gale"
 
-                        postmark_1_date = row["Postmark 1 Date"]
-                        postmark_1_location_name = row["Postmark 1 Location"]
-                        postmark_2_date = row["Postmark 2 Date"]
-                        postmark_2_location_name = row["Postmark 2 Location"]
+                        postmark_1_date = row["postmark 1 date"]
+                        postmark_1_location_name = row["postmark 1 location"]
+                        postmark_2_date = row["postmark 2 date"]
+                        postmark_2_location_name = row["postmark 2 location"]
 
                         # Create or update Objects instance
                         obj, _ = Object.objects.get_or_create(
