@@ -7,7 +7,15 @@ from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from postcards.models import Collection, Location, Object, Person, Postmark
+from postcards.models import (
+    Collection,
+    Language,
+    Location,
+    Object,
+    Person,
+    Postmark,
+    Transcription,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -109,6 +117,9 @@ class Command(BaseCommand):
                             reason_for_return_translated = None
 
                         regime_censor = str(row["censor"])
+
+                        transcription_original = str(row["transcription"])
+                        transcription_english = str(row["translation"])
 
                         # Create or update Persons
                         addressee_title = str(row["addressee title"])
@@ -221,6 +232,19 @@ class Command(BaseCommand):
                             public_notes=public_notes,
                         )
 
+                        if transcription_original:
+                            language = Language.objects.get(language="Dutch")
+                            transcription_text = transcription_original
+                        else:
+                            language = Language.objects.get(language="English")
+                            transcription_text = transcription_english
+
+                        transcription, created = Transcription.manager.update_or_create(
+                            postal_object=obj,
+                            transcription=transcription_text,
+                            language=language,
+                        )
+
                         try:
                             # Create or update the postmarks
                             # Adjust finding the location
@@ -242,13 +266,16 @@ class Command(BaseCommand):
                                     else None
                                 )
 
+                            print(
+                                f"Initial postmark_1_date: {postmark_1_date} (type: {type(postmark_1_date)})"
+                            )
                             # Create or update postmarks and associate them with the object
                             if postmark_1_location:
                                 try:
                                     # Convert the date string to a datetime object
                                     if isinstance(postmark_1_date, str):
                                         postmark_1_date = datetime.strptime(
-                                            postmark_1_date, "%Y-%m-%d"
+                                            postmark_1_date, "%Y-%m-%d %H:%M:%S"
                                         ).date()
                                     elif isinstance(
                                         postmark_1_date, (float, int)
@@ -264,6 +291,10 @@ class Command(BaseCommand):
                                         f"Error processing Postmark 1 Date '{postmark_1_date}': {e}"
                                     )
                                     postmark_1_date = None
+
+                                print(
+                                    f"Final postmark_1_date: {postmark_1_date} (type: {type(postmark_1_date)})"
+                                )
                                 postmark_1, _ = Postmark.objects.get_or_create(
                                     date=postmark_1_date,
                                     location=postmark_1_location,
@@ -273,40 +304,40 @@ class Command(BaseCommand):
                                 # Handle the case when postmark_1_location is not found
                                 postmark_1 = None
 
-                            if postmark_2_date and postmark_2_location:
-                                try:
-                                    # Convert the date string to a datetime object
-                                    if isinstance(postmark_2_date, str):
-                                        postmark_2_date = datetime.strptime(
-                                            postmark_2_date, "%Y-%m-%d"
-                                        ).date()
-                                    elif isinstance(
-                                        postmark_2_date, (float, int)
-                                    ) and not math.isnan(postmark_2_date):
-                                        # Convert the float or int to a date
-                                        postmark_2_date = datetime.fromtimestamp(
-                                            postmark_2_date
-                                        ).date()
-                                    else:
-                                        postmark_2_date = None
-                                except (ValueError, ValidationError) as e:
-                                    print(
-                                        f"Error processing Postmark 2 Date '{postmark_2_date}': {e}"
-                                    )
-                                    postmark_2_date = None
+                                # if postmark_2_location:
+                                #     try:
+                                #         # Convert the date string to a datetime object
+                                #         if isinstance(postmark_2_date, str):
+                                #             postmark_2_date = datetime.strptime(
+                                #                 postmark_2_date, "%Y-%m-%d"
+                                #             ).date()
+                                #         elif isinstance(
+                                #             postmark_2_date, (float, int)
+                                #         ) and not math.isnan(postmark_2_date):
+                                #             # Convert the float or int to a date
+                                #             postmark_2_date = datetime.fromtimestamp(
+                                #                 postmark_2_date
+                                #             ).date()
+                                #         else:
+                                #             postmark_2_date = None
+                                #     except (ValueError, ValidationError) as e:
+                                #         print(
+                                #             f"Error processing Postmark 2 Date '{postmark_2_date}': {e}"
+                                #         )
+                                #         postmark_2_date = None
 
-                                # Create or update the Postmark object
-                                postmark_2, _ = Postmark.objects.get_or_create(
-                                    date=postmark_2_date,
-                                    location=postmark_2_location,
-                                    ordered_by_arrival=2,
-                                )
+                                #     # Create or update the Postmark object
+                                #     postmark_2, _ = Postmark.objects.get_or_create(
+                                #         date=postmark_2_date,
+                                #         location=postmark_2_location,
+                                #         ordered_by_arrival=2,
+                                #     )
+
+                                # print(f"postmark_1: {postmark_1}, postmark_2: {postmark_2}")
 
                                 # Set the postmarks for the object
-                                if postmark_1 or postmark_2:
-                                    obj.postmark.set(
-                                        [pm for pm in [postmark_1, postmark_2] if pm]
-                                    )
+                                if postmark_1:
+                                    obj.postmark.set([pm for pm in [postmark_1] if pm])
 
                         except Exception as e:
                             logger.exception(
