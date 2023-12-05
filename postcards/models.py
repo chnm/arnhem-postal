@@ -164,13 +164,17 @@ class Person(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        # return either first name or last name, but don't throw an error if one is missing
-        if self.first_name and self.last_name:
+        # return first name and last name if they exist and are not 'nan'
+        if (
+            self.first_name
+            and self.first_name != "nan"
+            and self.last_name
+            and self.last_name != "nan"
+        ):
             return self.last_name + ", " + self.first_name
-        elif self.first_name:
-            return self.first_name
-        elif self.last_name:
-            return self.last_name
+        # return entity name if it exists and is not 'nan'
+        elif self.entity_name and self.entity_name != "nan":
+            return self.entity_name
         else:
             return "No name provided"
 
