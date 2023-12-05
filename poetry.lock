@@ -783,20 +783,6 @@ django = ">=3.2.14"
 django-browser-reload = ">=1.6.0,<2.0.0"
 
 [[package]]
-name = "django-unfold"
-version = "0.17.1"
-description = "Modern Django admin theme for seamless interface development"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "django_unfold-0.17.1-py3-none-any.whl", hash = "sha256:27b170f1bf9e0c349d20bde53e5b90d9d02a73a8f786def86121c9d6c56dbe41"},
-    {file = "django_unfold-0.17.1.tar.gz", hash = "sha256:1863e7aea57812a29ed7230fc5c6fa338082b1e32d480720b426a20b4f23b8bd"},
-]
-
-[package.dependencies]
-django = ">=3.2"
-
-[[package]]
 name = "djhtml"
 version = "3.0.6"
 description = "Django/Jinja template indenter"
@@ -1966,4 +1952,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.13"
-content-hash = "0a4d899233ce6e4aea8deb694501b087d34f8a9d91fddf32926d11ab011b0ffa"
+content-hash = "16af1531fa6faf054919233bcef0b416ea1aa16d3cc69d4c6a42f51d14d41101"

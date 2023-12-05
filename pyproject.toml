@@ -37,7 +37,6 @@ django-filter = "^23.3"
 django-model-import = "^0.7.2"
 psycopg2-binary = "^2.9.9"
 pandas = "^2.1.2"
-django-unfold = "^0.17.1"
 
 
 [tool.poetry.group.dev.dependencies]

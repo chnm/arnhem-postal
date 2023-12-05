@@ -74,14 +74,10 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "admin_interface",
-    # "colorfield",
-    "unfold",  # before django.contrib.admin
-    "unfold.contrib.filters",  # optional, if special filters are needed
-    "unfold.contrib.forms",  # optional, if special form elements are needed
-    "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    "admin_interface",
+    "colorfield",
     "django.contrib.admin",
-    # "django.forms",
+    "django.forms",
 ]
 THIRD_PARTY_APPS = [
     "django_htmx",
