@@ -129,6 +129,7 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
         "date_of_correspondence",
         "collection_location",
         "letter_enclosed",
+        "translated",
         # "image_canvas",
     )
     inlines = [TranscriptionInline, ImageInline]
@@ -182,9 +183,15 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
                 "fields": (
                     "title",
                     "first_name",
-                    "first_name_unknown",
+                    (
+                        "first_name_unknown",
+                        "first_name_unclear",
+                    ),
                     "last_name",
-                    "last_name_unknown",
+                    (
+                        "last_name_unknown",
+                        "last_name_unclear",
+                    ),
                 ),
             },
         ),
