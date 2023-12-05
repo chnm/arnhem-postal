@@ -140,6 +140,9 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
         "sender_name",
         "addressee_name",
         "postmark",
+        "date_of_correspondence",
+        "regime_censor",
+        "regime_name",
     )
     filter_horizontal = ("postmark",)
     extra = 1
