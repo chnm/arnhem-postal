@@ -449,9 +449,11 @@ class Object(models.Model):
         help_text="The reason for return translated to English.",
     )
     regime_censor = models.CharField(max_length=50, choices=CENSOR_CHOICES)
-    regime_censor_location = models.ManyToManyField(
+    regime_censor_location = models.ForeignKey(
         Location,
         blank=True,
+        null=True,
+        on_delete=models.PROTECT,
         help_text="Select the location of the censor. If the location does not exist, click the plus and add the new location.",
     )
     addressee_name = models.ForeignKey(
