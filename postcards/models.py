@@ -177,7 +177,7 @@ class Person(models.Model):
     # Sort alphabetically by last name
     class Meta:
         ordering = ["last_name"]
-        verbose_name = "Entities and Person"
+        verbose_name = "Entities or Person"
 
     # On save, the following tries to derive the latlon from the town_city and country
     # fields. If successful, it stores the latlon in the latlon field.
@@ -533,21 +533,16 @@ class Object(models.Model):
     )
 
     def __str__(self):
-        # "Return the sender's name, addressee's name, and date of correspondence."
-        return (
-            self.sender_name.first_name
-            + " "
-            + self.sender_name.last_name
-            + " to "
-            + self.addressee_name.first_name
-            + " "
-            + self.addressee_name.last_name
-            + ", "
-            + str(self.date_of_correspondence)
+        sender_name = f"{self.sender_name.first_name or ''} {self.sender_name.last_name or ''}".strip()
+        addressee_name = f"{self.addressee_name.first_name or ''} {self.addressee_name.last_name or ''}".strip()
+        date_of_correspondence = (
+            self.date_of_correspondence if self.date_of_correspondence else ""
         )
 
+        return f"{sender_name} to {addressee_name}, {date_of_correspondence}"
+
     def get_absolute_url(self):
-        return reverse("postcard_detail", kwargs={"pk": self.pk})
+        return reverse("items", kwargs={"id": self.id})
 
     # def image_canvas(self):
     #     if self.file:

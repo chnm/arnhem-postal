@@ -1,0 +1,5 @@
+{% extends 'postal/base.html' %}
+
+{% block content %}
+    <h1 class="text-lg font-bold">{{object.letter_type}}, sent by {{ object.sender_name }} to {{ object.addressee_name }}</h1>
+{% endblock content %}
