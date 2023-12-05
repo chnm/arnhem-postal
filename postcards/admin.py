@@ -22,10 +22,6 @@ admin.site.site_header = "Arnhem Postal History Project"
 admin.site.site_title = "Arnhem Postal History Project"
 admin.site.index_title = "Arnhem Postal History Project"
 
-# Register models we haven't added custom adjustments to but still want access to in
-# the admin interface.
-# admin.site.register(Language)
-
 
 # Custom adjustments to our admin views
 class CustomAdminFileWidget(AdminFileWidget):
@@ -89,16 +85,13 @@ class PostmarkAdmin(ExportMixin, admin.ModelAdmin):
 admin.site.register(Postmark, PostmarkAdmin)
 
 
-class LocationAdmin(ExportMixin, admin.ModelAdmin):
-    """We provide import/export abilities to the locations, as well as display the custom map widget."""
-
-    resource_class = LocationResource
-    list_per_page = 15
-    list_display = ("town_city", "province_state", "country", "map_preview")
-    # formfield_overrides = {models.FileField: {"widget": CustomAdminMapWidget}}
-
-
-admin.site.register(Location, LocationAdmin)
+admin.site.register(
+    Location,
+    resource_class=LocationResource,
+    list_per_page=15,
+    list_display=("country", "town_city", "province_state", "map_preview"),
+    list_filter=("country", "town_city", "province_state"),
+)
 
 
 class TranscriptionInline(admin.TabularInline):
@@ -189,7 +182,9 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
                 "fields": (
                     "title",
                     "first_name",
+                    "first_name_unknown",
                     "last_name",
+                    "last_name_unknown",
                 ),
             },
         ),
