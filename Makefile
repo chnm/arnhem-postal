@@ -10,6 +10,9 @@ preview :
 check : 
 	poetry run python3 manage.py check
 
+loadobjects:
+	poetry run python manage.py load_objects --filepath="~/Downloads/arnhem.xlsx" --sheet="Box 1 Folders I-VIII"
+
 # Compile TailwindCSS
 tailwind :
 	poetry run python3 manage.py tailwind start
