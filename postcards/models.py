@@ -132,11 +132,21 @@ class Person(models.Model):
         verbose_name="First name unknown",
         help_text="Check this box if the first name is unknown.",
     )
+    first_name_unclear = models.BooleanField(
+        default=False,
+        verbose_name="First name unclear",
+        help_text="Check this box if the first name is unclear or illegible.",
+    )
     last_name = models.CharField(max_length=255, null=True, blank=True)
     last_name_unknown = models.BooleanField(
         default=False,
         verbose_name="Last name unknown",
         help_text="Check this box if the last name is unknown.",
+    )
+    last_name_unclear = models.BooleanField(
+        default=False,
+        verbose_name="Last name unclear",
+        help_text="Check this box if the last name is unclear or illegible.",
     )
     entity_name = models.CharField(max_length=255, null=True, blank=True)
     house_number = models.CharField(max_length=50, null=True, blank=True)
@@ -164,16 +174,13 @@ class Person(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        # return first name and last name if they exist and are not 'nan'
-        if (
-            self.first_name
-            and self.first_name != "nan"
-            and self.last_name
-            and self.last_name != "nan"
-        ):
-            return self.last_name + ", " + self.first_name
-        # return entity name if it exists and is not 'nan'
-        elif self.entity_name and self.entity_name != "nan":
+        if self.first_name and self.last_name:
+            return self.first_name + " " + self.last_name
+        elif self.first_name:
+            return self.first_name
+        elif self.last_name:
+            return self.last_name
+        elif self.entity_name:
             return self.entity_name
         else:
             return "No name provided"
@@ -344,8 +351,13 @@ class TranscriptionManager(models.Manager):
 
 class Transcription(models.Model):
     transcription_id = models.BigAutoField(primary_key=True)
-    language = models.ManyToManyField(
-        Language, blank=True, help_text="Select the language of this transcription"
+    language = models.ForeignKey(
+        Language,
+        on_delete=models.PROTECT,
+        default=1,
+        null=True,
+        blank=True,
+        help_text="Select the language of this transcription",
     )
     postal_object = models.ForeignKey(
         "Object",
@@ -368,7 +380,11 @@ class Transcription(models.Model):
         ordering = ["created"]
 
     def __str__(self):
-        return str(self.language.first().language)
+        language = self.language
+        if language is not None:
+            return str(language.language)
+        else:
+            return "No language selected"
 
 
 class Object(models.Model):
@@ -421,7 +437,7 @@ class Object(models.Model):
         verbose_name="collection location",
         help_text="The location in the collection (folder and box).",
     )
-    postmark = models.ManyToManyField(Postmark, verbose_name="postmark")
+    postmark = models.ManyToManyField(Postmark, blank=True, verbose_name="postmark")
     check_sensitive_content = models.BooleanField(
         verbose_name="Material contains sensitive content",
         help_text="Check this box if you think this postcard contains sensitive imagery or events.",
@@ -453,12 +469,23 @@ class Object(models.Model):
         help_text="The reason for return translated to English.",
     )
     regime_censor = models.CharField(max_length=50, choices=CENSOR_CHOICES)
-    regime_censor_location = models.ForeignKey(
-        Location,
-        blank=True,
+    regime_name = models.CharField(
+        max_length=250,
         null=True,
-        on_delete=models.PROTECT,
-        help_text="Select the location of the censor. If the location does not exist, click the plus and add the new location.",
+        blank=True,
+        help_text="This is the text of the stamp used by the censor.",
+    )
+    regime_city = models.CharField(
+        max_length=250,
+        null=True,
+        blank=True,
+        help_text="Provide the censor's city, if available.",
+    )
+    regime_country = models.CharField(
+        max_length=250,
+        null=True,
+        blank=True,
+        help_text="Provide the censor's country, if available.",
     )
     addressee_name = models.ForeignKey(
         Person,
@@ -690,3 +717,6 @@ class PrimarySource(models.Model):
             return "None attached"
 
     image_canvas.short_description = "Image"
+
+    class Meta:
+        verbose_name = "Document"
