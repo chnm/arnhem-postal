@@ -7,23 +7,24 @@ from postcards.models import Collection, Object
 def combine_all_names():
     """Combine all possible names from the Object senders and
     addressees for the dropdown."""
-    # get all the names from the Object senders and addressees
-    if Object.objects.all().values("sender_name") == "NA NA":
-        pass
+
     sender_names = (
-        Object.objects.all()
-        .order_by("sender_name")
-        .values_list("sender_name", "sender_name")
+        Object.objects.exclude(
+            sender_name__first_name="NA", sender_name__last_name="NA"
+        )
+        .order_by("sender_name__first_name", "sender_name__last_name")
+        .values_list("sender_name__first_name", "sender_name__last_name")
     )
-    if Object.objects.all().values("addressee_name") == "NA NA":
-        pass
     addressee_names = (
-        Object.objects.all()
-        .order_by("addressee_name")
-        .values_list("addressee_name", "addressee_name")
+        Object.objects.exclude(
+            addressee_name__first_name="NA", addressee_name__last_name="NA"
+        )
+        .order_by("addressee_name__first_name", "addressee_name__last_name")
+        .values_list("addressee_name__first_name", "addressee_name__last_name")
     )
-    # combine the names
     all_names = list(sender_names) + list(addressee_names)
+    all_names = [" ".join(map(str, name)) for name in all_names]
+    all_names = [(name, name) for name in all_names]
 
     return all_names
 
@@ -55,6 +56,11 @@ class ObjectFilter(django_filters.FilterSet):
 
     def filter_query(self, queryset, name, value):
         """Filter the queryset by the sender or addressee name."""
+        first_name, last_name = value.split(" ")
         return queryset.filter(
-            Q(sender_name=value) | Q(addressee_name=value)
-        ).distinct()
+            Q(sender_name__first_name=first_name, sender_name__last_name=last_name)
+            | Q(
+                addressee_name__first_name=first_name,
+                addressee_name__last_name=last_name,
+            )
+        )

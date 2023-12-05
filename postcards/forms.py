@@ -1,15 +1,22 @@
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
 from django import forms
-from django.utils.html import format_html
 
-from .models import Object, Postmark
+from .models import Object, Person, Postmark
 
 
 class ObjectForm(forms.ModelForm):
     class Meta:
         model = Object
-        fields = ["tags"]
+        fields = "__all__"
+
+    sender_name = forms.ModelChoiceField(
+        querset=Person.objects.all(),
+        label="Sender",
+    )
+
+    addressee_name = forms.ModelChoiceField(
+        querset=Person.objects.all(),
+        label="Addressee",
+    )
 
 
 class PostmarkForm(forms.ModelForm):
