@@ -303,16 +303,18 @@ class Postmark(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # TODO: Come up with a def str to return the location and date of the postmark.
     def __str__(self):
-        return (
-            "Postmark for "
-            + self.location.town_city
-            + ", "
-            + self.location.country
-            + ", dated "
-            + str(self.date)
-        )
+        location_parts = []
+
+        if self.location.town_city:
+            location_parts.append(self.location.town_city)
+
+        if self.location.country:
+            location_parts.append(self.location.country)
+
+        location_string = ", ".join(location_parts)
+
+        return f"Postmarked {location_string}, {self.date}"
 
 
 class ReasonReturnManager(models.Manager):
