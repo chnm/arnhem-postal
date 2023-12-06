@@ -9,6 +9,9 @@
         {% tailwind_css %}
         <link rel="stylesheet" href="{% static 'css/custom.css' %}">
         <script src="{% static 'js/alpine.min.js' %}" defer></script>
+
+        <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
         <body
             hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
             class="bg-white"
@@ -20,7 +23,7 @@
                         <a href="{% url 'index' %}" class="text-lg font-bold">Arnhem Postal History Project</a>
                         <a href="{% url 'about' %}" class="hover:text-gray-300">About</a>
                         <a href="#" class="hover:text-gray-300">Exhibits</a>
-                        <a href="#" class="hover:text-gray-300">Map</a>
+                        <a href="{% url 'maps' %}" class="hover:text-gray-300">Map</a>
                         <a href="#" class="hover:text-gray-300">Timeline</a>
                         <a href="{% url 'table' %}" class="hover:text-gray-300">Browse Items</a>
                     </div>
