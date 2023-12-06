@@ -2,7 +2,7 @@
 {% block content %}
     <main class="container mx-auto py-8">
 
-        <h2 class="text-2xl">Map time</h2>
+        <h2 class="text-2xl pb-5">Mapping Postal Routes</h2>
 
         <div id='map' width="100%" style='height:600px'></div>
         <script>
@@ -10,23 +10,57 @@
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v10',
-                center: [5.913, 51.979], //51.984159285607, 5.899688604693263
                 zoom: 9
             });
 
-            console.log("Checking...")
+            let coordinates = [];
+            let features = [];
+            let coords;
             {% for object in postal_objects %}
                 {% for postmark in object.postmark.all %}
                     {% if postmark.location and postmark.location.longitude and postmark.location.latitude %}
-                        console.log('Longitude: ', {{ postmark.location.longitude }}, 'Latitude: ', {{ postmark.location.latitude }});
-                        new mapboxgl.Marker()
-                            .setLngLat([{{ postmark.location.longitude }}, {{ postmark.location.latitude }}])
-                            .addTo(map);
+                        coords = [{{ postmark.location.longitude }}, {{ postmark.location.latitude }}];
+                        coordinates.push(coords);
+                        features.push({
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Point',
+                                coordinates: coords
+                            }
+                        });
                     {% else %}
                         console.log('Invalid or missing coordinates for object: ', {{ object.id }});
                     {% endif %}
                 {% endfor %}
             {% endfor %}
+
+            map.on('load', function () {
+                map.addSource('postmarks', {
+                    type: 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: features
+                    }
+                });
+
+                map.addLayer({
+                    id: 'postmarks',
+                    type: 'circle',
+                    source: 'postmarks',
+                    paint: {
+                        'circle-radius': 8,
+                        'circle-color': 'red'
+                    }
+                });
+            });
+
+            if (coordinates.length > 0) {
+                let bounds = coordinates.reduce(function(bounds, coord) {
+                    return bounds.extend(coord);
+                }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+                map.fitBounds(bounds, {padding: 20});
+            }
         </script>
 
     </main>
