@@ -1,0 +1,33 @@
+{% extends "postal/base.html" %}
+{% block content %}
+    <main class="container mx-auto py-8">
+
+        <h2 class="text-2xl">Map time</h2>
+
+        <div id='map' width="100%" style='height:600px'></div>
+        <script>
+            mapboxgl.accessToken = "pk.eyJ1IjoiaGVwcGxlcmoiLCJhIjoiY2xwc3cyN3UyMDdlOTJqbTgwcmZjeWJuYSJ9.wmrR3E8vqsQb3Ml7v0HX-A";
+            const map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v10',
+                center: [5.913, 51.979], //51.984159285607, 5.899688604693263
+                zoom: 9
+            });
+
+            console.log("Checking...")
+            {% for object in postal_objects %}
+                {% for postmark in object.postmark.all %}
+                    {% if postmark.location and postmark.location.longitude and postmark.location.latitude %}
+                        console.log('Longitude: ', {{ postmark.location.longitude }}, 'Latitude: ', {{ postmark.location.latitude }});
+                        new mapboxgl.Marker()
+                            .setLngLat([{{ postmark.location.longitude }}, {{ postmark.location.latitude }}])
+                            .addTo(map);
+                    {% else %}
+                        console.log('Invalid or missing coordinates for object: ', {{ object.id }});
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </script>
+
+    </main>
+{% endblock content %}
