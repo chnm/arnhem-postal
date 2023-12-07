@@ -1,8 +1,10 @@
 {% extends "postal/base.html" %}
 {% block content %}
-    <main class="container mx-auto py-8">
+    <main class="container mx-auto py-8 prose">
 
         <h2 class="text-2xl pb-5">Mapping Postal Routes</h2>
+
+        <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span> and people are <span style="font-weight: bold; color: blue;">blue</span></p>
 
         <div id='map' width="100%" style='height:600px'></div>
         <script>
@@ -16,6 +18,7 @@
             let coordinates = [];
             let features = [];
             let coords;
+            let postmarkid = 0;
             {% for object in postal_objects %}
                 {% for postmark in object.postmark.all %}
                     {% if postmark.location and postmark.location.longitude and postmark.location.latitude %}
@@ -23,6 +26,11 @@
                         coordinates.push(coords);
                         features.push({
                             type: 'Feature',
+                            properties: {
+                                id: postmarkid, // assign an id to the postmark
+                                sender_name: "{{ object.sender_name }}", // Include the sender_name property
+                                addressee_name: "{{ object.addressee_name }}" // Include the addressee_name property
+                            },
                             geometry: {
                                 type: 'Point',
                                 coordinates: coords
@@ -32,7 +40,75 @@
                         console.log('Invalid or missing coordinates for object: ', {{ object.id }});
                     {% endif %}
                 {% endfor %}
+                postmarkid++; // increment the id
             {% endfor %}
+
+            // Add another loop for the Person model data
+            let personCoords;
+            let personFeatures = [];
+            let personid = 0;
+            {% for person in persons %}
+                {% if person.longitude and person.latitude %}
+                    personCoords = [{{ person.longitude }}, {{ person.latitude }}];
+                    personFeatures.push({
+                        type: 'Feature',
+                        properties: {
+                            id: personid // assign an id to the person
+                        },
+                        geometry: {
+                            type: 'Point',
+                            coordinates: personCoords
+                        },
+                        properties: {
+                            firstName: "{{ person.first_name }}", // Include the first_name property
+                            lastName: "{{ person.last_name }}" // Include the last_name property
+                        }
+                    });
+                {% else %}
+                    console.log('Invalid or missing coordinates for person: ', {{ person.id }});
+                {% endif %}
+                personid++; // increment the id
+            {% endfor %}
+
+            let routes = [];
+            let routeid = 0;
+            let routeCoords;
+            {% for object in postal_objects %}
+                routeCoords = [];
+
+                // Add the sender's location to the route
+                {% if object.sender_name.longitude and object.sender_name.latitude %}
+                    routeCoords.push([{{ object.sender_name.longitude }}, {{ object.sender_name.latitude }}]);
+                {% endif %}
+
+                // Add the locations of the associated postmarks to the route
+                {% for postmark in object.postmark.all %}
+                    {% if postmark.location and postmark.location.longitude and postmark.location.latitude %}
+                        routeCoords.push([{{ postmark.location.longitude }}, {{ postmark.location.latitude }}]);
+                    {% endif %}
+                {% endfor %}
+
+                // Add the addressee's location to the route
+                {% if object.addressee_name.longitude and object.addressee_name.latitude %}
+                    routeCoords.push([{{ object.addressee_name.longitude }}, {{ object.addressee_name.latitude }}]);
+                {% endif %}
+
+                // Add the route to the routes array
+                routes.push({
+                    type: 'Feature',
+                    properties: {
+                        id: routeid // assign an id to the route
+                    },
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: routeCoords
+                    }
+                });
+                routeid++; // increment the id
+                console.log('routeCoords for object ' + {{ object.id }} + ':', routeCoords); // Log the routeCoords array
+            {% endfor %}
+            console.log('routes:', routes); // Log the routes array
+
 
             map.on('load', function () {
                 map.addSource('postmarks', {
@@ -43,15 +119,113 @@
                     }
                 });
 
+                map.addSource('persons', {
+                    type: 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: personFeatures
+                    }
+                });
+
+                map.addSource('routes', {
+                    type: 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: routes
+                    }
+                });
+
+                // Add a new layer for the routes
+                map.addLayer({
+                    id: 'routes',
+                    type: 'line',
+                    source: 'routes',
+                    layout: {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    paint: {
+                        'line-color': '#888',
+                        'line-width': 2,
+                        'line-opacity': 0.4
+                    }
+                });
+
                 map.addLayer({
                     id: 'postmarks',
                     type: 'circle',
                     source: 'postmarks',
                     paint: {
-                        'circle-radius': 8,
-                        'circle-color': 'red'
+                        'circle-radius': 6,
+                        'circle-color': 'red',
+                        'circle-opacity': 0.8
                     }
                 });
+
+                map.addLayer({
+                    id: 'persons',
+                    type: 'circle',
+                    source: 'persons',
+                    paint: {
+                        'circle-radius': 6,
+                        'circle-color': 'blue',
+                        'circle-opacity': 0.8
+                    }
+                });
+            });
+
+            // Add an onclick event to the persons layer
+            map.on('click', 'persons', function (e) {
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const firstName = e.features[0].properties.firstName;
+                const lastName = e.features[0].properties.lastName;
+
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML('<h3>' + firstName + ' ' + lastName + '</h3>')
+                    .addTo(map);
+            });
+
+            // Add an onclick event to the postmarks layer
+            map.on('click', 'postmarks', function (e) {
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const senderName = e.features[0].properties.sender_name;
+                const addresseeName = e.features[0].properties.addressee_name;
+
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML('<h3>Sender: ' + senderName + '</h3><p>Addressee: ' + addresseeName + '</p>')
+                    .addTo(map);
+            });
+
+            // Change the cursor to a pointer when the mouse is over the persons layer
+            map.on('mouseenter', 'persons', function () {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            // Change it back to a pointer when it leaves
+            map.on('mouseleave', 'persons', function () {
+                map.getCanvas().style.cursor = '';
+            });
+
+            // When the mouse enters a postmark or person, increase the line's opacity
+            map.on('mouseenter', 'postmarks', function (e) {
+                map.setFilter('routes', ['==', 'id', e.features[0].properties.id]);
+                map.setPaintProperty('routes', 'line-opacity', 1);
+            });
+            map.on('mouseenter', 'persons', function (e) {
+                map.setFilter('routes', ['==', 'id', e.features[0].properties.id]);
+                map.setPaintProperty('routes', 'line-opacity', 1);
+            });
+
+            // When the mouse leaves a postmark or person, reset the line's opacity
+            map.on('mouseleave', 'postmarks', function (e) {
+                map.setFilter('routes', null);
+                map.setPaintProperty('routes', 'line-opacity', 0.2);
+            });
+            map.on('mouseleave', 'persons', function (e) {
+                map.setFilter('routes', null);
+                map.setPaintProperty('routes', 'line-opacity', 0.2);
             });
 
             if (coordinates.length > 0) {
@@ -61,6 +235,9 @@
 
                 map.fitBounds(bounds, {padding: 20});
             }
+
+
+
         </script>
 
     </main>

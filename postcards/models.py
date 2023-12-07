@@ -76,7 +76,6 @@ class Language(models.Model):
         null=True,
     )
     iso_code = models.CharField(
-        "ISO Code",
         max_length=3,
         blank=True,
         help_text="ISO 639 code for this language (2 or 3 letters)",
@@ -459,13 +458,13 @@ class Object(models.Model):
         help_text="Insert the date as YYYY-MM-DD or use the date picker. Leave blank if unknown.",
     )
     reason_for_return_original = models.TextField(
-        max_length=255,
+        max_length=600,
         null=True,
         blank=True,
         help_text="The reason for return in the original language.",
     )
     reason_for_return_translated = models.TextField(
-        max_length=255,
+        max_length=600,
         null=True,
         blank=True,
         help_text="The reason for return translated to English.",
