@@ -1733,6 +1733,20 @@ files = [
 ]
 
 [[package]]
+name = "termcolor"
+version = "2.4.0"
+description = "ANSI color formatting for output in terminal"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "termcolor-2.4.0-py3-none-any.whl", hash = "sha256:9297c0df9c99445c2412e832e882a7884038a25617c60cea2ad69488d4040d63"},
+    {file = "termcolor-2.4.0.tar.gz", hash = "sha256:aab9e56047c8ac41ed798fa36d892a37aca6b3e9159f3e0c24bc64a9b3ac7b7a"},
+]
+
+[package.extras]
+tests = ["pytest", "pytest-cov"]
+
+[[package]]
 name = "twisted"
 version = "23.8.0"
 description = "An asynchronous networking framework written in Python"
@@ -1952,4 +1966,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.13"
-content-hash = "16af1531fa6faf054919233bcef0b416ea1aa16d3cc69d4c6a42f51d14d41101"
+content-hash = "f183b6f20e51145cbd5b3aca95b19a6e50f68e0d23878106781efe3b2fccd18f"
