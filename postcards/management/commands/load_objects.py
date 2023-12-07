@@ -3,9 +3,11 @@ import math
 from datetime import datetime
 
 import pandas as pd
+from dateutil.parser import parse
 from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from termcolor import colored
 
 from postcards.models import (
     Collection,
@@ -212,6 +214,14 @@ class Command(BaseCommand):
                         postmark_2_date = row["postmark 2 date"]
                         postmark_2_location_name = row["postmark 2 location"]
 
+                        # Before we write the data to the obj, we replace the None
+                        # values with empty strings. This is done throughout all of the
+                        # data. So, we find any instance where the value is None and
+                        # replace it with an empty string.
+                        for key, value in row.items():
+                            if value is None:
+                                row[key] = ""
+
                         # Create or update Objects instance
                         obj, _ = Object.objects.get_or_create(
                             item_id=item_number,
@@ -267,7 +277,10 @@ class Command(BaseCommand):
                                 )
 
                             print(
-                                f"Initial postmark_1_date: {postmark_1_date} (type: {type(postmark_1_date)})"
+                                f"Initial postmark_1_date: {postmark_1_date} colored((type: {type(postmark_1_date)}), 'green')",
+                                f"Initial postmark_1_location: {postmark_1_location} colored((type: {type(postmark_1_location)}), 'green')",
+                                f"Initial postmark_2_date: {postmark_2_date} colored((type: {type(postmark_2_date)}), 'green')",
+                                f"Initial postmark_2_location: {postmark_2_location} colored((type: {type(postmark_2_location)}), 'green')",
                             )
                             # Create or update postmarks and associate them with the object
                             if postmark_1_location:
@@ -300,55 +313,90 @@ class Command(BaseCommand):
                                     location=postmark_1_location,
                                     ordered_by_arrival=1,
                                 )
-                            else:
-                                # Handle the case when postmark_1_location is not found
-                                postmark_1 = None
 
-                                # if postmark_2_location:
-                                #     try:
-                                #         # Convert the date string to a datetime object
-                                #         if isinstance(postmark_2_date, str):
-                                #             postmark_2_date = datetime.strptime(
-                                #                 postmark_2_date, "%Y-%m-%d"
-                                #             ).date()
-                                #         elif isinstance(
-                                #             postmark_2_date, (float, int)
-                                #         ) and not math.isnan(postmark_2_date):
-                                #             # Convert the float or int to a date
-                                #             postmark_2_date = datetime.fromtimestamp(
-                                #                 postmark_2_date
-                                #             ).date()
-                                #         else:
-                                #             postmark_2_date = None
-                                #     except (ValueError, ValidationError) as e:
-                                #         print(
-                                #             f"Error processing Postmark 2 Date '{postmark_2_date}': {e}"
-                                #         )
-                                #         postmark_2_date = None
+                            if postmark_2_location:
+                                try:
+                                    # Convert the date string to a datetime object
+                                    if isinstance(postmark_2_date, str):
+                                        postmark_2_date = datetime.strptime(
+                                            postmark_2_date, "%Y-%m-%d %H:%M:%S"
+                                        ).date()
+                                    elif isinstance(
+                                        postmark_2_date, (float, int)
+                                    ) and not math.isnan(postmark_2_date):
+                                        # Convert the float or int to a date
+                                        postmark_2_date = datetime.fromtimestamp(
+                                            postmark_2_date
+                                        ).date()
+                                    else:
+                                        postmark_2_date = None
+                                except (ValueError, ValidationError) as e:
+                                    print(
+                                        f"Error processing Postmark 2 Date '{postmark_2_date}': {e}"
+                                    )
+                                    postmark_2_date = None
 
-                                #     # Create or update the Postmark object
-                                #     postmark_2, _ = Postmark.objects.get_or_create(
-                                #         date=postmark_2_date,
-                                #         location=postmark_2_location,
-                                #         ordered_by_arrival=2,
-                                #     )
+                                print(
+                                    f"Final postmark_2_date: {postmark_2_date} (type: {type(postmark_2_date)})"
+                                )
+                                postmark_2, _ = Postmark.objects.get_or_create(
+                                    date=postmark_2_date,
+                                    location=postmark_2_location,
+                                    ordered_by_arrival=2,
+                                )
 
-                                # print(f"postmark_1: {postmark_1}, postmark_2: {postmark_2}")
+                            # Now that the postmarks exist, we can associate them with
+                            # the postal object. We need to do this after the postmarks
+                            # are created because the postmark needs to exist before
+                            # we can associate it with the postal object.
+                            try:
+                                # we look up the postmark by date and location
+                                if postmark_1_location:
+                                    postmark_1 = Postmark.objects.get(
+                                        date=postmark_1_date,
+                                        location=postmark_1_location,
+                                    )
+                                    obj.postmark.add(postmark_1)
+                                    print(
+                                        colored(
+                                            f"Associated Postmark 1 {postmark_1.id} with Object {obj.id}",
+                                            "green",
+                                        )
+                                    )
 
-                                # Set the postmarks for the object
-                                if postmark_1:
-                                    obj.postmark.set([pm for pm in [postmark_1] if pm])
+                                if postmark_2_location:
+                                    postmark_2 = Postmark.objects.get(
+                                        date=postmark_2_date,
+                                        location=postmark_2_location,
+                                    )
+                                    obj.postmark.add(postmark_2)
+                                    print(
+                                        colored(
+                                            f"Associated Postmark 2 {postmark_2.id} with Object {obj.id}",
+                                            "green",
+                                        )
+                                    )
+
+                            except Postmark.DoesNotExist as e:
+                                print(
+                                    f"Error associating postmark with postal object: {e}"
+                                )
+                                raise e
 
                         except Exception as e:
                             logger.exception(
-                                f"Error processing postmarks for row {index + 2}: {str(e)}"
+                                "Error processing postmarks for row %s: %s",
+                                index + 2,
+                                str(e),
                             )
                             raise e
 
                     except Exception as e:
-                        logger.exception(f"Error processing row {index + 2}: {str(e)}")
+                        logger.exception(
+                            "Error processing row %s: %s", index + 2, str(e)
+                        )
                         raise e
 
         except Exception as e:
-            logger.exception(f"Error reading Excel file: {str(e)}")
+            logger.exception("Error reading Excel file: %s", str(e))
             raise e
