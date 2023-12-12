@@ -392,7 +392,6 @@ class Command(BaseCommand):
                                         location=postmark_1_location,
                                     )
                                     obj.postmark.add(postmark_1)
-                                    # print(f"Associated Postmark 1 {postmark_1.id} with Object {obj.id}",)
 
                                 if postmark_2_location:
                                     postmark_2 = Postmark.objects.get(
@@ -400,7 +399,6 @@ class Command(BaseCommand):
                                         location=postmark_2_location,
                                     )
                                     obj.postmark.add(postmark_2)
-                                    # print(f"Associated Postmark 2 {postmark_2.id} with Object {obj.id}",)
 
                             except Postmark.DoesNotExist as e:
                                 print(
