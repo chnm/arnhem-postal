@@ -77,6 +77,37 @@ Unit Tests
 Python tests are written with `py.test <http://doc.pytest.org/>`_
 and should be run with ``pytest``. To run a test, make sure to call pytest with poetry.
 
+Server Installation 
+===================
+
+- Install and activate Python 3.11.0. It's recommended to use `pyenv <`
+- Create the Postgres database and user for the project. The database name and user name should be the same as the project name.
+- Install `Poetry <https://python-poetry.org/docs/>` _ for Python dependency management.
+- Once you have Poetry, install required Python dependencies as described above. 
+- Install `Volta <https://volta.sh/>`_ for Node version management and install required Javascript dependencies as described above.
+- Set secrets to a local `.env` file as described above.
+- Then, update your settings.py file as described above.
+- Run database migrations. Recall there are helpers in the Makefile if necessary.
+- Create a superuser account for sysadmin. You can do this with the following command:
+
+.. code-bock:: bash
+
+    python manage.py createsuperuser
+
+- Once the database and dependencies are ready, we need to load in the data. First, two fixtures must be installed. These fixtures are located in the `postcards/fixtures` directory. To install the fixtures, run the following commands:
+
+.. code-block:: bash
+
+    python manage.py loaddata postcards/fixtures/locations.json
+    python manage.py loaddata postcards/fixtures/collections.json
+
+- Next, we need to load the postcard data. The postcard data is stored in an Excel file. To load the data, run the following command:
+  
+.. code-block:: bash
+
+    python manage.py load_objects path/to/excel/file.xlsx
+
+- Once these steps are complete, the current set of working data should be available.
 
 Models 
 ======
