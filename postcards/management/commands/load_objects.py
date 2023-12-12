@@ -7,7 +7,6 @@ from dateutil.parser import parse
 from django.core.exceptions import ValidationError
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from termcolor import colored
 
 from postcards.models import (
     Collection,
@@ -49,6 +48,11 @@ class Command(BaseCommand):
 
     def load_data(self, file_path, sheet_name=None):
         try:
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f"Loading data from file {file_path} and sheet {sheet_name}"
+                )
+            )
             xls = pd.ExcelFile(file_path)
             dfs = {}
 
@@ -69,6 +73,12 @@ class Command(BaseCommand):
             for sheet_name, df in dfs.items():
                 for index, row in df.iterrows():
                     try:
+                        self.stdout.write(
+                            self.style.SUCCESS(
+                                f"Processing row {index + 2} of sheet {sheet_name}"
+                            )
+                        )
+
                         # Extract data from the row
                         entity_type = str(
                             row.get("correspondence_type") or "Person"
@@ -137,6 +147,11 @@ class Command(BaseCommand):
                             last_name=addressee_last_name,
                         ).first()
                         if not addressee:
+                            self.stdout.write(
+                                self.style.SUCCESS(
+                                    f"Creating addressee {addressee_first_name} {addressee_last_name}"
+                                )
+                            )
                             addressee = Person.objects.create(
                                 entity_type=entity_type,
                                 title=addressee_title,
@@ -163,6 +178,11 @@ class Command(BaseCommand):
                             first_name=sender_first_name, last_name=sender_last_name
                         ).first()
                         if not sender:
+                            self.stdout.write(
+                                self.style.SUCCESS(
+                                    f"Creating sender {sender_first_name} {sender_last_name}"
+                                )
+                            )
                             sender = Person.objects.create(
                                 entity_type=entity_type,
                                 title=sender_title,
@@ -256,6 +276,11 @@ class Command(BaseCommand):
                         )
 
                         try:
+                            self.stdout.write(
+                                self.style.SUCCESS(
+                                    f"Processing postmarks for row {index + 2} of sheet {sheet_name}"
+                                )
+                            )
                             # Create or update the postmarks
                             # Adjust finding the location
                             if postmark_1_location_name:
@@ -277,14 +302,19 @@ class Command(BaseCommand):
                                 )
 
                             print(
-                                f"Initial postmark_1_date: {postmark_1_date} colored((type: {type(postmark_1_date)}), 'green')",
-                                f"Initial postmark_1_location: {postmark_1_location} colored((type: {type(postmark_1_location)}), 'green')",
-                                f"Initial postmark_2_date: {postmark_2_date} colored((type: {type(postmark_2_date)}), 'green')",
-                                f"Initial postmark_2_location: {postmark_2_location} colored((type: {type(postmark_2_location)}), 'green')",
+                                f"Initial postmark_1_date: {postmark_1_date} (type: {type(postmark_1_date)})",
+                                f"Initial postmark_1_location: {postmark_1_location} (type: {type(postmark_1_location)})",
+                                f"Initial postmark_2_date: {postmark_2_date} (type: {type(postmark_2_date)})",
+                                f"Initial postmark_2_location: {postmark_2_location} (type: {type(postmark_2_location)})",
                             )
                             # Create or update postmarks and associate them with the object
                             if postmark_1_location:
                                 try:
+                                    self.stdout.write(
+                                        self.style.SUCCESS(
+                                            f"Processing Postmark 1 for row {index + 2} of sheet {sheet_name}"
+                                        )
+                                    )
                                     # Convert the date string to a datetime object
                                     if isinstance(postmark_1_date, str):
                                         postmark_1_date = datetime.strptime(
@@ -316,6 +346,11 @@ class Command(BaseCommand):
 
                             if postmark_2_location:
                                 try:
+                                    self.stdout.write(
+                                        self.style.SUCCESS(
+                                            f"Processing Postmark 2 for row {index + 2} of sheet {sheet_name}"
+                                        )
+                                    )
                                     # Convert the date string to a datetime object
                                     if isinstance(postmark_2_date, str):
                                         postmark_2_date = datetime.strptime(
@@ -357,12 +392,7 @@ class Command(BaseCommand):
                                         location=postmark_1_location,
                                     )
                                     obj.postmark.add(postmark_1)
-                                    print(
-                                        colored(
-                                            f"Associated Postmark 1 {postmark_1.id} with Object {obj.id}",
-                                            "green",
-                                        )
-                                    )
+                                    # print(f"Associated Postmark 1 {postmark_1.id} with Object {obj.id}",)
 
                                 if postmark_2_location:
                                     postmark_2 = Postmark.objects.get(
@@ -370,12 +400,7 @@ class Command(BaseCommand):
                                         location=postmark_2_location,
                                     )
                                     obj.postmark.add(postmark_2)
-                                    print(
-                                        colored(
-                                            f"Associated Postmark 2 {postmark_2.id} with Object {obj.id}",
-                                            "green",
-                                        )
-                                    )
+                                    # print(f"Associated Postmark 2 {postmark_2.id} with Object {obj.id}",)
 
                             except Postmark.DoesNotExist as e:
                                 print(
