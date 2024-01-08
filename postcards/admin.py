@@ -85,13 +85,18 @@ class PostmarkAdmin(ExportMixin, admin.ModelAdmin):
 admin.site.register(Postmark, PostmarkAdmin)
 
 
-admin.site.register(
-    Location,
-    resource_class=LocationResource,
-    list_per_page=15,
-    list_display=("country", "town_city", "province_state", "map_preview"),
-    list_filter=("country", "town_city", "province_state"),
-)
+class LocationAdmin(ExportMixin, admin.ModelAdmin):
+    resource_class = LocationResource
+    list_per_page = 15
+    list_display = ("country", "town_city", "province_state", "map_preview")
+    list_filter = ("country", "town_city", "province_state")
+
+    class Meta:
+        model = Location
+        fields = ("country", "town_city", "province_state", "latitude", "longitude")
+
+
+admin.site.register(Location, LocationAdmin)
 
 
 class TranscriptionInline(admin.TabularInline):
