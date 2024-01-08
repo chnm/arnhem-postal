@@ -22,6 +22,8 @@ admin.site.site_header = "Arnhem Postal History Project"
 admin.site.site_title = "Arnhem Postal History Project"
 admin.site.index_title = "Arnhem Postal History Project"
 
+admin.site.register(Image)
+
 
 # Custom adjustments to our admin views
 class CustomAdminFileWidget(AdminFileWidget):
