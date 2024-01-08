@@ -46,7 +46,12 @@ class Image(models.Model):
     )
 
     def __str__(self):
-        return str(self.image_id)
+        return str(
+            "Image for postal object "
+            + self.postcard.item_id
+            + " captioned: "
+            + str(self.image_caption)
+        )
 
     def image_preview(self):
         if self.image:
