@@ -2,6 +2,7 @@ import logging
 import math
 from datetime import datetime
 
+import numpy as np
 import pandas as pd
 from dateutil.parser import parse
 from django.core.exceptions import ValidationError
@@ -58,6 +59,7 @@ class Command(BaseCommand):
 
             if sheet_name:
                 df = pd.read_excel(xls, sheet_name=sheet_name, dtype=str)
+                df = df.replace({np.nan: None})
                 df.columns = df.columns.str.strip()
                 df.columns = df.columns.str.lower()
                 dfs = {sheet_name: df}
@@ -66,6 +68,7 @@ class Command(BaseCommand):
                 dfs = {}
                 for sheet_name in sheet_names:
                     df = pd.read_excel(xls, sheet_name=sheet_name, dtype=str)
+                    df = df.replace({np.nan: None})
                     df.columns = df.columns.str.strip()
                     df.columns = df.columns.str.lower()
                     dfs[sheet_name] = df
@@ -238,9 +241,9 @@ class Command(BaseCommand):
                         # values with empty strings. This is done throughout all of the
                         # data. So, we find any instance where the value is None and
                         # replace it with an empty string.
-                        for key, value in row.items():
-                            if value is None:
-                                row[key] = ""
+                        # for key, value in row.items():
+                        #     if value is None:
+                        #         row[key] = ""
 
                         # Create or update Objects instance
                         obj, _ = Object.objects.get_or_create(
@@ -274,6 +277,11 @@ class Command(BaseCommand):
                             transcription=transcription_text,
                             language=language,
                         )
+
+                        # Create or update postmarks
+                        # Set the initial values to None
+                        postmark_1_location = None
+                        postmark_2_location = None
 
                         try:
                             self.stdout.write(
