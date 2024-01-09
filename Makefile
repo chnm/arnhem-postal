@@ -10,8 +10,17 @@ preview :
 check : 
 	poetry run python3 manage.py check
 
-loadobjects:
+loadlocations :
+	poetry run python manage.py loaddata locations.yaml
+
+loadlanguages :
+	poetry run python manage.py loaddata languages.yaml
+
+loadobjects :
 	poetry run python manage.py load_objects --filepath="~/Downloads/arnhem.xlsx" --sheet="Box 1 Folders I-VIII"
+
+loadimages : 
+	poetry run python manage.py populate_images
 
 # Compile TailwindCSS
 tailwind :
