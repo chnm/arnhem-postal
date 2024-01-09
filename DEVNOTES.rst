@@ -80,7 +80,7 @@ and should be run with ``pytest``. To run a test, make sure to call pytest with 
 Server Installation 
 ===================
 
-- Install and activate Python 3.11.0. It's recommended to use `pyenv <`
+- Install and activate Python 3.11.0. It's recommended to use `pyenv`
 - Create the Postgres database and user for the project. The database name and user name should be the same as the project name.
 - Install `Poetry <https://python-poetry.org/docs/>` _ for Python dependency management.
 - Once you have Poetry, install required Python dependencies as described above. 
@@ -101,11 +101,11 @@ Server Installation
     python manage.py loaddata postcards/fixtures/locations.yaml
     python manage.py loaddata postcards/fixtures/languages.yaml
 
-- Next, we need to load the postal data. The postal data is stored in an Excel file (see the Project Manager for access). To load the data, run the following command:
+- Next, we need to load the postal data. The postal data is stored in an Excel file (see the Project Manager for access). To load the data, run the following command (there are default values in the `Makefile` if you run `make loadobjects`):
   
 .. code-block:: bash
 
-    python manage.py load_objects path/to/excel/file.xlsx
+    python manage.py load_objects --filepath=path/to/excel/file.xlsx --sheet="sheet name"
 
 - Once these steps are complete, the current set of working data should be available.
 
