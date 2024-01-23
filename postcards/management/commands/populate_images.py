@@ -19,7 +19,7 @@ class Command(BaseCommand):
             "--filepath",
             type=str,
             help="The path to the local images",
-            default="static/images",
+            default="static/upload",
         )
 
     def handle(self, *args, **options):
