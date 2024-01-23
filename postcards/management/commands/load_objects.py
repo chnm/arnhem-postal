@@ -38,9 +38,7 @@ class Command(BaseCommand):
         try:
             with transaction.atomic():
                 self.load_data(file_path, sheet_name)
-                self.stdout.write(
-                    self.style.SUCCESS("Objects data loaded successfully")
-                )
+                self.stdout.write(self.style.SUCCESS("Successfully loaded data."))
         except Exception as e:
             logger.exception(f"Error loading Objects data: {str(e)}")
             self.stdout.write(
@@ -145,6 +143,167 @@ class Command(BaseCommand):
                         addressee_town_city = str(row["addressee town/city"])
                         addressee_province_state = str(row["addressee province/state"])
                         addressee_country = str(row["addressee country"])
+
+                        sender_title = str(row["sender title"])
+                        sender_first_name = str(row["sender first name"])
+                        sender_last_name = str(row["sender last name"])
+                        sender_house_number = str(row["sender house number"])
+                        sender_street = str(row["sender street"])
+                        sender_town_city = str(row["sender town/city"])
+                        sender_province_state = str(row["sender province/state"])
+                        sender_country = str(row["sender country"])
+
+                        postmark_1_date = row["postmark 1 date"]
+                        postmark_1_location_name = row["postmark 1 location"]
+                        postmark_2_date = row["postmark 2 date"]
+                        postmark_2_location_name = row["postmark 2 location"]
+
+                        # Now, we create the Location data in the model. This data comes from
+                        # the following fields:
+                        # addressee_province_state = str(row["addressee province/state"])
+                        # addressee_country = str(row["addressee country"])
+                        # sender_province_state = str(row["sender province/state"])
+                        # sender_country = str(row["sender country"])
+                        # postmark_1_location_name = row["postmark 1 location"]
+                        # postmark_2_location_name = row["postmark 2 location"]
+                        # From these fields, we can create the Location data. We need to
+                        # check if the Location already exists. If it does, we use that
+                        # Location. If it doesn't, we create a new Location.
+                        # Get the location data from the row
+                        # Create or get the Location instances
+
+                        addressee_location = Location.objects.filter(
+                            town_city=addressee_town_city,
+                            province_state=addressee_province_state,
+                            country=addressee_country,
+                        ).first()
+
+                        if addressee_location is None:
+                            addressee_location = Location.objects.create(
+                                town_city=addressee_town_city,
+                                province_state=addressee_province_state,
+                                country=addressee_country,
+                            )
+                            created = True
+                        else:
+                            created = False
+
+                        if created:
+                            self.stdout.write(
+                                self.style.SUCCESS(
+                                    f"\tCreated new ADDRESSEE location: {addressee_location}"
+                                )
+                            )
+                        else:
+                            self.stdout.write(
+                                self.style.WARNING(
+                                    f"\tLocation for ADDRESSEE already exists: {addressee_location}"
+                                )
+                            )
+
+                        sender_location = Location.objects.filter(
+                            town_city=sender_town_city,
+                            province_state=sender_province_state,
+                            country=sender_country,
+                        ).first()
+
+                        if sender_location is None:
+                            sender_location = Location.objects.create(
+                                town_city=sender_town_city,
+                                province_state=sender_province_state,
+                                country=sender_country,
+                            )
+                            created = True
+                        else:
+                            created = False
+
+                        if created:
+                            self.stdout.write(
+                                self.style.SUCCESS(
+                                    f"\tCreated new SENDER location: {sender_location}"
+                                )
+                            )
+                        else:
+                            self.stdout.write(
+                                self.style.WARNING(
+                                    f"\tLocation for SENDER already exists: {sender_location}"
+                                )
+                            )
+
+                        # print the postmark being processed
+                        self.stdout.write(
+                            self.style.NOTICE(
+                                f"Processing POSTMARK 1 LOCATION ${postmark_1_location_name} for row {index + 2} of sheet {sheet_name}"
+                            )
+                        )
+
+                        postmark_1_location = Location.objects.filter(
+                            town_city=postmark_1_location_name
+                        ).first()
+
+                        if postmark_1_location_name is not None:
+                            postmark_1_location = Location.objects.filter(
+                                town_city=postmark_2_location_name
+                            ).first()
+
+                            if postmark_1_location is None:
+                                postmark_1_location = Location.objects.create(
+                                    town_city=postmark_2_location_name
+                                )
+                                created = True
+                            else:
+                                created = False
+                        else:
+                            postmark_1_location = None
+
+                        if created:
+                            self.stdout.write(
+                                self.style.SUCCESS(
+                                    f"\tCreated new location: {postmark_1_location}"
+                                )
+                            )
+                        else:
+                            self.stdout.write(
+                                self.style.WARNING(
+                                    f"\tLocation already exists: {postmark_1_location}"
+                                )
+                            )
+
+                        # print the postmark being processed
+                        self.stdout.write(
+                            self.style.NOTICE(
+                                f"Processing POSTMARK 2 LOCATION ${postmark_2_location_name} for row {index + 2} of sheet {sheet_name}"
+                            )
+                        )
+
+                        if postmark_2_location_name is not None:
+                            postmark_2_location = Location.objects.filter(
+                                town_city=postmark_2_location_name
+                            ).first()
+
+                            if postmark_2_location is None:
+                                postmark_2_location = Location.objects.create(
+                                    town_city=postmark_2_location_name
+                                )
+                                created = True
+                            else:
+                                created = False
+                        else:
+                            postmark_2_location = None
+
+                        if created:
+                            self.stdout.write(
+                                self.style.SUCCESS(
+                                    f"\tCreated new location: {postmark_2_location}"
+                                )
+                            )
+                        else:
+                            self.stdout.write(
+                                self.style.WARNING(
+                                    f"\tLocation already exists: {postmark_2_location}"
+                                )
+                            )
+
                         addressee = Person.objects.filter(
                             first_name=addressee_first_name,
                             last_name=addressee_last_name,
@@ -169,14 +328,6 @@ class Command(BaseCommand):
                                 ).first(),
                             )
 
-                        sender_title = str(row["sender title"])
-                        sender_first_name = str(row["sender first name"])
-                        sender_last_name = str(row["sender last name"])
-                        sender_house_number = str(row["sender house number"])
-                        sender_street = str(row["sender street"])
-                        sender_town_city = str(row["sender town/city"])
-                        sender_province_state = str(row["sender province/state"])
-                        sender_country = str(row["sender country"])
                         sender = Person.objects.filter(
                             first_name=sender_first_name, last_name=sender_last_name
                         ).first()
@@ -231,11 +382,6 @@ class Command(BaseCommand):
                         collection, _ = Collection.objects.get_or_create(
                             name="Tim Gale"
                         )  # Default to "Tim Gale"
-
-                        postmark_1_date = row["postmark 1 date"]
-                        postmark_1_location_name = row["postmark 1 location"]
-                        postmark_2_date = row["postmark 2 date"]
-                        postmark_2_location_name = row["postmark 2 location"]
 
                         # Before we write the data to the obj, we replace the None
                         # values with empty strings. This is done throughout all of the
