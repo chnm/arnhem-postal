@@ -38,12 +38,6 @@ class Image(models.Model):
         related_name="images",
         null=True,
     )
-    historical_source = models.ForeignKey(
-        "PrimarySource",
-        on_delete=models.CASCADE,
-        related_name="images",
-        null=True,
-    )
 
     def __str__(self):
         return str(
@@ -202,31 +196,20 @@ class Person(models.Model):
                 from geopy.geocoders import Nominatim
 
                 geolocator = Nominatim(user_agent="postcards")
-                # set location to house number, street, and the information linked in Location model
-                location = geolocator.geocode(
-                    self.house_number
-                    + " "
-                    + self.street
-                    + " "
-                    + self.location.town_city
-                    + " "
-                    + self.location.country
-                )
-                # log this to see if it's working
-                logger.info(
-                    "Geocoding: "
-                    + self.house_number
-                    + " "
-                    + self.street
-                    + " "
-                    + self.location.town_city
-                    + " "
-                    + self.location.country
-                )
+                location_components = [
+                    self.house_number,
+                    self.street,
+                    self.location.town_city,
+                    self.location.country,
+                ]
+                location_string = " ".join(filter(None, location_components))
+                location = geolocator.geocode(location_string)
+                logger.info(f"Geocoding: {location_string}")
+
                 self.latitude = str(location.latitude)
                 self.longitude = str(location.longitude)
             except Exception as e:
-                logger.error("Error in geocoding a Person: " + str(e) + str(self))
+                logger.warning("Warning in geocoding a Person: " + str(e) + str(self))
         super().save(*args, **kwargs)
 
 
@@ -249,7 +232,9 @@ class Location(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.town_city + ", " + self.country
+        town_city = self.town_city if self.town_city else "Unknown town/city"
+        country = self.country if self.country else "Unknown country"
+        return town_city + ", " + country
 
     # Always sort alphabetically
     class Meta:
@@ -281,11 +266,14 @@ class Location(models.Model):
                 from geopy.geocoders import Nominatim
 
                 geolocator = Nominatim(user_agent="postcards")
-                location = geolocator.geocode(self.town_city + ", " + self.country)
+                location_components = [self.town_city, self.country]
+                location_string = ", ".join(filter(None, location_components))
+                location = geolocator.geocode(location_string)
+
                 self.latitude = str(location.latitude)
                 self.longitude = str(location.longitude)
             except Exception as e:
-                logger.error("Error in geocoding: " + str(e))
+                logger.warning("Warning in geocoding: " + str(e))
         super().save(*args, **kwargs)
 
 
@@ -393,6 +381,33 @@ class Transcription(models.Model):
             return "No language selected"
 
 
+class Censor(models.Model):
+    censor_id = models.BigAutoField(primary_key=True)
+    censor_name = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="The name of the censor location.",
+    )
+    censor_location = models.ForeignKey(
+        Location,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        help_text="The location of the censor.",
+    )
+    censor_notes = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Notes on the censor.",
+    )
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.censor_name
+
+
 class Object(models.Model):
     CENSOR_CHOICES = (
         ("yes", "Yes"),
@@ -474,24 +489,22 @@ class Object(models.Model):
         blank=True,
         help_text="The reason for return translated to English.",
     )
-    regime_censor = models.CharField(max_length=50, choices=CENSOR_CHOICES)
-    regime_name = models.CharField(
-        max_length=250,
-        null=True,
-        blank=True,
-        help_text="This is the text of the stamp used by the censor.",
+    regime_censor = models.CharField(
+        max_length=50,
+        choices=CENSOR_CHOICES,
+        help_text="Was the postal object censored?",
     )
-    regime_city = models.CharField(
-        max_length=250,
-        null=True,
+    regime_location = models.ForeignKey(
+        Censor,
+        on_delete=models.PROTECT,
         blank=True,
-        help_text="Provide the censor's city, if available.",
+        null=True,
+        help_text="If the postal object was censored, select the censor.",
     )
-    regime_country = models.CharField(
-        max_length=250,
+    regime_censor_date = models.DateField(
         null=True,
         blank=True,
-        help_text="Provide the censor's country, if available.",
+        help_text="Insert the date of the censor as YYYY-MM-DD. Leave blank if unknown.",
     )
     addressee_name = models.ForeignKey(
         Person,
@@ -654,13 +667,14 @@ class PrimarySource(models.Model):
         null=True,
         blank=True,
     )
-    # file = models.FileField(
-    #     upload_to="files/",
-    #     null=True,
-    #     blank=True,
-    #     verbose_name="Upload images",
-    #     help_text="Upload images of the object(s).",
-    # )
+    file = models.ForeignKey(
+        Image,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Upload images",
+        help_text="Upload images of the document.",
+    )
     description = models.TextField(
         blank=True,
         null=True,
