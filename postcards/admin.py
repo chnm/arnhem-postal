@@ -6,6 +6,7 @@ from django.utils.html import format_html
 from import_export.admin import ExportMixin
 
 from .models import (
+    Censor,
     Image,
     Location,
     Object,
@@ -23,6 +24,7 @@ admin.site.site_title = "Arnhem Postal History Project"
 admin.site.index_title = "Arnhem Postal History Project"
 
 admin.site.register(Image)
+admin.site.register(Censor)
 
 
 # Custom adjustments to our admin views
@@ -137,7 +139,6 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
         "collection_location",
         "letter_enclosed",
         "translated",
-        # "image_canvas",
     )
     inlines = [TranscriptionInline, ImageInline]
     search_fields = ["item_id", "sender_name", "addressee_name"]
@@ -149,7 +150,7 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
         "postmark",
         "date_of_correspondence",
         "regime_censor",
-        "regime_name",
+        "regime_location",
     )
     filter_horizontal = ("postmark",)
     extra = 1
@@ -237,7 +238,7 @@ admin.site.register(Person, PersonAdmin)
 class PrimarySourceAdmin(admin.ModelAdmin):
     model = PrimarySource
     list_display = ("document_type", "date", "description")
-    inlines = [ImageInline]
+    # inlines = [ImageInline]
     filter_horizontal = ("person",)
 
 
