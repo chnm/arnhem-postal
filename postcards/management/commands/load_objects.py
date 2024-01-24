@@ -100,9 +100,12 @@ class Command(BaseCommand):
                             "NA",
                             "No",
                         ]:
-                            date_returned = pd.to_datetime(
-                                date_returned, errors="coerce"
-                            )
+                            try:
+                                date_returned = pd.to_datetime(
+                                    date_returned, errors="coerce"
+                                )
+                            except (ValueError, TypeError):
+                                date_returned = None
                         else:
                             date_returned = None
 
@@ -110,9 +113,12 @@ class Command(BaseCommand):
                         if pd.notna(
                             date_of_correspondence
                         ) and date_of_correspondence not in ["NA", "No"]:
-                            date_of_correspondence = pd.to_datetime(
-                                date_of_correspondence, errors="coerce"
-                            )
+                            try:
+                                date_of_correspondence = pd.to_datetime(
+                                    date_of_correspondence, errors="coerce"
+                                )
+                            except (ValueError, TypeError):
+                                date_of_correspondence = None
                         else:
                             date_of_correspondence = None
 
