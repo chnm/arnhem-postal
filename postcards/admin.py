@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.admin.widgets import AdminFileWidget
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
+from django.urls import reverse
 from django.utils.html import format_html
 from import_export.admin import ExportMixin
 
@@ -166,13 +167,29 @@ class ObjectsInline(admin.TabularInline):
 
 
 class PersonAdmin(ExportMixin, admin.ModelAdmin):
-    """We provide the ability to import/export people."""
+    def view_sent_objects(self, obj):
+        url = (
+            reverse("admin:postcards_object_changelist")
+            + "?sender_name__person_id__exact="
+            + str(obj.person_id)
+        )
+        return format_html('<a href="{}">View sent postal items</a>', url)
+
+    def view_received_objects(self, obj):
+        url = (
+            reverse("admin:postcards_object_changelist")
+            + "?addressee_name__person_id__exact="
+            + str(obj.person_id)
+        )
+        return format_html('<a href="{}">View recieved postal items</a>', url)
 
     list_display = (
         "last_name",
         "first_name",
         "title",
         "entity_type",
+        "view_sent_objects",
+        "view_received_objects",
     )
     list_filter = (
         "entity_type",
@@ -180,6 +197,8 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
         "location",
         "last_name",
     )
+    # view_objects.short_description = 'Postal Objects'
+    # readonly_fields = ['view_objects']
     fieldsets = (
         (
             "Entity Type",
@@ -229,7 +248,6 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
     )
     resource_class = PersonResource
     search_fields = ["first_name", "last_name"]
-    inlines = [ObjectsInline]
 
 
 admin.site.register(Person, PersonAdmin)
