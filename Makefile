@@ -17,7 +17,7 @@ loadlanguages :
 	poetry run python manage.py loaddata languages.yaml
 
 loadobjects :
-	poetry run python manage.py load_objects --filepath="~/Downloads/arnhem.xlsx" --sheet="Box 1 Folders I-VIII"
+	poetry run python manage.py load_objects --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
 
 loadimages : 
 	poetry run python manage.py populate_images
