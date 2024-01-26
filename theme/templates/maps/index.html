@@ -4,7 +4,7 @@
 
         <h2 class="text-2xl pb-5">Mapping Postal Routes</h2>
 
-        <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span> and people are <span style="font-weight: bold; color: blue;">blue</span></p>
+        <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
 
         <div id='map' width="100%" style='height:600px'></div>
         <script>
@@ -29,6 +29,7 @@
                             properties: {
                                 id: postmarkid, // assign an id to the postmark
                                 sender_name: "{{ object.sender_name }}", // Include the sender_name property
+                                postmark_location: "{{ postmark.location.town_city }}, {{ postmark.location.province_state }}, {{ postmark.location.country }}", // Include the postmark location
                                 addressee_name: "{{ object.addressee_name }}" // Include the addressee_name property
                             },
                             geometry: {
@@ -37,7 +38,7 @@
                             }
                         });
                     {% else %}
-                        console.log('Invalid or missing coordinates for object: ', {{ object.id }});
+                        // console.log('Invalid or missing coordinates for object: ', {{ object.id }});
                     {% endif %}
                 {% endfor %}
                 postmarkid++; // increment the id
@@ -65,49 +66,141 @@
                         }
                     });
                 {% else %}
-                    console.log('Invalid or missing coordinates for person: ', {{ person.id }});
+                    // console.log('Invalid or missing coordinates for person: ', {{ person.id }});
                 {% endif %}
                 personid++; // increment the id
             {% endfor %}
 
+            // The following creates the data for the censored postal objects
+            let censoredFeatures = [];
+            let censoredCoords;
+            let censorid = 0;
+
+            {% for censor in censored_postal_objects %}
+                {% if censor.censor_location %}
+                    censoredCoords = [{{ censor.censor_location.longitude }}, {{ censor.censor_location.latitude }}];
+                    censoredFeatures.push({
+                        type: 'Feature',
+                        properties: {
+                            id: censorid, // assign an id to the postmark
+                            censor_location: "{{ censor.location.town_city }}, {{ censor.location.province_state }}, {{ censor.location.country }}", // Include the postmark location
+                        },
+                        geometry: {
+                            type: 'Point',
+                            coordinates: censoredCoords
+                        }
+                    });
+                {% else %}
+                    console.log('Invalid or missing coordinates for censored object: ', {{ censor.censor_id }});
+                {% endif %}
+                censorid++; // increment the id
+            {% endfor %}
+
+            // ------------------------------------------------------------
+            // The following loops through the postal objects and creates a route for each one
+            // in order for us to show routes on a map. The routes are created using the Turf.js
+            // library, which is included in the base.html template.
             let routes = [];
             let routeid = 0;
             let routeCoords;
-            {% for object in postal_objects %}
-                routeCoords = [];
+            let startCoords;
+            let endCoords;
 
-                // Add the sender's location to the route
-                {% if object.sender_name.longitude and object.sender_name.latitude %}
-                    routeCoords.push([{{ object.sender_name.longitude }}, {{ object.sender_name.latitude }}]);
+            {% for object in postal_objects %}
+                // Initialize startCoords with the sender's location
+                {% if object.sender_name and object.sender_name.longitude and object.sender_name.latitude %}
+                    startCoords = [{{ object.sender_name.longitude }}, {{ object.sender_name.latitude }}];
                 {% endif %}
 
                 // Add the locations of the associated postmarks to the route
                 {% for postmark in object.postmark.all %}
                     {% if postmark.location and postmark.location.longitude and postmark.location.latitude %}
-                        routeCoords.push([{{ postmark.location.longitude }}, {{ postmark.location.latitude }}]);
+                        // Update endCoords with the postmark's location
+                        endCoords = [{{ postmark.location.longitude }}, {{ postmark.location.latitude }}];
+
+                        // Add the route from startCoords to endCoords to the routes array
+                        routes.push({
+                            type: 'Feature',
+                            properties: {
+                                id: routeid // assign an id to the route
+                            },
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: [startCoords, endCoords]
+                            }
+                        });
+
+                        // Update startCoords to be the postmark's location for the next route
+                        startCoords = endCoords;
                     {% endif %}
                 {% endfor %}
 
+                // If mail passes through a censor, we record it. The field `regime_censor` should be "yes", 
+                // and the regime_location field fk to Censor contains the location data. 
+                {% if object.regime_censor == "yes" and object.regime_location %}
+                    // Update endCoords with the censor's location
+                    {% if object.regime_location.longitude and object.regime_location.latitude %}
+                        endCoords = [{{ object.regime_location.longitude }}, {{ object.regime_location.latitude }}];
+                    {% endif %}
+
+                    // Add the route from startCoords to endCoords to the routes array
+                    routes.push({
+                        type: 'Feature',
+                        properties: {
+                            id: routeid // assign an id to the route
+                        },
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: [startCoords, endCoords]
+                        }
+                    });
+
+                    // Update startCoords to be the censor's location for the next route
+                    startCoords = endCoords;
+                {% endif %}
+
                 // Add the addressee's location to the route
                 {% if object.addressee_name.longitude and object.addressee_name.latitude %}
-                    routeCoords.push([{{ object.addressee_name.longitude }}, {{ object.addressee_name.latitude }}]);
+                    {% if object.regime_censor == "yes" and object.regime_location %}
+                        // If the mail passed through a censor, we already have the censor's location in endCoords
+                        // and we don't need to update it.
+                    {% else %}
+                        // If the mail did not pass through a censor, we need to update endCoords with the addressee's location
+                        endCoords = [{{ object.addressee_name.longitude }}, {{ object.addressee_name.latitude }}];
+                    {% endif %}
+
+                    // Add the route from startCoords to endCoords to the routes array
+                    routes.push({
+                        type: 'Feature',
+                        properties: {
+                            id: routeid // assign an id to the route
+                        },
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: [startCoords, endCoords]
+                        }
+                    });
                 {% endif %}
 
                 // Add the route to the routes array
-                routes.push({
-                    type: 'Feature',
-                    properties: {
-                        id: routeid // assign an id to the route
-                    },
-                    geometry: {
-                        type: 'LineString',
-                        coordinates: routeCoords
-                    }
-                });
-                routeid++; // increment the id
-                console.log('routeCoords for object ' + {{ object.id }} + ':', routeCoords); // Log the routeCoords array
+                if (startCoords !== undefined && endCoords !== undefined) {
+                    routes.push({
+                        type: 'Feature',
+                        properties: {
+                            id: routeid // assign an id to the route
+                        },
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: [startCoords, endCoords]
+                        }
+                    });
+
+                    routeid++; // increment the id
+                }
+                // console.log('routeCoords for object ' + {{ object.id }} + ':', routeCoords); // Log the routeCoords array
             {% endfor %}
-            console.log('routes:', routes); // Log the routes array
+
+            console.log('routes', routes)
 
 
             map.on('load', function () {
@@ -172,6 +265,23 @@
                         'circle-opacity': 0.8
                     }
                 });
+
+                map.addLayer({
+                    id: 'censored',
+                    type: 'circle',
+                    source: {
+                        type: 'geojson',
+                        data: {
+                            type: 'FeatureCollection',
+                            features: censoredFeatures
+                        }
+                    },
+                    paint: {
+                        'circle-radius': 6,
+                        'circle-color': 'pink',
+                        'circle-opacity': 0.8
+                    }
+                })
             });
 
             // Add an onclick event to the persons layer
@@ -235,8 +345,6 @@
 
                 map.fitBounds(bounds, {padding: 20});
             }
-
-
 
         </script>
 
