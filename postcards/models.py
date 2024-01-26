@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Archive(models.Model):
-    """The location of the postcard in the archival collection (folder/box)"""
+    """The location of the postcard in an archival collection (folder/box)"""
 
     location = models.CharField(max_length=255)
 
@@ -20,10 +20,10 @@ class Archive(models.Model):
         return self.location
 
 
-# The Image model has a foreign key relationship with the Object model, and
-# each Object object can have multiple Image objects associated with it.
 class Image(models.Model):
-    """The image of an object, photograph, or historical source"""
+    """The image of an object, photograph, or historical source. The Image model
+    has a foreign key relationship with the Object model, and each Object object
+    can have multiple Image objects associated with it."""
 
     image_id = models.BigAutoField(primary_key=True, verbose_name="Image ID")
     image = models.ImageField(upload_to="images/", blank=True, null=True)
@@ -101,7 +101,7 @@ class Language(models.Model):
 
 
 class Collection(models.Model):
-    """A collection is the owner of an object"""
+    """A collection is the owner of a postal object (e.g., Tim Gale)"""
 
     collection_id = models.BigAutoField(primary_key=True, verbose_name="Collection ID")
     name = models.CharField(max_length=255)
@@ -277,9 +277,12 @@ class Location(models.Model):
         super().save(*args, **kwargs)
 
 
-# A Postmark can contain multiple Dates and Locations,
-# # so we create a separate model for it.
 class Postmark(models.Model):
+    """
+    A Postmark can contain multiple Dates and Locations,
+    so we create a separate model for it.
+    """
+
     postmark_id = models.BigAutoField(primary_key=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     date = models.DateField(
@@ -389,6 +392,12 @@ class Censor(models.Model):
         null=True,
         help_text="The name of the censor location.",
     )
+    censor_description = models.CharField(
+        blank=True,
+        null=True,
+        max_length=255,
+        help_text="A brief description of the censor if needed.",
+    )
     censor_location = models.ForeignKey(
         Location,
         on_delete=models.PROTECT,
@@ -409,6 +418,16 @@ class Censor(models.Model):
 
 
 class Object(models.Model):
+    """
+    The Object model is the workhorse. It handles all postal objects including postcards, letters,
+    and envelopes. It has a foreign key relationship with the Person model,
+    which allows us to link a sender and an addressee to the postal object.
+
+    The Object model also has a foreign key relationship with the Collection
+    model, which allows us to link a postal object to a collection so we can keep
+    a controlled vocabulary of collections.
+    """
+
     CENSOR_CHOICES = (
         ("yes", "Yes"),
         ("no", "No"),
@@ -573,6 +592,13 @@ class Object(models.Model):
         null=True,
         blank=True,
         related_name="reviewed_by",
+        help_text="Select the last user who reviewed this document.",
+    )
+    reviewed_by_date = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name="Date last reviewed",
+        help_text="Insert the date as YYYY-MM-DD or use the date picker.",
     )
 
     updated_at = models.DateTimeField(
