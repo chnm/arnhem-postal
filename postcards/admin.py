@@ -24,11 +24,8 @@ admin.site.site_header = "Arnhem Postal History Project"
 admin.site.site_title = "Arnhem Postal History Project"
 admin.site.index_title = "Arnhem Postal History Project"
 
-admin.site.register(Image)
-admin.site.register(Censor)
 
-
-# Custom adjustments to our admin views
+# Custom adjustments to our admin views for displaying images and maps
 class CustomAdminFileWidget(AdminFileWidget):
     """This custom view allows us to create a preview image in the individual Historical Source or
     Image view. If no file is attached, provide the ability to upload one. Otherwise, display the image.
@@ -66,6 +63,20 @@ class CustomAdminMapWidget(AdminFileWidget):
         return format_html("".join(result))
 
 
+# Set up for admin inlines ---------------------------------------------
+
+
+class ImageInline(admin.StackedInline):
+    model = Image
+    readonly_fields = ("image_preview",)
+
+
+class ObjectsInline(admin.TabularInline):
+    model = Object
+    extra = 1
+    fk_name = "sender_name"
+
+
 class PostmarkInline(admin.TabularInline):
     """When looking at an individual Postcard, we want to see the Postmark and the Image.
     We can do this by adding a PostmarkInline and ImageInline to the PostcardAdmin class.
@@ -80,14 +91,24 @@ class PersonTabularInline(admin.TabularInline):
     extra = 1
 
 
-class PostmarkAdmin(ExportMixin, admin.ModelAdmin):
-    """We provide import/export abilities to the postmarks."""
-
-    resource_class = PostmarkResource
-    list_display = ("location", "date")
+class RelatedImagesInline(admin.StackedInline):
+    model = Image
+    readonly_fields = ("image_preview",)
 
 
-admin.site.register(Postmark, PostmarkAdmin)
+class ReasonReturnInline(admin.TabularInline):
+    """Provide the ability for notes about the reason for a letter's return as an in-line component to the Objects"""
+
+    model = ReasonReturn
+
+
+class TranscriptionInline(admin.TabularInline):
+    """We provide the ability for transcriptions to happen as an in-line component to the Objects"""
+
+    model = Transcription
+
+
+# Set up for admin classes ---------------------------------------------
 
 
 class LocationAdmin(ExportMixin, admin.ModelAdmin):
@@ -99,31 +120,6 @@ class LocationAdmin(ExportMixin, admin.ModelAdmin):
     class Meta:
         model = Location
         fields = ("country", "town_city", "province_state", "latitude", "longitude")
-
-
-admin.site.register(Location, LocationAdmin)
-
-
-class TranscriptionInline(admin.TabularInline):
-    """We provide the ability for transcriptions to happen as an in-line component to the Objects"""
-
-    model = Transcription
-
-
-class ReasonReturnInline(admin.TabularInline):
-    """Provide the ability for notes about the reason for a letter's return as an in-line component to the Objects"""
-
-    model = ReasonReturn
-
-
-class ImageInline(admin.StackedInline):
-    model = Image
-    readonly_fields = ("image_preview",)
-
-
-class RelatedImagesInline(admin.StackedInline):
-    model = Image
-    readonly_fields = ("image_preview",)
 
 
 class ObjectAdmin(ExportMixin, admin.ModelAdmin):
@@ -157,15 +153,6 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
     extra = 1
 
 
-admin.site.register(Object, ObjectAdmin)
-
-
-class ObjectsInline(admin.TabularInline):
-    model = Object
-    extra = 1
-    fk_name = "sender_name"
-
-
 class PersonAdmin(ExportMixin, admin.ModelAdmin):
     def view_sent_objects(self, obj):
         url = (
@@ -197,8 +184,6 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
         "location",
         "last_name",
     )
-    # view_objects.short_description = 'Postal Objects'
-    # readonly_fields = ['view_objects']
     fieldsets = (
         (
             "Entity Type",
@@ -228,14 +213,14 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
         (
             "Entity Details",
             {
-                "classes": ("collapse",),  # This makes the section collapsible
+                "classes": ("collapse",),
                 "fields": ("entity_name",),
             },
         ),
         (
             "Location Details",
             {
-                "classes": ("collapse",),  # This makes the section collapsible
+                "classes": ("collapse",),
                 "fields": (
                     "house_number",
                     "street",
@@ -250,14 +235,24 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
     search_fields = ["first_name", "last_name"]
 
 
-admin.site.register(Person, PersonAdmin)
+class PostmarkAdmin(ExportMixin, admin.ModelAdmin):
+    """We provide import/export abilities to the postmarks."""
+
+    resource_class = PostmarkResource
+    list_display = ("location", "date")
 
 
 class PrimarySourceAdmin(admin.ModelAdmin):
     model = PrimarySource
     list_display = ("document_type", "date", "description")
-    # inlines = [ImageInline]
     filter_horizontal = ("person",)
 
 
+# Register our models with the admin panel ---------------------------------------------
+admin.site.register(Image)
+admin.site.register(Censor)
+admin.site.register(Person, PersonAdmin)
 admin.site.register(PrimarySource, PrimarySourceAdmin)
+admin.site.register(Object, ObjectAdmin)
+admin.site.register(Location, LocationAdmin)
+admin.site.register(Postmark, PostmarkAdmin)
