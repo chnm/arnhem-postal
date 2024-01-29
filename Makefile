@@ -22,6 +22,14 @@ loadobjects :
 loadimages : 
 	poetry run python manage.py populate_images
 
+dumpdata : 
+# Dump the data
+	pg_dump arnhem > arnhem_data.sql
+# Zip the static files
+	zip -r static.zip media
+# Zip the collectstatic files
+	zip -r collectstatic.zip staticfiles
+
 # Compile TailwindCSS
 tailwind :
 	poetry run python3 manage.py tailwind start
