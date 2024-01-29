@@ -444,3 +444,4 @@ staticfiles
 arnhem.backup.sql
 todo.taskpaper
 export.sql
+static/upload
