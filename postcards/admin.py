@@ -109,6 +109,21 @@ class TranscriptionInline(admin.TabularInline):
 
 
 # Set up for admin classes ---------------------------------------------
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ("image_id", "image_thumbnail", "image_caption", "url_to_object")
+
+    def image_thumbnail(self, obj):
+        return format_html('<img src="{}" width="50" height="50" />', obj.image.url)
+
+    image_thumbnail.short_description = "Image Thumbnail"
+
+    def url_to_object(self, obj):
+        url = reverse("admin:postcards_object_change", args=[obj.postcard.id])
+        return format_html('<a href="{}">{}</a>', url, obj.postcard.item_id)
+
+    url_to_object.short_description = (
+        "View the postal object associated with this image"
+    )
 
 
 class LocationAdmin(ExportMixin, admin.ModelAdmin):
@@ -249,7 +264,7 @@ class PrimarySourceAdmin(admin.ModelAdmin):
 
 
 # Register our models with the admin panel ---------------------------------------------
-admin.site.register(Image)
+admin.site.register(Image, ImageAdmin)
 admin.site.register(Censor)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(PrimarySource, PrimarySourceAdmin)
