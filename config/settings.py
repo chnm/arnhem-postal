@@ -88,6 +88,7 @@ THIRD_PARTY_APPS = [
     "django_tables2",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "tailwind",
     "django_extensions",
     "import_export",
