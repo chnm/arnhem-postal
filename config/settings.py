@@ -64,6 +64,9 @@ ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
+# Wagtail
+WAGTAILADMIN_BASE_URL = "https://rrchnm.org"
+WAGTAIL_SITE_NAME = "Arnhem Postal History"
 
 # APPS
 # ------------------------------------------------------------------------------
@@ -80,14 +83,27 @@ DJANGO_APPS = [
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail",
     "django_htmx",
     "taggit",
     "taggit_selectize",
+    "modelcluster",
     "crispy_forms",
     "crispy_tailwind",
     "django_tables2",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "tailwind",
     "django_extensions",
     "import_export",
@@ -101,6 +117,7 @@ LOCAL_APPS = [
     "postcards",
     "pages",
     "maps",
+    "exhibit",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -120,6 +137,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 # DEBUG

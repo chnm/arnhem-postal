@@ -38,6 +38,8 @@ django-model-import = "^0.7.2"
 psycopg2-binary = "^2.9.9"
 pandas = "^2.1.2"
 termcolor = "^2.4.0"
+django-modelcluster = "^6.2.1"
+wagtail = "^5.2.3"
 
 
 [tool.poetry.group.dev.dependencies]
