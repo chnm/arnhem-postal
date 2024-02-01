@@ -175,8 +175,6 @@ class Command(BaseCommand):
                         # From these fields, we can create the Location data. We need to
                         # check if the Location already exists. If it does, we use that
                         # Location. If it doesn't, we create a new Location.
-                        # Get the location data from the row
-                        # Create or get the Location instances
 
                         addressee_location = Location.objects.filter(
                             town_city=addressee_town_city,
@@ -184,57 +182,11 @@ class Command(BaseCommand):
                             country=addressee_country,
                         ).first()
 
-                        if addressee_location is None:
-                            addressee_location = Location.objects.create(
-                                town_city=addressee_town_city,
-                                province_state=addressee_province_state,
-                                country=addressee_country,
-                            )
-                            created = True
-                        else:
-                            created = False
-
-                        if created:
-                            self.stdout.write(
-                                self.style.SUCCESS(
-                                    f"\tCreated new ADDRESSEE location: {addressee_location}"
-                                )
-                            )
-                        else:
-                            self.stdout.write(
-                                self.style.WARNING(
-                                    f"\tLocation for ADDRESSEE already exists: {addressee_location}"
-                                )
-                            )
-
                         sender_location = Location.objects.filter(
                             town_city=sender_town_city,
                             province_state=sender_province_state,
                             country=sender_country,
                         ).first()
-
-                        if sender_location is None:
-                            sender_location = Location.objects.create(
-                                town_city=sender_town_city,
-                                province_state=sender_province_state,
-                                country=sender_country,
-                            )
-                            created = True
-                        else:
-                            created = False
-
-                        if created:
-                            self.stdout.write(
-                                self.style.SUCCESS(
-                                    f"\tCreated new SENDER location: {sender_location}"
-                                )
-                            )
-                        else:
-                            self.stdout.write(
-                                self.style.WARNING(
-                                    f"\tLocation for SENDER already exists: {sender_location}"
-                                )
-                            )
 
                         # print the postmark being processed
                         self.stdout.write(
@@ -251,29 +203,8 @@ class Command(BaseCommand):
                             postmark_1_location = Location.objects.filter(
                                 town_city=postmark_2_location_name
                             ).first()
-
-                            if postmark_1_location is None:
-                                postmark_1_location = Location.objects.create(
-                                    town_city=postmark_2_location_name
-                                )
-                                created = True
-                            else:
-                                created = False
                         else:
                             postmark_1_location = None
-
-                        if created:
-                            self.stdout.write(
-                                self.style.SUCCESS(
-                                    f"\tCreated new location: {postmark_1_location}"
-                                )
-                            )
-                        else:
-                            self.stdout.write(
-                                self.style.WARNING(
-                                    f"\tLocation already exists: {postmark_1_location}"
-                                )
-                            )
 
                         # print the postmark being processed
                         self.stdout.write(
@@ -286,29 +217,8 @@ class Command(BaseCommand):
                             postmark_2_location = Location.objects.filter(
                                 town_city=postmark_2_location_name
                             ).first()
-
-                            if postmark_2_location is None:
-                                postmark_2_location = Location.objects.create(
-                                    town_city=postmark_2_location_name
-                                )
-                                created = True
-                            else:
-                                created = False
                         else:
                             postmark_2_location = None
-
-                        if created:
-                            self.stdout.write(
-                                self.style.SUCCESS(
-                                    f"\tCreated new location: {postmark_2_location}"
-                                )
-                            )
-                        else:
-                            self.stdout.write(
-                                self.style.WARNING(
-                                    f"\tLocation already exists: {postmark_2_location}"
-                                )
-                            )
 
                         addressee = Person.objects.filter(
                             first_name=addressee_first_name,
@@ -432,8 +342,8 @@ class Command(BaseCommand):
 
                         # Create or update postmarks
                         # Set the initial values to None
-                        postmark_1_location = None
-                        postmark_2_location = None
+                        # postmark_1_location = None
+                        # postmark_2_location = None
 
                         try:
                             self.stdout.write(
@@ -442,7 +352,6 @@ class Command(BaseCommand):
                                 )
                             )
                             # Create or update the postmarks
-                            # Adjust finding the location
                             if postmark_1_location_name:
                                 postmark_1_location = (
                                     Location.objects.filter(

@@ -11,7 +11,7 @@ check :
 	poetry run python3 manage.py check
 
 loadlocations :
-	poetry run python manage.py loaddata locations.yaml
+	poetry run python manage.py load_locations --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
 
 loadlanguages :
 	poetry run python manage.py loaddata languages.yaml
