@@ -1,0 +1,26 @@
+{% extends "postal/base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Contents</h2>
+        <ul>
+          {% for sibling in page.get_siblings %}
+            <li class="{% if sibling.url == request.path %}active{% endif %}">
+              <a href="{{ sibling.url }}">{{ sibling.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-md-8">
+        <h1><strong>{{ page.title }}</strong></h1>
+        {{ page.body|richtext }}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
