@@ -16,3 +16,9 @@
     language: "Dutch"
     display_name: "Dutch"
     iso_code: "nl"
+- model: postcards.language
+  pk: 4
+  fields:
+    language: "French"
+    display_name: "French"
+    iso_code: "fr"
