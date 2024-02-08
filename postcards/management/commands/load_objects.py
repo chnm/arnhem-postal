@@ -81,9 +81,15 @@ class Command(BaseCommand):
                         )
 
                         # Extract data from the row
-                        entity_type = str(
-                            row.get("correspondence_type") or "Person"
-                        ).lower()
+                        # entity_type = str(
+                        #     row.get("correspondence_type") or "Person"
+                        # ).lower()
+                        addressee_correspodnence_type = (
+                            row["addressee correspondence type"] or "Person"
+                        )
+                        sender_correspondence_type = (
+                            row["sender correspondence type"] or "Person"
+                        )
                         item_number = str(row["item number"])
                         collection_location = str(row["location in collection"])
                         sensitive_content = str(row["sensitive"]).lower() == "yes"
@@ -231,7 +237,7 @@ class Command(BaseCommand):
                                 )
                             )
                             addressee = Person.objects.create(
-                                entity_type=entity_type,
+                                entity_type=addressee_correspodnence_type,
                                 title=addressee_title,
                                 first_name=addressee_first_name,
                                 last_name=addressee_last_name,
@@ -254,7 +260,7 @@ class Command(BaseCommand):
                                 )
                             )
                             sender = Person.objects.create(
-                                entity_type=entity_type,
+                                entity_type=sender_correspondence_type,
                                 title=sender_title,
                                 first_name=sender_first_name,
                                 last_name=sender_last_name,
@@ -340,11 +346,24 @@ class Command(BaseCommand):
                             language=language,
                         )
 
-                        # Create or update postmarks
-                        # Set the initial values to None
-                        # postmark_1_location = None
-                        # postmark_2_location = None
+                        # Create or update keywords
+                        # -------------------------
+                        keywords = str(row["key words"])
+                        if keywords:
+                            try:
+                                keyword_list = [
+                                    keyword.strip() for keyword in keywords.split(",")
+                                ]
+                                obj.keywords.add(*keyword_list)
+                            except Exception as e:
+                                logger.exception(
+                                    "Error processing keywords for row %s: %s",
+                                    index + 2,
+                                    str(e),
+                                )
 
+                        # Create or update postmarks
+                        # --------------------------
                         try:
                             self.stdout.write(
                                 self.style.SUCCESS(
