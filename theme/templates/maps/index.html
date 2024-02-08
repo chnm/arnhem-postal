@@ -98,106 +98,29 @@
 
             // ------------------------------------------------------------
             // The following loops through the postal objects and creates a route for each one
-            // in order for us to show routes on a map. The routes are created using the Turf.js
-            // library, which is included in the base.html template.
+            // in order for us to show routes on a map.
+            // Routes are calculated server-side under postal_routes. We loop through the routes
+            // and create a feature for each route. The route includes the sender, postmark, censorship office, 
+            // and addressee.
             let routes = [];
-            let routeid = 0;
             let routeCoords;
-            let startCoords;
-            let endCoords;
 
-            {% for object in postal_objects %}
-                // Initialize startCoords with the sender's location
-                {% if object.sender_name and object.sender_name.longitude and object.sender_name.latitude %}
-                    startCoords = [{{ object.sender_name.longitude }}, {{ object.sender_name.latitude }}];
-                {% endif %}
-
-                // Add the locations of the associated postmarks to the route
-                {% for postmark in object.postmark.all %}
-                    {% if postmark.location and postmark.location.longitude and postmark.location.latitude %}
-                        // Update endCoords with the postmark's location
-                        endCoords = [{{ postmark.location.longitude }}, {{ postmark.location.latitude }}];
-
-                        // Add the route from startCoords to endCoords to the routes array
-                        routes.push({
-                            type: 'Feature',
-                            properties: {
-                                id: routeid // assign an id to the route
-                            },
-                            geometry: {
-                                type: 'LineString',
-                                coordinates: [startCoords, endCoords]
-                            }
-                        });
-
-                        // Update startCoords to be the postmark's location for the next route
-                        startCoords = endCoords;
-                    {% endif %}
-                {% endfor %}
-
-                // If mail passes through a censor, we record it. The field `regime_censor` should be "yes", 
-                // and the regime_location field fk to Censor contains the location data. 
-                {% if object.regime_censor == "yes" and object.regime_location %}
-                    // Update endCoords with the censor's location
-                    {% if object.regime_location.longitude and object.regime_location.latitude %}
-                        endCoords = [{{ object.regime_location.longitude }}, {{ object.regime_location.latitude }}];
-                    {% endif %}
-
-                    // Add the route from startCoords to endCoords to the routes array
-                    routes.push({
-                        type: 'Feature',
-                        properties: {
-                            id: routeid // assign an id to the route
-                        },
-                        geometry: {
-                            type: 'LineString',
-                            coordinates: [startCoords, endCoords]
-                        }
-                    });
-
-                    // Update startCoords to be the censor's location for the next route
-                    startCoords = endCoords;
-                {% endif %}
-
-                // Add the addressee's location to the route
-                {% if object.addressee_name.longitude and object.addressee_name.latitude %}
-                    {% if object.regime_censor == "yes" and object.regime_location %}
-                        // If the mail passed through a censor, we already have the censor's location in endCoords
-                        // and we don't need to update it.
-                    {% else %}
-                        // If the mail did not pass through a censor, we need to update endCoords with the addressee's location
-                        endCoords = [{{ object.addressee_name.longitude }}, {{ object.addressee_name.latitude }}];
-                    {% endif %}
-
-                    // Add the route from startCoords to endCoords to the routes array
-                    routes.push({
-                        type: 'Feature',
-                        properties: {
-                            id: routeid // assign an id to the route
-                        },
-                        geometry: {
-                            type: 'LineString',
-                            coordinates: [startCoords, endCoords]
-                        }
-                    });
-                {% endif %}
-
-                // Add the route to the routes array
-                if (startCoords !== undefined && endCoords !== undefined) {
-                    routes.push({
-                        type: 'Feature',
-                        properties: {
-                            id: routeid // assign an id to the route
-                        },
-                        geometry: {
-                            type: 'LineString',
-                            coordinates: [startCoords, endCoords]
-                        }
-                    });
-
-                    routeid++; // increment the id
-                }
-                // console.log('routeCoords for object ' + {{ object.id }} + ':', routeCoords); // Log the routeCoords array
+            {% for route in postal_routes %}
+                routeCoords = [
+                    [{{ route.geometry.coordinates.0.0 }}, {{ route.geometry.coordinates.0.1 }}],
+                    [{{ route.geometry.coordinates.1.0 }}, {{ route.geometry.coordinates.1.1 }}],
+                ];
+                routes.push({
+                    type: 'Feature',
+                    properties: {
+                        id: {{ route.properties.id }},
+                // Add other properties here if needed
+                    },
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: routeCoords
+                    }
+                });
             {% endfor %}
 
             console.log('routes', routes)
@@ -241,7 +164,7 @@
                         'line-color': '#888',
                         'line-width': 2,
                         'line-opacity': 0.4
-                    }
+                    },
                 });
 
                 map.addLayer({
@@ -284,6 +207,11 @@
                 })
             });
 
+            // turn off mouse zoom
+            map.scrollZoom.disable();
+            // turn on controls 
+            map.addControl(new mapboxgl.NavigationControl());
+
             // Add an onclick event to the persons layer
             map.on('click', 'persons', function (e) {
                 const coordinates = e.features[0].geometry.coordinates.slice();
@@ -302,9 +230,14 @@
                 const senderName = e.features[0].properties.sender_name;
                 const addresseeName = e.features[0].properties.addressee_name;
 
+                const postmarkLocation = e.features[0].properties.postmark_location;
+                const censoroffice = e.features[0].properties.censor_location;
+
                 new mapboxgl.Popup()
                     .setLngLat(coordinates)
-                    .setHTML('<h3>Sender: ' + senderName + '</h3><p>Addressee: ' + addresseeName + '</p>')
+                    .setHTML('<strong><p>' + senderName + ' &rarr; ' + addresseeName + '</p></strong>' +
+                        '<p>Postmark: ' + postmarkLocation + '</p>' +
+                        (censoroffice ? '<p>Censorship office: ' + censoroffice + '</p>' : ''))
                     .addTo(map);
             });
 
@@ -318,24 +251,45 @@
                 map.getCanvas().style.cursor = '';
             });
 
-            // When the mouse enters a postmark or person, increase the line's opacity
-            map.on('mouseenter', 'postmarks', function (e) {
-                map.setFilter('routes', ['==', 'id', e.features[0].properties.id]);
-                map.setPaintProperty('routes', 'line-opacity', 1);
+            map.on('mouseenter', 'postmarks', function () {
+                map.getCanvas().style.cursor = 'pointer';
             });
-            map.on('mouseenter', 'persons', function (e) {
-                map.setFilter('routes', ['==', 'id', e.features[0].properties.id]);
-                map.setPaintProperty('routes', 'line-opacity', 1);
+            map.on('mouseleave', 'postmarks', function () {
+                map.getCanvas().style.cursor = '';
             });
 
-            // When the mouse leaves a postmark or person, reset the line's opacity
-            map.on('mouseleave', 'postmarks', function (e) {
-                map.setFilter('routes', null);
-                map.setPaintProperty('routes', 'line-opacity', 0.2);
+            // When the mouse enters a postmark or person, increase the line's opacity
+            // map.on('mouseenter', 'postmarks', function (e) {
+            //     // map.setFilter('routes', ['==', 'id', e.features[0].properties.id]);
+            //     map.setPaintProperty('routes', 'line-opacity', 1);
+            // });
+            // map.on('mouseenter', 'persons', function (e) {
+            //     // map.setFilter('routes', ['==', 'id', e.features[0].properties.id]);
+            //     map.setPaintProperty('routes', 'line-opacity', 1);
+            // });
+
+            // // When the mouse leaves a postmark or person, reset the line's opacity
+            // map.on('mouseleave', 'postmarks', function (e) {
+            //     map.setFilter('routes', null);
+            //     map.setPaintProperty('routes', 'line-opacity', 0.2);
+            // });
+            // map.on('mouseleave', 'persons', function (e) {
+            //     map.setFilter('routes', null);
+            //     map.setPaintProperty('routes', 'line-opacity', 0.2);
+            // });
+
+            // Hide the data when the user starts panning
+            map.on('dragstart', function () {
+                map.setLayoutProperty('persons', 'visibility', 'none');
+                map.setLayoutProperty('postmarks', 'visibility', 'none');
+                map.setLayoutProperty('routes', 'visibility', 'none');
             });
-            map.on('mouseleave', 'persons', function (e) {
-                map.setFilter('routes', null);
-                map.setPaintProperty('routes', 'line-opacity', 0.2);
+
+            // Show the data again when the user ends panning
+            map.on('dragend', function () {
+                map.setLayoutProperty('persons', 'visibility', 'visible');
+                map.setLayoutProperty('postmarks', 'visibility', 'visible');
+                map.setLayoutProperty('routes', 'visibility', 'visible');
             });
 
             if (coordinates.length > 0) {
