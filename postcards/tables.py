@@ -12,4 +12,5 @@ class ItemHtmxTable(tables.Table):
             "addressee_name",
             "date_of_correspondence",
             "collection",
+            "view",
         )

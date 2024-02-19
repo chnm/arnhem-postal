@@ -1,29 +1,28 @@
 import django_filters
 from django.db.models import Q
+from django.shortcuts import render
 
-from postcards.models import Collection, Object
+from postcards.models import Collection, Location, Object, Person, Postmark
+
+
+def get_names(field_prefix):
+    """Get names from the Object model for a given field prefix (sender_name or addressee_name)."""
+    return (
+        Object.objects.exclude(
+            **{f"{field_prefix}__first_name": "NA", f"{field_prefix}__last_name": "NA"}
+        )
+        .order_by(f"{field_prefix}__first_name", f"{field_prefix}__last_name")
+        .values_list(f"{field_prefix}__first_name", f"{field_prefix}__last_name")
+    )
 
 
 def combine_all_names():
-    """Combine all possible names from the Object senders and
-    addressees for the dropdown."""
-
-    sender_names = (
-        Object.objects.exclude(
-            sender_name__first_name="NA", sender_name__last_name="NA"
-        )
-        .order_by("sender_name__first_name", "sender_name__last_name")
-        .values_list("sender_name__first_name", "sender_name__last_name")
-    )
-    addressee_names = (
-        Object.objects.exclude(
-            addressee_name__first_name="NA", addressee_name__last_name="NA"
-        )
-        .order_by("addressee_name__first_name", "addressee_name__last_name")
-        .values_list("addressee_name__first_name", "addressee_name__last_name")
-    )
-    all_names = list(sender_names) + list(addressee_names)
+    """Combine all possible names from the Object senders and addressees for the dropdown."""
+    all_names = list(get_names("sender_name")) + list(get_names("addressee_name"))
     all_names = [" ".join(map(str, name)) for name in all_names]
+    all_names = [
+        name for i, name in enumerate(all_names) if all_names.index(name) == i
+    ]  # Only add names that are not already in the list
     all_names = [(name, name) for name in all_names]
 
     return all_names

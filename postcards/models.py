@@ -188,6 +188,16 @@ class Person(models.Model):
         ordering = ["last_name"]
         verbose_name = "Entities or Person"
 
+    def get_associated_images(self):
+        images = []
+        for obj in Object.objects.all():
+            if (
+                obj.sender_name == self.person_id
+                or obj.addressee_name == self.person_id
+            ):
+                images.append(obj.images)
+        return images
+
     # On save, the following tries to derive the latlon from the town_city and country
     # fields. If successful, it stores the latlon in the latlon field.
     def save(self, *args, **kwargs):
@@ -548,13 +558,6 @@ class Object(models.Model):
         null=True,
         blank=True,
     )
-    # file = models.FileField(
-    #     upload_to="files/",
-    #     null=True,
-    #     blank=True,
-    #     verbose_name="Upload images",
-    #     help_text="Upload images of the object(s).",
-    # )
     related_images = models.ManyToManyField(
         Image, blank=True, verbose_name="Related images"
     )
