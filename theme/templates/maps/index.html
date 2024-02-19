@@ -1,4 +1,8 @@
 {% extends "postal/base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
 {% block content %}
     <main class="container mx-auto py-8 prose">
 
@@ -6,8 +10,45 @@
 
         <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
 
+        <form hx-get="/maps" hx-target="#map">
+            {{ form.as_p }}
+            <input type="submit" value="Filter data">
+        </form>
+
         <div id='map' width="100%" style='height:600px'></div>
+
         <script>
+            function createCurve(start, end, curveSharpness) {
+                const [x1, y1] = start;
+                const [x2, y2] = end;
+
+                const dx = x2 - x1;
+                const dy = y2 - y1;
+
+                const p1 = [x1 + dx * curveSharpness, y1];
+                const p2 = [x1 + dx * (1 - curveSharpness), y2];
+
+                const curve = {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: [start, p1, p2, end]
+                    }
+                };
+
+                return curve;
+            }
+
+            function getImages(personId) {
+                fetch('/maps/' + personId)
+                    .then(response => response.json())
+                    .then(data => {
+                        const images = data.images;
+                        console.log('data', data);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
             mapboxgl.accessToken = "pk.eyJ1IjoiaGVwcGxlcmoiLCJhIjoiY2xwc3cyN3UyMDdlOTJqbTgwcmZjeWJuYSJ9.wmrR3E8vqsQb3Ml7v0HX-A";
             const map = new mapboxgl.Map({
                 container: 'map',
@@ -53,23 +94,26 @@
                     personCoords = [{{ person.longitude }}, {{ person.latitude }}];
                     personFeatures.push({
                         type: 'Feature',
-                        properties: {
-                            id: personid // assign an id to the person
-                        },
                         geometry: {
                             type: 'Point',
                             coordinates: personCoords
                         },
                         properties: {
+                            person_id: "{{ person_id }}",
                             firstName: "{{ person.first_name }}", // Include the first_name property
-                            lastName: "{{ person.last_name }}" // Include the last_name property
-                        }
-                    });
-                {% else %}
-                    // console.log('Invalid or missing coordinates for person: ', {{ person.id }});
+                            lastName: "{{ person.last_name }}", // Include the last_name property
+                            house_number: "{{ person.house_number }}", // Include the house_number property
+                            street: "{{ person.street }}", // Include the street property
+                            town_city: "{{ person.town_city }}", // Include the town_city property
+                            province_state: "{{ person.province_state }}", // Include the province_state property
+                            country: "{{ person.country }}" // Include the country property
+                        });
                 {% endif %}
                 personid++; // increment the id
             {% endfor %}
+
+            // console personFeatures where sender_object_image is not null 
+            console.log('personFeatures', personFeatures)
 
             // The following creates the data for the censored postal objects
             let censoredFeatures = [];
@@ -91,10 +135,19 @@
                         }
                     });
                 {% else %}
-                    console.log('Invalid or missing coordinates for censored object: ', {{ censor.censor_id }});
+                    // console.log('Invalid or missing coordinates for censored object: ', {{ censor.censor_id }});
                 {% endif %}
                 censorid++; // increment the id
             {% endfor %}
+
+            function filterCensorFeatures(censorFeatures, censorId) {
+                return censorFeatures.filter(function (feature) {
+                    console.log('feature', feature)
+                    return feature.properties.id === censorId;
+                });
+            }
+
+            let filteredFeatures = filterCensorFeatures(censoredFeatures);
 
             // ------------------------------------------------------------
             // The following loops through the postal objects and creates a route for each one
@@ -123,7 +176,7 @@
                 });
             {% endfor %}
 
-            console.log('routes', routes)
+            // console.log('routes', routes)
 
 
             map.on('load', function () {
@@ -172,7 +225,7 @@
                     type: 'circle',
                     source: 'postmarks',
                     paint: {
-                        'circle-radius': 6,
+                        'circle-radius': 4,
                         'circle-color': 'red',
                         'circle-opacity': 0.8
                     }
@@ -183,7 +236,7 @@
                     type: 'circle',
                     source: 'persons',
                     paint: {
-                        'circle-radius': 6,
+                        'circle-radius': 4,
                         'circle-color': 'blue',
                         'circle-opacity': 0.8
                     }
@@ -200,7 +253,7 @@
                         }
                     },
                     paint: {
-                        'circle-radius': 6,
+                        'circle-radius': 4,
                         'circle-color': 'pink',
                         'circle-opacity': 0.8
                     }
@@ -217,10 +270,28 @@
                 const coordinates = e.features[0].geometry.coordinates.slice();
                 const firstName = e.features[0].properties.firstName;
                 const lastName = e.features[0].properties.lastName;
+                const house_number = e.features[0].properties.house_number;
+                const street = e.features[0].properties.street;
+                const town_city = e.features[0].properties.town_city;
+                const province_state = e.features[0].properties.province_state;
+                const country = e.features[0].properties.country;
+
+                const personId = e.features[0].properties.person_id;
+                // getImages(personId).then(images => {
+                //     console.log("It worked")
+                //     console.log('images', images);
+                // })
+
+                const individalItemLink = "web_link_to_item";
+                const censoredLocation = e.features[0].properties.regime_location;
 
                 new mapboxgl.Popup()
                     .setLngLat(coordinates)
-                    .setHTML('<h3>' + firstName + ' ' + lastName + '</h3>')
+                    .setHTML('<strong><p>' + firstName + ' ' + lastName + '</p></strong>' +
+                        (house_number ? '<p>' + house_number + ' ' + street + '</p>' : '') +
+                        (town_city ? '<p>' + town_city + (province_state ? ', ' + province_state : '') + (country ? ', ' + country : '') + '</p>' : '') +
+                        // (images ? '<img src="' + images + '" alt="Addressee Object Image" style="width: 100px; height: auto;">' : '<p>No addressee object image available</p>') +
+                        (censoredLocation ? '<p>Mail was censored at: ' + censoredLocation + '</p>' : '<p>No information about where the mail was censored</p>'))
                     .addTo(map);
             });
 
@@ -292,13 +363,11 @@
                 map.setLayoutProperty('routes', 'visibility', 'visible');
             });
 
-            if (coordinates.length > 0) {
-                let bounds = coordinates.reduce(function(bounds, coord) {
-                    return bounds.extend(coord);
-                }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-
-                map.fitBounds(bounds, {padding: 20});
-            }
+            let arnhem = [5.898730, 51.985103];
+            map.flyTo({
+                center: arnhem,
+                zoom: 9
+            })
 
         </script>
 

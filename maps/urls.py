@@ -6,4 +6,5 @@ from . import views
 
 urlpatterns = [
     path("maps/", views.maps, name="maps"),
+    path("maps/<int:person_id>/", views.get_images, name="get_images"),
 ]

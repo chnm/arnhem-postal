@@ -1,15 +1,27 @@
 from django.core.cache import cache
-from django.shortcuts import render
+from django.db.models import Prefetch, Q
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 
-from postcards.models import Censor, Object, Person
+from maps.forms import MapObjectForm
+from postcards.models import Censor, Image, Object, Person
 
 
 def maps(request):
     postal_objects = Object.objects.all()
-    persons = Person.objects.all()
     censored_postal_objects = Censor.objects.all()
     mapbox_access_token = "pk.eyJ1IjoiaGVwcGxlcmoiLCJhIjoiY2xwc3cyN3UyMDdlOTJqbTgwcmZjeWJuYSJ9.wmrR3E8vqsQb3Ml7v0HX-A"
 
+    form = MapObjectForm(request.GET or None)
+    if form.is_valid():
+        name = form.cleaned_data.get("person")
+        data = Object.objects.filter(
+            Q(sender_name__full_name=name) | Q(addressee_name__full_name=name)
+        )
+    else:
+        data = Object.objects.all()
+
+    persons = Person.objects.all()
     routes = cache.get("routes")
 
     # If the routes data is not in the cache, calculate it
@@ -96,5 +108,13 @@ def maps(request):
             "persons": persons,
             "censored_postal_objects": censored_postal_objects,
             "postal_routes": routes,
+            "form": form,
+            "data": data,
         },
     )
+
+
+def get_images(request, person_id):
+    person = get_object_or_404(Person, id=person_id)
+    images = Image.objects.filter(person=person)
+    return JsonResponse({"images": images})

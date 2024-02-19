@@ -1,0 +1,329 @@
+<div id='map' width="100%" style='height:600px'></div>
+
+<script>
+    function createCurve(start, end, curveSharpness) {
+        const [x1, y1] = start;
+        const [x2, y2] = end;
+
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+
+        const p1 = [x1 + dx * curveSharpness, y1];
+        const p2 = [x1 + dx * (1 - curveSharpness), y2];
+
+        const curve = {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: [start, p1, p2, end]
+            }
+        };
+
+        return curve;
+    }
+
+    mapboxgl.accessToken = "pk.eyJ1IjoiaGVwcGxlcmoiLCJhIjoiY2xwc3cyN3UyMDdlOTJqbTgwcmZjeWJuYSJ9.wmrR3E8vqsQb3Ml7v0HX-A";
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v10',
+        zoom: 9
+    });
+
+    let coordinates = [];
+    let features = [];
+    let coords;
+    let postmarkid = 0;
+    {% for object in postal_objects %}
+        {% for postmark in object.postmark.all %}
+            {% if postmark.location and postmark.location.longitude and postmark.location.latitude %}
+                coords = [{{ postmark.location.longitude }}, {{ postmark.location.latitude }}];
+                coordinates.push(coords);
+                features.push({
+                    type: 'Feature',
+                    properties: {
+                        id: postmarkid, // assign an id to the postmark
+                        sender_name: "{{ object.sender_name }}", // Include the sender_name property
+                        postmark_location: "{{ postmark.location.town_city }}, {{ postmark.location.province_state }}, {{ postmark.location.country }}", // Include the postmark location
+                        addressee_name: "{{ object.addressee_name }}" // Include the addressee_name property
+                    },
+                    geometry: {
+                        type: 'Point',
+                        coordinates: coords
+                    }
+                });
+            {% else %}
+                // console.log('Invalid or missing coordinates for object: ', {{ object.id }});
+            {% endif %}
+        {% endfor %}
+        postmarkid++; // increment the id
+    {% endfor %}
+
+    // Add another loop for the Person model data
+    let personCoords;
+    let personFeatures = [];
+    let personid = 0;
+    {% for person in persons %}
+        {% if person.longitude and person.latitude %}
+            personCoords = [{{ person.longitude }}, {{ person.latitude }}];
+            personFeatures.push({
+                type: 'Feature',
+                properties: {
+                    id: personid // assign an id to the person
+                },
+                geometry: {
+                    type: 'Point',
+                    coordinates: personCoords
+                },
+                properties: {
+                    firstName: "{{ person.first_name }}", // Include the first_name property
+                    lastName: "{{ person.last_name }}", // Include the last_name property
+                    house_number: "{{ person.house_number }}", // Include the house_number property
+                    street: "{{ person.street }}", // Include the street property
+                    town_city: "{{ person.town_city }}", // Include the town_city property
+                    province_state: "{{ person.province_state }}", // Include the province_state property
+                    country: "{{ person.country }}", // Include the country property
+                }
+            });
+        {% else %}
+            // console.log('Invalid or missing coordinates for person: ', {{ person.id }});
+        {% endif %}
+        personid++; // increment the id
+    {% endfor %}
+
+    // The following creates the data for the censored postal objects
+    let censoredFeatures = [];
+    let censoredCoords;
+    let censorid = 0;
+
+    {% for censor in censored_postal_objects %}
+        {% if censor.censor_location %}
+            censoredCoords = [{{ censor.censor_location.longitude }}, {{ censor.censor_location.latitude }}];
+            censoredFeatures.push({
+                type: 'Feature',
+                properties: {
+                    id: censorid, // assign an id to the postmark
+                    censor_location: "{{ censor.location.town_city }}, {{ censor.location.province_state }}, {{ censor.location.country }}", // Include the postmark location
+                },
+                geometry: {
+                    type: 'Point',
+                    coordinates: censoredCoords
+                }
+            });
+        {% else %}
+            // console.log('Invalid or missing coordinates for censored object: ', {{ censor.censor_id }});
+        {% endif %}
+        censorid++; // increment the id
+    {% endfor %}
+
+    // ------------------------------------------------------------
+    // The following loops through the postal objects and creates a route for each one
+    // in order for us to show routes on a map.
+    // Routes are calculated server-side under postal_routes. We loop through the routes
+    // and create a feature for each route. The route includes the sender, postmark, censorship office, 
+    // and addressee.
+    let routes = [];
+    let routeCoords;
+
+    {% for route in postal_routes %}
+        routeCoords = [
+            [{{ route.geometry.coordinates.0.0 }}, {{ route.geometry.coordinates.0.1 }}],
+            [{{ route.geometry.coordinates.1.0 }}, {{ route.geometry.coordinates.1.1 }}],
+        ];
+        routes.push({
+            type: 'Feature',
+            properties: {
+                id: {{ route.properties.id }},
+        // Add other properties here if needed
+            },
+            geometry: {
+                type: 'LineString',
+                coordinates: routeCoords
+            }
+        });
+    {% endfor %}
+
+    // console.log('routes', routes)
+
+
+    map.on('load', function () {
+        map.addSource('postmarks', {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: features
+            }
+        });
+
+        map.addSource('persons', {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: personFeatures
+            }
+        });
+
+        map.addSource('routes', {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: routes
+            }
+        });
+
+        // Add a new layer for the routes
+        map.addLayer({
+            id: 'routes',
+            type: 'line',
+            source: 'routes',
+            layout: {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            paint: {
+                'line-color': '#888',
+                'line-width': 2,
+                'line-opacity': 0.4
+            },
+        });
+
+        map.addLayer({
+            id: 'postmarks',
+            type: 'circle',
+            source: 'postmarks',
+            paint: {
+                'circle-radius': 4,
+                'circle-color': 'red',
+                'circle-opacity': 0.8
+            }
+        });
+
+        map.addLayer({
+            id: 'persons',
+            type: 'circle',
+            source: 'persons',
+            paint: {
+                'circle-radius': 4,
+                'circle-color': 'blue',
+                'circle-opacity': 0.8
+            }
+        });
+
+        map.addLayer({
+            id: 'censored',
+            type: 'circle',
+            source: {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: censoredFeatures
+                }
+            },
+            paint: {
+                'circle-radius': 4,
+                'circle-color': 'pink',
+                'circle-opacity': 0.8
+            }
+        })
+    });
+
+    // turn off mouse zoom
+    map.scrollZoom.disable();
+    // turn on controls 
+    map.addControl(new mapboxgl.NavigationControl());
+
+    // Add an onclick event to the persons layer
+    map.on('click', 'persons', function (e) {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const firstName = e.features[0].properties.firstName;
+        const lastName = e.features[0].properties.lastName;
+        const house_number = e.features[0].properties.house_number;
+        const street = e.features[0].properties.street;
+        const town_city = e.features[0].properties.town_city;
+        const province_state = e.features[0].properties.province_state;
+        const country = e.features[0].properties.country;
+
+        new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML('<strong><p>' + firstName + ' ' + lastName + '</p></strong>' +
+                (house_number ? '<p>' + house_number + ' ' + street + '</p>' : '') +
+                (town_city ? '<p>' + town_city + (province_state ? ', ' + province_state : '') + (country ? ', ' + country : '') + '</p>' : ''))
+            .addTo(map);
+    });
+
+    // Add an onclick event to the postmarks layer
+    map.on('click', 'postmarks', function (e) {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const senderName = e.features[0].properties.sender_name;
+        const addresseeName = e.features[0].properties.addressee_name;
+
+        const postmarkLocation = e.features[0].properties.postmark_location;
+        const censoroffice = e.features[0].properties.censor_location;
+
+        new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML('<strong><p>' + senderName + ' &rarr; ' + addresseeName + '</p></strong>' +
+                '<p>Postmark: ' + postmarkLocation + '</p>' +
+                (censoroffice ? '<p>Censorship office: ' + censoroffice + '</p>' : ''))
+            .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the persons layer
+    map.on('mouseenter', 'persons', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves
+    map.on('mouseleave', 'persons', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+    map.on('mouseenter', 'postmarks', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'postmarks', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+    // When the mouse enters a postmark or person, increase the line's opacity
+    // map.on('mouseenter', 'postmarks', function (e) {
+    //     // map.setFilter('routes', ['==', 'id', e.features[0].properties.id]);
+    //     map.setPaintProperty('routes', 'line-opacity', 1);
+    // });
+    // map.on('mouseenter', 'persons', function (e) {
+    //     // map.setFilter('routes', ['==', 'id', e.features[0].properties.id]);
+    //     map.setPaintProperty('routes', 'line-opacity', 1);
+    // });
+
+    // // When the mouse leaves a postmark or person, reset the line's opacity
+    // map.on('mouseleave', 'postmarks', function (e) {
+    //     map.setFilter('routes', null);
+    //     map.setPaintProperty('routes', 'line-opacity', 0.2);
+    // });
+    // map.on('mouseleave', 'persons', function (e) {
+    //     map.setFilter('routes', null);
+    //     map.setPaintProperty('routes', 'line-opacity', 0.2);
+    // });
+
+    // Hide the data when the user starts panning
+    map.on('dragstart', function () {
+        map.setLayoutProperty('persons', 'visibility', 'none');
+        map.setLayoutProperty('postmarks', 'visibility', 'none');
+        map.setLayoutProperty('routes', 'visibility', 'none');
+    });
+
+    // Show the data again when the user ends panning
+    map.on('dragend', function () {
+        map.setLayoutProperty('persons', 'visibility', 'visible');
+        map.setLayoutProperty('postmarks', 'visibility', 'visible');
+        map.setLayoutProperty('routes', 'visibility', 'visible');
+    });
+
+    if (coordinates.length > 0) {
+        let bounds = coordinates.reduce(function(bounds, coord) {
+            return bounds.extend(coord);
+        }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+        map.fitBounds(bounds, {padding: 20});
+    }
+
+</script>
