@@ -34,8 +34,8 @@ services:
       - POSTGRES_USER={{ template.env.db_user }}
       - POSTGRES_PASSWORD={{ template.env.db_pass }}
       - POSTGRES_HOST=db
-    ports:
-      - "{{ template.env.host_db_port }}:5432"
+    expose:
+      - "{{ template.env.host_db_port }}"
 
 #volumes:
   #postgres_data:
