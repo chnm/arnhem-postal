@@ -1,12 +1,21 @@
 from django.core.paginator import EmptyPage, Paginator
-from django.http import HttpRequest
+from django.http import HttpRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
+from rest_framework import generics
 
 from postcards.filters import ObjectFilter
-from postcards.models import Object
+from postcards.models import Object, Person
 from postcards.tables import ItemHtmxTable
+
+
+def filtered_person_data(request):
+    filtered_data = Person.objects.all()
+    data = list(
+        filtered_data.vlaues("first_name", "last_name", "latitude", "longitude")
+    )
+    return JsonResponse(data, safe=False)
 
 
 def get_nav_links(current_page: str):

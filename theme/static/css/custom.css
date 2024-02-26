@@ -20,6 +20,7 @@
 .table-container table td:nth-child(3) {
   width: 20%;
 }
+
 .table-container table td:nth-child(4) {
   width: 20%;
 }
@@ -41,6 +42,7 @@
 .htmx-request .progress {
   opacity: 1;
 }
+
 .htmx-request.progress {
   opacity: 1;
 }
@@ -61,6 +63,7 @@
     infinite;
   animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
+
 .progress .indeterminate:after {
   content: "";
   position: absolute;
@@ -82,10 +85,12 @@
     left: -35%;
     right: 100%;
   }
+
   60% {
     left: 100%;
     right: -90%;
   }
+
   100% {
     left: 100%;
     right: -90%;
@@ -97,10 +102,12 @@
     left: -200%;
     right: 100%;
   }
+
   60% {
     left: 107%;
     right: -8%;
   }
+
   100% {
     left: 107%;
     right: -8%;
@@ -116,4 +123,41 @@
   background: url("static/images/spinner.gif") no-repeat center;
   background-size: cover;
   display: none;
+}
+
+#aside {
+  position: fixed;
+  right: -200px;
+  /* Start off the screen */
+  width: 200px;
+  height: 100%;
+  background: #f9f9f9;
+  transition: right 0.5s ease-in-out;
+}
+
+#aside.show {
+  right: 0;
+  /* Slide onto the screen */
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  background-color: #f0f0f0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 20px;
+  box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+#sidebar-content {
+  display: none;
+}
+
+.open-sidebar #sidebar-content {
+  display: block;
 }

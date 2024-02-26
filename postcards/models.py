@@ -623,15 +623,51 @@ class Object(models.Model):
     def get_absolute_url(self):
         return reverse("items", kwargs={"id": self.id})
 
-    # def image_canvas(self):
-    #     if self.file:
-    #         return mark_safe(
-    #             '<img src="%s" style="width:100px; height:100px;" />' % self.file.url
-    #         )
-    #     else:
-    #         return "None attached"
+    def calculate_route(self):
+        """Calculate the route between the sender and the addressee."""
 
-    # image_canvas.short_description = "Image"
+        route = []
+        if self.sender_name and self.sender_name.location:
+            route.append(
+                {
+                    "type": "person",
+                    "type_description": "sender",
+                    "latitude": self.sender_name.location.latitude,
+                    "longitude": self.sender_name.location.longitude,
+                }
+            )
+
+        if self.regime_location:
+            route.append(
+                {
+                    "type": "censor",
+                    "latitude": self.regime_location.censor_location.latitude,
+                    "longitude": self.regime_location.censor_location.longitude,
+                }
+            )
+
+        postmarks_sorted = self.postmark.order_by("date")
+        for postmark in postmarks_sorted:
+            if postmark.location:
+                route.append(
+                    {
+                        "type": "postmark",
+                        "latitude": postmark.location.latitude,
+                        "longitude": postmark.location.longitude,
+                    }
+                )
+
+        if self.addressee_name and self.addressee_name.location:
+            route.append(
+                {
+                    "type": "person",
+                    "type_description": "addressee",
+                    "latitude": self.addressee_name.location.latitude,
+                    "longitude": self.addressee_name.location.longitude,
+                }
+            )
+
+        return route
 
 
 class PrimarySource(models.Model):
