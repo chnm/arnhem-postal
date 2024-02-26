@@ -4,239 +4,32 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+  <aside id="sidebar" x-data="{ open: false }" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
+    <div x-show="open" x-transition>
+      <button x-on:click="open = false">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+        </svg>
+      </button>
+      <p>Content</p>
+    </div>
+  </aside>
+
   <main class="container mx-auto py-8 prose">
 
     <h2 class="text-2xl pb-5">Mapping Postal Routes</h2>
 
     <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
 
+
     <form hx-get="/maps" hx-target="#map">
       {{ form.as_p }}
       <input type="submit" value="Filter data">
     </form>
 
+    <div id="loading"><span class="spinner"></span></div>
     <div id='map' width="100%" style='height:600px'></div>
-    <div id="aside" class="aside"></div>
-
-
-    <script>
-      mapboxgl.accessToken = "pk.eyJ1IjoiaGVwcGxlcmoiLCJhIjoiY2xwc3cyN3UyMDdlOTJqbTgwcmZjeWJuYSJ9.wmrR3E8vqsQb3Ml7v0HX-A";
-      const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v10',
-        zoom: 9
-      });
-
-            // turn off mouse zoom
-      map.scrollZoom.disable();
-            // turn on controls 
-      map.addControl(new mapboxgl.NavigationControl());
-
-      let arnhem = [5.898730, 51.985103];
-      map.flyTo({
-        center: arnhem,
-        zoom: 9
-      })
-
-            // fetch our people data
-      fetch('/api/people/')
-        .then(response => response.json())
-        .then(data => {
-          console.log('people', data);
-          const features = data.map(function(person) {
-            return {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [person.longitude, person.latitude]
-              },
-              properties: {
-                name: person.first_name + " " + person.last_name,
-              }
-            };
-          });
-
-          const geojson = {
-            type: 'FeatureCollection',
-            features: features
-          };
-
-          map.addLayer({
-            id: 'circles',
-            type: 'circle',
-            source: {
-              type: 'geojson',
-              data: geojson
-            },
-            paint: {
-              'circle-radius': 5,
-              'circle-color': 'blue',
-              'circle-opacity': 0.75
-            }
-          });
-
-          map.on('click', 'circles', function (e) {
-            new mapboxgl.Popup()
-              .setLngLat(e.features[0].geometry.coordinates)
-              .setHTML(e.features[0].properties.name)
-              .addTo(map);
-          });
-        })
-        .catch(error => console.error(error));
-
-            // add the Postmarks
-      fetch('/api/postmarks/')
-        .then(response => response.json())
-        .then(data => {
-          console.log('postmarks', data);
-                  // filter null values
-          data = data.filter(function(postmark) {
-            return postmark.latitude && postmark.longitude;
-          });
-          const features = data.map(function(postmark) {
-            return {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [postmark.longitude, postmark.latitude]
-              },
-              properties: {
-                name: postmark.postmark,
-              }
-            };
-          });
-          const geojson = {
-            type: 'FeatureCollection',
-            features: features
-          };
-          map.addLayer({
-            id: 'postmarks',
-            type: 'circle',
-            source: {
-              type: 'geojson',
-              data: geojson
-            },
-            paint: {
-              'circle-radius': 5,
-              'circle-color': 'red',
-              'circle-opacity': 0.75
-            }
-          });
-          map.on('click', 'postmarks', function (e) {
-            new mapboxgl.Popup()
-              .setLngLat(e.features[0].geometry.coordinates)
-              .setHTML(e.features[0].properties.name)
-              .addTo(map);
-          });
-        })
-        .catch(error => console.error(error));
-
-            // add the Censors
-      fetch('/api/censors/')
-        .then(response => response.json())
-        .then(data => {
-          console.log('censors', data);
-                  //filter null lat/lon values
-          data = data.filter(function(censor) {
-            return censor.latitude && censor.longitude;
-          });
-          const features = data.map(function(censor) {
-            return {
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [censor.longitude, censor.latitude]
-              },
-              properties: {
-                name: censor.censor,
-              }
-            };
-          });
-          const geojson = {
-            type: 'FeatureCollection',
-            features: features
-          };
-          map.addLayer({
-            id: 'censors',
-            type: 'circle',
-            source: {
-              type: 'geojson',
-              data: geojson
-            },
-            paint: {
-              'circle-radius': 15,
-              'circle-color': 'pink',
-              'circle-opacity': 0.75
-            }
-          });
-          map.on('click', 'censors', function (e) {
-            new mapboxgl.Popup()
-              .setLngLat(e.features[0].geometry.coordinates)
-              .setHTML(e.features[0].properties.name)
-              .addTo(map);
-          });
-        })
-        .catch(error => console.error(error));
-
-            // draw the routes
-      fetch("/api/objects/")
-        .then(response => response.json())
-        .then(data => {
-          console.log('routes', data);
-                    // filter null lat/lon values
-          data = data.filter(function(route) {
-            return route.sender_name.latitude && route.sender_name.longitude && route.addressee_name.latitude && route.addressee_name.longitude;
-          });
-          const features = data.map(function(route) {
-            return {
-              type: 'Feature',
-              geometry: {
-                type: 'LineString',
-                coordinates: [
-                  [route.sender_name.longitude, route.sender_name.latitude],
-                  [route.addressee_name.longitude, route.addressee_name.latitude]
-                ]
-              },
-              properties: {
-                name: route.sender_name + " to " + route.addressee_name,
-              }
-            };
-          });
-          const geojson = {
-            type: 'FeatureCollection',
-            features: features
-          };
-          map.addLayer({
-            id: 'routes',
-            type: 'line',
-            source: {
-              type: 'geojson',
-              data: geojson
-            },
-            paint: {
-              'line-color': 'gray',
-              'line-opacity': 0.6,
-              'line-width': 1
-            }
-          });
-        })
-        .catch(error => console.error(error));
-
-
-      function openSidebar(person) {
-        const sidebarContent = document.getElementById('sidebar-content');
-        sidebarContent.innerHTML = `
-              <h2>${person.first_name} ${person.last_name}</h2>
-                            `;
-      }
-      document.body.classList.add('open-sidebar');
-
-      window.addEventListener('click', function(event) {
-        if (!event.target.closest("#sidebar") && document.body.classList.contains('open-sidebar')) {
-          document.body.classList.remove('open-sidebar');
-        }
-      });
-    </script>
+    <script src="/static/js/map_interface.js"></script>
 
   </main>
 {% endblock content %}
