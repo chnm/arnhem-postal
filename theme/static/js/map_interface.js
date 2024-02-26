@@ -44,8 +44,18 @@ fetch("/api/people/")
           coordinates: [person.longitude, person.latitude],
         },
         properties: {
+          person_id: person.person_id,
           name: person.first_name + " " + person.last_name,
+          addressee:
+            person.addressee_name__first_name +
+            " " +
+            person.addressee_name__last_name,
           point_type: "person",
+          date_correspondence: person.date_of_correspondence,
+          date_returned: person.date_returned,
+          reason_return: person.reasonreturn,
+          letter_enclosed: person.letter_enclosed,
+          notes: person.public_notes,
         },
       };
     });
@@ -69,17 +79,23 @@ fetch("/api/people/")
       },
     });
 
-    // when a user clicks on a Person circle on the map, we tell Alpine to set isOpen to true
-    // Assuming 'map' is your Mapbox GL JS map instance
+    // When a user clicks on a Person circle on the map, we tell Alpine to set isOpen to true
     map.on("click", function (e) {
       // Use queryRenderedFeatures to check if a circle was clicked
       const features = map.queryRenderedFeatures(e.point, {
         layers: ["circles"],
       });
-      console.info("A circle was clicked", features[0].properties.name);
-      if (features.length) {
-        window.sidebarComponent.open = true;
-      }
+
+      console.log("features", features);
+      const personId = features[0].properties.person_id;
+      console.log("personid", personId);
+      fetch(`/api/people/24045`) // TODO: person ID
+        .then((response) => response.json())
+        .then((data) => {
+          window.sidebarComponent.postalObjects = data;
+          window.sidebarComponent.open = true;
+        })
+        .catch((error) => console.error(error));
     });
   })
   .catch((error) => console.error(error));

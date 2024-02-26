@@ -1,17 +1,46 @@
 from django.conf import settings
 from django.conf.urls.static import static
+from django.db.models import Q
 from django.urls import include, path
 from rest_framework import routers, serializers, viewsets
 
-from postcards.models import Censor, Location, Object, Person, Postmark
+from postcards.models import Censor, Image, Object, Person, Postmark
 
 from . import views
 
 
 class PersonsSerializer(serializers.HyperlinkedModelSerializer):
+    postal_objects = serializers.SerializerMethodField()
+
     class Meta:
         model = Person
-        fields = ["first_name", "last_name", "latitude", "longitude"]
+        fields = [
+            "person_id",
+            "first_name",
+            "last_name",
+            "latitude",
+            "longitude",
+            "postal_objects",
+        ]
+
+    def get_postal_objects(self, obj):
+        postal_objects_data = Object.objects.filter(
+            Q(sender_name=obj) | Q(addressee_name=obj)
+        ).values(
+            "sender_name__first_name",
+            "sender_name__last_name",
+            "addressee_name__first_name",
+            "addressee_name__last_name",
+            "date_of_correspondence",
+            "return_to_sender",
+            "date_returned",
+            "reasonreturn",
+            "letter_enclosed",
+            "regime_censor",
+            "public_notes",
+            "tags",
+        )
+        return postal_objects_data
 
 
 class PersonViewSet(viewsets.ModelViewSet):
@@ -25,6 +54,12 @@ class LocationSerializer(serializers.Serializer):
             "latitude": obj.latitude,
             "longitude": obj.longitude,
         }
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ["image", "image_caption"]
 
 
 class PostmarksSerializer(serializers.HyperlinkedModelSerializer):
@@ -74,6 +109,8 @@ class PostalObjectSerializer(serializers.HyperlinkedModelSerializer):
     longitude = serializers.ReadOnlyField(source="sender_name.location.longitude")
     route = serializers.SerializerMethodField()
 
+    images = ImageSerializer(many=True, read_only=True)
+
     class Meta:
         model = Object
         fields = (
@@ -83,6 +120,7 @@ class PostalObjectSerializer(serializers.HyperlinkedModelSerializer):
             "latitude",
             "longitude",
             "route",
+            "images",
         )
 
     def get_regime_location(self, obj):
@@ -95,6 +133,11 @@ class PostalObjectSerializer(serializers.HyperlinkedModelSerializer):
 class PostalObjectViewSet(viewsets.ModelViewSet):
     queryset = Object.objects.all()
     serializer_class = PostalObjectSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.prefetch_related("images")
+        return queryset
 
 
 router = routers.DefaultRouter()

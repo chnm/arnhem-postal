@@ -4,32 +4,48 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <aside id="sidebar" x-data="{ open: false }" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
+  <aside id="sidebar" x-data="{ open: false, postalObject: null }" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
     <div x-show="open" x-transition>
       <button x-on:click="open = false">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
         </svg>
       </button>
-      <p>Content</p>
-    </div>
-  </aside>
 
-  <main class="container mx-auto py-8 prose">
+      <div id="sidebar-content">
+        <template x-if="postalObjects.length > 0">
+          <h2>Postal Objects</h2>
+          <template x-for="postalObject in postalObjects" :key="postalObject.id">
+            <div class="postal-object">
+              <h3>Postal Object</h3>
+              <p>Sender Name: {{ postalObject.sender_name }}</p>
+              <p>Addressee Name: {{ postalObject.addressee_name }}</p>
+              <p>Date of Correspondence: {{ postalObject.date_of_correspondence }}</p>
+                    <!-- Add other relevant fields -->
+            </div>
+          </template>
+        </template>
+        <template x-if="postalObjects.length === 0">
+          <p>No postal objects found for this person.</p>
+        </template>
+      </div>
+    </aside>
 
-    <h2 class="text-2xl pb-5">Mapping Postal Routes</h2>
+    <main class="container mx-auto py-8 prose">
 
-    <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
+      <h2 class="text-2xl pb-5">Mapping Postal Routes</h2>
+
+      <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
 
 
-    <form hx-get="/maps" hx-target="#map">
-      {{ form.as_p }}
-      <input type="submit" value="Filter data">
-    </form>
+      <form hx-get="/maps" hx-target="#map">
+        {{ form.as_p }}
+        <input type="submit" value="Filter data">
+      </form>
 
-    <div id="loading"><span class="spinner"></span></div>
-    <div id='map' width="100%" style='height:600px'></div>
-    <script src="/static/js/map_interface.js"></script>
+      <div id="loading"><span class="spinner"></span></div>
+      <div id='map' width="100%" style='height:600px'></div>
+      <script src="/static/js/map_interface.js"></script>
 
-  </main>
+    </main>
 {% endblock content %}
