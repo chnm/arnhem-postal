@@ -12,40 +12,59 @@
         </svg>
       </button>
 
-      <div id="sidebar-content">
-        <template x-if="postalObjects.length > 0">
-          <h2>Postal Objects</h2>
-          <template x-for="postalObject in postalObjects" :key="postalObject.id">
-            <div class="postal-object">
-              <h3>Postal Object</h3>
-              <p>Sender Name: {{ postalObject.sender_name }}</p>
-              <p>Addressee Name: {{ postalObject.addressee_name }}</p>
-              <p>Date of Correspondence: {{ postalObject.date_of_correspondence }}</p>
-                    <!-- Add other relevant fields -->
-            </div>
+      <div id="sidebar-content" class="scrollable-content">
+        <template x-if="postalObject">
+          <template x-if="postalObject.length > 0">
+            <template x-for="postalObjectItem in postalObject" :key="postalObjectItem.person_id">
+              <div class="postal-object">
+                <h3>Postal Material Information</h3>
+                <p x-text="'Sender Name: ' + postalObjectItem.sender_name__first_name + ' ' + postalObjectItem.sender_name__last_name"></p>
+                <p x-text="'Addressee Name: ' + postalObjectItem.addressee_name__first_name + ' ' + postalObjectItem.addressee_name__last_name"></p>
+                <template x-if="postalObjectItem.date_of_correspondence">
+                  <p x-text="'Date of Correspondence: ' + postalObjectItem.date_of_correspondence"></p>
+                </template>
+                <p x-text="'Return to Sender: ' + postalObjectItem.return_to_sender"></p>
+                <p x-text="'Regime Censor: ' + postalObjectItem.regime_censor"></p>
+                <p x-text="'Public Notes: ' + postalObjectItem.public_notes"></p>
+                <h2>Documents</h2>
+                <template x-for="image in postalObjectItem.images" :key="image.image">
+                  <div>
+                    <img :src="'http://localhost:8000' + image.image" alt="Image">
+                    <p x-text="image.image_caption"></p>
+                    <a :href="'/postal/' + postalObjectItem.id + '/view'">View Item</a>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </template>
+          <template x-if="postalObject.length === 0">
+            <p>No postal objects found for this person.</p>
           </template>
         </template>
-        <template x-if="postalObjects.length === 0">
-          <p>No postal objects found for this person.</p>
-        </template>
       </div>
-    </aside>
+    </div>
+  </aside>
+  <main class="container mx-auto py-8 prose">
 
-    <main class="container mx-auto py-8 prose">
+    <h2 class="text-2xl pb-5">Mapping Postal Routes</h2>
 
-      <h2 class="text-2xl pb-5">Mapping Postal Routes</h2>
+    <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
 
-      <p class="pb-3">This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
+    <div x-data="{ isOpen: true }" class="accordion">
+      <button @click="isOpen = !isOpen" class="accordion-header">
+        Filter Data
+      </button>
+      <div x-show="isOpen" class="accordion-panel">
+        <form hx-get="/maps" hx-target="#map">
+          {{ form.as_p }}
+          <input type="submit" value="Filter data">
+        </form>
+      </div>
+    </div>
 
+    <div id="loading"><span class="spinner"></span></div>
+    <div id='map' width="100%" style='height:600px'></div>
+    <script src="/static/js/map_interface.js"></script>
 
-      <form hx-get="/maps" hx-target="#map">
-        {{ form.as_p }}
-        <input type="submit" value="Filter data">
-      </form>
-
-      <div id="loading"><span class="spinner"></span></div>
-      <div id='map' width="100%" style='height:600px'></div>
-      <script src="/static/js/map_interface.js"></script>
-
-    </main>
+  </main>
 {% endblock content %}
