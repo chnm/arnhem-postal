@@ -47,39 +47,6 @@
   opacity: 1;
 }
 
-.progress .indeterminate {
-  background-color: blue;
-}
-
-.progress .indeterminate:before {
-  content: "";
-  position: absolute;
-  background-color: inherit;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  will-change: left, right;
-  -webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395)
-    infinite;
-  animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-}
-
-.progress .indeterminate:after {
-  content: "";
-  position: absolute;
-  background-color: inherit;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  will-change: left, right;
-  -webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1)
-    infinite;
-  animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1)
-    infinite;
-  -webkit-animation-delay: 1.15s;
-  animation-delay: 1.15s;
-}
-
 @keyframes indeterminate {
   0% {
     left: -35%;
@@ -134,10 +101,37 @@
   background-color: #f0f0f0;
   transition: transform 0.3s ease-in-out;
   z-index: 999;
+  box-shadow: -5px 0 5px -5px #333;
 }
 
 #sidebar.open {
   transform: translateX(-300px);
+}
+
+#sidebar-content {
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+.accordion {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px; /* Add some space between accordions */
+}
+
+/* Accordion header/button */
+.accordion-header {
+  background-color: #f2f2f2;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .mapboxgl-canvas-container {
