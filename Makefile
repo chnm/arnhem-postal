@@ -30,10 +30,6 @@ dumpdata :
 # Zip the collectstatic files
 	zip -r collectstatic.zip staticfiles
 
-# Compile TailwindCSS
-tailwind :
-	poetry run python3 manage.py tailwind start
-
 graph_illustrate :
 	poetry run python3 manage.py graph_models -a -g -o models.png
 
@@ -53,4 +49,4 @@ rebuild :
 createsuper : 
 	docker-compose exec web poetry run python manage.py createsuperuser
 
-.PHONY : preview tailwind graph_illustrate docker-up docker-down docker-build
+.PHONY : preview graph_illustrate docker-up docker-down docker-build
