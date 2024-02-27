@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
+from django.core.cache import cache
 from django.db.models import Q
 from django.urls import include, path
 from rest_framework import routers, serializers, viewsets
@@ -11,6 +12,7 @@ from . import views
 
 class PersonsSerializer(serializers.HyperlinkedModelSerializer):
     postal_objects = serializers.SerializerMethodField()
+    # associated_routes = serializers.SerializerMethodField()
 
     class Meta:
         model = Person
@@ -21,26 +23,51 @@ class PersonsSerializer(serializers.HyperlinkedModelSerializer):
             "latitude",
             "longitude",
             "postal_objects",
+            # "associated_routes",
         ]
 
     def get_postal_objects(self, obj):
-        postal_objects_data = Object.objects.filter(
+        postal_objects_data = []
+        postal_objects = Object.objects.filter(
             Q(sender_name=obj) | Q(addressee_name=obj)
-        ).values(
-            "sender_name__first_name",
-            "sender_name__last_name",
-            "addressee_name__first_name",
-            "addressee_name__last_name",
-            "date_of_correspondence",
-            "return_to_sender",
-            "date_returned",
-            "reasonreturn",
-            "letter_enclosed",
-            "regime_censor",
-            "public_notes",
-            "tags",
         )
+        for postal_object in postal_objects:
+            postal_object_data = {
+                "sender_name__first_name": postal_object.sender_name.first_name,
+                "sender_name__last_name": postal_object.sender_name.last_name,
+                "addressee_name__first_name": postal_object.addressee_name.first_name,
+                "addressee_name__last_name": postal_object.addressee_name.last_name,
+                "date_of_correspondence": postal_object.date_of_correspondence,
+                "return_to_sender": postal_object.return_to_sender,
+                "date_returned": postal_object.date_returned,
+                "reasonreturn": postal_object.reason_for_return_original,
+                "letter_enclosed": postal_object.letter_enclosed,
+                "regime_censor": postal_object.regime_censor,
+                "public_notes": postal_object.public_notes,
+                "images": [],
+            }
+        images = Image.objects.filter(postcard=postal_object)
+        for image in images:
+            postal_object_data["images"].append(
+                {
+                    "image": image.image.url,
+                    "image_caption": image.image_caption,
+                }
+            )
+        postal_objects_data.append(postal_object_data)
         return postal_objects_data
+
+    # def get_associated_routes(self, obj):
+    #     """We want to get the routes associated with a person. We use the person_id to get the routes
+    #     associated with the person. We then return the routes as a list of dictionaries."""
+    #     routes = []
+    #     postal_objects = Object.objects.filter(
+    #         Q(sender_name=obj) | Q(addressee_name=obj)
+    #     )
+    #     for postal_object in postal_objects:
+    #         route = postal_object.calculate_route()
+    #         routes.append(route)
+    #     return routes
 
 
 class PersonViewSet(viewsets.ModelViewSet):
