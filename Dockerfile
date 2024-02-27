@@ -11,6 +11,7 @@ WORKDIR /app
 
 # Install dependencies with Poetry
 COPY poetry.lock pyproject.toml /app/
+RUN poetry add packaging
 RUN pip3 install poetry
 
 RUN poetry config virtualenvs.create false
