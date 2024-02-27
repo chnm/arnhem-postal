@@ -1,15 +1,22 @@
-<div class="relative h-screen">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Aerial_view_of_the_bridge_over_the_Neder_Rijn%2C_Arnhem.jpg" alt="Project Image" class="absolute inset-0 w-full h-full object-cover">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="absolute inset-0 flex justify-center items-center">
-        <div class="max-w-xl px-4 text-white">
-            <h1 class="text-4xl font-bold mb-4">The Arnhem Postal History Project</h1>
-            <p class="text-lg mb-6">A brief description of the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <div class="space-x-4">
-                <a href="#" class="bg-green-800 hover:bg-green-700 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">Exhibits</a>
-                <a href="#" class="bg-green-800 hover:bg-green-700 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">Timeline</a>
-                <a href="#" class="bg-green-800 hover:bg-green-700 text-white py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">Map</a>
-            </div>
+{% load static %}
+<div class="hero-image">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 align-center">
+            <img src="{% static 'images/APH stamp.png' %}">
+        </div>
+        <div class="col-lg-8 col-md-6 col-sm-12">
+            <h1> Arnhem Postal History </h1>
+            <p> Welcome to the Arnhem Postal History Project, a collection of stamps, covers, correspondence,
+                photographs
+                and documents from the Netherlands during World War II. Through the lens of postal services &emd;
+                including
+                postmarks, censor markings, and routing &emd; the collection offers a glimpse of everyday life in
+                tumultuous
+                times. The project includes a database of images, people and places represented by the objects in
+                the
+                collection; exhibits providing more in depth views of time periods and events; and short essays
+                focused
+                items of interest.</p>
         </div>
     </div>
 </div>
