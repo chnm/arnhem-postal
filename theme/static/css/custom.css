@@ -16,6 +16,11 @@ body {
   /* Hide horizontal scrollbar */
 }
 
+body.database-page {
+  background-color: #f9f4ef;
+  margin: 0;
+}
+
 .navbar-light .navbar-nav .nav-link {
   color: black;
   font-size: 14px;

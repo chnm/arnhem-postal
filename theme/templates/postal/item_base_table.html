@@ -3,56 +3,582 @@
 {% load render_table from django_tables2 %}
 {% load i18n %}
 {% load django_tables2 %}
-{% load crispy_forms_tags %}
 
 {% block multi_htmx_table %}active{% endblock %}
 
 {% block main %}
-    <h1 class="text-5xl pb-6">Items table</h1>
+    <div class="row d-flex overflow-scroll" style="justify-content: center;">
+        <div class="col-sm-12 col-md-6 col-lg-6 db-column">
+            <div class="row">
+                <h1 style="margin-bottom: 25px;"> Items Table </h1>
 
-    <div id="table-container" class="table-container">
+                <div id="table-container" class="table-container">
 
-        <form class="form-inline"
-              hx-get="{% url 'table' %}"
-              hx-target=".table-body-container"
-              hx-trigger="input, select, sort-initiated, pagination-initiated"
-              hx-swap="outerHTML"
-              hx-indicator=".progress"
-              x-data="{ sort_by: '', page_by: 1 }">
+                    <form class="form-inline"
+                          hx-get="{% url 'table' %}"
+                          hx-target=".table-body-container"
+                          hx-trigger="input, select, sort-initiated, pagination-initiated"
+                          hx-swap="outerHTML"
+                          hx-indicator=".progress"
+                          x-data="{ sort_by: '', page_by: 1 }">
 
-            <input type="hidden" name="sort" x-ref="sort_input" x-model="sort_by"
-                   x-init="$watch('sort_by',
-                           () => $refs.sort_input.dispatchEvent(
-                           new Event('sort-initiated', { bubbles: true })))">
+                        <input type="hidden" name="sort" x-ref="sort_input" x-model="sort_by"
+                               x-init="$watch('sort_by',
+                                       () => $refs.sort_input.dispatchEvent(
+                                       new Event('sort-initiated', { bubbles: true })))">
 
-            <input type="hidden" name="page" x-ref="paginate_input" x-model="page_by"
-                   x-init="$watch('page_by',
-                           () => $refs.paginate_input.dispatchEvent(
-                           new Event('pagination-initiated', { bubbles: true })))" >
+                        <input type="hidden" name="page" x-ref="paginate_input" x-model="page_by"
+                               x-init="$watch('page_by',
+                                       () => $refs.paginate_input.dispatchEvent(
+                                       new Event('pagination-initiated', { bubbles: true })))" >
 
-            {% for field in filter.form %}
-                {{ field | as_crispy_field }}
-            {% endfor %}
-            <table {% render_attrs table.attrs class="table multi-col-header table-auto w-full" %}>
-                <thead {{ table.attrs.thead.as_html }}>
-                    <tr>
-                        {% for column in table.columns %}
-                            <th {{ column.attrs.th.as_html }}
-                                x-data="{ col_name: '{{ column.order_by_alias }}',
-                                        toggle(event) {
-                                        this.col_name = this.col_name.startsWith('-') ? this.col_name.substring(1) : ('-' + this.col_name);
-                                        sort_by = this.col_name;}}"
-                                @click="toggle()"
-                                class="w-1/3"
-                                :class="sort_by !== '' ? (sort_by === col_name ? (sort_by.startsWith('-') ? 'desc' : 'asc') : '') : ''"
-                                style="cursor: pointer;">
-                                {{ column.header }}
-                            </th>
+                        {% for field in filter.form %}
+                            {{ field }}
                         {% endfor %}
-                    </tr>
-                </thead>
-            </table>
-            {% render_table table %}
-        </form>
+                        <table {% render_attrs table.attrs class="table multi-col-header table-auto w-full" %}>
+                            <thead {{ table.attrs.thead.as_html }}>
+                                <tr>
+                                    {% for column in table.columns %}
+                                        <th {{ column.attrs.th.as_html }}
+                                            x-data="{ col_name: '{{ column.order_by_alias }}',
+                                                    toggle(event) {
+                                                    this.col_name = this.col_name.startsWith('-') ? this.col_name.substring(1) : ('-' + this.col_name);
+                                                    sort_by = this.col_name;}}"
+                                            @click="toggle()"
+                                            class="w-1/3"
+                                            :class="sort_by !== '' ? (sort_by === col_name ? (sort_by.startsWith('-') ? 'desc' : 'asc') : '') : ''"
+                                            style="cursor: pointer;">
+                                            {{ column.header }}
+                                        </th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                        </table>
+                        {% render_table table %}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    <!-- finding aid -->
+        <div class="col-sm-12 col-md-5 col-lg-5 db-finding-aid overflow-scroll" style="height: 100vh;">
+            <div class="row">
+                <h1> Finding Aid </h1>
+                <div class="finding-aid-content">
+                    <div class="row">
+                        <div class="col">
+                            <h3>Descriptive summary</h3>
+                            <div class="desc-sum">
+                                <p><span class="bolded">Title</span>: Postal artifacts of German occupied
+                                    Holland during World War II </p>
+                                <p><span class="bolded">Owner</span>: Tim Gale </p>
+                                <p><span class="bolded">Dates</span>: 1939-1951 </p>
+                                <p><span class="bolded">Creator</span>: Roy Rosenzweig Center for History and
+                                    New Media </p>
+                                <p><span class="bolded">Extent</span>: 3,443 as of 1/3/2024 </p>
+                                <p><span class="bolded">Repository</span>: Arnhem Postal History, Inc. and the
+                                    private collection of Timothy Gale
+                                </p>
+                                <p><span class="bolded">Languages</span>: Dutch, German, English, French </p>
+                                <p><span class="bolded">Reproduction and use</span>:
+                                    <br>
+                                    No restrictions on access.
+                                    <br>
+                                    No restrictions on use.
+                                </p>
+                                <p><span class="bolded">Preferred citation</span>:
+                                    (Identification of item), (Identification of file), Selected records from the Arnhem
+                                    Postal History Project, website
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <h3>Editor's Notes</h3>
+                            <p>For consistency and accuracy in creating and adding to the database, some general
+                                format rules were followed. Objects in the database following a naming pattern of
+                                CollectionPostmark locationPostmarkDate. For example, a postcard mailed from Arnhem
+                                on September 21, 1944, as part of the Operation Market Garden Collection would be
+                                named XVIArnhem092144. In the event multiple items are named alike, the second item
+                                would be XVIArnhem092144A. </p>
+
+                            <p>If a postmark is illegible and related correspondence had a location, that was the
+                                one used. Illegible numbers for dates were replaced with XX.</p>
+
+                            <p>Dates follow the American convention of month/date/year.</p>
+
+                            <p>Names are corrected to include as much information as possible. If the sender or
+                                addressee is referred to by only the surname or a first and the letter provided a
+                                full first name, the full name will be in the database. For companies and
+                                organizations, small differences are corrected for consistency. Names that are a
+                                best guess are annotated with and asterisk (*)</p>
+
+                            <p>If a place name has changed, the difference is noted.</p>
+
+                            <p>This is intended to be a living collection and we welcome feedback. Please contact
+                                the Arnhem Postal History Project if you have a correction or more information at
+                                info@rabbitholes.com.</p>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3> Scope and content of collection </h3>
+                        <p>Selected records from postal artifacts from German occupied Holland between
+                            1939-1951.
+                            The archive contains philately examples, private correspondence, prisoner letters,
+                            official correspondence, humanitarian organization reports, and tourist postcards
+                            sent
+                            to and from Holland during the Second World War. There are also examples of
+                            correspondence sent to and from France, Great Britain, Germany, and the United
+                            States.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3> System of arrangement </h3>
+                        <p>Records are arranged by topic, generally chronologically. They are grouped by
+                            larger
+                            topic area, such as The Evolution of the Holocaust in Holland, and more specific
+                            topic areas. Many of the artifacts are applicable to multiple topic areas and
+                            are
+                            searchable as such. The major groupings are:
+                        </p>
+
+                        <div class="row">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                            A: CODE NAME YELLOW: 1940-INVASION AND OCCUPATION OF HOLLAND
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                         aria-labelledby="headingOne">
+                                        <div class="accordion-body">
+                                            <p>I – Pre-World War II – Mobilization</p>
+                                            <p>III – Severed Connections 1940 – Volume 1</p>
+                                            <p> IV – Severed Connections 1940– Volume 2</p>
+                                            <p>V – Severed Connections 1941/1945 – Vichy France/Pearl Harbor –
+                                                Volume 3</p>
+                                            <p>VI – Delayed Delivery 1940 – Volume 1</p>
+                                            <p>VII – Delayed Delivery after 1940 – Volume 2</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                aria-expanded="false" aria-controls="collapseTwo">
+                                            B: EVOLUTION OF THE HOLOCAUST
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                         aria-labelledby="headingTwo">
+                                        <div class="accordion-body">
+                                            <p>II – Pre-War Refugee Camps and Attempts to Leave </p>
+                                            <p>XXI – Red Cross Volume 2 – 1944 – 1946 – Post War Enquiries</p>
+                                            <p>XXX – Transit Camp Westerbork – Volume 1 </p>
+                                            <p>XXXI – Transit Camp Westerbork – Volume 2 </p>
+                                            <p>XXXII – Dutch Camps – Concentration Camps – Prisons </p>
+                                            <p>XXXIII – The Price of an Apple / A Rembrandt for 25 Lives/ Sibella
+                                                Katz </p>
+                                            <p>XXXIV – Kaufmann / Cardozo / Lippman-Rosenthal Bank </p>
+                                            <p>EHH – Materials from the exhibition Evolution of the Holocaust in
+                                                Holland </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                                aria-expanded="false" aria-controls="collapseThree">
+                                            C: EFFECT OF THE OCCUPATION ON DAILY LIFE
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                         aria-labelledby="headingThree">
+                                        <div class="accordion-body">
+                                            <p>VIII – Undercover Mail </p>
+                                            <p>XX –Red Cross – Volume 1 </p>
+                                            <p>XXVI – POW mail </p>
+                                            <p>XXVII – Forced Labor – Volume 1 </p>
+                                            <p>XXVIII – Forced Labor – Volume 2 </p>
+                                            <p>XXIX – WWII Dutch Stamp Issues </p>
+                                            <p>XLIV- Anti-German Satire and Propaganda </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingFour">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                aria-expanded="false" aria-controls="collapseFour">
+                                            D: FALSE HOPES AND LASTING THANKS: THE BATTLE OF ARNHEM
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFour" class="accordion-collapse collapse"
+                                         aria-labelledby="headingFour">
+                                        <div class="accordion-body">
+                                            <p>XVI – Operation Market Garden including Prelude and Aftermath –
+                                                Volume 1 </p>
+                                            <p>XVII – Operation Market Garden including Prelude and Aftermath
+                                                Frundberg, Fallschirm Armee, Flak Unit - Volume 2 </p>
+                                            <p>XVIII – Operation Market Garden including Prelude and Aftermath –
+                                                Commemorative covers – Volume 3 </p>
+                                            <p>XIX – Battle of the Scheldt </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingFive">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                                                aria-expanded="false" aria-controls="collapseFive">
+                                            E: FINAL DAYS OF THE OCCUPATION AND REGAINED FREEDOM
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFive" class="accordion-collapse collapse"
+                                         aria-labelledby="headingFive">
+                                        <div class="accordion-body">
+                                            <p>XXXVI – APO’s – Dutch Military in Foreign Service – Volume 1 </p>
+                                            <p>XXXVII – APO’s – Dutch Military in Foreign Service - Volume 2 </p>
+                                            <p>XXII – Mail to and from liberated areas and restored connections
+                                                post-war </p>
+                                            <p>XXXVIII – Final days / Hunger Winter / Special Mail transport –
+                                                Volume 1 </p>
+                                            <p>XXXIX – Final days / Hunger Winter / Special Mail transport Volume 2
+                                            </p>
+                                            <p>XL – Post War Mail: Restrictions and Restoration of Service Part 1:
+                                                Severed Connections May/July 1945 </p>
+                                            <p>XLI – Post War Mail: Restrictions and Restoration of Service Part 2:
+                                                Boy Scout Mail – Netherlands Air Force </p>
+                                            <p>XLII – Post War Mail: Restrictions and Restoration of Service Part 3:
+                                                Not Permitted due to Regulations, Severed/Restored Connections
+                                                August/December 1945 and later </p>
+                                            <p>LIII – Emergency handstamps Volumes 1 and 2 </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingSix">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseSix"
+                                                aria-expanded="false" aria-controls="collapseSix">
+                                            F. POST WAR
+                                        </button>
+                                    </h2>
+                                    <div id="collapseSix" class="accordion-collapse collapse"
+                                         aria-labelledby="headingSix">
+                                        <div class="accordion-body">
+                                            <p>XLIII – N.B.S. Domestic forces – Bakker Archive (Prince Bernhard)
+                                            </p>
+                                            <p>XLV – Allied Censorship – Volume 1 – 1945 through August 1946 </p>
+                                            <p>XLVII – Military Authority </p>
+                                            <p>XLVIII – Post War Camps </p>
+                                            <p>XLIX – Post War Documents </p>
+                                            <p>L – Post War Mail: Handstamps – registration – free franking </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingSeven">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseSeven"
+                                                aria-expanded="false" aria-controls="collapseSeven">
+                                            G. GERMAN REGULATIONS AND CENSORSHIP
+                                        </button>
+                                    </h2>
+                                    <div id="collapseSeven" class="accordion-collapse collapse"
+                                         aria-labelledby="headingSeven">
+                                        <div class="accordion-body">
+                                            <p>IX – German Regulations and Orders – Volume 1</p>
+                                            <p>X – German Regulations and Orders – Volume 2 </p>
+                                            <p>XI – German Regulations and Orders – Daily Life – Volume 3 </p>
+                                            <p>XII – German Regulations and Orders – Volume 4 </p>
+                                            <p>XIII – Censorship Volume 1: Cologne 1940 - 1944 </p>
+                                            <p>XIV– Censorship Volume 2: Königsberg / Berlin / Frankfurt </p>
+                                            <p>XV – Censorship Volume 3: Munich / Hamburg / Vienna / other </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingEight">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseEight"
+                                                aria-expanded="false" aria-controls="collapseEight">
+                                            H. FELDPOST, DIENSTPOST, GERMAN PROPAGANDA
+                                        </button>
+                                    </h2>
+                                    <div id="collapseEight" class="accordion-collapse collapse"
+                                         aria-labelledby="headingEight">
+                                        <div class="accordion-body">
+                                            <p>XXIII – Feldpost </p>
+                                            <p>XXIV – Dienstpost Niederlande – Volume 1 </p>
+                                            <p>XXV – Dienstpost Niederlande – Volume 2 </p>
+                                            <p>XXXV – German Propaganda </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingNine">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseNine"
+                                                aria-expanded="false" aria-controls="collapseNine">
+                                            I. POSTCARDS
+                                        </button>
+                                    </h2>
+                                    <div id="collapseNine" class="accordion-collapse collapse"
+                                         aria-labelledby="headingNine">
+                                        <div class="accordion-body">
+                                            <p>LI – Postcards – Volume 1 </p>
+                                            <p>LII – Postcards – Volume 2 </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTen">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseTen"
+                                                aria-expanded="false" aria-controls="collapseTen">
+                                            J. AUTOGRAPHS
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTen" class="accordion-collapse collapse"
+                                         aria-labelledby="headingTen"></div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingNine">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseEleven"
+                                                aria-expanded="false" aria-controls="collapseEleven">
+                                            K: MISCELLANEOUS
+                                        </button>
+                                    </h2>
+                                    <div id="collapseEleven" class="accordion-collapse collapse"
+                                         aria-labelledby="headingEleven">
+                                        <div class="accordion-body">
+                                            <p>LIV - Miscellaneous </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3> Indexing terms </h3>
+                        <p>Letters <br>
+                            Postcards <br>
+                            Official communication <br>
+                            Government reports <br>
+                            Red Cross Inquiries and Responses <br>
+                            Publications <br>
+                            Envelopes <br>
+                            Postage Stamps <br>
+                            Newspapers <br>
+                            Pamphlets <br>
+                            Posters <br>
+                            Personnel Records <br>
+                            Operational Reports <br>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3> Geographic name: </h3>
+                        <p>Netherlands--History--20th Century </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3> Topical Term: </h3>
+                        <p> World War, 1939-1951--Red Cross (missing persons, relief efforts) <br>
+                            World War, 1939-1951--Banking <br>
+                            World War, 1939-1951 <br>
+                            Personal Correspondance <br>
+                            Survivors <br>
+                            Censored letters, documents, forms <br>
+                            Holocaust <br>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <h3> Folder list </h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="table-secondary">
+                                    <th scope="col">Group Number </th>
+                                    <th scope="col">Folders </th>
+                                    <th scope="col">Name </th>
+                                    <th scope="col">Date Range </th>
+                                    <th scope="col">Content Description </th>
+                                    <th scope="col">Pages </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">A</th>
+                                    <td>I, III-VI </td>
+                                    <td> </td>
+                                    <td>4/8/1939-8/12/1945 </td>
+                                    <td>These folders include artifacts representing pre-war Holland through the
+                                        height of German occupation. Includes letters and postcards that demonstrate
+                                        return to sender examples and censored correspondence by German, Great
+                                        Britain and Dutch authorities.</td>
+                                    <td>383 </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">B</th>
+                                    <td>II, XXI, XXX-XXXIV, EHH </td>
+                                    <td>Evolution of the Holocaust in Holand </td>
+                                    <td>02/11/1939-7/19/1946</td>
+                                    <td>This folder contains artifacts related to the Evolution of the Holocaust in
+                                        Holland. These folders include correspondence on attempts to leave, Red
+                                        Cross inquiries, and items related to the transit camp at Westerbork.
+                                        Correspondence related to notable Dutch Jewish families, the Lippmann
+                                        Rosenthal Bank and individual stories of the Holocaust are part of this
+                                        folder, along with artifacts related to the exhibit The Evolution of the
+                                        Holocaust in Holland </td>
+                                    <td>314 </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">C</th>
+                                    <td>VIII, XX, XXVI-XXIX, XLIV </td>
+                                    <td>Effect of the Occupation on Daily Life </td>
+                                    <td>5/29/1940-12/19/1945 </td>
+                                    <td>This folder illustrates life under German occupation at the height of the
+                                        war. Included in this folder is the first of several volumes of Red Cross
+                                        letters, used to inquire about missing persons and for limited
+                                        correspondence to and from writers in Allied countries. There are several
+                                        examples of letters to and from soldiers in prisoner of war camps as well as
+                                        correspondence related to forced labor in Holland, Germany and German
+                                        occupied countries. This folder also includes examples of Dutch stamps
+                                        issued during the period. Examples of propaganda, both anti-German and
+                                        against the government in exile. </td>
+                                    <td>479 </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">D</th>
+                                    <td>XVI-XIX, LV, BOA </td>
+                                    <td>Operation Market Garden Including the Prelude & Aftermath </td>
+                                    <td>9/02/1944-01/26/1945</td>
+                                    <td>This folder contains letters and postcards from the period leading up to and
+                                        during Operation Market Garden, records of participants in the battle and
+                                        family correspondence from the affected areas. Also in the folder is a
+                                        collection of commemorative stamps and postal covers. A collection of items
+                                        related to the subsequent battle of the Scheldt is also included. The folder
+                                        BOA is items that are in the exhibit <span class="italicize">False Hopes and
+                                            Lasting Thanks: The
+                                            Battle of Arnhem</span> and not found in other folders. </td>
+                                    <td>505</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">E</th>
+                                    <td>XXI, XXXVI-XLII, LIII</td>
+                                    <td>Hunger Winter, Final Days of Occupation and Liberation </td>
+                                    <td>10/18/44-6/05/45</td>
+                                    <td>These folders hold postal examples from the end of the German occupation and
+                                        from Dutch citizens serving with the Allied armed forces. Several examples
+                                        show correspondence from concentration camps, and letters transported by
+                                        private car. There are also some examples of mail during the "Hunger
+                                        Winter." There are some censor examples from Germany, Netherlands, and
+                                        Canada. There are also official letters from the Red Cross. </td>
+                                    <td>562</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">F</th>
+                                    <td>XLIII, XLV-L</td>
+                                    <td>Post-War </td>
+                                    <td>7/23/1942-8/28/1947 </td>
+                                    <td>This folder contains artifacts related to Dutch resistance forces and the
+                                        period immediately post-war in the Netherlands. </td>
+                                    <td>314</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">G</th>
+                                    <td>IX-XV</td>
+                                    <td>German Regulations and Censorship </td>
+                                    <td>5/11/1940-6/6/1944</td>
+                                    <td>These folders contain censored correspondence by German authorities and one
+                                        example of a 'Return to Sender.' These letters are sent during the height of
+                                        German occupation. The folder also holds correspondence and documents on
+                                        regulation of postal services and censorship during the occupation. </td>
+                                    <td>502</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">H</th>
+                                    <td>XXII-XXV, XXXV </td>
+                                    <td>Feldpost, Dienstpost, German Propaganda </td>
+                                    <td>8/3/1933-12/10/1945 </td>
+                                    <td>This folder holds examples of the use of field post offices and service
+                                        mails set up during the occupation. Further, it contains examples of German
+                                        propaganda used to try to influence public opinion. </td>
+                                    <td>384</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">I</th>
+                                    <td>LI-LII </td>
+                                    <td>Postcards</td>
+                                    <td>N/A</td>
+                                    <td>This folder includes picture postcards (unused) from the period. </td>
+                                    <td>TBD</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">J</th>
+                                    <td>LVI</td>
+                                    <td>Autographs</td>
+                                    <td>N/A</td>
+                                    <td>This folder contains autographs of notable people associated with the period. </td>
+                                    <td>TBD</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">K</th>
+                                    <td>LIV</td>
+                                    <td>Miscellaneous</td>
+                                    <td>TBD</td>
+                                    <td>This folder holds both philately and cultural artifacts that do not fall into the other subject areas. </td>
+                                    <td>TBD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
