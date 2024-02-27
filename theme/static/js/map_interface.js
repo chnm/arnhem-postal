@@ -35,7 +35,6 @@ function hideLoading() {
 fetch("/api/people/")
   .then((response) => response.json())
   .then((data) => {
-    console.log("people", data);
     const features = data.map(function (person) {
       return {
         type: "Feature",
@@ -45,17 +44,7 @@ fetch("/api/people/")
         },
         properties: {
           person_id: person.person_id,
-          name: person.first_name + " " + person.last_name,
-          addressee:
-            person.addressee_name__first_name +
-            " " +
-            person.addressee_name__last_name,
           point_type: "person",
-          date_correspondence: person.date_of_correspondence,
-          date_returned: person.date_returned,
-          reason_return: person.reasonreturn,
-          letter_enclosed: person.letter_enclosed,
-          notes: person.public_notes,
         },
       };
     });
@@ -86,14 +75,14 @@ fetch("/api/people/")
         layers: ["circles"],
       });
 
-      console.log("features", features);
       const personId = features[0].properties.person_id;
-      console.log("personid", personId);
-      fetch(`/api/people/24045`) // TODO: person ID
+      fetch(`/api/people/${personId}`)
         .then((response) => response.json())
         .then((data) => {
-          window.sidebarComponent.postalObjects = data;
-          window.sidebarComponent.open = true;
+          window.sidebarComponent.$nextTick(() => {
+            window.sidebarComponent.postalObject = data.postal_objects;
+            window.sidebarComponent.open = true;
+          });
         })
         .catch((error) => console.error(error));
     });
@@ -104,7 +93,6 @@ fetch("/api/people/")
 fetch("/api/postmarks/")
   .then((response) => response.json())
   .then((data) => {
-    console.log("postmarks", data);
     // filter null values
     data = data.filter(function (postmark) {
       return postmark.latitude && postmark.longitude;
@@ -153,7 +141,6 @@ fetch("/api/postmarks/")
 fetch("/api/censors/")
   .then((response) => response.json())
   .then((data) => {
-    console.log("censors", data);
     //filter null lat/lon values
     data = data.filter(function (censor) {
       return censor.latitude && censor.longitude;
@@ -201,7 +188,6 @@ fetch("/api/censors/")
 fetch("/api/objects/")
   .then((response) => response.json())
   .then((data) => {
-    console.log("routes", data);
     // filter null lat/lon values
     data = data.filter(function (route) {
       return (
