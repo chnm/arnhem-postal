@@ -8,7 +8,7 @@ __pycache__/
 
 ## Local files that don't need committing
 *.sqlite3
-images/
+media/images
 
 # C extensions
 *.so
