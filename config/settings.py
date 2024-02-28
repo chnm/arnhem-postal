@@ -85,12 +85,10 @@ THIRD_PARTY_APPS = [
     "taggit",
     "taggit_selectize",
     "crispy_forms",
-    "crispy_tailwind",
     "django_tables2",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "tailwind",
     "django_extensions",
     "import_export",
     "django_dbml",
@@ -189,12 +187,9 @@ TEMPLATES = [
 ]
 
 # Themes
-TAILWIND_APP_NAME = "theme"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-CRISPY_TEMPLATE_PACK = "tailwind"
 
 
 # AUTHENTICATION

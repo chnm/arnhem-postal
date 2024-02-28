@@ -1,0 +1,897 @@
+@charset "UTF-8";
+
+/* Add your custom CSS declarations below  */
+@font-face {
+  font-family: "ProximaNova";
+  src: url("../fonts/ProximaNova-Regular.otf");
+}
+
+@font-face {
+  font-family: "ProximaNovaBold";
+  src: url("../fonts/Proxima\ Nova\ Alt\ Bold.otf");
+}
+
+body {
+  overflow-x: hidden;
+  /* Hide horizontal scrollbar */
+}
+
+body.database-page {
+  background-color: #f9f4ef;
+  margin: 0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: black;
+  font-size: 14px;
+  font-family: "ProximaNova";
+}
+
+nav {
+  background-color: white;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+}
+
+.form-select {
+  color: black;
+  font-size: 14px;
+  font-family: "ProximaNova";
+  border-color: rgb(187, 187, 187);
+  border-radius: 3px;
+}
+
+nav .form-select {
+  margin-left: 10px;
+  margin-right: 25px;
+}
+
+.bolded {
+  font-family: "ProximaNovaBold";
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  color: #741e3a;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+h2 {
+  font-family: "Playfair Display", serif;
+  color: #060c2c;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-family: "ProximaNovaBold";
+  color: #741e3a;
+  font-size: 18px;
+}
+
+p {
+  font-size: 16px;
+  font-family: "ProximaNova";
+  color: #333333;
+}
+
+.btn-primary {
+  background-color: #741e3a;
+  border-color: #741e3a;
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #a42650;
+  border-color: #a42650;
+}
+
+.btn-outline-primary {
+  border-color: #741e3a;
+  color: #741e3a;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+  background-color: #741e3a;
+  border-color: #741e3a;
+  color: white;
+}
+
+.btn-outline-secondary {
+  border-color: white;
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+.btn-outline-secondary:hover {
+  border-color: white;
+  color: #741e3a;
+  background-color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+.btn-outline-info {
+  border-color: white;
+  color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+.btn-outline-info:hover {
+  border-color: white;
+  color: #282f41;
+  background-color: white;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+/* Hero Image CSS */
+.hero-image {
+  height: 500px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(../images/homepage-hero-img.jpg);
+  background-size: cover;
+}
+
+.hero-image img {
+  height: 100px;
+  margin-top: 20px;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.hero-image .row {
+  align-items: center;
+  height: 100%;
+  margin-left: 10%;
+  margin-right: 15%;
+}
+
+.hero-image p {
+  color: white;
+  font-weight: 300;
+}
+
+.hero-image h1 {
+  font-family: "Playfair Display", serif;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+
+/* End Hero Image CSS */
+
+/* Learn and explore card CSS */
+div .explore-card {
+  display: flex;
+}
+
+.explore-card {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 5px;
+  background-color: #f9f4ef;
+  border: none;
+  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.2);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.red-card {
+  background-color: #79213d;
+}
+
+.dark-blue-card {
+  background-color: #282f41;
+}
+
+.explore-card img {
+  height: 20px;
+}
+
+div .card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.card-body a {
+  margin-top: auto;
+}
+
+/* End learn and explore card CSS */
+.card {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 0;
+  background-color: #f9f4ef;
+  border: none;
+  box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.2);
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.card .row > * {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.card a {
+  color: #060c2c;
+  text-decoration: none;
+}
+
+.card a:hover {
+  color: #212e78;
+  text-decoration: none;
+}
+
+/* End exhibits cards CSS */
+
+.white {
+  color: white;
+}
+
+.new-row-indent {
+  margin-top: 40px;
+}
+
+.new-row-indent-sm {
+  margin-top: 10px;
+}
+
+.end-row-indent-sm {
+  margin-bottom: 20px;
+}
+
+.end-row-indent {
+  margin-bottom: 40px;
+}
+
+.new-section {
+  background-color: #f9f4ef;
+  height: 700px;
+  justify-content: center;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.contact-section {
+  justify-content: center;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+/* form label CSS */
+.form-label,
+.form-control {
+  font-family: "ProximaNova";
+}
+
+/* end form label CSS */
+
+/* Carousel caption CSS */
+.carousel .carousel-item img {
+  height: 400px;
+}
+
+.carousel-caption {
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: initial;
+  text-align: start;
+  z-index: 2;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.carousel-caption h1 {
+  font-size: 1.5rem;
+}
+
+.carousel-caption p {
+  font-size: 16px;
+}
+
+.carousel-item:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+/* end carousel caption CSS */
+
+/* database page CSS */
+.db-column {
+  background-color: white;
+  margin-top: 40px;
+  margin-right: 20px;
+  padding-top: 25px;
+  padding-right: 50px;
+  padding-bottom: 75px;
+  padding-left: 45px;
+}
+
+.db-finding-aid {
+  background-color: white;
+  margin-top: 40px;
+  padding-top: 25px;
+  padding-right: 50px;
+  padding-bottom: 75px;
+  padding-left: 45px;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.italicize {
+  font-style: italic;
+}
+
+.desc-sum p {
+  margin-bottom: 0;
+}
+
+.indent {
+  margin-left: 20px;
+}
+
+.finding-aid-content .row {
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+.finding-aid-content p {
+  margin-bottom: 10px;
+}
+
+.accordion-button.collapsed {
+  font-family: "ProximaNova";
+}
+
+.accordion-button:not(.collapsed) {
+  color: #060c2c;
+  font-family: "ProximaNovaBold";
+  background-color: #ffffff;
+  box-shadow: inset 0 calc(-1 * var(--bs-accordion-border-width)) 0
+    var(--bs-accordion-border-color);
+}
+
+.accordion-body {
+  font-family: "ProximaNova";
+}
+
+table {
+  font-family: "ProximaNova";
+}
+
+.finding-aid-content table {
+  font-size: 14px;
+}
+
+table .table-secondary {
+  font-family: "ProximaNovaBold";
+}
+
+.db-column table {
+  font-size: 12px;
+}
+
+/* .db-column .dropdown .btn-secondary {
+    color: gray;
+    background-color: white;
+    font-size: 14px;
+    font-family: 'ProximaNova';
+    border-radius: 0.2rem;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.db-column a.dropdown-item {
+    font-size: 14px;
+    font-family: 'ProximaNova';
+    border-radius: 0.2rem;
+} */
+
+.labelCSS {
+  font-family: "ProximaNova";
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #741e3a;
+}
+
+.input-group .btn {
+  font-size: 14px;
+  border-radius: 0.2rem;
+}
+
+.input-group .form-control {
+  font-size: 14px;
+  font-family: "ProximaNova";
+  border-radius: 0.2rem;
+}
+
+.input-group-text {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  font-size: 14px;
+}
+
+/* end database page CSS */
+
+footer {
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: right;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .hero-image img {
+    height: 300px;
+  }
+
+  .new-row-indent {
+    margin-top: 60px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .new-section {
+    height: 500px;
+  }
+
+  .carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-caption h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  .hero-image img {
+    height: 300px;
+  }
+
+  .new-row-indent {
+    margin-top: 60px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .new-section {
+    height: 500px;
+  }
+
+  .carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-caption h1 {
+    font-size: 2rem;
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .hero-image img {
+    height: 300px;
+  }
+
+  .new-row-indent {
+    margin-top: 60px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .new-section {
+    height: 500px;
+  }
+
+  .carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-caption h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  .hero-image img {
+    height: 300px;
+  }
+
+  .new-row-indent {
+    margin-top: 60px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .new-section {
+    padding-top: 0;
+    height: 500px;
+  }
+
+  .carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-caption h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* .hero-image-evolution h1 {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 20px;
+} */
+
+/* .hero-image-evolution {
+    height: 500px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/hero-evolution.png);
+    background-size: cover;
+} */
+
+/* a {
+    color: #060C2C;
+}
+
+a:hover {
+    color: #212E78;
+    text-decoration: none;
+} */
+
+/* p {
+    font-size: 15px;
+    font-family: 'ProximaNova';
+    color: #333333;
+
+} */
+
+/* 
+a.dropdown-item {
+    font-size: 12px;
+    font-family: 'ProximaNova';
+    color: black;
+    text-wrap: wrap;
+    width: 200px;
+} */
+
+/* h1 {
+    font-family: 'Playfair Display', serif;
+    color: #741E3A;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    color: #060C2C;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+
+.btn-primary {
+    background-color: #741E3A;
+    border-color: #741E3A;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 3px;
+}
+
+.btn-primary:hover {
+    background-color: #972a4e;
+    border-color: #972a4e;
+}
+
+.btn-outline-primary {
+    border-color: #741E3A;
+    color: #741E3A;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background-color: #741E3A;
+    border-color: #741E3A;
+    color: white;
+}
+
+.btn-outline-secondary {
+    border-color: white;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+.btn-outline-secondary:hover {
+    border-color: white;
+    color: #741E3A;
+    background-color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+.btn-outline-info {
+    border-color: white;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+.btn-outline-info:hover {
+    border-color: white;
+    color: #282F41;
+    background-color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+
+.card {
+    flex-direction: row;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+    border-radius: 0;
+    background-color: #F9F4EF;
+    border: none;
+    box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.2);
+}
+
+.card2 {
+    flex-direction: row;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #F9F4EF;
+    border: none;
+    box-shadow: 0 4px 3px -2px rgba(0, 0, 0, 0.2);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.carousel-caption {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: initial;
+    text-align: start;
+}
+
+.carousel-item {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.card-text {
+    font-size: 16px;
+}
+
+.card-body {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+.card img {
+    width: 20%;
+    border-radius: 0;
+}
+
+.list-group-item {
+    font-size: 10px;
+    font-family: 'ProximaNovaBold';
+
+}
+
+.list-group-item.active {
+    background-color: #741E3A;
+    border-color: #741E3A;
+}
+
+.dropdown-item:active {
+    background-color: #741E3A;
+} */
+
+/* --- Custom styles for page-specific elements --- */
+
+/* Table style */
+.table-container th.asc:after {
+  content: "\0000a0\0025b2";
+  float: right;
+}
+
+.table-container th.desc:after {
+  content: "\0000a0\0025bc";
+  float: right;
+}
+
+.table-container table td:nth-child(1) {
+  width: 30%;
+}
+
+.table-container table td:nth-child(2) {
+  width: 30%;
+}
+
+.table-container table td:nth-child(3) {
+  width: 20%;
+}
+
+.table-container table td:nth-child(4) {
+  width: 20%;
+}
+
+/* Progress bar */
+.progress {
+  height: 4px;
+  width: 100%;
+  border-radius: 2px;
+  background-clip: padding-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress {
+  opacity: 0;
+}
+
+.htmx-request .progress {
+  opacity: 1;
+}
+
+.htmx-request.progress {
+  opacity: 1;
+}
+
+@keyframes indeterminate {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+
+@keyframes indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  background: url("static/images/spinner.gif") no-repeat center;
+  background-size: cover;
+  display: none;
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: #f0f0f0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+  box-shadow: -5px 0 5px -5px #333;
+}
+
+#sidebar.open {
+  transform: translateX(-300px);
+}
+
+#sidebar-content {
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+.accordion {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px; /* Add some space between accordions */
+}
+
+/* Accordion header/button */
+.accordion-header {
+  background-color: #f2f2f2;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mapboxgl-canvas-container {
+  cursor: pointer;
+}
+
+.mapboxgl-marker {
+  cursor: pointer;
+}

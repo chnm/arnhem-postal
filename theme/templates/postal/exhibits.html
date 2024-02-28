@@ -1,0 +1,112 @@
+{% extends "postal/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Timeline{% endblock title %}
+
+{% block content %}
+
+<!-- featured exhibits -->
+    <div class="container">
+        <div class="row new-row-indent">
+            <h1> Featured exhibits </h1>
+            <p>The exhibits are expanded versions of exhibits entered into competition at multiple philatelic
+                shows.
+                The first two completed are The Evolution of the Holocaust in Holland and False Hopes and
+                Lasting
+                Thanks: The Battle of Arnhem, with exhibits in development on Code Name Yellow: 1940-Invasion and Occupation of Holland, Daily Life in Occupied Holland, and The Hunger Winter and Liberation.</p>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-lg-2">
+                        <img src="{% static 'images/thumbnail-holo-evol.png' %}" class="img-fluid" alt="...">
+                    </div>
+                    <div class="d-flex col-sm-12 col-md-6 col-lg-10">
+                        <div class="card-body justify-center">
+                            <h2 class="card-title"><a href="#">The Evolution of Holocaust in Holland</a></h2>
+                            <p class="card-text">This display exhibit uses philatelic artifacts and contemporary
+                                material to document the destruction of the Jewish population in Holland.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-lg-2">
+                        <img src="{% static 'images/false-hope.png' %}" class="img-fluid" alt="...">
+                    </div>
+                    <div class="d-flex col-sm-12 col-md-6 col-lg-10">
+                        <div class="card-body justify-center">
+                            <h2 class="card-title"><a href="#">False Hopes and Lasting Thanks: The Battle of Arnhem</a>
+                            </h2>
+                            <p class="card-text">Operation Market Garden, in September of 1944, raised hopes of
+                                liberation and the end of four years of German occupation. This exhibit looks at the
+                                Battle of Arnhem and its aftermath from the perspectives of the Dutch civilians and
+                                German and British combatants whose lives intersected for ten days in Arnhem.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-lg-2">
+                        <img src="{% static 'images/pre-war.jpg' %}" class="img-fluid" alt="...">
+                    </div>
+                    <div class="d-flex col-sm-12 col-md-6 col-lg-10">
+                        <div class="card-body justify-center">
+                            <h2 class="card-title"><a href="#">Code Name Yellow: 1940-Invasion and Occupation of Holland</a></h2>
+                            <p class="card-text">This exhibit and collection will follow the Netherlands during the
+                                period of mobilization, especially following the German invasion of Poland in September
+                                of 1939, and its experience of the German invasion. German troops crossed the border in
+                                the pre-dawn hours of Friday, May 10th, 1940 and by September 15th controlled the
+                                country except for a small area of Zeeland, soon to fall.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-lg-2">
+                        <img src="{% static 'images/daily-life.jpg' %}" class="img-fluid" alt="...">
+                    </div>
+                    <div class="d-flex col-sm-12 col-md-6 col-lg-10">
+                        <div class="card-body justify-center">
+                            <h2 class="card-title"><a href="#">Life in Occupied Holland</a></h2>
+                            <p class="card-text">The German occupation of the Netherlands spanned five years, from May
+                                1940 though May 1945. This exhibit and collection will provide a glimpse of the lives of
+                                the Dutch people under occupation including censorship, rationing, and forced labor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-lg-2">
+                        <img src="{% static 'images/hunger-winter.jpg' %}" class="img-fluid" alt="...">
+                    </div>
+                    <div class="d-flex col-sm-12 col-md-6 col-lg-10">
+                        <div class="card-body justify-center">
+                            <h2 class="card-title"><a href="#">The Hunger Winter and Liberation</a></h2>
+                            <p class="card-text">After the disastrous Operation Market Garden, the Netherlands was
+                                divided between liberated areas and those still occupied. As an unusually cold winter
+                                began, the Dutch in occupied areas were cut off from food supplies and on restricted
+                                rations, resulting in starvation and hypothermia. In liberated areas, people were
+                                searching for family members that had been separated from them and news of those still
+                                in occupied areas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+{% endblock content %}

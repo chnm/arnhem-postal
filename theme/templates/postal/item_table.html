@@ -50,43 +50,43 @@
 
         {% block pagination %}
             {% if table.page and table.paginator.num_pages > 1 %}
-                <nav aria-label="Table navigation" class="flex items-center justify-end mt-4">
-                    <ul id="pagination" class="flex list-none rounded my-2">
+                <div aria-label="Table navigation" class="mt-4">
+                    <ul id="pagination" class="pagination justify-content-end">
                         {% if table.page.has_previous %}
                             {% block pagination.previous %}
-                                <li id="previous page-item" class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 font-bold border-r-0 ml-0 first:rounded-l" role="button">
-                                    <div @click="page_by = {{table.page.previous_page_number}}"
-                                         class="cursor-pointer">
+                                <li id="previous" class="page-item">
+                                    <a class="page-link" href="#" @click="page_by = {{table.page.previous_page_number}}">
                                         <span aria-hidden="true">&laquo;</span>
-                                        {% trans 'previous' %}
-                                    </div>
+                                        <span class="sr-only">{% trans 'previous' %}</span>
+                                    </a>
                                 </li>
                             {% endblock pagination.previous %}
                         {% endif %}
                         {% if table.page.has_previous or table.page.has_next %}
                             {% block pagination.range %}
                                 {% for p in table.page|table_page_range:table.paginator %}
-                                    <li class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 text-gray-700 hover:bg-slate-300 border-r-0 {% if table.page.number == p %} font-bold{% endif %}" role="button">
-                                        <div class="cursor-pointer" {% if p != '...' %}@click="page_by={{p}}"{% endif %}>
+                                    <li class="page-item {% if table.page.number == p %}active{% endif %}">
+                                        <a class="page-link" href="#" {% if p != '...' %} @click="page_by={{p}}" {% endif %}>
                                             {{ p }}
-                                        </div>
+                                        </a>
                                     </li>
                                 {% endfor %}
                             {% endblock pagination.range %}
                         {% endif %}
                         {% if table.page.has_next %}
                             {% block pagination.next %}
-                                <li class="relative block py-2 px-3 leading-tight bg-white border border-gray-300 font-bold border-r-0 ml-0 last:rounded-r" role="button">
-                                    <div @click="page_by = {{table.page.next_page_number}}" class="page-link">
-                                        {% trans 'next' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="#" @click="page_by = {{table.page.next_page_number}}">
                                         <span aria-hidden="true">&raquo;</span>
-                                    </div>
+                                        <span class="sr-only">{% trans 'next' %}</span>
+                                    </a>
                                 </li>
                             {% endblock pagination.next %}
                         {% endif %}
                     </ul>
-                </nav>
+                </div>
             {% endif %}
         {% endblock pagination %}
+
     </div>
 {% endblock table-wrapper %}

@@ -84,7 +84,10 @@ def mapinterface(request: HttpRequest):
 
 def table(request: HttpRequest):
     nav_links = get_nav_links("items")
-    ctx = {"nav_links": nav_links}
+    ctx = {
+        "nav_links": nav_links,
+        "is_database_page": True,
+    }
     return render(request, "postal/item_table.html", ctx)
 
 
