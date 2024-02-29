@@ -85,6 +85,7 @@ THIRD_PARTY_APPS = [
     "taggit",
     "taggit_selectize",
     "crispy_forms",
+    "crispy_bootstrap4",
     "django_tables2",
     "allauth",
     "allauth.account",
@@ -190,6 +191,7 @@ TEMPLATES = [
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
 # AUTHENTICATION
