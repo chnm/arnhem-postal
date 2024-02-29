@@ -7,9 +7,7 @@
   <aside id="sidebar" x-data="{ open: false, postalObject: null }" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
     <div x-show="open" x-transition>
       <button x-on:click="open = false">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-        </svg>
+        <i class="fas fa-times"></i>
       </button>
 
       <div id="sidebar-content" class="scrollable-content">
@@ -29,7 +27,7 @@
                 <h2>Documents</h2>
                 <template x-for="image in postalObjectItem.images" :key="image.image">
                   <div>
-                    <img :src="'http://localhost:8000' + image.image" alt="Image">
+                    <img :src="'http://localhost:8000' + image.image" alt="Image" width="150px" height="auto">
                     <p x-text="image.image_caption"></p>
                     <a :href="'/postal/' + postalObjectItem.id + '/view'">View Item</a>
                   </div>
@@ -50,7 +48,7 @@
 
     <p>This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
 
-    <div x-data="{ isOpen: true }" class="accordion">
+    <!-- <div x-data="{ isOpen: true }" class="accordion">
       <button @click="isOpen = !isOpen" class="accordion-header">
         Filter Data
       </button>
@@ -60,7 +58,7 @@
           <input type="submit" value="Filter data">
         </form>
       </div>
-    </div>
+    </div> -->
 
     <div id="loading"><span class="spinner"></span></div>
     <div id='map' width="100%" style='height:600px'></div>
