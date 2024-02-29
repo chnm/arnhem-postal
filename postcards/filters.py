@@ -28,13 +28,39 @@ def combine_all_names():
     return all_names
 
 
+class TownCityFilter(django_filters.ModelChoiceFilter):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.field.widget.attrs.update(
+            {"class": "form-control"}
+        )  # Add Bootstrap form-control class
+        self.field.queryset = Location.objects.values_list(
+            "town_city", flat=True
+        ).distinct()
+
+
+class ProvinceStateFilter(django_filters.ModelChoiceFilter):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.field.widget.attrs.update(
+            {"class": "form-control"}
+        )  # Add Bootstrap form-control class
+        self.field.queryset = Location.objects.values_list(
+            "province_state", flat=True
+        ).distinct()
+
+
 class ObjectFilter(django_filters.FilterSet):
     class Meta:
         model = Object
         fields = [
+            "query",
             "correspondence",
             "date",
             "collection",
+            "town_city",
+            "province_state",
+            "postmark",
         ]
 
     correspondence = django_filters.ChoiceFilter(
@@ -46,20 +72,50 @@ class ObjectFilter(django_filters.FilterSet):
     date = django_filters.CharFilter(
         field_name="date_of_correspondence",
         lookup_expr="icontains",
+        label="Date of correspondence",
     )
     collection = django_filters.ModelChoiceFilter(
         field_name="collection",
         queryset=Collection.objects.all(),
         to_field_name="name",
     )
+    town_city = TownCityFilter(
+        field_name="town_city",
+        queryset=Location.objects.all(),
+        label="Town/City",
+    )
+    province_state = ProvinceStateFilter(
+        field_name="province_state",
+        queryset=Location.objects.all(),
+        label="Province/State",
+    )
+    postmark = django_filters.ModelChoiceFilter(
+        field_name="postmark",
+        queryset=Postmark.objects.all(),
+        to_field_name="location",
+    )
+    query = django_filters.CharFilter(
+        method="filter_query",
+        label="Keyword search",
+    )
 
     def filter_query(self, queryset, name, value):
         """Filter the queryset by the sender or addressee name."""
-        first_name, last_name = value.split(" ")
-        return queryset.filter(
-            Q(sender_name__first_name=first_name, sender_name__last_name=last_name)
-            | Q(
-                addressee_name__first_name=first_name,
-                addressee_name__last_name=last_name,
-            )
-        )
+        words = value.split(" ")
+
+        queries = Q()
+        for word in words:
+            if name == "postmark":
+                queries |= Q(postmark__postmark_id__icontains=word)
+            elif name == "date":
+                queries |= Q(date_of_correspondence__icontains=word)
+            else:
+                queries |= Q(sender_name__first_name=word)
+                queries |= Q(sender_name__last_name=word)
+                queries |= Q(addressee_name__first_name=word)
+                queries |= Q(addressee_name__last_name=word)
+                queries |= Q(location__town_city=word)
+                queries |= Q(location__province_state=word)
+                queries |= Q(public_notes__icontains=word)
+
+        return queryset.filter(queries)
