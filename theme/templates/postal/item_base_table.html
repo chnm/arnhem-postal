@@ -32,9 +32,94 @@
                                        () => $refs.paginate_input.dispatchEvent(
                                        new Event('pagination-initiated', { bubbles: true })))" >
 
-                        {% for field in filter.form %}
-                            {{ field }}
-                        {% endfor %}
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="{{ filter.form.public_notes.id_for_label}}" class="labelCSS">Search by keywords</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Enter your search term" aria-label="Search by keywords" aria-describedby="button-addon2">
+                                    <button class="btn btn-primary" type="button" id="button-addon2">search</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ filter.form.correspondence.id_for_label }}" class="form-label labelCSS">Writer</label>
+                                    <select id="{{ filter.form.correspondence.id_for_label }}" name="{{ filter.form.correspondence.html_name }}" class="form-select custom-select">
+                                        {% for value, name in filter.form.correspondence.field.choices %}
+                                            <option value="{{ value }}">{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                                <label for="{{ filter.form.date.id_for_label }}" class="labelCSS">Date of Correspondence</label>
+                                <div class="row form-group">
+                                    <div class="input-group date" id="datepicker">
+                                        <input type="text" class="form-control" placeholder="Enter date" name="date">
+                                        <span class="input-group-append">
+                                            <span class="input-group-text bg-white d-block">
+                                                <i class="fa-regular fa-calendar"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ filter.form.collection.id_for_label }}" class="form-label labelCSS">Collection</label>
+                                    <select id="{{ filter.form.collection.id_for_label }}" name="{{ filter.form.collection.html_name }}" class="form-select custom-select">
+                                        {% for value, name in filter.form.collection.field.choices %}
+                                            <option value="{{ value }}">{{ name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ filter.form.town_city.id_for_label }}" class="form-label labelCSS">City</label>
+                                    <select id="{{ filter.form.town_city.id_for_label }}" name="{{ filter.form.town_city.html_name }}" class="form-select custom-select">
+                                        <option value="">---------</option>
+                                        {% for city in cities_list %}
+                                            <option value="{{ city }}">{{ city }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ filter.form.province_state.id_for_label }}" class="form-label labelCSS">State</label>
+                                    <select id="{{ filter.form.province_state.id_for_label }}" name="{{ filter.form.province_state.html_name }}" class="form-select custom-select">
+                                        <option value="">---------</option>
+                                        {% for state in states_list %}
+                                            <option value="{{ state }}">{{ state }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="{{ filter.form.postmark.id_for_label }}" class="form-label labelCSS">Postmark</label>
+                                    <select id="{{ filter.form.postmark.id_for_label }}" name="{{ filter.form.postmark.html_name }}" class="form-select custom-select">
+                                        <option value="">---------</option>
+                                        {% for postmark in postmarks %}
+                                            <option value="{{ postmark }}">{{ postmark }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Progress indicator #}
+                        <div class="progress">
+                            <div class="indeterminate"></div>
+                        </div>
+
                         <table {% render_attrs table.attrs class="table multi-col-header table-auto w-full" %}>
                             <thead {{ table.attrs.thead.as_html }}>
                                 <tr>

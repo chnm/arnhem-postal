@@ -6,7 +6,7 @@ from django_tables2 import SingleTableMixin
 from rest_framework import generics
 
 from postcards.filters import ObjectFilter
-from postcards.models import Object, Person
+from postcards.models import Location, Object, Person, Postmark
 from postcards.tables import ItemHtmxTable
 
 
@@ -128,6 +128,26 @@ class ItemHtmxTableView(SingleTableMixin, FilterView):
     filterset_class = ObjectFilter
     paginate_by = 10
     paginator_class = CustomPaginator
+
+    def get_postmarks(self):
+        postmarks = [str(postmark) for postmark in Postmark.objects.all()]
+        return postmarks
+
+    def get_location_data(self, field_name):
+        location_data = list(
+            Location.objects.exclude(**{field_name: None})
+            .values_list(field_name, flat=True)
+            .distinct()
+        )
+        return sorted(location_data)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["is_database_page"] = True
+        context["postmarks"] = self.get_postmarks()
+        context["cities_list"] = self.get_location_data("town_city")
+        context["states_list"] = self.get_location_data("province_state")
+        return context
 
     # adjust the template depending on whether an htmx request was made
     def get_template_names(self):

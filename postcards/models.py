@@ -246,6 +246,18 @@ class Location(models.Model):
         country = self.country if self.country else "Unknown country"
         return town_city + ", " + country
 
+    # Return the city name string.
+    def get_city_names(self):
+        return self.town_city
+
+    # Return the state/province string.
+    def get_state_names(self):
+        return self.province_state
+
+    # Return the country string.
+    def get_country_names(self):
+        return self.country
+
     # Always sort alphabetically
     class Meta:
         ordering = ["town_city"]
@@ -318,8 +330,9 @@ class Postmark(models.Model):
             location_parts.append(self.location.country)
 
         location_string = ", ".join(location_parts)
+        date_string = self.date.strftime("%b. %d, %Y") if self.date else "unknown date"
 
-        return f"Postmarked {location_string}, {self.date}"
+        return f"Postmarked at {location_string}, dated {date_string}"
 
 
 class ReasonReturnManager(models.Manager):
@@ -558,9 +571,9 @@ class Object(models.Model):
         null=True,
         blank=True,
     )
-    related_images = models.ManyToManyField(
-        Image, blank=True, verbose_name="Related images"
-    )
+    # related_images = models.ManyToManyField(
+    #     Image, blank=True, verbose_name="Related images"
+    # )
     translated = models.CharField(
         max_length=50,
         choices=TRANSLATION_CHOICES,
@@ -669,6 +682,11 @@ class Object(models.Model):
 
         return route
 
+    class Meta:
+        verbose_name = "Postal Material"
+        verbose_name_plural = "Postal Materials"
+        ordering = ["-date_of_correspondence"]
+
 
 class PrimarySource(models.Model):
     DOC_TYPE = (
@@ -752,12 +770,12 @@ class PrimarySource(models.Model):
         verbose_name="Transcription",
         help_text="Transcribe the document.",
     )
-    related_postal_items = models.ManyToManyField(
-        Object,
-        blank=True,
-        verbose_name="Related postal items",
-        help_text="If necessary, link to postal items related to this document. Hold down “Control”, or “Command” on a Mac, to select more than one.",
-    )
+    # related_postal_items = models.ManyToManyField(
+    #     Object,
+    #     blank=True,
+    #     verbose_name="Related postal items",
+    #     help_text="If necessary, link to postal items related to this document. Hold down “Control”, or “Command” on a Mac, to select more than one.",
+    # )
     tags = TaggableManager(
         blank=True, related_name="tagged_source", verbose_name="Keywords"
     )

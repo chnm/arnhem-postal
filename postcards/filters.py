@@ -80,16 +80,8 @@ class ObjectFilter(django_filters.FilterSet):
         queryset=Collection.objects.all(),
         to_field_name="name",
     )
-    town_city = TownCityFilter(
-        field_name="town_city",
-        queryset=Location.objects.all(),
-        label="Town/City",
-    )
-    province_state = ProvinceStateFilter(
-        field_name="province_state",
-        queryset=Location.objects.all(),
-        label="Province/State",
-    )
+    town_city = django_filters.CharFilter(method="filter_by_city")
+    province_state = django_filters.CharFilter(method="filter_by_state")
     postmark = django_filters.CharFilter(method="filter_by_postmark")
     query = django_filters.CharFilter(
         method="filter_query",
@@ -143,35 +135,33 @@ class ObjectFilter(django_filters.FilterSet):
         )
         return queryset.filter(queries)
 
-    def filter_by_city(self, queryset, value):
-        print(f"Filtering by city: {value}")
-        words = value.split(" ")
-        queries = Q()
-        for word in words:
-            queries |= Q(location__town_city__icontains=word)
-        print(f"Queries: {queries}")
-        print(f"Queryset before filtering: {queryset}")
-        queryset = queryset.filter(queries)
-        print(f"Queryset after filtering: {queryset}")
+    def filter_by_city(self, queryset, name, value):
+        if value:
+            words = value.split(" ", 1)
+            queries = Q()
+            for word in words:
+                queries |= Q(sender_name__location__town_city=word) | Q(
+                    addressee_name__location__town_city=word
+                )
+            queryset = queryset.filter(queries)
         return queryset
 
-    def filter_by_state(self, queryset, value):
-        print(f"Filtering by state: {value}")
-        words = value.split(" ")
-        queries = Q()
-        for word in words:
-            queries |= Q(location__province_state__icontains=word)
-        print(f"Queries: {queries}")
-        print(f"Queryset before filtering: {queryset}")
-        queryset = queryset.filter(queries)
-        print(f"Queryset after filtering: {queryset}")
+    def filter_by_state(self, queryset, name, value):
+        if value:
+            words = value.split(" ", 1)
+            queries = Q()
+            for word in words:
+                queries |= Q(sender_name__location__province_state=word) | Q(
+                    addressee_name__location__province_state=word
+                )
+            queryset = queryset.filter(queries)
         return queryset
 
     def filter_by_collection(self, queryset, value):
         words = value.split(" ")
         queries = Q()
         for word in words:
-            queries |= Q(collection__name__icontains=word)
+            queries |= Q(collection__name=word)
         return queryset.filter(queries)
 
     def filter_by_public_notes(self, queryset, value):

@@ -26,6 +26,7 @@ class ItemHtmxTable(tables.Table):
     class Meta:
         model = Object
         template_name = "postal/item_table.html"
+        empty_text = "No data available for the select filters."
         fields = (
             "thumbnail",
             "sender_name",
