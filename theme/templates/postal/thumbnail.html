@@ -1,0 +1,6 @@
+{% load static %}
+{% if record.images.first %}
+    <a href="{% url 'items' id=record.id %}"><img src="{{ record.images.first.image.url }}" alt="Thumbnail" width="50" height="50"/></a>
+{% else %}
+    No image available
+{% endif %}
