@@ -1,5 +1,71 @@
 {% extends 'postal/base.html' %}
 
+{% block title %}Viewing item {{object.item_id}}{% endblock title %}
+
 {% block content %}
-    <h1 class="text-lg font-bold">{{object.letter_type}}, sent by {{ object.sender_name }} to {{ object.addressee_name }}</h1>
+    <h1 class="text-lg font-bold">{{object.letter_type}} sent by {{ object.sender_name }} to {{ object.addressee_name }}</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+                <!-- Scanned Document -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    {% if object.images.all %}
+                        {% for image in object.images.all %}
+                            <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.image_caption }}">
+                            <figcaptio class="text-center">{{ image.image_caption }}</figcaption>
+                        {% endfor %}
+                    {% else %}
+                        <p>No images available</p>
+                    {% endif %}
+                </div>
+            </div>
+                {# Transcriptions #}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Transcription</h5>
+                    {% if object.transcriptions.all %}
+                        {% for transcription in object.transcriptions.all %}
+                            <p>{{ transcription.transcription }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No transcriptions available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+                <!-- Metadata -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Metadata</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Collection:</strong> {{ object.collection }}</li>
+                        <li class="list-group-item"><strong>Collection Location:</strong> {{ object.collection_location }}</li>
+                        <li class="list-group-item"><strong>Postmark:</strong> {{ object.postmark }}</li>
+                        <li class="list-group-item"><strong>Check Sensitive Content:</strong> {{ object.check_sensitive_content }}</li>
+                        <li class="list-group-item"><strong>Letter Enclosed:</strong> {{ object.letter_enclosed }}</li>
+                        <li class="list-group-item"><strong>Return to Sender:</strong> {{ object.return_to_sender }}</li>
+                        <li class="list-group-item"><strong>Date Returned:</strong> {{ object.date_returned }}</li>
+                        <li class="list-group-item"><strong>Reason for Return (Original):</strong> {{ object.reason_for_return_original }}</li>
+                        <li class="list-group-item"><strong>Reason for Return (Translated):</strong> {{ object.reason_for_return_translated }}</li>
+                        <li class="list-group-item"><strong>Regime Censor:</strong> {{ object.regime_censor }}</li>
+                        <li class="list-group-item"><strong>Regime Location:</strong> {{ object.regime_location }}</li>
+                        <li class="list-group-item"><strong>Regime Censor Date:</strong> {{ object.regime_censor_date }}</li>
+                        <li class="list-group-item"><strong>Addressee's Name:</strong> {{ object.addressee_name }}</li>
+                        <li class="list-group-item"><strong>Sender's Name:</strong> {{ object.sender_name }}</li>
+                        <li class="list-group-item"><strong>Letter Type:</strong> {{ object.letter_type }}</li>
+                        <li class="list-group-item"><strong>Date of Correspondence:</strong> {{ object.date_of_correspondence }}</li>
+                        <li class="list-group-item"><strong>Translated:</strong> {{ object.translated }}</li>
+                        <li class="list-group-item"><strong>Other:</strong> {{ object.other }}</li>
+                        <li class="list-group-item"><strong>Tags:</strong> {% for tag in object.tags.all %}{{ tag }}, {% endfor %}</li>
+                        <li class="list-group-item"><strong>Notes:</strong> {{ object.notes }}</li>
+                        <li class="list-group-item"><strong>Public Notes:</strong> {{ object.public_notes }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock content %}
