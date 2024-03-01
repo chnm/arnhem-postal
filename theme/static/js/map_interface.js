@@ -14,7 +14,7 @@ map.addControl(new mapboxgl.NavigationControl());
 let arnhem = [5.89873, 51.985103];
 map.flyTo({
   center: arnhem,
-  zoom: 9,
+  zoom: 10,
 });
 
 const loadingMessage = document.getElementById("loading");
@@ -35,6 +35,7 @@ function hideLoading() {
 fetch("/api/people/")
   .then((response) => response.json())
   .then((data) => {
+    console.log("Data for person:", data);
     const features = data.map(function (person) {
       return {
         type: "Feature",
@@ -80,7 +81,14 @@ fetch("/api/people/")
         .then((response) => response.json())
         .then((data) => {
           window.sidebarComponent.$nextTick(() => {
-            window.sidebarComponent.postalObject = data.postal_objects;
+            // window.sidebarComponent.postalObject = data.postal_objects;
+            window.sidebarComponent.personSelected = data;
+            // console.log('both components', window.sidebarComponent)
+            // console.log('postal object component', window.sidebarComponent.postalObject);
+            console.log(
+              "person component",
+              window.sidebarComponent.personSelected,
+            );
             window.sidebarComponent.open = true;
           });
         })
@@ -97,6 +105,7 @@ fetch("/api/postmarks/")
     data = data.filter(function (postmark) {
       return postmark.latitude && postmark.longitude;
     });
+    console.log("Data for postmark:", data);
     const features = data.map(function (postmark) {
       return {
         type: "Feature",
@@ -145,6 +154,7 @@ fetch("/api/censors/")
     data = data.filter(function (censor) {
       return censor.latitude && censor.longitude;
     });
+    console.log("Data for censor:", data);
     const features = data.map(function (censor) {
       return {
         type: "Feature",
@@ -170,7 +180,7 @@ fetch("/api/censors/")
       },
       paint: {
         "circle-radius": 15,
-        "circle-color": "pink",
+        "circle-color": "lime",
         "circle-opacity": 0.75,
       },
     });
@@ -224,7 +234,7 @@ fetch("/api/objects/")
         data: geojson,
       },
       paint: {
-        "line-color": "gray",
+        "line-color": "#333",
         "line-opacity": 0.6,
         "line-width": 1,
       },

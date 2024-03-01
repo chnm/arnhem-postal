@@ -4,49 +4,171 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <aside id="sidebar" x-data="{ open: false, postalObject: null }" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
-    <div x-show="open" x-transition>
-      <button x-on:click="open = false">
-        <i class="fas fa-times"></i>
-      </button>
+    <aside id="sidebar" x-data="{ open: false, personSelected: null }" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
+        <div x-show="open" x-transition>
+            <button x-on:click="open = false">
+                <i class="fas fa-times"></i>
+            </button>
 
-      <div id="sidebar-content" class="scrollable-content">
-        <template x-if="postalObject">
-          <template x-if="postalObject.length > 0">
-            <template x-for="postalObjectItem in postalObject" :key="postalObjectItem.person_id">
-              <div class="postal-object">
-                <h3>Postal Material Information</h3>
-                <p x-text="'Sender Name: ' + postalObjectItem.sender_name__first_name + ' ' + postalObjectItem.sender_name__last_name"></p>
-                <p x-text="'Addressee Name: ' + postalObjectItem.addressee_name__first_name + ' ' + postalObjectItem.addressee_name__last_name"></p>
-                <template x-if="postalObjectItem.date_of_correspondence">
-                  <p x-text="'Date of Correspondence: ' + postalObjectItem.date_of_correspondence"></p>
+            <div id="sidebar-content" class="scrollable-content">
+                <template x-if="personSelected">
+          {# Person display #}
+                    <div class="person">
+            {# TODO: Finalize the table view for related postal material #}
+                        <h2 style="color: red;">In Progress</h2>
+                        <h3>Person Information</h3>
+                        <p x-text="'Name: ' + personSelected.first_name + ' ' + personSelected.last_name"></p>
+                        <template x-if="personSelected.latitude && personSelected.longitude">
+                            <p x-text="'Location: ' + personSelected.latitude + ', ' + personSelected.longitude"></p>
+                        </template>
+                        <a :href="'/people/' + personSelected.person_id + '/view'">View Person</a>
+                    </div>
+
+          {# Related items table #}
+          <!-- <div class="postal-objects">
+            <h3>Postal Objects</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Letter Type</th>
+                        <th>Sender</th>
+                        <th>Addressee</th>
+                        <th>Date</th>
+                        <th>View Item</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="object in personSelected.associated_postal_objects" :key="object.id">
+                        <tr>
+                            <td x-text="object.letter_type"></td>
+                            <td x-text="object.sender_name"></td>
+                            <td x-text="object.addressee_name"></td>
+                            <td x-text="object.date"></td>
+                            <td><a :href="'/objects/' + object.id + '/view'">View Item</a></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div> -->
                 </template>
-                <p x-text="'Return to Sender: ' + postalObjectItem.return_to_sender"></p>
-                <p x-text="'Regime Censor: ' + postalObjectItem.regime_censor"></p>
-                <p x-text="'Public Notes: ' + postalObjectItem.public_notes"></p>
-                <h2>Documents</h2>
-                <template x-for="image in postalObjectItem.images" :key="image.image">
-                  <div>
-                    <img :src="'http://localhost:8000' + image.image" alt="Image" width="150px" height="auto">
-                    <p x-text="image.image_caption"></p>
-                    <a :href="'/postal/' + postalObjectItem.id + '/view'">View Item</a>
-                  </div>
+                <template x-if="personSelected && personSelected.length === 0">
+                    <p>No postal objects found for this person.</p>
                 </template>
-              </div>
-            </template>
-          </template>
-          <template x-if="postalObject.length === 0">
-            <p>No postal objects found for this person.</p>
-          </template>
-        </template>
-      </div>
-    </div>
-  </aside>
-  <main class="container mx-auto py-8 prose">
+            </div>
+        </div>
+    </aside>
+    <main class="container mx-auto py-8 prose">
 
-    <h1>Mapping Postal Routes</h1>
+        <h1>Mapping Postal Routes</h1>
 
-    <p>This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: pink";>pink</span>.</p>
+        <p>This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to censor if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: lime;">green</span>.</p>
+
+        <div x-data="{ open: false }" class="mb-3 mt-3">
+            <button @click="open = !open" class="btn btn-primary d-flex align-items-center justify-content-between">
+                Filter Data &nbsp;
+                <i :class="{'fa-chevron-down': !open, 'fa-chevron-up': open}" class="fas"></i>
+            </button>
+
+            <div x-show="open" class="accordion-content mb-3">
+
+                <form class="form-inline"
+                      hx-get="{% url 'table' %}"
+                      hx-target=".table-body-container"
+                      hx-trigger="input, select, sort-initiated, pagination-initiated"
+                      hx-swap="outerHTML"
+                      hx-indicator=".progress"
+                      x-data="{ sort_by: '', page_by: 1 }">
+
+                    <input type="hidden" name="sort" x-ref="sort_input" x-model="sort_by"
+                           x-init="$watch('sort_by',
+                                   () => $refs.sort_input.dispatchEvent(
+                                   new Event('sort-initiated', { bubbles: true })))">
+
+                    <input type="hidden" name="page" x-ref="paginate_input" x-model="page_by"
+                           x-init="$watch('page_by',
+                                   () => $refs.paginate_input.dispatchEvent(
+                                   new Event('pagination-initiated', { bubbles: true })))" >
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="{{ filter.form.correspondence.id_for_label }}" class="form-label labelCSS">Writer</label>
+                                <select id="{{ filter.form.correspondence.id_for_label }}" name="{{ filter.form.correspondence.html_name }}" class="form-select custom-select">
+                                    {% for value, name in filter.form.correspondence.field.choices %}
+                                        <option value="{{ value }}">{{ name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <label for="{{ filter.form.date.id_for_label }}" class="labelCSS">Date of Correspondence</label>
+                            <div class="row form-group">
+                                <div class="input-group date" id="datepicker">
+                                    <input type="text" class="form-control" placeholder="Enter date" name="date">
+                                    <span class="input-group-append">
+                                        <span class="input-group-text bg-white d-block">
+                                            <i class="fa-regular fa-calendar"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="{{ filter.form.collection.id_for_label }}" class="form-label labelCSS">Collection</label>
+                                <select id="{{ filter.form.collection.id_for_label }}" name="{{ filter.form.collection.html_name }}" class="form-select custom-select">
+                                    {% for value, name in filter.form.collection.field.choices %}
+                                        <option value="{{ value }}">{{ name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="{{ filter.form.town_city.id_for_label }}" class="form-label labelCSS">City</label>
+                                <select id="{{ filter.form.town_city.id_for_label }}" name="{{ filter.form.town_city.html_name }}" class="form-select custom-select">
+                                    <option value="">---------</option>
+                                    {% for city in cities_list %}
+                                        <option value="{{ city }}">{{ city }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="{{ filter.form.province_state.id_for_label }}" class="form-label labelCSS">State</label>
+                                <select id="{{ filter.form.province_state.id_for_label }}" name="{{ filter.form.province_state.html_name }}" class="form-select custom-select">
+                                    <option value="">---------</option>
+                                    {% for state in states_list %}
+                                        <option value="{{ state }}">{{ state }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="{{ filter.form.postmark.id_for_label }}" class="form-label labelCSS">Postmark</label>
+                                <select id="{{ filter.form.postmark.id_for_label }}" name="{{ filter.form.postmark.html_name }}" class="form-select custom-select">
+                                    <option value="">---------</option>
+                                    {% for postmark in postmarks %}
+                                        <option value="{{ postmark }}">{{ postmark }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+  {# Progress indicator #}
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     <!-- <div x-data="{ isOpen: true }" class="accordion">
       <button @click="isOpen = !isOpen" class="accordion-header">
@@ -60,9 +182,9 @@
       </div>
     </div> -->
 
-    <div id="loading"><span class="spinner"></span></div>
-    <div id='map' width="100%" style='height:600px'></div>
-    <script src="/static/js/map_interface.js"></script>
+        <p id="loading"></p>
+        <div id='map' width="100%" style='height:600px'></div>
+        <script src="/static/js/map_interface.js"></script>
 
-  </main>
+    </main>
 {% endblock content %}
