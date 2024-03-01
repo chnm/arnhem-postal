@@ -2,6 +2,7 @@ import logging
 
 # import settings
 from django.conf import settings
+from django.core.cache import cache
 from django.db import models
 from django.urls import reverse
 from django.utils.html import format_html
@@ -639,46 +640,55 @@ class Object(models.Model):
     def calculate_route(self):
         """Calculate the route between the sender and the addressee."""
 
-        route = []
-        if self.sender_name and self.sender_name.location:
-            route.append(
-                {
-                    "type": "person",
-                    "type_description": "sender",
-                    "latitude": self.sender_name.location.latitude,
-                    "longitude": self.sender_name.location.longitude,
-                }
-            )
+        cache_key = (
+            f"route_{self.sender_name.person_id}_{self.addressee_name.person_id}"
+        )
+        route = cache.get(cache_key)
 
-        if self.regime_location:
-            route.append(
-                {
-                    "type": "censor",
-                    "latitude": self.regime_location.censor_location.latitude,
-                    "longitude": self.regime_location.censor_location.longitude,
-                }
-            )
-
-        postmarks_sorted = self.postmark.order_by("date")
-        for postmark in postmarks_sorted:
-            if postmark.location:
+        if route is None:
+            route = []
+            if self.sender_name and self.sender_name.location:
                 route.append(
                     {
-                        "type": "postmark",
-                        "latitude": postmark.location.latitude,
-                        "longitude": postmark.location.longitude,
+                        "type": "person",
+                        "type_description": "sender",
+                        "latitude": self.sender_name.location.latitude,
+                        "longitude": self.sender_name.location.longitude,
                     }
                 )
 
-        if self.addressee_name and self.addressee_name.location:
-            route.append(
-                {
-                    "type": "person",
-                    "type_description": "addressee",
-                    "latitude": self.addressee_name.location.latitude,
-                    "longitude": self.addressee_name.location.longitude,
-                }
-            )
+            if self.regime_location:
+                route.append(
+                    {
+                        "type": "censor",
+                        "latitude": self.regime_location.censor_location.latitude,
+                        "longitude": self.regime_location.censor_location.longitude,
+                    }
+                )
+
+            postmarks_sorted = self.postmark.order_by("date")
+            for postmark in postmarks_sorted:
+                if postmark.location:
+                    route.append(
+                        {
+                            "type": "postmark",
+                            "latitude": postmark.location.latitude,
+                            "longitude": postmark.location.longitude,
+                        }
+                    )
+
+            if self.addressee_name and self.addressee_name.location:
+                route.append(
+                    {
+                        "type": "person",
+                        "type_description": "addressee",
+                        "latitude": self.addressee_name.location.latitude,
+                        "longitude": self.addressee_name.location.longitude,
+                    }
+                )
+
+            # We cache the calculation for 15 minutes
+            cache.set(cache_key, route, 60 * 15)
 
         return route
 

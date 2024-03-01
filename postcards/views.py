@@ -106,6 +106,16 @@ def object_details(request: HttpRequest, id: int):
     return render(request, "postal/object_details.html", ctx)
 
 
+def person_details(request: HttpRequest, id: int):
+    person = get_object_or_404(Person, pk=id)
+    nav_links = get_nav_links("")
+    ctx = {
+        "person": person,
+        "nav_links": nav_links,
+    }
+    return render(request, "postal/person_details.html", ctx)
+
+
 class CustomPaginator(Paginator):
     def validate_number(self, number):
         try:
