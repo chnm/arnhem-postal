@@ -553,7 +553,7 @@ class Object(models.Model):
         Person,
         on_delete=models.CASCADE,
         verbose_name="addressee's name",
-        related_name="addressee_name",
+        related_name="addressee_objects",
         blank=True,
         null=True,
     )
@@ -561,7 +561,7 @@ class Object(models.Model):
         Person,
         on_delete=models.CASCADE,
         verbose_name="sender's name",
-        related_name="sender_name",
+        related_name="sender_objects",
         blank=True,
         null=True,
     )
@@ -633,6 +633,18 @@ class Object(models.Model):
         )
 
         return f"{sender_name} to {addressee_name}, {date_of_correspondence}"
+
+    @property
+    def sender_full_name(self):
+        if self.sender_name:
+            return f"{self.sender_name.first_name} {self.sender_name.last_name}"
+        return None
+
+    @property
+    def addressee_full_name(self):
+        if self.addressee_name:
+            return f"{self.addressee_name.first_name} {self.addressee_name.last_name}"
+        return None
 
     def get_absolute_url(self):
         return reverse("items", kwargs={"id": self.id})
