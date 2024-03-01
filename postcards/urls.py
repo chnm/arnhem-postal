@@ -9,9 +9,24 @@ from postcards.models import Censor, Image, Object, Person, Postmark
 from . import views
 
 
+class AssociatedObjectsSerializer(serializers.ModelSerializer):
+    sender_name = serializers.CharField(source="sender_full_name")
+    addressee_name = serializers.CharField(source="addressee_full_name")
+
+    class Meta:
+        model = Object
+        fields = [
+            "letter_type",
+            "sender_name",
+            "addressee_name",
+            "date_of_correspondence",
+        ]
+
+
 class PersonsSerializer(serializers.HyperlinkedModelSerializer):
     # postal_objects = serializers.SerializerMethodField()
     url = serializers.HyperlinkedIdentityField(view_name="person-detail")
+    # associated_postal_objects = serializers.SerializerMethodField()
     # associated_routes = serializers.SerializerMethodField()
 
     class Meta:
@@ -23,38 +38,46 @@ class PersonsSerializer(serializers.HyperlinkedModelSerializer):
             "last_name",
             "latitude",
             "longitude",
+            # "associated_postal_objects",
+            # "postal_objects",
         ]
 
-    # def get_postal_objects(self, obj):
-    #     postal_objects = Object.objects.filter(
-    #         Q(sender_name=obj) | Q(addressee_name=obj)
-    #     ).prefetch_related(
-    #         Prefetch("images", queryset=Image.objects.all(), to_attr="related_images")
-    #     )
+    def get_postal_objects(self, obj):
+        postal_objects = Object.objects.filter(
+            Q(sender_name=obj) | Q(addressee_name=obj)
+        ).prefetch_related(
+            Prefetch("images", queryset=Image.objects.all(), to_attr="related_images")
+        )
 
-    #     return [
-    #         {
-    #             "sender_name__first_name": postal_object.sender_name.first_name,
-    #             "sender_name__last_name": postal_object.sender_name.last_name,
-    #             "addressee_name__first_name": postal_object.addressee_name.first_name,
-    #             "addressee_name__last_name": postal_object.addressee_name.last_name,
-    #             "date_of_correspondence": postal_object.date_of_correspondence,
-    #             "return_to_sender": postal_object.return_to_sender,
-    #             "date_returned": postal_object.date_returned,
-    #             "reasonreturn": postal_object.reason_for_return_original,
-    #             "letter_enclosed": postal_object.letter_enclosed,
-    #             "regime_censor": postal_object.regime_censor,
-    #             "public_notes": postal_object.public_notes,
-    #             "images": [
-    #                 {
-    #                     "image": image.image.url,
-    #                     "image_caption": image.image_caption,
-    #                 }
-    #                 for image in postal_object.related_images
-    #             ],
-    #         }
-    #         for postal_object in postal_objects
-    #     ]
+        return [
+            {
+                "sender_name__first_name": postal_object.sender_name.first_name,
+                "sender_name__last_name": postal_object.sender_name.last_name,
+                "addressee_name__first_name": postal_object.addressee_name.first_name,
+                "addressee_name__last_name": postal_object.addressee_name.last_name,
+                "date_of_correspondence": postal_object.date_of_correspondence,
+                "return_to_sender": postal_object.return_to_sender,
+                "date_returned": postal_object.date_returned,
+                "reasonreturn": postal_object.reason_for_return_original,
+                "letter_enclosed": postal_object.letter_enclosed,
+                "regime_censor": postal_object.regime_censor,
+                "public_notes": postal_object.public_notes,
+                "images": [
+                    {
+                        "image": image.image.url,
+                        "image_caption": image.image_caption,
+                    }
+                    for image in postal_object.related_images
+                ],
+            }
+            for postal_object in postal_objects
+        ]
+
+    # def get_associated_postal_objects(self, obj):
+    #     associated_objects = Object.objects.filter(
+    #         Q(sender_name=obj) | Q(addressee_name=obj)
+    #     )
+    #     return AssociatedObjectsSerializer(associated_objects, many=True).data
 
     # def get_associated_routes(self, obj):
     #     """We want to get the routes associated with a person. We use the person_id to get the routes
@@ -131,6 +154,11 @@ class PostalObjectSerializer(serializers.HyperlinkedModelSerializer):
     sender_name = PersonsSerializer()
     addressee_name = PersonsSerializer()
     postmark = PostmarksSerializer(many=True)
+    censored = serializers.ReadOnlyField(source="regime_censor.censor_name")
+    letter_enclosed = serializers.ReadOnlyField()
+    images = ImageSerializer(many=True)
+    date_of_correspondence = serializers.ReadOnlyField()
+    notes = serializers.ReadOnlyField(source="public_notes")
     latitude = serializers.ReadOnlyField(source="sender_name.location.latitude")
     longitude = serializers.ReadOnlyField(source="sender_name.location.longitude")
     route = serializers.SerializerMethodField()
@@ -141,6 +169,11 @@ class PostalObjectSerializer(serializers.HyperlinkedModelSerializer):
             "sender_name",
             "addressee_name",
             "postmark",
+            "censored",
+            "letter_enclosed",
+            "images",
+            "date_of_correspondence",
+            "notes",
             "latitude",
             "longitude",
             "route",
@@ -180,6 +213,7 @@ urlpatterns = [
     path("timeline/", views.timeline, name="timeline"),
     path("items/", views.ItemHtmxTableView.as_view(), name="table"),
     path("items/<int:id>/", views.object_details, name="items"),
+    path("person/<int:id>/", views.person_details, name="person"),
     # path('login/', auth_views.LoginView.as_view(template_name='postal/login.html'), name='login'),
     # path('logout/', auth_views.LogoutView.as_view(template_name='postal/logout.html'), name='logout'),
     # path('profile/', users_views.profile, name='profile'),
