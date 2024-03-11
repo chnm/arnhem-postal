@@ -119,26 +119,6 @@
                         <div class="progress">
                             <div class="indeterminate"></div>
                         </div>
-
-                        <table {% render_attrs table.attrs class="table multi-col-header table-auto w-full" %}>
-                            <thead {{ table.attrs.thead.as_html }}>
-                                <tr>
-                                    {% for column in table.columns %}
-                                        <th {{ column.attrs.th.as_html }}
-                                            x-data="{ col_name: '{{ column.order_by_alias }}',
-                                                    toggle(event) {
-                                                    this.col_name = this.col_name.startsWith('-') ? this.col_name.substring(1) : ('-' + this.col_name);
-                                                    sort_by = this.col_name;}}"
-                                            @click="toggle()"
-                                            class="w-1/3"
-                                            :class="sort_by !== '' ? (sort_by === col_name ? (sort_by.startsWith('-') ? 'desc' : 'asc') : '') : ''"
-                                            style="cursor: pointer;">
-                                            {{ column.header }}
-                                        </th>
-                                    {% endfor %}
-                                </tr>
-                            </thead>
-                        </table>
                         {% render_table table %}
                     </form>
                 </div>
