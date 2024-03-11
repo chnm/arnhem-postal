@@ -108,9 +108,15 @@ def object_details(request: HttpRequest, id: int):
 
 def person_details(request: HttpRequest, id: int):
     person = get_object_or_404(Person, pk=id)
+    postal_material = (
+        person.sender_objects.all()
+        .union(person.addressee_objects.all())
+        .order_by("date_of_correspondence")
+    )
     nav_links = get_nav_links("")
     ctx = {
         "person": person,
+        "sender_objects": postal_material,
         "nav_links": nav_links,
     }
     return render(request, "postal/person_details.html", ctx)
