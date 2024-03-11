@@ -42,7 +42,16 @@
                     <ul class="list-group">
                         <li class="list-group-item"><strong>Collection:</strong> {{ object.collection }}</li>
                         <li class="list-group-item"><strong>Collection Location:</strong> {{ object.collection_location }}</li>
-                        <li class="list-group-item"><strong>Postmark:</strong> {{ object.postmark }}</li>
+                        <li class="list-group-item"><strong>Item ID:</strong> {{ object.item_id }}</li>
+                        <li class="list-group-item">
+                            <strong>Postmark:</strong>
+                            {% for postmark in object.postmark.all %}
+                                {{ postmark }}
+                                {% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                None
+                            {% endfor %}
+                        </li>
                         <li class="list-group-item"><strong>Check Sensitive Content:</strong> {{ object.check_sensitive_content }}</li>
                         <li class="list-group-item"><strong>Letter Enclosed:</strong> {{ object.letter_enclosed }}</li>
                         <li class="list-group-item"><strong>Return to Sender:</strong> {{ object.return_to_sender }}</li>
