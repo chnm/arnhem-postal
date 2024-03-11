@@ -408,6 +408,10 @@ table .table-secondary {
   font-size: 12px;
 }
 
+table .table-caption {
+  font-size: 0.7rem;
+}
+
 /* .db-column .dropdown .btn-secondary {
     color: gray;
     background-color: white;
@@ -796,6 +800,7 @@ h2 {
 .htmx-request .progress {
   opacity: 1;
 }
+
 .htmx-request.progress {
   opacity: 1;
 }
@@ -816,6 +821,7 @@ h2 {
     infinite;
   animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
+
 .progress .indeterminate:after {
   content: "";
   position: absolute;
@@ -837,10 +843,12 @@ h2 {
     left: -35%;
     right: 100%;
   }
+
   60% {
     left: 100%;
     right: -90%;
   }
+
   100% {
     left: 100%;
     right: -90%;
@@ -852,10 +860,12 @@ h2 {
     left: -200%;
     right: 100%;
   }
+
   60% {
     left: 107%;
     right: -8%;
   }
+
   100% {
     left: 107%;
     right: -8%;
@@ -900,7 +910,8 @@ h2 {
   border: 1px solid #ccc;
   border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 10px; /* Add some space between accordions */
+  margin-bottom: 10px;
+  /* Add some space between accordions */
 }
 
 /* Accordion header/button */
