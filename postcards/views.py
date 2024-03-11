@@ -77,8 +77,17 @@ def timeline(request: HttpRequest):
 
 
 def mapinterface(request: HttpRequest):
+    person = get_object_or_404(Person, pk=id)
+    postal_material = (
+        person.sender_objects.all()
+        .union(person.addressee_objects.all())
+        .order_by("date_of_correspondence")
+    )
     nav_links = get_nav_links("map")
-    ctx = {"nav_links": nav_links}
+    ctx = {
+        "nav_links": nav_links,
+        "postal_material": postal_material,
+    }
     return render(request, "postal/map.html", ctx)
 
 
