@@ -170,6 +170,21 @@ class ObjectFilter(django_filters.FilterSet):
         for word in words:
             queries |= Q(public_notes__icontains=word)
 
+    def filter_by_all_fields(self, queryset, value):
+        words = value.split(" ")
+        queries = Q()
+        for word in words:
+            queries |= Q(
+                correspondence__icontains=word,
+                date__icontains=word,
+                collection__name__icontains=word,
+                town_city__icontains=word,
+                province_state__icontains=word,
+                postmark__icontains=word,
+                public_notes__icontains=word,
+            )
+        return queryset.filter(queries)
+
     def filter_query(self, queryset, name, value):
         if name == "postmark":
             return self.filter_by_postmark(queryset, name, value)
@@ -186,6 +201,6 @@ class ObjectFilter(django_filters.FilterSet):
         elif name == "collection":
             return self.filter_by_collection(queryset, value)
         elif name == "keywords":
-            return self.filter_by_public_notes(queryset, value)
+            return self.filter_by_all_fields(queryset, value)
         else:
             return queryset
