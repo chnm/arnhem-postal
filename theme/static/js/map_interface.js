@@ -81,14 +81,7 @@ fetch("/api/people/")
         .then((response) => response.json())
         .then((data) => {
           window.sidebarComponent.$nextTick(() => {
-            // window.sidebarComponent.postalObject = data.postal_objects;
             window.sidebarComponent.personSelected = data;
-            // console.log('both components', window.sidebarComponent)
-            // console.log('postal object component', window.sidebarComponent.postalObject);
-            console.log(
-              "person component",
-              window.sidebarComponent.personSelected,
-            );
             window.sidebarComponent.open = true;
           });
         })

@@ -4,10 +4,18 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <aside id="sidebar" x-data="{ open: false, personSelected: null }" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
+    <aside id="sidebar" x-data="{ open: false, personSelected: null, postalObjects: [], fetchRelatedPostalMaterial: async function() { if (this.personSelected) { const response = await fetch('/persons/' + this.personSelected.person_id); const data = await response.json(); this.postalObjects = data.postal_objects; }}}" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
         <div x-show="open" x-transition>
             <button x-on:click="open = false">
                 <i class="fas fa-times"></i>
+            </button>
+
+            <button x-on:click="console.log(personSelected)">
+                Log personSelected
+            </button>
+
+            <button x-on:click="console.log(postalObjects)">
+                Log postalObjects
             </button>
 
             <div id="sidebar-content" class="scrollable-content">
@@ -15,16 +23,31 @@
           {# Person display #}
                     <div class="person">
             {# TODO: Finalize the table view for related postal material #}
-                        <h2 style="color: red;">In Progress</h2>
                         <h3>Person Information</h3>
                         <p x-text="'Name: ' + personSelected.first_name + ' ' + personSelected.last_name"></p>
-                        <template x-if="personSelected.latitude && personSelected.longitude">
-                            <p x-text="'Location: ' + personSelected.latitude + ', ' + personSelected.longitude"></p>
-                        </template>
+                        <p x-text="'Location: ' + personSelected.house_number + ', ' + personSelected.street + ', ' + personSelected.location.province_state + ', ' + personSelected.location.country"></p>
                         <a :href="'/person/' + personSelected.person_id">View Person</a>
                     </div>
 
           {# Related items table #}
+                    <h3>Related Postal Material</h3>
+                    <template x-if="postalObjects.length">
+                        <h3>Postal Objects</h3>
+                        <ul>
+                            <template x-for="item in postalObjects" :key="item.id">
+                                <li x-text="item.date_of_correspondence + ': ' + item.description"></li>
+                            </template>
+                        </ul>
+                    </template>
+
+
+
+
+
+
+
+
+
           <!-- <div class="postal-objects">
             <h3>Postal Objects</h3>
             <table>
