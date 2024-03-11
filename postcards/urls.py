@@ -4,7 +4,7 @@ from django.db.models import Prefetch, Q
 from django.urls import include, path
 from rest_framework import routers, serializers, viewsets
 
-from postcards.models import Censor, Image, Object, Person, Postmark
+from postcards.models import Censor, Image, Location, Object, Person, Postmark
 
 from . import views
 
@@ -23,11 +23,78 @@ class AssociatedObjectsSerializer(serializers.ModelSerializer):
         ]
 
 
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = [
+            "location_id",
+            "town_city",
+            "province_state",
+            "country",
+            "latitude",
+            "longitude",
+        ]
+
+    def get_location(self, obj):
+        return {
+            "latitude": obj.latitude,
+            "longitude": obj.longitude,
+        }
+
+
+class LocationViewSet(viewsets.ModelViewSet):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ["image", "image_caption"]
+
+
+class PostmarksSerializer(serializers.HyperlinkedModelSerializer):
+    latitude = serializers.ReadOnlyField(source="location.latitude")
+    longitude = serializers.ReadOnlyField(source="location.longitude")
+
+    class Meta:
+        model = Postmark
+        fields = (
+            "date",
+            "latitude",
+            "longitude",
+        )
+
+
+class PostmarkViewSet(viewsets.ModelViewSet):
+    queryset = Postmark.objects.all()
+    serializer_class = PostmarksSerializer
+
+
+class CensorSerializer(LocationSerializer, serializers.HyperlinkedModelSerializer):
+    latitude = serializers.ReadOnlyField(source="censor_location.latitude")
+    longitude = serializers.ReadOnlyField(source="censor_location.longitude")
+
+    class Meta:
+        model = Censor
+        fields = (
+            "censor_name",
+            "latitude",
+            "longitude",
+        )
+
+    def get_censor_location(self, obj):
+        return self.get_location(obj)
+
+
+class CensorViewSet(viewsets.ModelViewSet):
+    queryset = Censor.objects.all()
+    serializer_class = CensorSerializer
+
+
 class PersonsSerializer(serializers.HyperlinkedModelSerializer):
-    # postal_objects = serializers.SerializerMethodField()
     url = serializers.HyperlinkedIdentityField(view_name="person-detail")
-    # associated_postal_objects = serializers.SerializerMethodField()
-    # associated_routes = serializers.SerializerMethodField()
+    location = LocationSerializer(read_only=True)
 
     class Meta:
         model = Person
@@ -36,10 +103,11 @@ class PersonsSerializer(serializers.HyperlinkedModelSerializer):
             "url",
             "first_name",
             "last_name",
+            "house_number",
+            "street",
+            "location",
             "latitude",
             "longitude",
-            # "associated_postal_objects",
-            # "postal_objects",
         ]
 
     def get_postal_objects(self, obj):
@@ -97,59 +165,6 @@ class PersonViewSet(viewsets.ModelViewSet):
     serializer_class = PersonsSerializer
 
 
-class LocationSerializer(serializers.Serializer):
-    def get_location(self, obj):
-        return {
-            "latitude": obj.latitude,
-            "longitude": obj.longitude,
-        }
-
-
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ["image", "image_caption"]
-
-
-class PostmarksSerializer(serializers.HyperlinkedModelSerializer):
-    latitude = serializers.ReadOnlyField(source="location.latitude")
-    longitude = serializers.ReadOnlyField(source="location.longitude")
-
-    class Meta:
-        model = Postmark
-        fields = (
-            "date",
-            "latitude",
-            "longitude",
-        )
-
-
-class PostmarkViewSet(viewsets.ModelViewSet):
-    queryset = Postmark.objects.all()
-    serializer_class = PostmarksSerializer
-
-
-class CensorSerializer(LocationSerializer, serializers.HyperlinkedModelSerializer):
-    latitude = serializers.ReadOnlyField(source="censor_location.latitude")
-    longitude = serializers.ReadOnlyField(source="censor_location.longitude")
-
-    class Meta:
-        model = Censor
-        fields = (
-            "censor_name",
-            "latitude",
-            "longitude",
-        )
-
-    def get_censor_location(self, obj):
-        return self.get_location(obj)
-
-
-class CensorViewSet(viewsets.ModelViewSet):
-    queryset = Censor.objects.all()
-    serializer_class = CensorSerializer
-
-
 class PostalObjectSerializer(serializers.HyperlinkedModelSerializer):
     sender_name = PersonsSerializer()
     addressee_name = PersonsSerializer()
@@ -203,6 +218,7 @@ router.register(r"people", PersonViewSet)
 router.register(r"postmarks", PostmarkViewSet)
 router.register(r"censors", CensorViewSet)
 router.register(r"objects", PostalObjectViewSet)
+router.register(r"locations", LocationViewSet)
 
 
 urlpatterns = [
