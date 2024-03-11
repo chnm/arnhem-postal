@@ -1,0 +1,125 @@
+{% extends 'postal/base.html' %}
+
+{% block title %}Viewing person {{person.first_name}} {{person.last_name}}{% endblock title %}
+
+{% block content %}
+    <h1 class="text-lg font-bold">{{ person.first_name }} {{ person.last_name }}</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            {# person information #}
+
+            {# list all objects related to a person #}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Related Postal Material</h5>
+                    {% if sender_objects %}
+                        <ol>
+                            {% for object in sender_objects %}
+                                <li><a style="color: rgb(116, 30, 58); text-decoration: underline;" href="{% url 'items' object.pk %}">{{ object.letter_type }}</a> sent by {{ object.sender_name }} to {{ object.addressee_name }}, {% if object.date_of_correspondence %}
+                                    dated {{ object.date_of_correspondence }}.
+                                {% else %}
+                                    date unknown.
+                                {% endif %}</li>
+                            {% endfor %}
+                        </ol>
+                    {% else %}
+                        <p>No related postal materials are available.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# related historical documents #}
+            {% if person.primarysource_set.all %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Related Historical Documents</h5>
+                        <ol>
+                            {% for source in person.primarysource_set.all %}
+                                <li>{{ source.title }}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            {% endif %}
+
+
+            {# person location #}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Location</h5>
+                    <div id="map" style="height: 400px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+                <!-- Metadata -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Profile</h5>
+                    <ul class="list-group">
+                        <!-- person's metadata -->
+                        {% if person.first_name or person.last_name %}
+                            <li class="list-group-item">
+                                <strong>Title:</strong> {{ person.title }}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>First Name:</strong> {{ person.first_name }}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Last Name:</strong> {{ person.last_name }}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Birth Date:</strong>
+                                {% if person.date_of_birth %}
+                                    {{ person.date_of_birth }}
+                                {% else %}
+                                    No data recorded.
+                                {% endif %}
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Death Date:</strong>
+                                {% if person.date_of_death %}
+                                    {{ person.date_of_death }}
+                                {% else %}
+                                    No data recorded.
+                                {% endif %}
+                            </li>
+                        {% else %}
+                            <li class="list-group-item">
+                                <strong>Entity:</strong> {{ person.entity_name }}
+                            </li>
+                        {% endif %}
+                        <li class="list-group-item">
+                            <strong>House number:</strong> {{ person.house_number }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Street:</strong> {{ person.street }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Location:</strong> {{ person.location }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            mapboxgl.accessToken = "pk.eyJ1IjoiaGVwcGxlcmoiLCJhIjoiY2xwc3cyN3UyMDdlOTJqbTgwcmZjeWJuYSJ9.wmrR3E8vqsQb3Ml7v0HX-A";
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v10',
+                center: [parseFloat("{{ person.longitude }}"), parseFloat("{{ person.latitude }}")],
+                zoom: 9
+            });
+
+            // Add marker for the person's location
+            new mapboxgl.Marker()
+                .setLngLat([parseFloat("{{ person.longitude }}"), parseFloat("{{ person.latitude }}")])
+                .addTo(map);
+        }
+    </script>
+
+{% endblock content %}

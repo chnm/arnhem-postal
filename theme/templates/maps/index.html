@@ -21,7 +21,7 @@
                         <template x-if="personSelected.latitude && personSelected.longitude">
                             <p x-text="'Location: ' + personSelected.latitude + ', ' + personSelected.longitude"></p>
                         </template>
-                        <a :href="'/people/' + personSelected.person_id + '/view'">View Person</a>
+                        <a :href="'/person/' + personSelected.person_id">View Person</a>
                     </div>
 
           {# Related items table #}
