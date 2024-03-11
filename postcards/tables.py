@@ -4,6 +4,9 @@ from postcards.models import Object
 
 
 class ItemHtmxTable(tables.Table):
+    item_number = tables.TemplateColumn(
+        accessor="item_id", verbose_name="Item ID", template_name="postal/item_id.html"
+    )
     thumbnail = tables.TemplateColumn(
         template_name="postal/thumbnail.html", orderable=False
     )
@@ -28,6 +31,7 @@ class ItemHtmxTable(tables.Table):
         template_name = "postal/item_table.html"
         empty_text = "No data available for the select filters."
         fields = (
+            "item_number",
             "thumbnail",
             "sender_name",
             "addressee_name",
