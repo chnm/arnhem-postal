@@ -11,9 +11,9 @@
             <div class="card mb-4">
                 <div class="card-body">
                     {% if object.images.all %}
-                        {% for image in object.images.all %}
+                        {% for image in object.images.all|dictsort:"image_caption" %}
                             <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.image_caption }}">
-                            <figcaptio class="text-center">{{ image.image_caption }}</figcaption>
+                            <figcaption class="text-center">{{ image.image_caption }}</figcaption>
                         {% endfor %}
                     {% else %}
                         <p>No images available</p>
@@ -52,6 +52,8 @@
                                 None
                             {% endfor %}
                         </li>
+                        <li class="list-group-item"><strong>Addressee's Name:</strong> <a style="color: rgb(116, 30, 58); text-decoration: underline;" href="{% url 'person' object.addressee_name.person_id %}">{{ object.addressee_name }}</a></li>
+                        <li class="list-group-item"><strong>Sender's Name:</strong> <a style="color: rgb(116, 30, 58); text-decoration: underline;" href="{% url 'person' object.sender_name.person_id %}">{{ object.sender_name }}</a></li>
                         <li class="list-group-item"><strong>Check Sensitive Content:</strong> {{ object.check_sensitive_content }}</li>
                         <li class="list-group-item"><strong>Letter Enclosed:</strong> {{ object.letter_enclosed }}</li>
                         <li class="list-group-item"><strong>Return to Sender:</strong> {{ object.return_to_sender }}</li>
@@ -61,8 +63,6 @@
                         <li class="list-group-item"><strong>Regime Censor:</strong> {{ object.regime_censor }}</li>
                         <li class="list-group-item"><strong>Regime Location:</strong> {{ object.regime_location }}</li>
                         <li class="list-group-item"><strong>Regime Censor Date:</strong> {{ object.regime_censor_date }}</li>
-                        <li class="list-group-item"><strong>Addressee's Name:</strong> {{ object.addressee_name }}</li>
-                        <li class="list-group-item"><strong>Sender's Name:</strong> {{ object.sender_name }}</li>
                         <li class="list-group-item"><strong>Letter Type:</strong> {{ object.letter_type }}</li>
                         <li class="list-group-item"><strong>Date of Correspondence:</strong> {{ object.date_of_correspondence }}</li>
                         <li class="list-group-item"><strong>Translated:</strong> {{ object.translated }}</li>
