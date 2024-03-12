@@ -889,10 +889,14 @@ h2 {
   right: -300px;
   width: 300px;
   height: 100%;
-  background-color: #f0f0f0;
+  background-color: #f9f4ef;
   transition: transform 0.3s ease-in-out;
-  z-index: 999;
+  z-index: 1010;
   box-shadow: -5px 0 5px -5px #333;
+}
+
+#sidebar .card {
+  margin-top: 0;
 }
 
 #sidebar.open {
