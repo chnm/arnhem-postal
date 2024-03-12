@@ -63,7 +63,7 @@ fetch("/api/people/")
         data: geojson,
       },
       paint: {
-        "circle-radius": 5,
+        "circle-radius": 7,
         "circle-color": "blue",
         "circle-opacity": 0.75,
       },
@@ -123,18 +123,18 @@ fetch("/api/postmarks/")
         data: geojson,
       },
       paint: {
-        "circle-radius": 5,
+        "circle-radius": 7,
         "circle-color": "red",
         "circle-opacity": 0.75,
       },
     });
 
-    map.on("click", "postmarks", function (e) {
-      new mapboxgl.Popup()
-        .setLngLat(e.features[0].geometry.coordinates)
-        .setHTML(e.features[0].properties.name)
-        .addTo(map);
-    });
+    // map.on("click", "postmarks", function (e) {
+    //   new mapboxgl.Popup()
+    //     .setLngLat(e.features[0].geometry.coordinates)
+    //     .setHTML(e.features[0].properties.name)
+    //     .addTo(map);
+    // });
   })
   .catch((error) => console.error(error));
 
