@@ -249,3 +249,11 @@ fetch("/api/objects/")
     console.error(error);
     progressIndicator.style.display = "none";
   });
+
+map.on("mouseenter", "circles", function () {
+  map.getCanvas().style.cursor = "pointer";
+});
+
+map.on("mouseleave", "circles", function () {
+  map.getCanvas().style.cursor = "";
+});
