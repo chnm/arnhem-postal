@@ -1,9 +1,20 @@
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets
 
 from maps.forms import MapObjectForm
+from postcards.filters import ObjectFilter
 from postcards.models import Image, Object, Person
+from postcards.serializers import PostalObjectSerializer
+
+
+class PostalObjectsViewSet(viewsets.ModelViewSet):
+    queryset = Object.objects.all()
+    serializer_class = PostalObjectSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ObjectFilter
 
 
 def maps(request):

@@ -92,22 +92,11 @@
 
                 <form class="form-inline"
                       hx-get="{% url 'table' %}"
-                      hx-target=".table-body-container"
-                      hx-trigger="input, select, sort-initiated, pagination-initiated"
+                      hx-target="#map"
+                      hx-trigger="input, select"
                       hx-swap="outerHTML"
                       hx-indicator=".progress"
-                      x-data="{ sort_by: '', page_by: 1 }">
-
-                    <input type="hidden" name="sort" x-ref="sort_input" x-model="sort_by"
-                           x-init="$watch('sort_by',
-                                   () => $refs.sort_input.dispatchEvent(
-                                   new Event('sort-initiated', { bubbles: true })))">
-
-                    <input type="hidden" name="page" x-ref="paginate_input" x-model="page_by"
-                           x-init="$watch('page_by',
-                                   () => $refs.paginate_input.dispatchEvent(
-                                   new Event('pagination-initiated', { bubbles: true })))" >
-
+                      x-data="{ correspondence: '', date: '', collection: '', town_city: '', province_state: '', postmark: '' }">
 
                     <div class="row">
                         <div class="col-md-4">
@@ -188,18 +177,6 @@
                 </form>
             </div>
         </div>
-
-    <!-- <div x-data="{ isOpen: true }" class="accordion">
-      <button @click="isOpen = !isOpen" class="accordion-header">
-        Filter Data
-      </button>
-      <div x-show="isOpen" class="accordion-panel">
-        <form hx-get="/maps" hx-target="#map">
-          {{ form.as_p }}
-          <input type="submit" value="Filter data">
-        </form>
-      </div>
-    </div> -->
 
         <div id='map' width="100%" style='height:600px'></div>
         <script src="/static/js/map_interface.js"></script>
