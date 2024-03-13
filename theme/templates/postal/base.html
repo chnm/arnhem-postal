@@ -64,8 +64,10 @@
             {% endif %}
 
             <main class="container end-row-indent">
-                {% block content %}{% endblock content %}
-                {% block main %}{% endblock main %}
+                <div class="row new-row-indent">
+                    {% block content %}{% endblock content %}
+                    {% block main %}{% endblock main %}
+                </div>
             </main>
 
     <!-- Footer -->

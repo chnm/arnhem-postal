@@ -3,7 +3,6 @@ from django.http import HttpRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
-from rest_framework import generics
 
 from postcards.filters import ObjectFilter
 from postcards.models import Location, Object, Person, Postmark
@@ -101,15 +100,15 @@ def table(request: HttpRequest):
 
 
 def get_object(request: HttpRequest):
-    object = Object.objects.all()
-    return object
+    postal_object = Object.objects.all()
+    return postal_object
 
 
 def object_details(request: HttpRequest, id: int):
-    object = get_object_or_404(Object, pk=id)
+    postal_object = get_object_or_404(Object, pk=id)
     nav_links = get_nav_links("")
     ctx = {
-        "object": object,
+        "object": postal_object,
         "nav_links": nav_links,
     }
     return render(request, "postal/object_details.html", ctx)

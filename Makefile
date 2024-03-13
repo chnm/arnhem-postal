@@ -16,6 +16,9 @@ loadlocations :
 loadlanguages :
 	poetry run python manage.py loaddata languages.yaml
 
+loadtranscriptions : 
+	poetry run python manage.py load_transcriptions --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
+
 loadobjects :
 	poetry run python manage.py load_objects --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
 

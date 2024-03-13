@@ -48,7 +48,11 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Location</h5>
-                    <div id="map" style="height: 400px; width: 100%;"></div>
+                    {% if person.latitude and person.longitude %}
+                        <div id="map" style="height: 400px; width: 100%;"></div>
+                    {% else %}
+                        <p>No precise location data available.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
