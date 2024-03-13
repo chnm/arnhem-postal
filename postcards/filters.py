@@ -62,6 +62,7 @@ class ObjectFilter(django_filters.FilterSet):
             "town_city",
             "province_state",
             "postmark",
+            "all_fields",
         ]
 
     correspondence = django_filters.ChoiceFilter(
@@ -86,6 +87,9 @@ class ObjectFilter(django_filters.FilterSet):
     query = django_filters.CharFilter(
         method="filter_query",
         label="Keyword search",
+    )
+    all_fields = django_filters.CharFilter(
+        method="filter_by_all_fields", label="Keyword search"
     )
 
     def filter_by_postmark(self, queryset, name, value):
@@ -170,18 +174,24 @@ class ObjectFilter(django_filters.FilterSet):
         for word in words:
             queries |= Q(public_notes__icontains=word)
 
-    def filter_by_all_fields(self, queryset, value):
+    def filter_by_all_fields(self, queryset, name, value):
         words = value.split(" ")
         queries = Q()
         for word in words:
-            queries |= Q(
-                correspondence__icontains=word,
-                date__icontains=word,
-                collection__name__icontains=word,
-                town_city__icontains=word,
-                province_state__icontains=word,
-                postmark__icontains=word,
-                public_notes__icontains=word,
+            queries |= (
+                Q(sender_name__first_name__icontains=word)
+                | Q(sender_name__last_name__icontains=word)
+                | Q(addressee_name__first_name__icontains=word)
+                | Q(addressee_name__last_name__icontains=word)
+                | Q(date_of_correspondence__icontains=word)
+                | Q(collection__name__icontains=word)
+                | Q(sender_name__location__town_city__icontains=word)
+                | Q(sender_name__location__province_state__icontains=word)
+                | Q(addressee_name__location__town_city__icontains=word)
+                | Q(addressee_name__location__province_state__icontains=word)
+                | Q(postmark__location__town_city__icontains=word)
+                | Q(postmark__location__country__icontains=word)
+                | Q(public_notes__icontains=word)
             )
         return queryset.filter(queries)
 

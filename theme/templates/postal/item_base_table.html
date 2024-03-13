@@ -34,9 +34,9 @@
 
                         <div class="row">
                             <div class="col-4">
-                                <label for="{{ filter.form.public_notes.id_for_label}}" class="labelCSS">Search by keywords</label>
+                                <label name="all_fields" for="{{ filter.form.all_fields.id_for_label}}" class="labelCSS">Search by keywords</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Enter your search term" aria-label="Search by keywords" aria-describedby="button-addon2">
+                                    <input name="{{ filter.form.all_fields.html_name }}" type="text" class="form-control" placeholder="Enter your search term" aria-label="Search by keywords" aria-describedby="button-addon2">
                                     <button class="btn btn-primary" type="button" id="button-addon2">search</button>
                                 </div>
                             </div>
