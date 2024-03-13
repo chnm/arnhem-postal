@@ -37,7 +37,7 @@
                         exercitation
                         ullamco laboris nisi ut aliquip ex ea commodo consequat. Quis nostrud exercitation
                         ullamco laboris. </p>
-                    <a href="timeline.html" class="btn btn btn-outline-secondary">learn more</a>
+                    <a href="{% url 'timeline' %}" class="btn btn btn-outline-secondary">learn more</a>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                         exercitation
                         ullamco laboris nisi ut aliquip ex ea commodo consequat. Quis nostrud exercitation
                         ullamco laboris.</p>
-                    <a href="{% url 'table' %}" class="btn btn btn-outline-info">explore</a>
+                    <a href="{% url 'map' %}" class="btn btn btn-outline-info">explore</a>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Quis nostrud exercitation
                 ullamco laboris.</p>
-            <a href="{% url 'maps' %}" class="btn btn btn-outline-primary">go to the database</a>
+            <a href="{% url 'table' %}" class="btn btn btn-outline-primary">go to the database</a>
         </div>
         <div class="col-lg-4">
             <img class="img-fluid" src="{% static 'images/postcard.jpeg' %}">
