@@ -384,7 +384,8 @@ class Transcription(models.Model):
         "Object",
         blank=True,
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
+        related_name="transcriptions",
         help_text="Link a document to the transcription.",
     )
     transcription = models.TextField(
