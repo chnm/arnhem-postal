@@ -75,6 +75,12 @@ def timeline(request: HttpRequest):
     return render(request, "postal/timeline.html", ctx)
 
 
+def resources(request: HttpRequest):
+    nav_links = get_nav_links("resources")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/resources.html", ctx)
+
+
 def mapinterface(request: HttpRequest):
     person = get_object_or_404(Person, pk=id)
     postal_material = (

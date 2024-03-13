@@ -12,6 +12,7 @@ urlpatterns = [
     path("exhibits/", views.exhibits, name="exhibits"),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
+    path("resources/", views.resources, name="resources"),
     path("items/", views.ItemHtmxTableView.as_view(), name="table"),
     path("items/<int:id>/", views.object_details, name="items"),
     path("person/<int:id>/", views.person_details, name="person"),
