@@ -19,6 +19,9 @@ loadlanguages :
 loadtranscriptions : 
 	poetry run python manage.py load_transcriptions --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
 
+loadtags :
+	poetry run python manage.py load_tags --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
+
 loadobjects :
 	poetry run python manage.py load_objects --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
 
