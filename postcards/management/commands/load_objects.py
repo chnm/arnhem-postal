@@ -143,8 +143,8 @@ class Command(BaseCommand):
 
                         regime_censor = str(row["censor"])
 
-                        transcription_original = str(row["transcription"])
-                        transcription_english = str(row["translation"])
+                        # transcription_original = str(row["transcription"])
+                        # transcription_english = str(row["translation"])
 
                         # Create or update Persons
                         addressee_title = str(row["addressee title"])
@@ -333,18 +333,18 @@ class Command(BaseCommand):
                             public_notes=public_notes,
                         )
 
-                        if transcription_original:
-                            language = Language.objects.get(language="Dutch")
-                            transcription_text = transcription_original
-                        else:
-                            language = Language.objects.get(language="English")
-                            transcription_text = transcription_english
+                        # if transcription_original:
+                        #     language = Language.objects.get(language="German")
+                        #     transcription_text = transcription_original
+                        # else:
+                        #     language = Language.objects.get(language="English")
+                        #     transcription_text = transcription_english
 
-                        transcription, created = Transcription.manager.update_or_create(
-                            postal_object=obj,
-                            transcription=transcription_text,
-                            language=language,
-                        )
+                        # transcription, created = Transcription.manager.update_or_create(
+                        #     postal_object=obj,
+                        #     transcription=transcription_text,
+                        #     language=language,
+                        # )
 
                         # Create or update keywords
                         # -------------------------
