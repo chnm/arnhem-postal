@@ -17,25 +17,27 @@ map.flyTo({
   zoom: 10,
 });
 
-const loadingMessage = document.getElementById("loading");
-loadingMessage.innerHTML = "Please wait, the map is loading data...";
+// const loadingMessage = document.getElementById("loading");
+// loadingMessage.innerHTML = "Please wait, the map is loading data...";
 
-function showLoading(dataType) {
-  const loadingMessage = document.getElementById("loading");
-  loadingMessage.innerHTML = `Loading ${dataType}...`;
-  loadingMessage.style.display = "block";
-}
+// function showLoading(dataType) {
+//   const loadingMessage = document.getElementById("loading");
+//   loadingMessage.innerHTML = `Loading ${dataType}...`;
+//   loadingMessage.style.display = "block";
+// }
 
-function hideLoading() {
-  const loadingMessage = document.getElementById("loading");
-  loadingMessage.style.display = "none";
-}
+// function hideLoading() {
+//   const loadingMessage = document.getElementById("loading");
+//   loadingMessage.style.display = "none";
+// }
+
+const progressIndicator = document.querySelector(".spinner-border");
+progressIndicator.style.display = "block";
 
 // fetch our people data
 fetch("/api/people/")
   .then((response) => response.json())
   .then((data) => {
-    console.log("Data for person:", data);
     const features = data.map(function (person) {
       return {
         type: "Feature",
@@ -88,7 +90,10 @@ fetch("/api/people/")
         .catch((error) => console.error(error));
     });
   })
-  .catch((error) => console.error(error));
+  .catch((error) => {
+    console.error(error);
+    progressIndicator.style.display = "none";
+  });
 
 // add the Postmarks
 fetch("/api/postmarks/")
@@ -136,7 +141,10 @@ fetch("/api/postmarks/")
     //     .addTo(map);
     // });
   })
-  .catch((error) => console.error(error));
+  .catch((error) => {
+    console.error(error);
+    progressIndicator.style.display = "none";
+  });
 
 // add the Censors
 
@@ -147,7 +155,6 @@ fetch("/api/censors/")
     data = data.filter(function (censor) {
       return censor.latitude && censor.longitude;
     });
-    console.log("Data for censor:", data);
     const features = data.map(function (censor) {
       return {
         type: "Feature",
@@ -185,7 +192,10 @@ fetch("/api/censors/")
         .addTo(map);
     });
   })
-  .catch((error) => console.error(error));
+  .catch((error) => {
+    console.error(error);
+    progressIndicator.style.display = "none";
+  });
 
 // draw the routes
 fetch("/api/objects/")
@@ -233,6 +243,9 @@ fetch("/api/objects/")
       },
     });
 
-    hideLoading();
+    progressIndicator.style.display = "none";
   })
-  .catch((error) => console.error(error));
+  .catch((error) => {
+    console.error(error);
+    progressIndicator.style.display = "none";
+  });

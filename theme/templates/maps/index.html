@@ -77,10 +77,16 @@
         <p>This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to censor if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: lime;">green</span>.</p>
 
         <div x-data="{ open: false }" class="mb-3 mt-3">
-            <button @click="open = !open" class="btn btn-primary d-flex align-items-center justify-content-between">
-                Filter Data &nbsp;
-                <i :class="{'fa-chevron-down': !open, 'fa-chevron-up': open}" class="fas"></i>
-            </button>
+            <div class="d-flex align-items-center">
+                <button @click="open = !open" class="btn btn-primary d-flex align-items-center justify-content-between">
+                    Filter Data &nbsp;
+                    <i :class="{'fa-chevron-down': !open, 'fa-chevron-up': open}" class="fas"></i>
+                </button>
+                <!-- Progress indicator -->
+                <div class="spinner-border text-primary ml-4" role="status" style="margin-left: 15px;">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
 
             <div x-show="open" class="accordion-content mb-3">
 
@@ -175,7 +181,7 @@
                         </div>
                     </div>
 
-  {# Progress indicator #}
+                    {# Progress indicator #}
                     <div class="progress">
                         <div class="indeterminate"></div>
                     </div>
@@ -195,7 +201,6 @@
       </div>
     </div> -->
 
-        <p id="loading"></p>
         <div id='map' width="100%" style='height:600px'></div>
         <script src="/static/js/map_interface.js"></script>
 
