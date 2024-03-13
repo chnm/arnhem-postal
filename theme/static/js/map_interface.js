@@ -17,20 +17,6 @@ map.flyTo({
   zoom: 10,
 });
 
-// const loadingMessage = document.getElementById("loading");
-// loadingMessage.innerHTML = "Please wait, the map is loading data...";
-
-// function showLoading(dataType) {
-//   const loadingMessage = document.getElementById("loading");
-//   loadingMessage.innerHTML = `Loading ${dataType}...`;
-//   loadingMessage.style.display = "block";
-// }
-
-// function hideLoading() {
-//   const loadingMessage = document.getElementById("loading");
-//   loadingMessage.style.display = "none";
-// }
-
 const progressIndicator = document.querySelector(".spinner-border");
 progressIndicator.style.display = "block";
 
@@ -103,7 +89,6 @@ fetch("/api/postmarks/")
     data = data.filter(function (postmark) {
       return postmark.latitude && postmark.longitude;
     });
-    console.log("Data for postmark:", data);
     const features = data.map(function (postmark) {
       return {
         type: "Feature",
