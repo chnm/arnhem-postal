@@ -205,7 +205,7 @@ a:hover {
 
 .hero-image-evolution {
   height: 500px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/hero-evolution.png);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/homepage-hero-img.jpg);
   background-size: cover;
 }
 
