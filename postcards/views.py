@@ -72,7 +72,7 @@ def exhibits(request: HttpRequest):
 def evolution_of_holocaust(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
-    return render(request, "postal/evolution_of_holocaust.html", ctx)
+    return render(request, "postal/evolution_of_holocaust.html#pre-war", ctx)
 
 def evolution_of_holocaust_pre_war(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
