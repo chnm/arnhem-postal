@@ -516,6 +516,11 @@ table .table-caption {
   color: #333;
 }
 
+.active>.page-link {
+  color: #fff;
+  background-color: #741e3a;
+}
+
 
 .add-exhibit-padding {            /* add padding to exhibit individual pages */
   padding-left: 5%; 
