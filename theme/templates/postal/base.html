@@ -127,6 +127,10 @@
     {% include 'postal/index_hero.html' %}
     {% endif %}
 
+    {% if request.path == '/exhibits/evolution/' %}
+    {% include 'postal/evolution_of_holocaust_hero.html' %}
+    {% endif %}
+
     <main class="end-row-indent">
         <div class="row new-row-indent">
             {% block content %}{% endblock content %}
