@@ -4,41 +4,45 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <aside id="sidebar" x-data="{ open: false, personSelected: null, postalObjects: []}" :class="{ 'open': open }" x-init="window.sidebarComponent = $data">
-        <div x-show="open" x-transition>
-            <button x-on:click="open = false" class="btn btn-primary m-3">
-                <i class="fas fa-times"></i>
-            </button>
+<aside id="sidebar" x-data="{ open: false, personSelected: null, postalObjects: []}" :class="{ 'open': open }"
+    x-init="window.sidebarComponent = $data">
+    <div x-show="open" x-transition>
+        <button x-on:click="open = false" class="btn btn-primary m-3">
+            <i class="fas fa-times"></i>
+        </button>
 
-            <div id="sidebar-content" class="scrollable-content card">
-                <template x-if="personSelected">
-          {# Person display #}
-                    <div class="person">
-            {# TODO: Finalize the table view for related postal material #}
-                        <h3 class="card-header">Person Information</h3>
-                        <div class="card-body">
-                            <p x-text="'Name: ' + personSelected.first_name + ' ' + personSelected.last_name"></p>
-                            <p x-text="'Location: ' + personSelected.house_number + ', ' + personSelected.street + ', ' + personSelected.location.province_state + ', ' + personSelected.location.country"></p>
-                            <a :href="'/person/' + personSelected.person_id">
-                                <span x-text="'View ' + personSelected.first_name + ' ' + personSelected.last_name + '\'s details'"></span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
-                        </div>
+        <div id="sidebar-content" class="scrollable-content card">
+            <template x-if="personSelected">
+                {# Person display #}
+                <div class="person">
+                    {# TODO: Finalize the table view for related postal material #}
+                    <h3 class="card-header">Person Information</h3>
+                    <div class="card-body">
+                        <p x-text="'Name: ' + personSelected.first_name + ' ' + personSelected.last_name"></p>
+                        <p
+                            x-text="'Location: ' + personSelected.house_number + ', ' + personSelected.street + ', ' + personSelected.location.province_state + ', ' + personSelected.location.country">
+                        </p>
+                        <a :href="'/person/' + personSelected.person_id">
+                            <span
+                                x-text="'View ' + personSelected.first_name + ' ' + personSelected.last_name + '\'s details'"></span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
                     </div>
+                </div>
 
-          {# Related items table #}
-                    <h3>Related Postal Material</h3>
-                    <template x-if="postalObjects.length">
-                        <h3>Postal Objects</h3>
-                        <ul>
-                            <template x-for="item in postalObjects" :key="item.id">
-                                <li x-text="item.date_of_correspondence + ': ' + item.description"></li>
-                            </template>
-                        </ul>
-                    </template>
+                {# Related items table #}
+                <h3>Related Postal Material</h3>
+                <template x-if="postalObjects.length">
+                    <h3>Postal Objects</h3>
+                    <ul>
+                        <template x-for="item in postalObjects" :key="item.id">
+                            <li x-text="item.date_of_correspondence + ': ' + item.description"></li>
+                        </template>
+                    </ul>
+                </template>
 
 
-          <!-- <div class="postal-objects">
+                <!-- <div class="postal-objects">
             <h3>Postal Objects</h3>
             <table>
                 <thead>
@@ -63,23 +67,30 @@
                 </tbody>
             </table>
         </div> -->
-                </template>
-                <template x-if="personSelected && personSelected.length === 0">
-                    <p>No postal objects found for this person.</p>
-                </template>
-            </div>
+            </template>
+            <template x-if="personSelected && personSelected.length === 0">
+                <p>No postal objects found for this person.</p>
+            </template>
         </div>
-    </aside>
-    <main class="container mx-auto py-8 prose add-padding">
+    </div>
+</aside>
+<main class="container mx-auto py-8 prose">
 
+    <div class="add-padding">
         <h1>Mapping Postal Routes</h1>
+        <p>This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if
+            available, to censor if available, to addressee). Postmarks are <span
+                style="font-weight: bold; color: red">red</span>, people are <span
+                style="font-weight: bold; color: blue;">blue</span>, censors are in <span
+                style="font-weight: bold; color: lime;">green</span>. Clicking on people will provide additional
+            information.</p>
+    </div>
 
-        <p>This is a proof of concept mapping the postal data and routes that postal items take (sender, to postmark if available, to censor if available, to addressee). Postmarks are <span style="font-weight: bold; color: red">red</span>,  people are <span style="font-weight: bold; color: blue;">blue</span>, censors are in <span style="font-weight: bold; color: lime;">green</span>. Clicking on people will provide additional information.</p>
-        <div class="spinner-border text-primary ml-4" role="status" style="margin-left: 15px;">
-            <span class="sr-only">Loading...</span>
-        </div>
+    <div class="spinner-border text-primary ml-4" role="status" style="margin-left: 15px;">
+        <span class="sr-only">Loading...</span>
+    </div>
 
-        <!-- <div x-data="{ open: false }" class="mb-3 mt-3">
+    <!-- <div x-data="{ open: false }" class="mb-3 mt-3">
             <div class="d-flex align-items-center">
                 <button @click="open = !open" class="btn btn-primary d-flex align-items-center justify-content-between">
                     Filter Data &nbsp;
@@ -181,8 +192,8 @@
             </div>
         </div> -->
 
-        <div id='map' width="100%" style='height:600px'></div>
-        <script src="/static/js/map_interface.js"></script>
+    <div id='map' width="100%" style='height:600px'></div>
+    <script src="/static/js/map_interface.js"></script>
 
-    </main>
+</main>
 {% endblock content %}
