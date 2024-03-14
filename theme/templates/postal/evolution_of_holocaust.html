@@ -1,4 +1,10 @@
 {% extends "postal/base.html" %}
+{% block extracss %}
+    {% if request.path == ‘/exhibits/evolution/' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+    {% endif %}
+{% endblock %}
+
 {% load static %}
 {% block title %}Evolution of Holocaust in Holland{% endblock title %}
 {% block content %}
