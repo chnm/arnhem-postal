@@ -518,7 +518,7 @@ table .table-caption {
 }
 
 .pagination-nav {
-  background-color: #fff;
+  background-color: #fff !important;
   box-shadow: none;
 }
 
