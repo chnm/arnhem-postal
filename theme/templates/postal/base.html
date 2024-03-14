@@ -83,9 +83,9 @@
 </head>
 
 {% block extracss %}
-    {% if request.path == '/exhibits/evolution/' %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
-    {% endif %}
+{% if request.path == '/exhibits/evolution/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
 {% endblock %}
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="body{% if is_database_page %} database-page{% endif %}">
@@ -175,6 +175,7 @@
         </div>
     </footer>
 
+    <!-- Timeline js -->
     <script type="text/javascript">
         // The TL.Timeline constructor takes at least two arguments:
         // the id of the Timeline container (no '#'), and
@@ -191,6 +192,18 @@
 
         timeline = new TL.Timeline('timeline-embed',
             'https://docs.google.com/spreadsheets/d/1by_h0BOTLOznb41zDnVZLMfijvqTh6UZ0h3Vc-FIQrM/edit#gid=0');
+    </script>
+    <!-- End Timeline js -->
+
+    <!-- Active tab for exhibit secondary nav -->
+    <script>
+        function makeActive(event) {
+            var previous = document.getElementsByClassName("active");
+            if (previous.length > 0) {
+                previous[0].className = previous[0].className.replace(" active", "");
+            }
+            event.target.className += " active";
+        }
     </script>
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
