@@ -513,9 +513,9 @@ table .table-caption {
 /* individual exhibit pages CSS */
 
 .add-margin {            /* add margin to exhibit individual pages */
-  margin-top: 5%; 
-  margin-left: 5%; 
-  margin-right: 15%;
+  /* margin-top: 5%;  */
+  padding-left: 5%; 
+  padding-right: 15%;
 }
 
 .pagination-nav {
