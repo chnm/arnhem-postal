@@ -36,6 +36,18 @@ nav {
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 }
 
+.nav-tabs .nav-link {
+  color: black;
+  font-size: 14px;
+  font-family: 'ProximaNova';
+}
+
+.nav-tabs .nav-link {
+  color: #a42650;
+  font-size: 14px;
+  font-family: 'ProximaNova';
+}
+
 .form-select {
   color: black;
   font-size: 14px;
@@ -475,58 +487,6 @@ table .table-caption {
 }
 
 /* end database page CSS */
-
-/* timeline CSS */
-.tl-text h2.tl-headline {
-  color: black !important;
-  text-shadow: none !important;
-  font-family: 'ProximaNovaBold' !important;
-}
-
-.tl-full-color-background .tl-text h3.tl-headline-date {
-  color: black !important;
-  text-shadow: none !important;
-  font-family: 'ProximaNovaBold' !important;
-}
-
-.tl-full-color-background .tl-text p {
-  color: black !important;
-  text-shadow: none !important;
-  font-family: 'ProximaNova' !important;
-}
-
-.tl-timegroup.tl-timegroup-alternate {
-  background-color: #F4A876;
-}
-
-.tl-timegroup .tl-timegroup-message {
-  text-shadow: none;
-  color: black;
-}
-
-.tl-timegroup {
-  background-color: #C7DDE2;
-}
-
-.tl-slidenav-previous .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-icon,
-.tl-slidenav-next .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-icon,
-.tl-slidenav-previous .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-title,
-.tl-slidenav-next .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-title,
-.tl-slidenav-previous .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-description,
-.tl-slidenav-next .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-description {
-  color: #000000;
-  text-shadow: none;
-}
-
-.tl-slide.tl-full-color-background .tl-caption {
-  color: #000000 !important;
-  text-shadow: none !important;
-}
-
-.tl-slide.tl-full-color-background a {
-  color: #000000 !important;
-  text-shadow: none !important;
-}
 
 footer {
   margin-left: 15%;
