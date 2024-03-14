@@ -22,6 +22,61 @@
             rel="stylesheet">
     </head>
 
+    <style>
+        /* Timeline CSS */
+        .tl-text h2.tl-headline {
+            color: black !important;
+            text-shadow: none !important;
+            font-family: 'ProximaNovaBold' !important;
+        }
+    
+        .tl-full-color-background .tl-text h3.tl-headline-date {
+            color: black !important;
+            text-shadow: none !important;
+            font-family: 'ProximaNovaBold' !important;
+        }
+    
+        .tl-full-color-background .tl-text p {
+            color: black !important;
+            text-shadow: none !important;
+            font-family: 'ProximaNova' !important;
+        }
+    
+        .tl-timegroup.tl-timegroup-alternate {
+            background-color: #F4A876;
+        }
+    
+        .tl-timegroup .tl-timegroup-message {
+            text-shadow: none;
+            color: black;
+        }
+    
+        .tl-timegroup {
+            background-color: #C7DDE2;
+        }
+    
+        .tl-slidenav-previous .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-icon,
+        .tl-slidenav-next .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-icon,
+        .tl-slidenav-previous .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-title,
+        .tl-slidenav-next .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-title,
+        .tl-slidenav-previous .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-description,
+        .tl-slidenav-next .tl-slidenav-content-container.tl-slidenav-inverted .tl-slidenav-description {
+            color: #000000;
+            text-shadow: none;
+        }
+    
+        .tl-slide.tl-full-color-background .tl-caption {
+            color: #000000 !important;
+            text-shadow: none !important;
+        }
+    
+        .tl-slide.tl-full-color-background a {
+            color: #000000 !important;
+            text-shadow: none !important;
+        }
+    
+    </style>
+
     <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="body{% if is_database_page %} database-page{% endif %}">
 
     <!-- Navigation -->
@@ -110,6 +165,23 @@
             <script src="https://unpkg.com/htmx.org@1.9.6"
                     integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
                     crossorigin="anonymous"></script>
+                    <script type="text/javascript">
+                        // The TL.Timeline constructor takes at least two arguments:
+                        // the id of the Timeline container (no '#'), and
+                        // the URL to your JSON data file or Google spreadsheet.
+                        // the id must refer to an element "above" this code,
+                        // and the element must have CSS styling to give it width and height
+                        // optionally, a third argument with configuration options can be passed.
+                        // See below for more about options.
+                        var additionalOptions = {
+                            script_path: '/timeline/js/',
+                            language: 'en',
+                            font: 'amatic-andika'
+                        }
+                
+                        timeline = new TL.Timeline('timeline-embed',
+                            'https://docs.google.com/spreadsheets/d/1by_h0BOTLOznb41zDnVZLMfijvqTh6UZ0h3Vc-FIQrM/edit#gid=0');
+                    </script>
         </body>
 
     </html>
