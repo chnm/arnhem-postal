@@ -512,6 +512,11 @@ table .table-caption {
 
 /* individual exhibit pages CSS */
 
+.pagination .page-link {
+  color: #333;
+}
+
+
 .add-exhibit-padding {            /* add padding to exhibit individual pages */
   padding-left: 5%; 
   padding-right: 10%;
