@@ -1,5 +1,9 @@
 body {
+  background-color: #F9F4EF; 
+}
+
+.pagination-nav {
   background-color: #F9F4EF;
-  
+  box-shadow: none;
 }
 
