@@ -510,6 +510,75 @@ table .table-caption {
 
 /* end database page CSS */
 
+/* individual exhibit pages CSS */
+
+.add-margin {            /* add margin to exhibit individual pages */
+  margin-top: 5%; 
+  margin-left: 5%; 
+  margin-right: 15%;
+}
+
+.pagination-nav {
+  background-color: #F9F4EF;
+  box-shadow: none;
+}
+
+.add-margin {
+  margin-top: 5%; 
+  margin-left: 5%; 
+  margin-right: 15%;
+}
+
+.remove-margin-bottom {
+  margin-bottom: 0;
+}
+
+.list-group {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.list-group-item {
+  font-size: 14px;
+  font-family: 'ProximaNova';
+  color: #333;
+
+}
+
+.list-group-item.disabled {
+  font-family: 'ProximaNovaBold';
+  color: #868e96;
+}
+
+.list-group-item.active {
+  background-color: #741E3A;
+  border-color: #741E3A;
+}
+
+.dropdown-item:active {
+  background-color: #741E3A;
+}
+
+.figure-caption {
+  color: black; 
+  font-size: 12px; 
+  font-family: 'ProximaNovaBold';
+  margin-top: 5px;
+  text-align: center;
+}
+
+.figure-caption.unbold {
+  font-family: 'ProximaNova';
+}
+
+.alert-info {
+  color: #333;
+  background-color: #efe2db;
+  border-color: #f1bc4e;
+
+}
+/* end individual exhibit pages CSS */
+
 footer {
   margin-left: 15%;
   margin-right: 15%;
