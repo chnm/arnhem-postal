@@ -22,8 +22,9 @@
         rel="stylesheet">
 
     <!-- timeline -->
-    <link title="timeline-styles" rel="stylesheet" 
-              href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <link title="timeline-styles" rel="stylesheet"
+        href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
 
     <!-- <style>
         /* Custom Timeline styles */
@@ -82,25 +83,6 @@
     <!-- {% block extracss %}{% endblock extracss %}
     {% block extrajs %}{% endblock extrajs %} -->
 </head>
-
-<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
-<script type="text/javascript">
-    // The TL.Timeline constructor takes at least two arguments:
-    // the id of the Timeline container (no '#'), and
-    // the URL to your JSON data file or Google spreadsheet.
-    // the id must refer to an element "above" this code,
-    // and the element must have CSS styling to give it width and height
-    // optionally, a third argument with configuration options can be passed.
-    // See below for more about options.
-    var additionalOptions = {
-        script_path: '/timeline/js/',
-        language: 'en',
-        font: 'amatic-andika'
-    }
-
-    timeline = new TL.Timeline('timeline-embed',
-        'https://docs.google.com/spreadsheets/d/1by_h0BOTLOznb41zDnVZLMfijvqTh6UZ0h3Vc-FIQrM/edit#gid=0');
-</script>
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="body{% if is_database_page %} database-page{% endif %}">
 
@@ -187,6 +169,24 @@
             </div>
         </div>
     </footer>
+
+    <script type="text/javascript">
+        // The TL.Timeline constructor takes at least two arguments:
+        // the id of the Timeline container (no '#'), and
+        // the URL to your JSON data file or Google spreadsheet.
+        // the id must refer to an element "above" this code,
+        // and the element must have CSS styling to give it width and height
+        // optionally, a third argument with configuration options can be passed.
+        // See below for more about options.
+        var additionalOptions = {
+            script_path: '/timeline/js/',
+            language: 'en',
+            font: 'amatic-andika'
+        }
+
+        timeline = new TL.Timeline('timeline-embed',
+            'https://docs.google.com/spreadsheets/d/1by_h0BOTLOznb41zDnVZLMfijvqTh6UZ0h3Vc-FIQrM/edit#gid=0');
+    </script>
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
