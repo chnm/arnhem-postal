@@ -65,6 +65,10 @@ nav .form-select {
   font-family: "ProximaNovaBold";
 }
 
+.align-item-center {
+  align-items: center;
+}
+
 /* index page padding on learn and explore */
 .add-padding {
   padding-left: calc(var(--bs-gutter-x)* 4); 
