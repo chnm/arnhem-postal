@@ -7,6 +7,6 @@ body {
   box-shadow: none;
 }
 
-.pagination {
+.pagination .page-link a {
   color: #333;
 }
