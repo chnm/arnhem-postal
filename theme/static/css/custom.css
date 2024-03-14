@@ -140,6 +140,7 @@ p {
 .add-padding {
   padding-left: calc(var(--bs-gutter-x)* 4); 
   padding-right: calc(var(--bs-gutter-x)* 4);
+  
 }
 
 /* Hero Image CSS */
