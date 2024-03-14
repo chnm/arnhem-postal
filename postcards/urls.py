@@ -10,6 +10,11 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("about/", views.about, name="about"),
     path("exhibits/", views.exhibits, name="exhibits"),
+    path(
+        "exhibits/evolution/",
+        views.evolution_of_holocaust,
+        name="evolution_of_holocaust",
+    ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
     path("resources/", views.resources, name="resources"),

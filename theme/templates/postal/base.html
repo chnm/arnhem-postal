@@ -20,6 +20,9 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400&family=Playfair+Display:wght@400;700&display=swap"
             rel="stylesheet">
+
+        {% block extracss %}{% endblock extracss %}
+        {% block extrajs %}{% endblock extrajs %}
     </head>
 
     <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="body{% if is_database_page %} database-page{% endif %}">
@@ -110,7 +113,7 @@
             <script src="https://unpkg.com/htmx.org@1.9.6"
                     integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
                     crossorigin="anonymous"></script>
-                    
+
         </body>
 
     </html>
