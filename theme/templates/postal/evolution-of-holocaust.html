@@ -3,187 +3,187 @@
 {% block title %}Evolution of Holocaust in Holland{% endblock title %}
 {% block content %}
 
-<div class="add-padding end-row-indent">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1> Learn and explore </h1>
+    <div class="add-padding end-row-indent">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Evolution of Holocaust in Holland</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="explore-card">
+                    <div class="card-body">
+                        <h2><img src="{% static 'images/envelope.png' %}"> Exhibits</h2>
+                        <p>Select material from the collection has been used to create a series of philatelic exhibits
+                            looking
+                            at the impact of World War II in Holland, focusing on the war's impact on the civilian
+                            population.
+                            Each exhibit consists of forty(40) tabloid pages and includes both philatelic and other original
+                            artifacts, organized around a central theme. The first exhibit "The Evolution of the Holocaust
+                            in
+                            Holland" looks at the Nazi's increasingly harsh measures against the Jewish population that
+                            ended in
+                            the death camps of Auschwitz and Sobibor. The second exhibit "False Hopes and Lasting Thanks"
+                            examines the impact of Operation Market Garden. Three further exhibits are currently in
+                            production:
+                            "Code Name Yellow: 1940-Invasion and Occupation of Holland," "Daily Life in Occupied Holland,"
+                            and
+                            "The
+                            Hunger Winter and Liberation. </p>
+
+                        <a href="{% url 'exhibits' %}" class="btn btn btn-outline-primary">view all</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="explore-card red-card">
+                    <div class="card-body">
+                        <h2 class="white"> <img src="{% static 'images/history.png' %}">
+                            Timeline</h2>
+                        <p class="white">The timeline provides a chronological overview of major events in World War II,
+                            occurring both globally and in Holland. </p>
+                        <a href="{% url 'timeline' %}" class="btn btn btn-outline-secondary">learn more</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="explore-card dark-blue-card">
+                    <div class="card-body">
+                        <h2 class="white"><img src="{% static 'images/map-marker-alt.png' %}"> Map</h2>
+                        <p class="white">The map illustrates each letter's "journey" as it makes its way through war-torn
+                            Holland. Information on the sender, the recipient and the routing is supplemented with
+                            photographs,
+                            film and other non-philatelic information that provides context and insight to the lives of the
+                            civilian Dutch population during the war years. Using available resources, both analog and
+                            digital,
+                            the timing and routing of multiple postal artifacts is used to take students through a virtual
+                            war-time environment. Military history is combined with the social history of the Dutch people
+                            who
+                            were writing and receiving letters during this time.</p>
+                        <a href="{% url 'map' %}" class="btn btn btn-outline-info">explore</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="explore-card">
-                <div class="card-body">
-                    <h2><img src="{% static 'images/envelope.png' %}"> Exhibits</h2>
-                    <p>Select material from the collection has been used to create a series of philatelic exhibits
-                        looking
-                        at the impact of World War II in Holland, focusing on the war's impact on the civilian
-                        population.
-                        Each exhibit consists of forty(40) tabloid pages and includes both philatelic and other original
-                        artifacts, organized around a central theme. The first exhibit "The Evolution of the Holocaust
-                        in
-                        Holland" looks at the Nazi's increasingly harsh measures against the Jewish population that
-                        ended in
-                        the death camps of Auschwitz and Sobibor. The second exhibit "False Hopes and Lasting Thanks"
-                        examines the impact of Operation Market Garden. Three further exhibits are currently in
-                        production:
-                        "Code Name Yellow: 1940-Invasion and Occupation of Holland," "Daily Life in Occupied Holland,"
-                        and
-                        "The
-                        Hunger Winter and Liberation. </p>
-
-                    <a href="{% url 'exhibits' %}" class="btn btn btn-outline-primary">view all</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="explore-card red-card">
-                <div class="card-body">
-                    <h2 class="white"> <img src="{% static 'images/history.png' %}">
-                        Timeline</h2>
-                    <p class="white">The timeline provides a chronological overview of major events in World War II,
-                        occurring both globally and in Holland. </p>
-                    <a href="{% url 'timeline' %}" class="btn btn btn-outline-secondary">learn more</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 d-flex align-items-stretch">
-            <div class="explore-card dark-blue-card">
-                <div class="card-body">
-                    <h2 class="white"><img src="{% static 'images/map-marker-alt.png' %}"> Map</h2>
-                    <p class="white">The map illustrates each letter's "journey" as it makes its way through war-torn
-                        Holland. Information on the sender, the recipient and the routing is supplemented with
-                        photographs,
-                        film and other non-philatelic information that provides context and insight to the lives of the
-                        civilian Dutch population during the war years. Using available resources, both analog and
-                        digital,
-                        the timing and routing of multiple postal artifacts is used to take students through a virtual
-                        war-time environment. Military history is combined with the social history of the Dutch people
-                        who
-                        were writing and receiving letters during this time.</p>
-                    <a href="{% url 'map' %}" class="btn btn btn-outline-info">explore</a>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-
-</div>
 <!-- end learn and explore -->
 
 <!-- Search and Browse -->
-<div class="row new-section d-flex align-items-center">
-    <div class="col-lg-8">
-        <h1> Search and Browse </h1>
-        <p>The database contains images and information on postcards, letters, postal covers and related artifacts.
-            Browse the item table or search by name, location, postmark or keyword.</p>
-        <a href="{% url 'table' %}" class="btn btn btn-outline-primary">go to the database</a>
+    <div class="row new-section d-flex align-items-center">
+        <div class="col-lg-8">
+            <h1> Search and Browse </h1>
+            <p>The database contains images and information on postcards, letters, postal covers and related artifacts.
+                Browse the item table or search by name, location, postmark or keyword.</p>
+            <a href="{% url 'table' %}" class="btn btn btn-outline-primary">go to the database</a>
+        </div>
+        <div class="col-lg-4">
+            <img class="img-fluid" src="{% static 'images/postcard.jpeg' %}">
+        </div>
     </div>
-    <div class="col-lg-4">
-        <img class="img-fluid" src="{% static 'images/postcard.jpeg' %}">
-    </div>
-</div>
 <!-- end search and browse -->
 
 <!-- carousel -->
-<div class="row">
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-interval="false">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
+    <div class="row">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-interval="false">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'images/hero-evolution.png' %}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption">
+                        <h1 class="white">The Evolution of Holocaust in Holland</h1>
+                        <p class="white">This exhibit shows in detail how the destruction of the Jewish population in
+                            Holland evolved from pre-war Refugee Camps through a series of Transit Camps and Concentration
+                            Camps to the gas chambers of Auschwitz and Sobibor. Using conteporaneous correspondence and
+                            related documents, the exhibit shows the clear progression from collection to internment and on
+                            to deportation to the "East," ultimately resulting in the death of over 105,000 Dutch Jews.</p>
+                        <a href="#" class="btn btn btn-outline-info">learn more</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/hero-battle-of-arnhem.png' %}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption">
+                        <h1 class="white">False Hopes and Lasting Thanks: The Battle of Arnhem</h1>
+                        <p class="white">Operation Market Garden, undertaken by the Allies in September 1944, raised hopes
+                            of liberation and the end of four years of German occupation in Holland. This exhibit looks at
+                            the Battle of Arnhem and
+                            its aftermath from the perspectives of the Dutch civilians and German and British combatants
+                            whose lives intersected for ten days in Arnhem and the surrounding area.</p>
+                        <a href="#" class="btn btn btn-outline-info">learn more</a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'images/hero-pre-war.png' %}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption">
+                        <h1 class="white">Code Name Yellow: 1940-Invasion and Occupation of Holland</h1>
+                        <p class="white">This exhibit follows the initial mobilization of Dutch forces following the German
+                            invasion of Poland in September of 1939. Despite the Dutch's longstanding policy of neutrality,
+                            the invasion of Holland began when German troops crossed the border in the pre-dawn hours of
+                            Friday, May 10th, 1940 under Operation FALL GELB (Case Yellow). Only five days later the Germans
+                            controlled the entire country except for a small area of Zeeland in the southwest. Zeeland would
+                            also soon fall.
+                        </p>
+                        <a href="#" class="btn btn btn-outline-info">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{% static 'images/hero-evolution.png' %}" class="d-block w-100" alt="...">
-                <div class="carousel-caption">
-                    <h1 class="white">The Evolution of Holocaust in Holland</h1>
-                    <p class="white">This exhibit shows in detail how the destruction of the Jewish population in
-                        Holland evolved from pre-war Refugee Camps through a series of Transit Camps and Concentration
-                        Camps to the gas chambers of Auschwitz and Sobibor. Using conteporaneous correspondence and
-                        related documents, the exhibit shows the clear progression from collection to internment and on
-                        to deportation to the "East," ultimately resulting in the death of over 105,000 Dutch Jews.</p>
-                    <a href="#" class="btn btn btn-outline-info">learn more</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'images/hero-battle-of-arnhem.png' %}" class="d-block w-100" alt="...">
-                <div class="carousel-caption">
-                    <h1 class="white">False Hopes and Lasting Thanks: The Battle of Arnhem</h1>
-                    <p class="white">Operation Market Garden, undertaken by the Allies in September 1944, raised hopes
-                        of liberation and the end of four years of German occupation in Holland. This exhibit looks at
-                        the Battle of Arnhem and
-                        its aftermath from the perspectives of the Dutch civilians and German and British combatants
-                        whose lives intersected for ten days in Arnhem and the surrounding area.</p>
-                    <a href="#" class="btn btn btn-outline-info">learn more</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'images/hero-pre-war.png' %}" class="d-block w-100" alt="...">
-                <div class="carousel-caption">
-                    <h1 class="white">Code Name Yellow: 1940-Invasion and Occupation of Holland</h1>
-                    <p class="white">This exhibit follows the initial mobilization of Dutch forces following the German
-                        invasion of Poland in September of 1939. Despite the Dutch's longstanding policy of neutrality,
-                        the invasion of Holland began when German troops crossed the border in the pre-dawn hours of
-                        Friday, May 10th, 1940 under Operation FALL GELB (Case Yellow). Only five days later the Germans
-                        controlled the entire country except for a small area of Zeeland in the southwest. Zeeland would
-                        also soon fall.
-                    </p>
-                    <a href="#" class="btn btn btn-outline-info">learn more</a>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-</div>
 
-<div class="row contact-section new-row-indent end-row-indent">
-    <h1> Contact Us </h1>
+    <div class="row contact-section new-row-indent end-row-indent">
+        <h1> Contact Us </h1>
     <!-- Wrapper container -->
-    <div class="container py-4">
+        <div class="container py-4">
 
         <!-- Bootstrap 5 starter form -->
-        <form id="contactForm">
+            <form id="contactForm">
 
             <!-- Name input -->
-            <div class="mb-3">
-                <label class="form-label" for="name">Name</label>
-                <input class="form-control" id="name" type="text" placeholder="Name" />
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input class="form-control" id="name" type="text" placeholder="Name" />
+                </div>
 
             <!-- Email address input -->
-            <div class="mb-3">
-                <label class="form-label" for="emailAddress">Email Address</label>
-                <input class="form-control" id="emailAddress" type="email" placeholder="Email Address" />
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" for="emailAddress">Email Address</label>
+                    <input class="form-control" id="emailAddress" type="email" placeholder="Email Address" />
+                </div>
 
             <!-- Message input -->
-            <div class="mb-3">
-                <label class="form-label" for="message">Message</label>
-                <textarea class="form-control" id="message" type="text" placeholder="Message"
-                    style="height: 10rem;"></textarea>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" for="message">Message</label>
+                    <textarea class="form-control" id="message" type="text" placeholder="Message"
+                              style="height: 10rem;"></textarea>
+                </div>
 
             <!-- Form submit button -->
-            <div class="d-grid">
-                <button class="btn btn-primary btn-lg" type="submit">Submit</button>
-            </div>
+                <div class="d-grid">
+                    <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+                </div>
 
-        </form>
+            </form>
 
-    </div>
-    {% endblock content %}
+        </div>
+{% endblock content %}
