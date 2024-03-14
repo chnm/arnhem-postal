@@ -100,6 +100,11 @@ p {
   border-color: #a42650;
 }
 
+.btn.btn-primary.active, .btn.btn-primary:active {
+  background-color: #861a3e;
+  border-color: #861a3e;
+}
+
 .btn-outline-primary {
   border-color: #741e3a;
   color: #741e3a;
@@ -110,6 +115,12 @@ p {
 .btn-outline-primary:hover {
   background-color: #741e3a;
   border-color: #741e3a;
+  color: white;
+}
+
+.btn.btn-outline-primary.active, .btn.btn-outline-primary:active {
+  background-color: #a42650;
+  border-color: #a42650;
   color: white;
 }
 
@@ -128,6 +139,12 @@ p {
   font-weight: 600;
 }
 
+.btn.btn-outline-secondary.active, .btn.btn-outline-secondary:active {
+  background-color: rgb(231, 231, 231);
+  border-color: rgb(231, 231, 231);
+  color: #741E3A;
+}
+
 .btn-outline-info {
   border-color: white;
   color: white;
@@ -141,6 +158,12 @@ p {
   background-color: white;
   font-family: "Playfair Display", serif;
   font-weight: 600;
+}
+
+.btn.btn-outline-info.active, .btn.btn-outline-info:active {
+  background-color: rgb(231, 231, 231);
+  border-color: rgb(231, 231, 231);
+  color: #282F41;
 }
 
 /* Hero Image CSS */
