@@ -517,8 +517,8 @@ table .table-caption {
   padding-right: 10%;
 }
 
-.pagination-nav {
-  background-color: #fff !important;
+.nav-pagination {
+  background-color: #fff;
   box-shadow: none;
 }
 
