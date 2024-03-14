@@ -87,6 +87,14 @@ p {
   color: #333333;
 }
 
+a {
+  color: #333;
+}
+
+a:hover {
+  color: #a42650;
+}
+
 .btn-primary {
   background-color: #741e3a;
   border-color: #741e3a;
