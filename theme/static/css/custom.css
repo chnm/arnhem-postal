@@ -522,10 +522,9 @@ table .table-caption {
   border-color: #741e3a;
 }
 
-.focus>.page-link {
-  box-shadow: #741e3a;
+.pagination > li > a:focus{
+  color: #741e3a;
 }
-
 
 .add-exhibit-padding {            /* add padding to exhibit individual pages */
   padding-left: 5%; 
