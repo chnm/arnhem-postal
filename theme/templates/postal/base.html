@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 {% load static %}
-{% block extracss %}
-    {% if request.path == '/exhibits/evolution/' %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
-    {% endif %}
-{% endblock %}
 <html lang="en">
 
 <head>
@@ -86,6 +81,12 @@
     </style>
 
 </head>
+
+{% block extracss %}
+    {% if request.path == '/exhibits/evolution/' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+    {% endif %}
+{% endblock %}
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="body{% if is_database_page %} database-page{% endif %}">
 
