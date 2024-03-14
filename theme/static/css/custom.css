@@ -519,6 +519,7 @@ table .table-caption {
 .active>.page-link {
   color: #fff;
   background-color: #741e3a;
+  border-color: #741e3a;
 }
 
 
