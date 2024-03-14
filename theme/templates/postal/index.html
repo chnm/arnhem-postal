@@ -3,63 +3,73 @@
 {% block title %}Arnhem Postal History{% endblock title %}
 {% block content %}
 
-<div class="container end-row-indent">
-<div class="row">
-    <div class="col-lg-12">
-        <h1> Learn and explore </h1>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-4 d-flex align-items-stretch">
-        <div class="explore-card">
-            <div class="card-body">
-                <h2><img src="{% static 'images/envelope.png' %}"> Exhibits</h2>
-                <p>Select material from the collection has been used to create a series of philatelic exhibits looking
-                    at the impact of World War II in Holland, focusing on the war's impact on the civilian population.
-                    Each exhibit consists of forty(40) tabloid pages and includes both philatelic and other original
-                    artifacts, organized around a central theme. The first exhibit "The Evolution of the Holocaust in
-                    Holland" looks at the Nazi's increasingly harsh measures against the Jewish population that ended in
-                    the death camps of Auschwitz and Sobibor. The second exhibit "False Hopes and Lasting Thanks"
-                    examines the impact of Operation Market Garden. Three further exhibits are currently in production:
-                    "Code Name Yellow: 1940-Invasion and Occupation of Holland," "Daily Life in Occupied Holland," and
-                    "The
-                    Hunger Winter and Liberation. </p>
-
-                <a href="{% url 'exhibits' %}" class="btn btn btn-outline-primary">view all</a>
-            </div>
+<div class="container py-4 end-row-indent">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1> Learn and explore </h1>
         </div>
     </div>
 
-    <div class="col-lg-4 d-flex align-items-stretch">
-        <div class="explore-card red-card">
-            <div class="card-body">
-                <h2 class="white"> <img src="{% static 'images/history.png' %}">
-                    Timeline</h2>
-                <p class="white">The timeline provides a chronological overview of major events in World War II,
-                    occurring both globally and in Holland. </p>
-                <a href="{% url 'timeline' %}" class="btn btn btn-outline-secondary">learn more</a>
-            </div>
-        </div>
-    </div>
+    <div class="row">
+        <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="explore-card">
+                <div class="card-body">
+                    <h2><img src="{% static 'images/envelope.png' %}"> Exhibits</h2>
+                    <p>Select material from the collection has been used to create a series of philatelic exhibits
+                        looking
+                        at the impact of World War II in Holland, focusing on the war's impact on the civilian
+                        population.
+                        Each exhibit consists of forty(40) tabloid pages and includes both philatelic and other original
+                        artifacts, organized around a central theme. The first exhibit "The Evolution of the Holocaust
+                        in
+                        Holland" looks at the Nazi's increasingly harsh measures against the Jewish population that
+                        ended in
+                        the death camps of Auschwitz and Sobibor. The second exhibit "False Hopes and Lasting Thanks"
+                        examines the impact of Operation Market Garden. Three further exhibits are currently in
+                        production:
+                        "Code Name Yellow: 1940-Invasion and Occupation of Holland," "Daily Life in Occupied Holland,"
+                        and
+                        "The
+                        Hunger Winter and Liberation. </p>
 
-    <div class="col-lg-4 d-flex align-items-stretch">
-        <div class="explore-card dark-blue-card">
-            <div class="card-body">
-                <h2 class="white"><img src="{% static 'images/map-marker-alt.png' %}"> Map</h2>
-                <p class="white">The map illustrates each letter's "journey" as it makes its way through war-torn
-                    Holland. Information on the sender, the recipient and the routing is supplemented with photographs,
-                    film and other non-philatelic information that provides context and insight to the lives of the
-                    civilian Dutch population during the war years. Using available resources, both analog and digital,
-                    the timing and routing of multiple postal artifacts is used to take students through a virtual
-                    war-time environment. Military history is combined with the social history of the Dutch people who
-                    were writing and receiving letters during this time.</p>
-                <a href="{% url 'map' %}" class="btn btn btn-outline-info">explore</a>
+                    <a href="{% url 'exhibits' %}" class="btn btn btn-outline-primary">view all</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="explore-card red-card">
+                <div class="card-body">
+                    <h2 class="white"> <img src="{% static 'images/history.png' %}">
+                        Timeline</h2>
+                    <p class="white">The timeline provides a chronological overview of major events in World War II,
+                        occurring both globally and in Holland. </p>
+                    <a href="{% url 'timeline' %}" class="btn btn btn-outline-secondary">learn more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="explore-card dark-blue-card">
+                <div class="card-body">
+                    <h2 class="white"><img src="{% static 'images/map-marker-alt.png' %}"> Map</h2>
+                    <p class="white">The map illustrates each letter's "journey" as it makes its way through war-torn
+                        Holland. Information on the sender, the recipient and the routing is supplemented with
+                        photographs,
+                        film and other non-philatelic information that provides context and insight to the lives of the
+                        civilian Dutch population during the war years. Using available resources, both analog and
+                        digital,
+                        the timing and routing of multiple postal artifacts is used to take students through a virtual
+                        war-time environment. Military history is combined with the social history of the Dutch people
+                        who
+                        were writing and receiving letters during this time.</p>
+                    <a href="{% url 'map' %}" class="btn btn btn-outline-info">explore</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 </div>
 <!-- end learn and explore -->
 
