@@ -74,6 +74,11 @@ def evolution_of_holocaust(request: HttpRequest):
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust.html", ctx)
 
+def evolution_of_holocaust_pre_war(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust.html#pre-war", ctx)
+
 
 def timeline(request: HttpRequest):
     nav_links = get_nav_links("timeline")
