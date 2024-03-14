@@ -7,3 +7,6 @@ body {
   box-shadow: none;
 }
 
+.pagination {
+  color: #333;
+}
