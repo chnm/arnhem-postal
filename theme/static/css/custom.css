@@ -522,7 +522,7 @@ table .table-caption {
   border-color: #741e3a;
 }
 
-.page-link:focus {
+.focus>.page-link {
   box-shadow: #741e3a;
 }
 
