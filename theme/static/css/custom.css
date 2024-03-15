@@ -568,9 +568,9 @@ table .table-caption {
   background-color: #741E3A;
 }
 
-/* .figure {
+.figure {
   justify-content: center;
-} */
+}
 
 .figure-caption {
   color: #333; 
