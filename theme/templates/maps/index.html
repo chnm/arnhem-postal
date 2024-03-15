@@ -4,6 +4,8 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="new-row-indent">
+</div>
 <aside id="sidebar" x-data="{ open: false, personSelected: null, postalObjects: []}" :class="{ 'open': open }"
     x-init="window.sidebarComponent = $data">
     <div x-show="open" x-transition>
