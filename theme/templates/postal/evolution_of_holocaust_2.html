@@ -4,6 +4,9 @@
     {% if request.path == '/exhibits/evolution/' %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
     {% endif %}
+    {% if request.path == '/exhibits/evolution-2/' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+    {% endif %}
 {% endblock %}
 
 {% block title %}Evolution of Holocaust in Holland{% endblock title %}
