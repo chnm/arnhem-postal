@@ -20,6 +20,11 @@ urlpatterns = [
         views.evolution_of_holocaust_2,
         name="evolution_of_holocaust_2",
     ),
+    path(
+        "exhibits/evolution-3/",
+        views.evolution_of_holocaust_3,
+        name="evolution_of_holocaust_3",
+    ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
     path("resources/", views.resources, name="resources"),
