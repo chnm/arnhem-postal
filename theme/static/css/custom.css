@@ -569,7 +569,7 @@ table .table-caption {
 }
 
 .figure-caption {
-  color: black; 
+  color: #333; 
   font-size: 14px; 
   font-family: 'ProximaNovaBold';
   margin-top: 5px;
