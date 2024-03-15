@@ -568,6 +568,10 @@ table .table-caption {
   background-color: #741E3A;
 }
 
+/* .figure {
+  justify-content: center;
+} */
+
 .figure-caption {
   color: #333; 
   font-size: 14px; 
