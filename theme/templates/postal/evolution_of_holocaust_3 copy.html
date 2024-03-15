@@ -1,0 +1,411 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/evolution-3/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Evolution of Holocaust in Holland{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'evolution_of_holocaust' %}#evolution-of-holocaust"
+                class="list-group-item list-group-item-action" aria-current="true" onclick="makeActive(event)">
+                Evolution of Holocaust in Holland
+            </a>
+            <a href="{% url 'evolution_of_holocaust' %}#pre-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Pre-War
+                Refugee Camps</a>
+            <a href="{% url 'evolution_of_holocaust' %}#central-refugee-transit"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Central
+                Refugee/Transit Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#camp-westerbork"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Central Refugee Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#civil-internment"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Civil Internment
+                Camps</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-amersfoort" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Concentration
+                Camp Amersfoort</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-vught" class="list-group-item list-group-item-action" onclick="makeActive(event)">Concentration
+                Camp Vught </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#gestapo-prison" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Gestapo Prison
+                Scheveningen </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#german-investigation" class="list-group-item list-group-item-action" onclick="makeActive(event)"> German
+                Investigation and Punishment Prison - Utrecht
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Transit Camp
+                Westerbork
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                German Concentration Camp Mail
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Post War Enquiries
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Concentration Camp Amersfoort -->
+        <a name="camp-amersfoort"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1>Concentration Camp Amersfoort</h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> Outgoing Mail – Domestic </h2>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Amersfoort – Uithuizen, December 31, 1941.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Amersfoort – Uithuizen, December 31, 1941</figcaption>
+                    <figcaption class="figure-caption unbold">Berlin censorship tape Landsmann Type BV3.2 (from July
+                        1940 to March 1945). Also censored by SS Feldpostprü fstelle.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Amersfoort – Uithuizen, December 31, 1941-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>Letter from Camp Amersfoort to Uithuizen, near Groningen. Sent by a Dutch volunteer in the SS
+                    Wachkommando, a unit that largely consisted of Ausland-Deutsche, German nationals who lived in
+                    Holland. The Wachkommando was later used in military operations, including the Battle of Arnhem.
+                    Although the letter was sent by a Dutch SS volunteer, it was nevertheless opened by the SS censor in
+                    Berlin.</p>
+
+                <p>Camp Amersfoort official designation as Polizeiliches Durchgangslager or Police Transit Camp is
+                    misleading. Camp Amersfoort could just as easily be described as a penal or labor camp. Opened on
+                    August 18, 1941, it was run by the German Security Police and held a mixture of Jews, political
+                    prisoners, Jehova Witnesses and others. Camp Amersfoort was a brutal place, deservedly notorious for
+                    the sadism of its guards, particularly towards Jewish inmates. Following the invasion of Russia in
+                    June 1941, the camp held about 1,000 Uzbek and Soviet POWs, all of whom died of hardship or were
+                    executed in nearby woods. Little is known about the camp workings, as most prisoners were not
+                    allowed to send mail.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Amersfoort – Amsterdam, June 2, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Amersfoort – Amsterdam, June 2, 1943</figcaption>
+                    <figcaption class="figure-caption unbold">Domestic postcard tariff 5 cents (from August 20, 1940 to
+                        November 1, 1946) Censor markings are usually absent and only a few uses of the Zensiert hand
+                        stamp have been recorded
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>This postcard was written on May 28, 1943, and sent on June 2, 1943, from Camp Amersfoort to
+                    Amsterdam. Mail from inmates was rarely permitted. The writer was Mrs. B. de Paauw, the grandmother
+                    of Ies Cardozo, who had already been transferred to Westerbork. (See Sibella Levie-Katz)</p>
+            </div>
+
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Amersfoort – Rotterdam, June 28, 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Amersfoort – Rotterdam, June 28, 1944</figcaption>
+                    <figcaption class="figure-caption unbold">This letter sheet (Type K-73) sent from Amersfoort to
+                        Rotterdam is somewhat unusual, as all printed text on the sheet is in red</figcaption>
+                    <figcaption class="figure-caption unbold">Domestic letter tariff 7½ cents (from August 20, 1940, to
+                        November 1, 1946)</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Amersfoort – Rotterdam, June 28, 1944-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+
+        </div>
+        <!-- End Concentration Camp Amersfoort -->
+
+        <!-- Concentration Camp Vught -->
+        <a name="camp-vught"></a>
+        <div class="row new-row-indent">
+            <div class="col-lg-12 end-row-indent-sm">
+                <h1>Concentration Camp Vught</h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h2> Konzentrationslager Herzogenbusch </h2>
+                <p>Camp Vught, located near ‘s-Hertogenbosch, was referred to by the Germans as Konzentrationslager
+                    Herzogenbusch. Unlike Camp Westerbork, which was controlled by the Security Police, the
+                    Sicherheitsdienst (SD), Camp Vught was controlled by the SS Headquarters of the Economic
+                    Administration in Berlin. Mail was mostly limited to thank-you notes for parcels received by
+                    inmates, and they almost always received censorship markings. Special letter forms could be
+                    purchased for 12 ½ cents. After censorship was carried out by an SS man located at the camp’s postal
+                    station, the mail was then taken to ‘s-Hertogenbosch and cancelled at the town’s post office. Camp
+                    Vught closed in late September 1944 when the Allies liberated southern Holland during Operation
+                    Market Garden.
+                </p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Police form issued by Head Office Prison System in Rotterdam – August 13, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Police form issued by Head Office Prison System in Rotterdam –
+                        August
+                        13, 1943</figcaption>
+                    <figcaption class="figure-caption unbold">Domestic return receipt tariff = printed matter tariff 1½
+                        cents (from February 1, 1928). Next to the stamp is a circular censor marking with the text:
+                        K.L.H.
+                        Zensiert Poststelle C.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p>In connection with the delivery of laundry and forwarding of mail, whereby unnecessary labor by
+                        my administration is prevented, I hereby advise you that N. Overduin Noordzij, who has been held
+                        here since August 6, 1943, has been transferred from this location to Polizeiliches
+                        Durchgangslager (Police Transfer Camp) Vught.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Vught – Tilburg, August 12, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Vught – Tilburg, August 12, 1943</figcaption>
+                    <figcaption class="figure-caption unbold">Thank-you postcard dated August 12, 1943, from Camp Vught
+                        to the Tilburg branch office of the Jewish Council. Unlike similar notes from Camp Westerbork,
+                        cards sent from Vught were usually censored.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Vught – Leiden, January 27, 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Vught – Leiden, January 27, 1944</figcaption>
+                    <figcaption class="figure-caption unbold">Cover dated January 27, 1944 sent from the SS Headquarters
+                        at KL Herzogenbusch (Camp Vught) to Leiden. All correspondence sent by inmates was subject to
+                        censorship, but camp mail from German officials was not.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">SS Feldpost free frank. </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Vught – Leiden, January 27, 1944-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+        <!-- End Concentration Camp Amersfoort -->
+
+        <!-- Gestapo Prison Scheveningen -->
+        <a name="gestapo-prison"></a>
+        <div class="row new-row-indent">
+            <div class="col-lg-12 end-row-indent-sm">
+                <h1>Gestapo Prison Scheveningen</h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h2> Konzentrationslager Herzogenbusch </h2>
+                <p> The Scheveningen penitentiary had housed minor criminals since 1919. The Gestapo had other ideas.
+                    From the start of the German occupation, the Scheveningen prison was used to house and interrogate
+                    resistance fighters and political prisoners, who, together with communists and Jews, were routinely
+                    tortured and murdered. The prison soon acquired the nickname the “Hotel Orange” reflecting many of
+                    the inmates’ allegiance to the House of Orange, the Dutch royal family, who had escaped to England.
+                </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Groningen – Scheveningen, October 29, 1941.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Groningen – Scheveningen, October 29, 1941</figcaption>
+                    <figcaption class="figure-caption unbold">Letter dated October 29, 1941, from Groningen to J.M. van
+                        der Zee, a captain in the Dutch Reserves who was jailed in the Hotel Orange on April 23, 1941.
+                        Initially, he was held in cell 604D, which was crossed out on the cover and replaced by the
+                        ominous cell 601. This cell was known as the “Death Cell” and was where prison inmates spent
+                        their final days awaiting execution. In this case, however, the 35-year-old officer was released
+                        on December 12, 1941. The reasons for his highly unusual release are unknown.</figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Domestic letter tariff 7½ cents (from August 20, 1940 to November 1, 1946).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Hotel Orange.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">The Infamous Hotel Orange Gate through which trucks would take
+                        condemned inmates to the Waalsdorpervlakte Dunes to be executed. (Maiabijl J.L. van den Oever)
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/prisoners_sentenced_to_death.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Prisoners sentenced to death, more than 250 in all, spent their
+                        last nights in cell 601. Final messages from the condemned were carved into the walls. (Nat.
+                        Mon. Oranjehotel)
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Scheveningen – Leeuwarden, July 22, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Scheveningen – Leeuwarden, July 22, 1942</figcaption>
+                    <figcaption class="figure-caption unbold">Herman Trotsenberg wrote this letter dated July 22, 1942,
+                        to his wife in Leeuwarden. He had been arrested for sabotage and was held in the Hotel Orange
+                        from June 19, 1942, until September 18, 1942. The letter was taken from the prison to be
+                        censored in The Hague. Attempted delivery in Leeuwarden was unsuccessful because Mrs.
+                        Trotsenberg had moved to Rotterdam. The letter appears to have been forwarded. In September
+                        1942, Herman was transferred to Concentration Camp Natzweiler and later to Dachau. He survived
+                        the war, though his health was severely compromised, and he died in 1981 at the age of 65.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Domestic letter tariff 7½ cents (from August 20, 1940 to November 1, 1946). However, it appears
+                        that the stamps were removed to detect any writing hidden underneath.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/herman-trotsenburg.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+        </div>
+        <!-- End Gestapo Prison Scheveningen -->
+
+        <!-- German Investigation and Punishment Prison – Utrecht -->
+        <a name="german-investigation"></a>
+        <div class="row new-row-indent">
+            <div class="col-lg-12 end-row-indent-sm">
+                <h1> German Investigation and Punishment Prison – Utrecht </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> Imprisonment </h2>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/German Investigation and Punishment Prison – Utrecht.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        German Investigation and Punishment Prison – Utrecht
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <p>The Germans took over the City of Utrecht’s prison and renamed it Deutsches Untersuchungs und
+                    Strafgefängnis, German Investigation and Punishment Prison. It housed captured resistance fighters
+                    and political prisoners and was controlled by Seyss Inquart, the Reich Commissioner for the Occupied
+                    Netherlands. His handstamp is placed on the card. The original address in Scheveningen was blocked
+                    out and replaced by “Utrecht”.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Utrecht – Utrecht, November 20, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Utrecht – Utrecht, November 20, 1942</figcaption>
+                    <figcaption class="figure-caption unbold">In a postcard dated November 20, 1942, an inmate advises a
+                        family member, possibly his wife, that he has been moved to the German Investigation and
+                        Punishment Prison in Utrecht. The postcard shows his new address. It is overprinted “Dienstpost”
+                        to indicate freedom of postage. The letters “BB” are the initials of the person operating the
+                        Transorma sorting machine in the Utrecht Post Office building.</figcaption>
+                    <figcaption class="figure-caption unbold">Dienstpost indicates free franking.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Letter with insufficient address.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">The Transorma sorting machine was a Dutch invention named
+                        after the inventors, J.J.M.L. Marchand and Professor J.C. Andriessen. The name Transorma is an
+                        acronym with the rst letters of TRANsporteer SORteermachine Marchand-Andriessen. The concept for
+                        the machine was developed in the 1920s, and it was able to check weight, franking and
+                        cancellation while sorting to the destination. During the sorting process, codes were applied
+                        that identi ed the operator (BB) who had processed the piece.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p>Letter with insufficient address will not be handed out and with letter exchange, etc., kindly
+                        enclose postage. </p>
+                    <p>(These instructions were in contradiction of the Geneva Convention which granted POWs, internees
+                        and other categories with an exemption from paying for postage.) </p>
+                </div>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Utrecht – The Hague, April 19, 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Utrecht – The Hague, April 19, 1944</figcaption>
+                    <figcaption class="figure-caption unbold">This postcard dated April 19, 1944, was sent by Pieter
+                        Rietkerk, a resistance fighter, imprisoned in the Deutsches Untersuchungs und Strafgefängnis in
+                        Utrecht to his wife in The Hague, advising her that he had been moved to Cell # 65. It was
+                        mailed on April 22, 1944 from the Utrecht train station.</figcaption>
+                    <figcaption class="figure-caption unbold">Dienstpost indicates free franking. Hand stamp added by
+                        the office of The Reich Commissioner for the occupied Netherlands.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Utrecht – The Hague, April 19, 1944-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+        </div>
+         <!-- End German Investigation and Punishment Prison – Utrecht -->
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">2</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_4' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}
