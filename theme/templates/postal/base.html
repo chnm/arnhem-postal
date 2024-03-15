@@ -82,11 +82,11 @@
 
 </head>
 
-{% block extracss %}
+<!-- {% block extracss %}
 {% if request.path == '/exhibits/evolution/' %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
 {% endif %}
-{% endblock %}
+{% endblock %} -->
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="body{% if is_database_page %} database-page{% endif %}">
 
