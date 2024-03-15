@@ -1,0 +1,542 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/evolution-2/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Evolution of Holocaust in Holland{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'evolution_of_holocaust' %}#evolution-of-holocaust"
+                class="list-group-item list-group-item-action" aria-current="true" onclick="makeActive(event)">
+                Evolution of Holocaust in Holland
+            </a>
+            <a href="{% url 'evolution_of_holocaust' %}#pre-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Pre-War
+                Refugee Camps</a>
+            <a href="{% url 'evolution_of_holocaust' %}#central-refugee-transit"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Central
+                Refugee/Transit Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#camp-westerbork"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Central Refugee Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#civil-internment"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Civil Internment
+                Camps</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-amersfoort" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Concentration
+                Camp Amersfoort</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-vught" class="list-group-item list-group-item-action" onclick="makeActive(event)">Concentration
+                Camp Vught </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#gestapo-prison" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Gestapo Prison
+                Scheveningen </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#german-investigation" class="list-group-item list-group-item-action" onclick="makeActive(event)"> German
+                Investigation and Punishment Prison - Utrecht
+            </a>
+            <a href="{% url 'evolution_of_holocaust_4' %}" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Transit Camp
+                Westerbork
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                German Concentration Camp Mail
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Post War Enquiries
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Central Refugee Camp Westerbork -->
+        <a name="camp-westerbork"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Central Refugee Camp Westerbork </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> Incoming Mail – Foreign </h2>
+            <div class="col-lg-12">
+                <p>Richard Zons was born in Cologne on November 23, 1901 and his wife, Dorothea Zons in Berlin on
+                    December 11, 1908. They had a daughter, Helga Renate Zons, who was born in Camp Westerbork on
+                    April 26, 1941. Mother and daughter were murdered in Auschwitz on October 6, 1944 while Richard
+                    died in “Central Europe” on February 2, 1945. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Paris (FR) – Camp Westerbork, March 1, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Paris (FR) – Camp Westerbork, March 1, 1942</figcaption>
+                    <figcaption class="figure-caption unbold">The letter dated March 1, 1942, was censored in
+                        Cologne (label type CV3.2) and machine canceled (CPM1.1). The pencil notation to the left of
+                        the stamps indicated the censor’s i.d. number. In the camp the barrack’s number 11 was added
+                        in blue pencil as the sender’s indication of the address, B. II was considered insuf cient.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/French international letter tariff 400 centimes.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">French international letter tariff 400 centimes, i.e.
+                        4 francs (from February 1, 1942 until February 1, 1946 when it increased to 10 francs. The
+                        dramatic increase was due to the devaluation of the currency).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>Isador (Isi) Friedmann was born in Bobrika, Poland on July 15, 1911. A bank officer, Friedmann
+                    came
+                    to Amsterdam from Vienna in 1938. He stayed in Camp Norg, Hellevoetsluis and Hoek van Holland.
+                    He
+                    was registered at Camp Westerbork on March 20, 1940. In the camp’s Jewish Council registry, he
+                    is
+                    referred to as “Alte Lagerinsassen” (old camp inmate). On February 15, 1944, he was deported to
+                    Bergen Belsen. He was subsequently sent on the “The Lost Train” to Theresienstadt before the
+                    train
+                    was liberated by the Red Army on April 23, 1945, in the village of Tröbitz. Friedmann apparently
+                    survived the ordeal, but later died in Tröbitz on May 9. 1945.</p>
+
+                <p>Correspondence with foreign countries was only permitted to pro-Nazi states and neutral countries
+                    such as Switzerland.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork, as shown in this original postcard, was
+                        located in the deceptively bucolic hamlet of Hooghalen</figcaption>
+                    <figcaption class="figure-caption unbold">Censorship label (Landsman types EV3.2 – 39 mm and red
+                        stamp EP3.4). From February 25, 1941, the barracks number of the inmate had to be included
+                        on
+                        all incoming mail (Camp Order # 92). In this case, the barrack’s number was 3, which was
+                        also added in blue pencil in the camp.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Swiss international.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption unbold">Swiss international letter tariff 30 centimes (from
+                        Oct. 1, 1924, until March 1, 1948).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Swiss internationa-back.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+
+        </div>
+
+        <div class="row  end-row-indent-sm">
+            <div class="col-lg-12">
+                <h2> Outgoing Mail – Domestic </h2>
+                <p>Postcard with Hooghalen cancel dated January 29, 1941, i.e. less than 3 weeks before Camp Order #
+                    992 was issued. The letter was sent by Hans Adler in Camp Westerbork, Barracks 39A to Margot
+                    Grünberg, a student at the 1e Montessori Lyceum in Amsterdam. Adler was born in Lüdinghausen,
+                    Germany on August 1, 1915. He died in Auschwitz on September 30, 1942. Margot Grünberg was born
+                    in Berlin on January 10, 1929. She died in the Sobibòr Extermination Camp on April 16, 1943.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Amsterdam, January 29, 1941.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Amsterdam, January 29, 1941</figcaption>
+                    <figcaption class="figure-caption unbold">Domestic postcard tariff 5 cents (from August 20,
+                        1940, to November 1, 1946). In 1940, the Germans issued a set of 18 stamps - called
+                        Guilloche stamps after the designer – to replace those with Queen Wilhelmina’s face; they
+                        were overprints of the earlier Flying Dove issues (first issued in 1924).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/we hope that you received.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p>“…we hope that you received our letter of December 22 and we are extremely worried not to
+                        have heard any news from you…”
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h2> Outgoing Mail – Foreign </h2>
+                <p> The card dated May 17, 1942, was sent by Hennie Birnbaum-Szaja. After leaving Berlin in 1938,
+                    she was interned in Westerbork in 1939, where she took care of orphans in the camp. She survived
+                    the war. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Brussels (BG), May 17, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Brussels (BG), May 17, 1942</figcaption>
+                    <figcaption class="figure-caption unbold">This postcard was processed at the postal station in
+                        Hooghalen, but presumably posted in the mailbox on the campgrounds. There is no sign of
+                        censorship at the camp, but the Oberkommando Wehrmacht (OKW) censor in Cologne placed a
+                        machine cancel Landsmann type CPM-1.1.</figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The postcard tariff to Belgium was 7 ½ cents (from November 1, 1928, to November 1, 1946).
+                        The card was under franked by 2 ½ cents, and it is not known why the Dutch PTT, decided to
+                        let the card go through and not assess postage due (which would have been 2 x 2 ½ = 5
+                        cents).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>The card was addressed to Konrad Bodzanowski, who, with his wife Helen, used to own a ladies
+                    apparel store in Berlin. They had a daughter, Hana, who donated the extensive family archive to
+                    the U.S. Holocaust Memorial Museum in Washington, DC after the war (Hana Wieder Collection 1926
+                    –1956). In Hennie Birnbaum’s card to Konrad in Brussels she asks, “How are you two and your dear
+                    children doing?” suggesting that Konrad and Helena had at least two children. Further
+                    investigation has not shown what happened to the Bodzanowski family (but it is known that Konrad
+                    received a letter in Israel in 1956 advising him of the circumstances of his mother Regina’s
+                    death.)</p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Konrad Bodzanowski.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <!-- End Central Refugee Camp Westerbork -->
+
+        <!-- Civil Internment Camps -->
+        <a name="civil-internment"></a>
+        <div class="row new-row-indent">
+            <div class="col-lg-12 end-row-indent-sm">
+                <h1> Civil Internment Camps </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> The Indies Hostages </h2>
+            <div class="col-lg-12">
+                <p>After the Dutch surrender to the Germans in May 1940, the Dutch East Indies remained free and
+                    unoccupied. German citizens living in the colony were arrested and interned to the outrage of
+                    German
+                    authorities.</p>
+                <p>In retaliation, 400 Dutchmen were arrested in Holland. They became known as the Indische
+                    Gijzelaars, the Indies Hostages. The Germans hoped that by arresting people who were on leave
+                    from
+                    the colony or had close ties with it, they would ensure proper treatment of the German
+                    internees.
+                    For this reason, the Indies Hostages were relatively well treated. Unlike the majority of
+                    civilian
+                    prisoners, they were allowed to receive Red Cross parcels, clothes and blankets. The Dutch
+                    hostages
+                    were initially taken to Zivilkonzentrationslager Buchenwald, but in November 1941, they were
+                    moved
+                    to Haarendael Major Seminary in the town of Haaren. They were then moved to Beekvliet Minor
+                    Seminary
+                    in St. Michielsgestel and then to a boarding school for boys called De Ruwenberg before finally
+                    being sent to Camp Vught. Camp Haaren became the generic name for the three Dutch locations
+                    where
+                    the hostages were held.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Klazienaveen – ‘s-Hertogenbosch, June 12, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Klazienaveen – ‘s-Hertogenbosch, June 12, 1942</figcaption>
+                    <figcaption class="figure-caption unbold">A postcard to C. Ten Napel from his young son. It
+                        would appear that the card was addressed separately by an adult, where the address is
+                        initially given as Block # 68. However, a separate annotation indicates that Mr. Ten Napel
+                        was now residing in Block # 83.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/The Detroit News Headline, August 16, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">The Detroit News Headline, August 16, 1942</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>In 1942, another group of hostages, civilian internees, were interned at Beekvliet. They were
+                    well-known scientists, politicians, government officials and artists. The Germans expected to
+                    use these additional hostages to deter the Dutch underground from acts of resistance. Thus,
+                    these internees were referred to as “anti-resistance hostages:” However, when the resistance
+                    nevertheless carried out an attack on a Nazi troop train outside Rotterdam, the Germans executed
+                    five of these hostages on August 15, 1942.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Entrance to the former Haarendael Major Seminary.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Entrance to the former Haarendael Major Seminary</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <p>Incoming and outgoing camp mail was free of postage but had to pass through the SD, the Security
+                    Police in nearby s’Hertogenbosch. Internees were allowed to send one letter per week.</p>
+                <p>A letter sent from G.W.A. de Veer, born on April 22, 1904, in Amsterdam, a civilian internee in
+                    Room # 771 at the Major Seminary Camp Haaren to his wife, Mrs. R.J. de Veer. The censor’s
+                    initials were added in red. Mr. G.W.A. de Veer was a well-known philatelist and author who
+                    specialized in Dutch Railroad stamps. He survived the war.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/official-german-notice-1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Official German notice dated August 15, 1942, announcing the
+                        execution of the five Dutch hostages</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Haaren – Enschede, October 17, 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Haaren – Enschede, October 17, 1944</figcaption>
+                    <figcaption class="figure-caption unbold">Circular date stamp place by the S.D. censor with
+                        censor initials added in red.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/camp-haaren-part-2.png' %}" class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p>Letter to Dr. Tom Kruijff, a civilian internee in Camp Beekvliet from his wife in Utrecht. Dr.
+                    Kruijff, born on July 7, 1895, was employed by the Utrecht Province. His name appears in the UK
+                    National Archives as a Dutch helper of Allied airmen and other military personnel.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Utrecht – Camp Haaren (Beekvliet), August 30, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Utrecht – Camp Haaren (Beekvliet), August 30, 1942
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">While correctly franked with 17 ½ cents (7 ½ cents
+                        regular postage plus 10 cents express) the sender likely did not realize that post to the
+                        camp did not require regular postage.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>Indies hostage J. Ph van Dalsum. was the principal of the Middelburg RHBS (high school). He was
+                    interned on May 4, 1942 and released April 20, 1944.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Haaren (Beekvliet) – Zeist, November 25, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Haaren (Beekvliet) – Zeist, November 25, 1942
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Handstamp “Portvrij /Burger - Geinterneerde” (Exempt
+                        from postage /Civilian Internee) and “Geprüft” in red with SD censor’s initials.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>A postcard from an internee at Camp Haaren (De Ruwenberg) who listed his status as “Internee for
+                    the Neth Indies”.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Haaren (Boarding School Ruwenberg) – Geldrop, May 10, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Haaren (Boarding School Ruwenberg) – Geldrop, May 10,
+                        1943
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Letters to and from POWs/ internees had free franking
+                        privilege per Geneva Convention (although this was often ignored, especially in Germany).
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">This letter passed the German censor who placed the
+                        handstamp “Geprüft”, i.e. censored.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+
+            <div class="col-lg-12">
+                <p>The sender, J.B.J. Dijkman (b. 1898), a high school teacher, was initially interned in
+                    Buchenwald. He was later transferred to St. Michiels-gestel, first in Haaren and then in
+                    Ruwenberg. He was eventually liberated at Camp Vught on September 17, 1944.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Ruwenberg – Zwolle, August 18, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Ruwenberg – Zwolle, August 18, 1943
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Letter with the handstamp “Geprüft” from the
+                        Sicherheits Dienst (SD). Clear impressions struck in black are rare.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row new-row-indent-sm">
+            <h2> The Dutch Resistance </h2>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Letters to and from POWs/ internees.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">Letters to and from POWs/ internees had free franking
+                        privilege per Geneva Convention.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <p>
+                    Archival records show that Pieter Dirk Boyenk born in The Hague on April 26, 1918, was a
+                    resistance fighter. This undated letter was written to his mother, Maria Elisabeth Boyenk-Bos,
+                    born July 28, 1883, married to Giles Nicolaas Boyenk, born August 5, 1878. Pieter was arrested
+                    by the Germans and detained in Cell # 346 at the infamous Hotel Orange.
+                </p>
+
+            </div>
+
+            <div class="col-lg-12">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/The Hague – ‘s-Gravenhage, date unknown.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">The Hague – ‘s-Gravenhage, date unknown</figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Card thrown from a train –Rotterdam, November 15, 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Card thrown from a train – Rotterdam, November 15, 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Domestic postcard tariff 5 cents (from August 20, 1940
+                        to November 1, 1946). One card was printed by the Dutch Postal Service PTT, with the 5 cents
+                        value printed over the old value of 7 ½ cents, while the sender of the other card had to af
+                        x a 5 cents stamp.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <p>Franciscus J. Brehm, b. December 23, 1918, was a resistance fighter arrested in Rotterdam and
+                    detained in the local prison on May 5, 1944. He was subsequently transferred to Camp Amersfoort,
+                    and it is known that Brehm was moved to Zwolle on September 26, 1944. The card was mailed in
+                    Borne, some 50 km southeast of Zwolle, on Wednesday, November 15, 1944, and because it is dated
+                    “Tuesday” on the card, he probably started writing it the day before. Brehm addressed the card
+                    to his family in Rotterdam.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/well-alie.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p>Well Alie, it is as I said. At the moment we are approaching the German border, so you know
+                        what is going on. Nasty isn’t it. But there is nothing that one can do about it. Let us hope
+                        for the best. I probably won’t be home now until after the war. If only we end up in one
+                        piece. Give my regards to everyone. Ignore the handwriting. We are writing in the freight
+                        train, and then we will throw it out. </p>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="alert alert-info" role="alert">
+                    <p>While in the Fair Building (Utrecht) I was asked about my profession I had. My answer was
+                        insufficient for my release… The German Major said: I have made a decidision and that is
+                        “labor”. We left at 11:30AM and arrived in the infamous Camp Amersfoort at 5:00AM. Although
+                        I know that you will try everything possible, I don’t think that you will get me released. I
+                        only hope that I survive... Say hi to the boys, and thank Mrs. Kloche for her kindness. I
+                        accidentally kept the keys to the safe in my pocket. </p>
+                </div>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/While in the Fair Building.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Card thrown from a train – Utrecht, October 3, 1944
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Card thrown from a train – Utrecht, October 3, 1944.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>It is clear that the sender, T. Kruijff, had this card with him in case he was arrested. It was
+                    thrown from the train en route from Camp Amersfoort and picked up and delivered after being
+                    found alongside the tracks. The stamp is not canceled, and it was delivered outside the postal
+                    system. He also added in pencil “ik ben opgepakt”, "I have been arrested." Then he added one
+                    more note at the bottom: a co-victim asked that his wife be notified and that all is fine so
+                    far.</p>
+            </div>
+
+
+        </div>
+        <!-- End Central Refugee Camp Westerbork -->
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">1</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

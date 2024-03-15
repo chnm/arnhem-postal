@@ -1,0 +1,507 @@
+{% extends "postal/base.html" %}
+{% load static %}
+{% block extracss %}
+{% if request.path == '/exhibits/evolution-7/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Evolution of Holocaust in Holland{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'evolution_of_holocaust' %}#evolution-of-holocaust"
+                class="list-group-item list-group-item-action" aria-current="true" onclick="makeActive(event)">
+                Evolution of Holocaust in Holland
+            </a>
+            <a href="{% url 'evolution_of_holocaust' %}#pre-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Pre-War
+                Refugee Camps</a>
+            <a href="{% url 'evolution_of_holocaust' %}#central-refugee-transit"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Central
+                Refugee/Transit Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#camp-westerbork"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Central Refugee Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#civil-internment"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Civil Internment
+                Camps</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-amersfoort"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Concentration
+                Camp Amersfoort</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-vught" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Concentration
+                Camp Vught </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#gestapo-prison" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Gestapo Prison
+                Scheveningen </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#german-investigation"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> German
+                Investigation and Punishment Prison - Utrecht
+            </a>
+            <a href="{% url 'evolution_of_holocaust_4' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Transit Camp
+                Westerbork
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                German Concentration Camp Mail
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Post War Enquiries
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Transit Camp Westerbork (continued) -->
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Transit Camp Westerbork (continued) </h1>
+            </div>
+        </div>
+
+        <h2> Different Outcomes </h2>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Utrecht – Amsterdam, April 14, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Utrecht – Amsterdam, April 14, 1942
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">International letter tariff 12½ cents per 20 grams (from
+                        November 1, 1928, until November 1, 1946) plus express delivery 10 cents (February 1, 1928, to
+                        November 1, 1946).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>Dr. Arthur Wiederkehr is known to have visited Holland on several occasions. Often his dealings
+                    involved not only monetary transactions but the exchange of paintings by Dutch masters and valuable
+                    antiquities. His presence in Holland was clearly known to Jews trying to buy their freedom.</p>
+                <p>Willy Eichenwald lived in Utrecht and his letter to Wiederkehr in the Americain Hotel in Amsterdam is
+                    dated three months before Westerbork’s conversion from Refugee to Transit Camp. It was sent
+                    “express” indicating urgency.</p>
+                <p>Eichenwald was married to the former Erna Oppenheimer and the couple had two children, Dieter (b.
+                    1925) and Klaus (b. 1928). The entire family was transported to Westerbork on April 21, 1943, where
+                    they stayed until September 14, 1943, when all were deported to Auschwitz. Willi and his two sons
+                    were murdered on arrival on September 17, 1943. Emma was one of 100 women who were sent to the
+                    “Versuchstation” (experimental laboratory) run by Professor Dr. Clauberg in Block 10 of the main
+                    Auschwitz camp. She survived horrific medical experiments and emigrated to the USA after the war.
+                </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Utrecht Amsterdam, April 14, 1942-second.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Utrecht – Amsterdam, April 14, 1942
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">International letter tariff 12½ cents per 20 grams (from
+                        November 1, 1928, until November 1, 1946) plus express delivery 10 cents (February 1, 1928, to
+                        November 1, 1946).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>Mail from Westerbork to Wiederkehr in Zurich is extremely rare. The writer, Claire
+                    Perlberger-Untermann and her three sons had been taken to Westerbork in September 1941. The father
+                    had been stranded in New York when the war broke out. According to the administrative card from the
+                    Jewish Council, the family was still in Westerbork on November 13, 1942. Scheduled to be sent to
+                    Auschwitz on September 25, 1942, they were given a respite after bribing officials.</p>
+                <p>The family was deported to BergenBelsen on February 1, 1944, where Claire and her three sons were
+                    assigned to the “Sternlager” section, which comprised Jews who were thought to have some exchange
+                    value. In April 1945, the family was included in a group that the Germans had hoped to exchange for
+                    German POWs, in vain as it turned out.
+                </p>
+                <p>The mother and three sons were eventually liberated by the Soviet Army on April 23, 1945, and were
+                    reunited with the father in the United States.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/PerlbergerUntermann Jewish Council Registration Card.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Perlberger-Untermann – Jewish Council Registration Card
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Frankfurt censor label.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">Frankfurt censor label type Landsman EV3.2 in use from
+                        January 1941 to February 1944; handstamp impression unclear but probably type Landsmann EP3.4
+                        (in use August 1941 to October 1943) struck on top of the label per regulation.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+
+        </div>
+
+        <div class="row  end-row-indent-sm">
+            <h2> The Cardozo Deception </h2>
+            <div class="col-lg-12">
+                <p>
+                    The fate of three families, Cardozo, De Paauw and Wessel, were intertwined, two through marriage and
+                    the other through friendship. On December 28, 1921 Abraham Cardozo (34) married Celina de Pauuw (33)
+                    and on March 24, 1922 the couple had a son, Isaak, who was called Ies by family and friends alike.
+                </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Camp Westerbork, September 13, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Camp Westerbork, September 13, 1942</figcaption>
+                    <figcaption class="figure-caption unbold">Domestic letter tariff 7½ cents per 20 grams (from
+                        November 1, 1928 until November 1, 1946).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>
+                    Ies Cardozo, age 20, was taken to Westerbork on September 1, 1942. Four friends contributed to a
+                    4-page letter, dated September 13 and mailed to him by his good friend Bernard Wessel, the brother
+                    of Ies’s girlfriend, Dora. This account relates what happened to Les, his family, and his friends.
+                </p>
+
+                <p>
+                    Bernard Wessel was initially exempt from being sent to Westerbork becauae of his work as a courier
+                    for the Jewish Council. It turned out to be only a temporary delly and he was sent to the camp on
+                    June 20, 1943.
+                </p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Maartensdijk, May 27, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Amsterdam, August 25, 1943 </figcaption>
+                    <figcaption class="figure-caption unbold">This letter was sent to Ies Cardozo by his maternal
+                        grandmother, Mrs. Bloema De Paauw, who was staying in Barracks 64. Ies was no longer in
+                        Westerbork, but had returned to Amsterdam.</figcaption>
+                </figure>
+
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork Amsterdam, August 25, 1943-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p>… to my relief, I heard that you will be able to stay in Westerbork
+                        for now and were not deported… I spoke to your father, and he said that he had gathered all the
+                        evidence and sent it to Westerbork, this probably helped with your good fortune not to be
+                        deported immediately…
+                    </p>
+                    <p>…we are worried sick with those roundups…</p>
+                    <p>…I have to prepare you for the fact that you will see your parents in Westerbork…</p>
+                    <p class="remove-margin-bottom">… happy you are in touch with my grandmother, it was quite a blow
+                        she was taken away on Friday …</p>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <p>
+                    According to the registry card in the Arolsen Archives, Ies Cardozo was released from Westerbork on
+                    March 8, 1943. He is listed as a Mischling (lit. half-breed), a person of mixed race, although both
+                    his parents were Jewish.
+                </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/registry card in the Arolsen Archives.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>
+                    The solution can be found via the name Kotting on the card. He was a Dutch lawyer married to a
+                    Jewish woman. Kotting, his colleague Van Proosdij and an attorney for the Portuguese-Israeli
+                    Synagogue in Amsterdam protected Sephardic Jews from deportation by constructing a vast web of false
+                    archives using fake stamps and inks.
+                </p>
+                <p> After the war, Kotting and Van Proosdij were recognized by Yad Vashem as Righteous among the
+                    Nations. Thanks to their efforts, Les Cardozo was released from Westerbork. Others mentioned in this
+                    account were not as fortunate: </p>
+                <p>
+                <ul style="font-family: 'ProximaNova'; color: #333; font-size: 16px;">
+                    <li>His parents died in Sobibor on May 28, 1943</li>
+                    <li>His brother, David, died in Auschwitz on on October 14, 1944</li>
+                    <li>His grandmother Bloema De Paauw died in Bergen-Belsen on March 16, 1945 Bernard Wessel died in
+                        Sobibor on July 2, 1943</li>
+                    <li>His girlfriend, Dora Wessel died in Sobibor on July 16, 1943.</li>
+                </ul>
+                </p>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> The Bergmann Saga </h2>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Falkenburg (SW), November 18, 1940.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Falkenburg (SW), November 18, 1940
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">International postcard tariff 7½ cents (from November 1,
+                        1928, until November 1, 1946). Berlin censor type BP2.2 with tilde (in use July 1940 to November
+                        1944) and encircled C (in use September 1940 to January 1941).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">November 18, 1940: “…since the middle of September I have had only
+                        one message via the Red Cross.”
+                    </p>
+                </div>
+                <p>This extraordinary archive of postcards and letters sent by Dr. Alfons Bergmann, a Jewish physician
+                    interned in Westerbork, to Dr. Arthur Buttermilch, a Jewish colleague and friend in Sweden runs from
+                    November 18, 1940, to July 28, 1943,. The latter’s mother was also held in Westerbork, and Bergmann
+                    regularly writes about her health.</p>
+                <p>Dr. Kurt Alfons Bergmann, born in Berlin in 1888, arrived in Holland on December 1, 1938, and stayed
+                    in camps for legal refugees in Reuver and Hoek can, Holland. He was taken to Westerbork on May 28,
+                    1940, and would witness its transition from refugee to transit camp.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">January 8, 1941: “… I hope to get some news from my cousin in
+                        Boston.”
+                    </p>
+                </div>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Falkenburg (SW), January 8, 1941.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Falkenburg (SW), January 8, 1941
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Partially reconstructed barracks.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Partially reconstructed barracks in Camp Westerbork, where Alfons
+                        Bergmann resided for 4 ½ years.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">December 19, 1941: “… I have now been in this country 3 years and no
+                        one knows how long it will take.”
+                    </p>
+                </div>
+
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Falkenburg (SW), December 19, 1941.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Falkenburg (SW), December 19, 1941
+                    </figcaption>
+                </figure>
+
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Map of Camp Westerbork.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Map of Camp Westerbork
+                    </figcaption>
+                </figure>
+
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> The Bergmann Saga (2) </h2>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Falkenburg (SW), December 29, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Falkenburg (SW), December 29, 1942
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">International postcard tariff 7 1/2 cents (from November
+                        1, 1928 until November 1, 1946). Underfranked by 2 1/2 cents yet the card was processed.
+                    </figcaption>
+                </figure>
+
+            </div>
+            <div class="col-lg-6 end-row-indent-sm">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">December 29, 1942: “…It has now been 4 years since I was separated
+                        from my loved ones…”
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Falkenburg (SW), July 23, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Falkenburg (SW), July 23, 1943
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Berlin censor type BP2.2 with tilde (in use July 1940 to
+                        November 1944). The blue chemical wipe was applied by the censor to both sides to detect
+                        invisible writing. A variety of chemicals were used by the censor for this purpose.
+                    </figcaption>
+                </figure>
+
+            </div>
+            <div class="col-lg-6 end-row-indent-sm">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">July 23, 1943: “…have not heard anything.”
+                    </p>
+                </div>
+                <p>As of July 1942, Camp Westerbork started deporting Jews to “The East.”</p>
+                <p>Selma Samuel was a corset maker born in Salzkotten, Germany, on March 23, 1903. According to Dutch
+                    Red Cross file #66547 she and Alfons Bergmann were married in Camp Westerbork on March 23, 1943.</p>
+                <p>On September 4, 1944, the Bergman’s were deported to Theresienstadt on one of the last trains to
+                    leave Westerbork, having been in the camp since 1940. From there, Alfons Bergmann and his wife of
+                    less than two years were taken to Auschwitz, where they were murdered on October 14, 1944.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Falkenburg (SW), July 9, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Falkenburg (SW), July 9, 1943
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">International letter tariff 12 1/2 cents per 20 grams
+                        (from November 1, 1928 until November 1, 1946).</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Alfons Bergmann-38.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption unbold">After having been moved from one barrack to another,
+                        Alfons Bergmann was now staying in Westerbork Barracks 38.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/OKW label BPV1.1.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption unbold">The camp censor approved the content (curl in pencil) and
+                        it was subsequently censored in Berlin, where the envelope was closed with OKW label BPV1.1. in
+                        use from July 1942 to November 1943.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> Ghost Letters (1) </h2>
+            <div class="col-lg-2">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Elias Benjamins.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Elias Benjamins, age 23</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-10">
+                <p>Evidence of the deportation of Jews can be found in the letters that never reached the addressee.
+                    Mail had to include the name of the camp resident, their date of birth and the number of the
+                    barracks where he or she resided.</p>
+                <p>Mail addressed to those already sent east to the concentration camps was returned to the sender with
+                    handstamps and manuscript markings that left no illusions as to the fate of the addressee. Some
+                    addresses were crossed out, while others were marked with a simple “T” for “transport”, a
+                    deceptively discrete notation that indicated the likely death of the intended recipient.</p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam Camp Westerbork, October 22.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Camp Westerbork, October 22, 1942</figcaption>
+                    <figcaption class="figure-caption unbold">This letter was addressed to Mr. and Mrs. Elias Benjamins,
+                        who had lived in Amsterdam with their one-year-old daughter, Anita Marjo. It arrived too late
+                        despite the express delivery because the family had already been deported to Auschwitz on
+                        October 23, 1942, as shown on the card issued by Cartotheek Joodse Raad. The annotation reads
+                        “Trsp. 23.10.1942” where “Trsp” stands for “transport” The address on the envelope was crossed
+                        out and shows the chilling notation.“terugafz” (terug afzender = return to sender). Elisabeth
+                        and their daughter were murdered immediately upon arrival in Auschwitz on October 26, 1942.
+                        Elias perished in “Central Europe” on March 31, 1944.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Elisabeth Benjamins Jewish Council Registration Card.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Elisabeth Benjamins – Jewish Council Registration Card
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Domestic letter tariff 7½ cents (from August 20, 1940 to
+                        November 1, 1946) plus express delivery 10 cents (from February 1, 1928 to November 1, 1946).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Doorwerth – Camp Westerbork, May 19, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Doorwerth – Camp Westerbork, May 19, 1943</figcaption>
+                    <figcaption class="figure-caption unbold">The card received the German handstamp:
+                        Unbestellbar/retour absender as well as the ominous letter “T” (transport).
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Domestic postcard tariff 5 cents (from August 20, 1940, to November 1, 1946).
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Consul General has instructions.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">Consul General has instructions to arrange for your entry visas. We
+                        are doing everything humanly possible ... Please have faith ... Expect your response ... Keep up
+                        your courage.
+                    </p>
+                </div>
+                <p>The card from Doorwerth (near Arnhem), was written on May 17, 1943, posted on May 19 and returned by
+                    the Assen post office handling Westerbork mail on May 1943. Leopold Gutherz, the addressee, had been
+                    murdered in Sobibor on May 28, 1943, i.e. the day before Westerbork returned the card.</p>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">5</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">6</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+</div>
+<!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

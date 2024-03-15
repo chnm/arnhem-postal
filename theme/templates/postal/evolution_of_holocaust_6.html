@@ -1,0 +1,504 @@
+{% extends "postal/base.html" %}
+{% load static %}
+{% block extracss %}
+{% if request.path == '/exhibits/evolution-6/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Evolution of Holocaust in Holland{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'evolution_of_holocaust' %}#evolution-of-holocaust"
+                class="list-group-item list-group-item-action" aria-current="true" onclick="makeActive(event)">
+                Evolution of Holocaust in Holland
+            </a>
+            <a href="{% url 'evolution_of_holocaust' %}#pre-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Pre-War
+                Refugee Camps</a>
+            <a href="{% url 'evolution_of_holocaust' %}#central-refugee-transit"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Central
+                Refugee/Transit Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#camp-westerbork"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Central Refugee Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#civil-internment"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Civil Internment
+                Camps</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-amersfoort"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Concentration
+                Camp Amersfoort</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-vught" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Concentration
+                Camp Vught </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#gestapo-prison" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Gestapo Prison
+                Scheveningen </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#german-investigation"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> German
+                Investigation and Punishment Prison - Utrecht
+            </a>
+            <a href="{% url 'evolution_of_holocaust_4' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Transit Camp
+                Westerbork
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                German Concentration Camp Mail
+            </a>
+            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Post War Enquiries
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Transit Camp Westerbork (continued) -->
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Transit Camp Westerbork (continued) </h1>
+            </div>
+        </div>
+
+        <h2> Thrown from a Train </h2>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Card thrown from a train – Amsterdam, November 16, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Card thrown from a train – Amsterdam, November 16, 1943
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">This card was thrown out of a train by “Betty” on November
+                        16, 1943, her fourth wedding anniversary. She writes with unwarranted optimism:</figcaption>
+                    <figcaption class="figure-caption unbold">Domestic Postcard tariff 5 cents (from August 20, 1940 to
+                        November 1, 1946).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Dear people.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p>Dear people,</p>
+                    <p class="remove-margin-bottom">Today we have been married for four years and we are en route to
+                        elsewhere. We are in good spirits ... hope to be able to keep you posted from there as well….
+                        Yet, it is clear that she was not completely in the dark because she continues... We are
+                        probably going to Ausw (Auschwitz) where (text crossed out) will know us.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Card thrown from a train Amsterdam, November 16, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Card thrown from a train – Amsterdam, September 28, 1943
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Mirjam Josephine Hesseline Cohen was 23 years old when she
+                        threw
+                        this card from a train en route to Westerbork on September 28, 1943.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Mirjam-Josephine Hesseline Cohen.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Mirjam Josephine Hesseline Cohen
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Train Car at Camp Westerbork Museum.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Train Car at Camp Westerbork Museum
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <p>Each Monday, the camp administration would post a list of names of those who would be leaving on the
+                    Tuesday morning train “to elsewhere”. People had no time to inform family and friends of their
+                    imminent departure. Internees often saved a postcard that would be written and thrown from the
+                    train. Such postcards wound up along the train tracks and were mailed by sympathetic locals or
+                    railway workers who found them. This is how those left behind receive a sign of life –often their
+                    last – from loved ones.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Domestic postcard tariff 5 cents (from August 20, 1940 to November 1, 1946)..png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">Domestic postcard tariff 5 cents (from August 20, 1940 to
+                        November 1, 1946).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">We, my parents and Jacques, are on the train to Westerbork. Mirjam
+                        says she will send the barracks number from the camp, but I suspect it will not be possible
+                        because we will probably go elsewhere, although I do not know where… Will you please mail this?
+                        FINDER OF THIS?
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <p>
+                    Mirjam married Jacques Albert Weijel at Westerbork. Both were deported to Theresienstadt and
+                    received permits to go to Switzerland and survived the war.
+                </p>
+            </div>
+        </div>
+
+        <div class="row  end-row-indent-sm">
+            <h2> The Lippmann Rosenthal Bank </h2>
+            <div class="col-lg-12">
+                <p>
+                    Lippmann, Rosenthal & Co. (LiRo), in Amsterdam, took its name from an established Jewish bank of the
+                    same name. The Nazis hoped to make this new bank appear trustworthy, but it was established in an
+                    attempt to encourage Jews to register their money and valuables, whereupon the bank would
+                    systematically confiscate these assets. Ordnance 148/1941 of August 8, 1941, ordered well-to-do Jews
+                    to use this bank. Later, this became compulsory for all Jews. Following ordnance 58/1942 of May 21,
+                    1942, all claims had to be reported to the bank. After June 30, 1942, no Jew was allowed to possess
+                    more than 250 guilders. Jews who were sent to Westerbork had to surrender even that amount to a LiRo
+                    subsidiary branch located in the camp.
+                </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Letter with Bank label providing instructions for the deposit of funds.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Letter with Bank label providing instructions for the deposit of
+                        funds.</figcaption>
+                    <figcaption class="figure-caption unbold">LiRo arranged payment terms with P.M. Reyerse, who owed
+                        3,000 guilders to J. Leefsma, a Jewish “client” of the bank. Reyerse was granted permission to
+                        pay back the money in installments, with funds being deposited with the bank itself. Leefsma was
+                        not consulted and he would never see any of the money. He did not survive the war and died in
+                        Auschwitz on February 11, 1944.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Maartensdijk, May 27, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Maartensdijk, May 27, 1943 </figcaption>
+                    <figcaption class="figure-caption unbold">Domestic letter tariff 7½ cents (from August 20, 1940 to
+                        November 1, 1946). Processed by Transorma operator BD.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/NV Nationaal Spaarfonds (National Savings Fund) Announcment, January 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> NV Nationaal Spaarfonds (National Savings Fund) Announcment,
+                        January 1944 </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">By letter dated January 19 the firm of Lippmann Rosenthal & Co has
+                        imposed on us the obligation to investigate who of our policy holders should be considered
+                        Jews.... It is determined that anyone who does not submit the relevant declaration before
+                        February 4 has to be considered a Jew....
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> Freedom at a Price </h2>
+
+            <div class="col-lg-9">
+                <p>According to a memorandum issued by Heinrich Himmler in December 1942,Hitler approved of the release
+                    of Jews in return for a sizeable payment inforeign currency, usually Swiss francs. In Holland such
+                    transactions wereapproved by Seyss lnquart, the Reich Commissioner, and Consul General OttoBene. The
+                    latter represented Joachim von Ribbentrop, Nazi Minister of ForeignAffairs, in Holland and was
+                    responsible for the deportation of Dutch Jews to thedeath camps in the east.</p>
+                <p>Dr. Arthur Wiederkehr was well known in Holland as a mediator who was ableto get refugees into
+                    Switzerland or arrange for permission to emigrate to SouthAmerica. He was an unscrupulous Swiss
+                    lawyer whose office was located atBahnhofstrasse 98 in Zurich. After the war, the Allies placed him
+                    on a list offigures who had been involved in negotiating ransoms using extortion and thesale of art
+                    looted from Jewish owners.</p>
+            </div>
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam Maartensdijk, May 27, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Maartensdijk, May 27, 1943</figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p>A post-war report into unscrupulous activities by Swiss nationals during the war by the investigators
+                    Zeugin andSandkohler carries the title: Switzerland and the German ransom extortions in the occupied
+                    Netherlands:Confiscation of Property, Ransom, Exchange 1940-1945.</p>
+                <p>About 400 Jews, residing in Holland, were able to buy their freedom by paying ransoms to attorneys
+                    likeWiederkehr. One of them was a German Jewish banker, Hans Kroch, who lived in Amsterdam. He paid
+                    100,000Swiss francs to the SS via Wiederkehr and was able to obtain exit visas for himself and four
+                    others after theZurich lawyer spoke to Adolf Eichmann personally, demonstrating Weiderkehr’s access
+                    to the highest levels ofthe SS. In August 1942, Kroch and four others, probably family members but
+                    not his wife (see below) traveled to Argentina via Spain.</p>
+            </div>
+
+            <div class="col-lg-12">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/investigator’s report.png' %}" class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p>The relevant text in the investigator’s report (above) shows why Wiederkehr was unable to secure an
+                    exit visa for Mrs. Kroch. She had been arrested by the Gestapo after an escape attempt and was being
+                    held in a Concentration Camp. Mr. Kroch, on the advice of Dr. Wiederkehr, traveled to South America
+                    with a DSK NL (Dutch) visa. He carried a list of other Jews who wanted to depart. This “Kroch List”
+                    was given to Dr. Veit Wyler who passed it onto Dr. Wiederkehr.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Consul-General Otto Bene.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Consul General Otto Bene</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Zurich (SU), April 21, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Zurich (SU), April 21, 1942</figcaption>
+                    <figcaption class="figure-caption unbold">International letter tariff 12½ cents per 20 grams (from
+                        November 1, 1928, until November 1, 1946).</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Censor label type Landsman EV3.2.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">Censor label type Landsman EV3.2 in use from January 1941
+                        to February 1944; handstamp impression unclear but probably type Landsmann EP3.4 (in use August
+                        1941 to October 1943) struck on top of the label per regulation.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> Hugo Kaufmann and his Bank </h2>
+            <div class="col-lg-10">
+                <p> Hugo Felix Kaufmann founded the Dutch bank that bore his name in 1924. Kaufmann was born in
+                    Frankfurt on May 12, 1883, served in the German Army in World War I and moved to Amsterdam in 1918.
+                    He married Vella Sara Ettlinger in 1923 and they had 3 children. He acquired Dutch nationality in
+                    1924. During the Second World War, the bank’s control came under a German administrator, Walter
+                    Malletke, and Kaufmann’s influence became increasingly limited. In April 1941, the bank was acquired
+                    by the Nazi-controlled Commerzbank for a pittance and profitable activities were transferred to a
+                    subsidiary. Kaufmann tried to obtain an exit visa to the USA from Dr. Arthur Wiederkehr, but
+                    although he was willing to part with all of his Dutch assets,the Germans did not consider his
+                    departure to be “in the interest of the Reich”.</p>
+                <p>Hugo Felix Kaufmann was detained on July 28, 1942, and taken to Auschwitz, where he died of typhoid
+                    on October 9, 1942. His wife, 3 children and other relatives were arrested on September 24, 1942,
+                    and murdered at Auschwitz just 4 days later.</p>
+            </div>
+            <div class="col-lg-2 end-row-indent-sm">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Hugo Felix Kaufmann.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Hugo Felix Kaufmann</figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-7">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Kaufmann Stolpersteine (Stumble Stones).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Kaufmann Stolpersteine (Stumble Stones)</figcaption>
+                    <figcaption class="figure-caption unbold end-row-indent-sm">These Stolpersteine (stumble stones)
+                        remembering
+                        the Kaufmann
+                        family are fixed in the ground in front of their former residence in Amsterdam.</figcaption>
+
+                </figure>
+            </div>
+            <div class="col-lg-5">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Kaufmann Stolpersteine (Stumble Stones)-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Zurich (SU), September 29, 1941.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Zurich (SU), September 29, 1941
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">International letter tariff 12½ cents per 20 grams (from
+                        November 1, 1928, until November 1, 1946).</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Censor label Landsmann type EV3.4 40 mm.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">Censor label Landsmann type EV3.4 40 mm (in use from July
+                        1941 to October 1944). Hand stamped per regulation with Landsmann type EP3.1 (in use from
+                        January 1941 to March 1943).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> A Narrow Escape </h2>
+            <div class="col-lg-12">
+                <p>On July 1, 1942, Camp Westerbork was put under control of the SD, the feared Sicherheits Dienst and
+                    became a transit camp. The first train with Jews left for AuschwitzBirkenau on July 15, 1942.</p>
+                <p>Rumors about its impending change of purpose were rampant, so it is no surprise that Arnold Hart, a
+                    Dutch Jew, tried to get his family out of Holland before then. The small Hart archive consists of
+                    three postcards that all date from June 1942. Clearly there were others sent earlier. The requests
+                    for Dr. Wiederkehr to act on Hart’s behalf become increasingly more urgent.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Zurich (SU), June 5, 194.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Zurich (SU), June 5, 194</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">…headquarters here has still not received a response ... I hope you
+                        will make some progress so that we can finally find out where things stand…
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/headquarters here has still not received a response.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>The records show that Arnold Hart, a company director, was born in
+                    Winschoten on December 12, 1880. As such, he would have been 61 years old when these cards were
+                    written. Wiederkehr’s efforts to arrange for the Hart family to emigrate to Argentina appear to
+                    have been successful but unfortunately Arnold Hart died in Buenos Aires shortly after arrival on
+                    December 23, 1943.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="alert alert-info" role="alert">
+                <p class="remove-margin-bottom">...neither myself nor the other three families have received any
+                    news from the central office in the Euterpestraat…(Amsterdam headquarters of the Gestapo and the
+                    SD).
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/neither-myself nor.png' %}" class="img-fluid">
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Zurich (SU), June 11, 194.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Zurich (SU), June 11, 194</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Zurich (SU), June 13, 194.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Zurich (SU), June 13, 194</figcaption>
+                    <figcaption class="figure-caption unbold">International postcard tariff 7½ cents (from November 1,
+                        1928,
+                        until November 1, 1946). All three censorship markings, Landsmann type EP3.4 (in use from
+                        October 1941 to February 1943). The boxed numbers identify the individual censors.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+        <!--  -->
+
+        <!-- <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Zurich (SU), June 13, 194.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Zurich (SU), June 13, 194</figcaption>
+                    <figcaption class="figure-caption unbold">International postcard tariff 7½ cents (from November 1,
+                        1928,
+                        until November 1, 1946). All three censorship markings, Landsmann type EP3.4 (in use from
+                        October 1941 to February 1943). The boxed numbers identify the individual censors.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div> -->
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/you appear to overlook.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">...you appear to overlook that taking care of complicated
+                        formalities is only possible if headquarters receives the required instructions from the Berlin
+                        authorities ... contrary to your statement, I know for certain that those instructions have not
+                        arrived in the Euterpestraat. I therefore repeat my request that you immediately consult
+                        Berlin....
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">5</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+</div>
+<!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

@@ -36,6 +36,18 @@ nav {
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
 }
 
+.nav-tabs .nav-link {
+  color: black;
+  font-size: 14px;
+  font-family: 'ProximaNova';
+}
+
+.nav-tabs .nav-link {
+  color: #a42650;
+  font-size: 14px;
+  font-family: 'ProximaNova';
+}
+
 .form-select {
   color: black;
   font-size: 14px;
@@ -51,6 +63,17 @@ nav .form-select {
 
 .bolded {
   font-family: "ProximaNovaBold";
+}
+
+.align-item-center {
+  align-items: center;
+}
+
+/* index page padding on learn and explore */
+.add-padding {
+  padding-left: calc(var(--bs-gutter-x)* 4); 
+  padding-right: calc(var(--bs-gutter-x)* 4);
+  
 }
 
 h1 {
@@ -80,6 +103,19 @@ p {
   color: #333333;
 }
 
+a {
+  color: #333;
+}
+
+a:hover {
+  color: #a42650;
+}
+
+li {
+  font-family: "ProximaNova";
+  color: #333;
+}
+
 .btn-primary {
   background-color: #741e3a;
   border-color: #741e3a;
@@ -93,6 +129,11 @@ p {
   border-color: #a42650;
 }
 
+.btn.btn-primary.active, .btn.btn-primary:active {
+  background-color: #861a3e;
+  border-color: #861a3e;
+}
+
 .btn-outline-primary {
   border-color: #741e3a;
   color: #741e3a;
@@ -103,6 +144,12 @@ p {
 .btn-outline-primary:hover {
   background-color: #741e3a;
   border-color: #741e3a;
+  color: white;
+}
+
+.btn.btn-outline-primary.active, .btn.btn-outline-primary:active {
+  background-color: #a42650;
+  border-color: #a42650;
   color: white;
 }
 
@@ -121,6 +168,12 @@ p {
   font-weight: 600;
 }
 
+.btn.btn-outline-secondary.active, .btn.btn-outline-secondary:active {
+  background-color: rgb(231, 231, 231);
+  border-color: rgb(231, 231, 231);
+  color: #741E3A;
+}
+
 .btn-outline-info {
   border-color: white;
   color: white;
@@ -136,6 +189,12 @@ p {
   font-weight: 600;
 }
 
+.btn.btn-outline-info.active, .btn.btn-outline-info:active {
+  background-color: rgb(231, 231, 231);
+  border-color: rgb(231, 231, 231);
+  color: #282F41;
+}
+
 /* Hero Image CSS */
 .hero-image {
   height: 500px;
@@ -147,6 +206,24 @@ p {
 .hero-image img {
   height: 100px;
   margin-top: 20px;
+}
+
+.hero-image-evolution {
+  height: 500px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/hero-evolution.png);
+  background-size: cover;
+}
+
+.hero-image-evolution h1 {
+  font-family: 'Playfair Display', serif;
+  color: white;
+  font-weight: 600;
+  font-size: 40px;
+}
+
+.hero-image-evolution .row {
+  align-items: center;
+  height: 100%;
 }
 
 .align-center {
@@ -412,22 +489,6 @@ table .table-caption {
   font-size: 0.7rem;
 }
 
-/* .db-column .dropdown .btn-secondary {
-    color: gray;
-    background-color: white;
-    font-size: 14px;
-    font-family: 'ProximaNova';
-    border-radius: 0.2rem;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.db-column a.dropdown-item {
-    font-size: 14px;
-    font-family: 'ProximaNova';
-    border-radius: 0.2rem;
-} */
-
 .labelCSS {
   font-family: "ProximaNova";
   font-size: 14px;
@@ -453,6 +514,88 @@ table .table-caption {
 }
 
 /* end database page CSS */
+
+/* individual exhibit pages CSS */
+
+.pagination .page-link {
+  color: #333;
+}
+
+.active>.page-link {
+  color: #fff;
+  background-color: #741e3a;
+  border-color: #741e3a;
+}
+
+/* .focus.pagination {
+  box-shadow: 0 0 0 0.25rem rgb(162 5 21 / 25%);
+} */
+
+
+.add-exhibit-padding {            /* add padding to exhibit individual pages */
+  padding-left: 5%; 
+  padding-right: 10%;
+}
+
+.add-margin {
+  margin-top: 5%; 
+  margin-left: 5%; 
+  margin-right: 15%;
+}
+
+.remove-margin-bottom {
+  margin-bottom: 0;
+}
+
+.list-group {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.list-group-item {
+  font-size: 14px;
+  font-family: 'ProximaNova';
+  color: #333;
+
+}
+
+.list-group-item.disabled {
+  font-family: 'ProximaNovaBold';
+  color: #868e96;
+}
+
+.list-group-item.active {
+  background-color: #741E3A;
+  border-color: #741E3A;
+}
+
+.dropdown-item:active {
+  background-color: #741E3A;
+}
+
+.figure {
+  text-align: center;
+}
+
+.figure-caption {
+  color: #333; 
+  font-size: 14px; 
+  font-family: 'ProximaNovaBold';
+  margin-top: 5px;
+  text-align: center;
+}
+
+.figure-caption.unbold {
+  font-family: 'ProximaNova';
+}
+
+.alert-info {
+  color: #333;
+  background-color: #efe2db;
+  border-color: #f1bc4e;
+
+}
+/* end individual exhibit pages CSS */
 
 footer {
   margin-left: 15%;
@@ -486,6 +629,12 @@ footer {
   .carousel-caption h1 {
     font-size: 1.5rem;
   }
+
+  .list-group {
+    width: 250px;
+  }
+
+
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -519,6 +668,10 @@ footer {
   .carousel-caption h1 {
     font-size: 2rem;
   }
+
+  .list-group {
+    width: 150px;
+  }
 }
 
 /* X-Large devices (large desktops, 1200px and up) */
@@ -547,6 +700,11 @@ footer {
   .carousel-caption h1 {
     font-size: 2.5rem;
   }
+
+  .list-group {
+    width: 200px;
+  }
+
 }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
@@ -575,6 +733,10 @@ footer {
 
   .carousel-caption h1 {
     font-size: 2.5rem;
+  }
+
+  .list-group {
+    width: 250px;
   }
 }
 
@@ -757,6 +919,9 @@ h2 {
 .dropdown-item:active {
     background-color: #741E3A;
 } */
+
+
+
 
 /* --- Custom styles for page-specific elements --- */
 

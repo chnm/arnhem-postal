@@ -68,12 +68,45 @@ def exhibits(request: HttpRequest):
     ctx = {"nav_links": nav_links}
     return render(request, "postal/exhibits.html", ctx)
 
+def evolution_of_holocaust(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust.html", ctx)
+
+def evolution_of_holocaust_2(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_2.html", ctx)
+
+def evolution_of_holocaust_3(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_3.html", ctx)
+
+def evolution_of_holocaust_4(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_4.html", ctx)
+
+def evolution_of_holocaust_5(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_5.html", ctx)
+
+def evolution_of_holocaust_6(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_6.html", ctx)
+
+def evolution_of_holocaust_7(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_7.html", ctx)
 
 def timeline(request: HttpRequest):
     nav_links = get_nav_links("timeline")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/timeline.html", ctx)
-
 
 def resources(request: HttpRequest):
     nav_links = get_nav_links("resources")

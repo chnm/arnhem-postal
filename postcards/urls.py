@@ -10,6 +10,41 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("about/", views.about, name="about"),
     path("exhibits/", views.exhibits, name="exhibits"),
+    path(
+        "exhibits/evolution/",
+        views.evolution_of_holocaust,
+        name="evolution_of_holocaust",
+    ),
+    path(
+        "exhibits/evolution-2/",
+        views.evolution_of_holocaust_2,
+        name="evolution_of_holocaust_2",
+    ),
+    path(
+        "exhibits/evolution-3/",
+        views.evolution_of_holocaust_3,
+        name="evolution_of_holocaust_3",
+    ),
+    path(
+        "exhibits/evolution-4/",
+        views.evolution_of_holocaust_4,
+        name="evolution_of_holocaust_4",
+    ),
+    path(
+        "exhibits/evolution-5/",
+        views.evolution_of_holocaust_5,
+        name="evolution_of_holocaust_5",
+    ),
+    path(
+        "exhibits/evolution-6/",
+        views.evolution_of_holocaust_6,
+        name="evolution_of_holocaust_6",
+    ),
+    path(
+        "exhibits/evolution-7/",
+        views.evolution_of_holocaust_7,
+        name="evolution_of_holocaust_7",
+    ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
     path("resources/", views.resources, name="resources"),

@@ -1,18 +1,16 @@
 {% extends "postal/base.html" %}
+{% load static %}
 
 {% block title %}Timeline{% endblock title %}
 
 {% block content %}
 
-    <h1 style="margin-bottom: 15px;"> Timeline </h1>
-    <p> The timeline provides a chronological overview of major events in World War II, occurring both globally and in Holland.</p>
-    </div>
-    </div>
-    </div>
+<div class="add-padding new-row-indent">
+    <h1 class="end-row-indent-sm"> Timeline </h1>
+    <p> The timeline provides a chronological overview of major events in World War II, occurring both globally and in
+        Holland.</p>
+</div>
 
-    </div>
-    <iframe
-        src='https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1by_h0BOTLOznb41zDnVZLMfijvqTh6UZ0h3Vc-FIQrM&font=Default&lang=en&initial_zoom=2&height=650'
-        width='100%' height='650' webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder='0'></iframe>
+<div id='timeline-embed' style="width: 100%; height: 600px"></div>
 
 {% endblock content %}
