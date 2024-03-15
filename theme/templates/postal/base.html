@@ -157,6 +157,10 @@
     {% include 'postal/evolution_of_holocaust_hero.html' %}
     {% endif %}
 
+    {% if request.path == '/exhibits/evolution-7/' %}
+    {% include 'postal/evolution_of_holocaust_hero.html' %}
+    {% endif %}
+
     <main class="end-row-indent">
         <div class="row">
             {% block content %}{% endblock content %}
