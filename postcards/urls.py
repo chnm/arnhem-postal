@@ -45,10 +45,15 @@ urlpatterns = [
         views.evolution_of_holocaust_7,
         name="evolution_of_holocaust_7",
     ),
-     path(
+    path(
         "exhibits/evolution-8/",
         views.evolution_of_holocaust_8,
         name="evolution_of_holocaust_8",
+    ),
+    path(
+        "exhibits/evolution-9/",
+        views.evolution_of_holocaust_9,
+        name="evolution_of_holocaust_9",
     ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
