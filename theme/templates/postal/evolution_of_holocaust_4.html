@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extracss %}
-{% if request.path == '/exhibits/evolution-3/' %}
+{% if request.path == '/exhibits/evolution-4/' %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
 {% endif %}
 {% endblock %}
@@ -389,7 +389,7 @@
          <!-- End German Investigation and Punishment Prison – Utrecht -->
         <nav aria-label="Page navigation example" class="pagination-nav">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="evolution-of-holocaust_2.html">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="evolution-of-holocaust_3.html">Previous</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">1</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">2</a></li>
                 <li class="page-item active"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">3</a></li>
@@ -399,7 +399,7 @@
                 <li class="page-item"><a class="page-link" href="#">7</a></li>
                 <li class="page-item"><a class="page-link" href="#">8</a></li>
                 <li class="page-item"><a class="page-link" href="#">9</a></li>
-                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_4' %}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
         </nav>
 
