@@ -569,7 +569,7 @@ table .table-caption {
 }
 
 .figure {
-  justify-content: center;
+  text-align: center;
 }
 
 .figure-caption {
