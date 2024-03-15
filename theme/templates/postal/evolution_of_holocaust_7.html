@@ -1,7 +1,7 @@
 {% extends "postal/base.html" %}
 {% load static %}
 {% block extracss %}
-{% if request.path == '/exhibits/evolution-6/' %}
+{% if request.path == '/exhibits/evolution-7/' %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
 {% endif %}
 {% endblock %}
@@ -478,7 +478,7 @@
 
         <nav aria-label="Page navigation example" class="pagination-nav">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">Previous</a>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">Previous</a>
                 </li>
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">1</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">2</a></li>
@@ -487,10 +487,10 @@
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">5</a>
                 </li>
                 <li class="page-item active"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">6</a></li>
-                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">7</a></li>
                 <li class="page-item"><a class="page-link" href="#">8</a></li>
                 <li class="page-item"><a class="page-link" href="#">9</a></li>
-                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
         </nav>
 
