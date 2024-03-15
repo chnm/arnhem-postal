@@ -88,11 +88,15 @@ def evolution_of_holocaust_4(request: HttpRequest):
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_4.html", ctx)
 
+def evolution_of_holocaust_5(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_5.html", ctx)
+
 def timeline(request: HttpRequest):
     nav_links = get_nav_links("timeline")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/timeline.html", ctx)
-
 
 def resources(request: HttpRequest):
     nav_links = get_nav_links("resources")
