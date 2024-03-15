@@ -111,6 +111,11 @@ a:hover {
   color: #a42650;
 }
 
+li {
+  font-family: "ProximaNova";
+  color: #333;
+}
+
 .btn-primary {
   background-color: #741e3a;
   border-color: #741e3a;
