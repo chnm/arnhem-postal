@@ -620,6 +620,12 @@ footer {
   .carousel-caption h1 {
     font-size: 1.5rem;
   }
+
+  .list-group {
+    width: 250px;
+  }
+
+
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -653,6 +659,10 @@ footer {
   .carousel-caption h1 {
     font-size: 2rem;
   }
+
+  .list-group {
+    width: 150px;
+  }
 }
 
 /* X-Large devices (large desktops, 1200px and up) */
@@ -681,6 +691,11 @@ footer {
   .carousel-caption h1 {
     font-size: 2.5rem;
   }
+
+  .list-group {
+    width: 200px;
+  }
+
 }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
@@ -709,6 +724,10 @@ footer {
 
   .carousel-caption h1 {
     font-size: 2.5rem;
+  }
+
+  .list-group {
+    width: 250px;
   }
 }
 
