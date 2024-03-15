@@ -137,6 +137,18 @@
     {% include 'postal/evolution_of_holocaust_hero.html' %}
     {% endif %}
 
+    {% if request.path == '/exhibits/evolution-2/' %}
+    {% include 'postal/evolution_of_holocaust_hero.html' %}
+    {% endif %}
+
+    {% if request.path == '/exhibits/evolution-3/' %}
+    {% include 'postal/evolution_of_holocaust_hero.html' %}
+    {% endif %}
+
+    {% if request.path == '/exhibits/evolution-4/' %}
+    {% include 'postal/evolution_of_holocaust_hero.html' %}
+    {% endif %}
+
     <main class="end-row-indent">
         <div class="row">
             {% block content %}{% endblock content %}
