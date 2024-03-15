@@ -3,9 +3,8 @@
 {% block title %}Viewing item {{object.item_id}}{% endblock title %}
 
 {% block content %}
-    <h1 class="text-lg font-bold">{{object.letter_type}} sent by {{ object.sender_name }} to {{ object.addressee_name }}</h1>
-
-    <div class="row">
+    <div class="row add-padding new-row-indent">
+        <h1 class="text-lg font-bold">{{object.letter_type}} sent by {{ object.sender_name }} to {{ object.addressee_name }}</h1>
         <div class="col-md-8">
                 <!-- Scanned Document -->
             <div class="card mb-4">
