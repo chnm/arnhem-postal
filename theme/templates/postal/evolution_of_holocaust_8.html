@@ -1,0 +1,411 @@
+{% extends "postal/base.html" %}
+{% load static %}
+{% block extracss %}
+{% if request.path == '/exhibits/evolution-8/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Evolution of Holocaust in Holland{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'evolution_of_holocaust' %}#evolution-of-holocaust"
+                class="list-group-item list-group-item-action" aria-current="true" onclick="makeActive(event)">
+                Evolution of Holocaust in Holland
+            </a>
+            <a href="{% url 'evolution_of_holocaust' %}#pre-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Pre-War
+                Refugee Camps</a>
+            <a href="{% url 'evolution_of_holocaust' %}#central-refugee-transit"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Central
+                Refugee/Transit Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#camp-westerbork"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Central Refugee Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#civil-internment"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Civil Internment
+                Camps</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-amersfoort"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Concentration
+                Camp Amersfoort</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-vught" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Concentration
+                Camp Vught </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#gestapo-prison" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Gestapo Prison
+                Scheveningen </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#german-investigation"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> German
+                Investigation and Punishment Prison - Utrecht
+            </a>
+            <a href="{% url 'evolution_of_holocaust_4' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Transit Camp
+                Westerbork
+            </a>
+            <a href="{% url 'evolution_of_holocaust_8' %}#german-concentration" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                German Concentration Camp Mail
+            </a>
+            <a href="{% url 'evolution_of_holocaust_9' %}#post-war" class="list-group-item list-group-item-action"
+            onclick="makeActive(event)">
+            Post War Enquiries
+        </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Transit Camp Westerbork (continued) -->
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Transit Camp Westerbork (continued) </h1>
+            </div>
+        </div>
+
+        <h2> Ghost Letters (2) </h2>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/The Hague – Amsterdam, July 2, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">The Hague – Amsterdam, July 2, 1942
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">On July 15, 1942, the first train left Westerbork for
+                        Auschwitz. It was the first of 94 trains, departing every Tuesday, that would carry victims to
+                        Auschwitz or other camps “in the east”.</figcaption>
+                    <figcaption class="figure-caption unbold">Dienstpost indicates free franking.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/This Dienst service envelope (free of postage).png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>This Dienst service envelope (free of postage) from the
+                    Inspection of Population Registries in The Hague had been sent to Amsterdam on July 2, 1942.
+                    However, the addressee, Mrs. Terhorst-Boll no longer lived there. Delivery to a new address was
+                    also not successful. According to the official notation on the back, “new address in the area
+                    not known”. A pencil note reads “to Westerbork” but instead of the letter being forwarded it was
+                    instead returned to the sender. Helena Dimphina Terhorst-Boll, who was born in Rotterdam on
+                    August 15, 1903, survived the war and died in Amsterdam on May 4, 1980.</p>
+            </div>
+
+            <div class="new-row-indent-sm"></div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Camp Westerbork, July 1, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Camp Westerbork, July 1, 1943
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Domestic letter tariff 7½ cents (from August 20, 1940 to
+                        November 1, 1946).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>This cover dated July 1, 1943 was addressed to Amsterdam lawyer Michel Schorlesheim in “Barrack 65
+                    bed 607 Kamp Westerbork”. It received a terug afzender, i.e. “return to sender” handstamp and the
+                    dreaded letter “T” and it was sent back on July 7, just five days after Schorlesheim had been
+                    murdered in Sobibor.</p>
+
+                <ul class="end-row-indent-sm">
+                    <li>Registration label from the St. Anthonies Breestraat post office in Amsterdam;</li>
+                    <li>Censorship Cologne Landsmann type CP3.3.1 (from October 1941 to September 1942); Postmarked
+                        Cracow, August 26, 1942;</li>
+                    <li>The “Einschreiben” (registered) handstamp was struck in Cracow to alert processors to the card’s
+                        special status;</li>
+                    <li>The label “Abgereist/ohne Angabe der Adresse” (departed without leaving address) in German,
+                        Polish, and French;</li>
+                    <li>The ominous handstamp “Verzogen!/Anschrift unbekannt” (moved, forwarding address unknown);
+                        and “Zuruck” (return) in manuscript.</li>
+
+                </ul>
+            </div>
+
+            <div class="new-row-indent-sm"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Generalgouvernment (PL), August 21, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Generalgouvernment (PL), August 21, 1942
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>This card was sent to Aron Wurzel by his father, Abraham Wurzel, a Jew born in Srczuczin, Poland, on
+                    October 2, 1897. He lived at Sint Antoniebreestraat 41ll, in the Jewish section in the center of
+                    Amsterdam. Wurzel was on the train that left Westerbork, July 20, 1943, and was killed in Sobibor
+                    three days later.</p>
+            </div>
+
+
+
+        </div>
+
+        <div class="row  end-row-indent-sm">
+            <h2> Ghost Letters (3) </h2>
+
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Leipzig (DE), April 18, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Camp Westerbork – Leipzig (DE), April 18, 1942</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Camp Westerbork – Leipzig (DE), April 18, 1942-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="col-lg-12 end-row-indent-sm">
+                <p>
+                    Postcard from Camp Westerbork, Barracks 49 to Leipzig. The card was taken to the camp post
+                    office
+                    and then to the nearby town of Assen. There it was processed and forwarded to Cologne for
+                    censoring
+                    (red handstamp).
+                </p>
+                <p>
+                    Circular P. 1512 of December 24, 1941, announced that the postcard tariff to Germany (and some
+                    satellites) was reduced to 5 cents effective January 1, 1942. Landsmann type CP3.4.1 red censorship
+                    marking in Cologne.
+                </p>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">I do not know the cause of all the aliments that are hurting me… in
+                        my right arm and hand I have
+                        a nerve inflammation…
+                    </p>
+                </div>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/The sender, Otto Selig, a German Jew.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">The sender, Otto Selig, a German Jew, died on February 28,
+                        1945, somewhere in “Middle Europe.”</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/letter.png' %}" class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="end-row-indent-sm"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Camp Westerbork, April 21, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Camp Westerbork, April 21, 1943</figcaption>
+                    <figcaption class="figure-caption unbold">Domestic letter tariff 7½ cents (from August 20, 1940, to
+                        November 1, 1946).</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>On April 21, 1943, Jopie Goldsmit sent a letter to her mother, Mrs. Goudsmit-Elias, who was interned
+                    at Westerbork. The letter was returned when it was realized at the camp post office that letter
+                    could not be delivered. Creation of a special handstamp had eliminated the need for the manuscript
+                    notation “terug afzender” (return sender) and the envelope received the right-angled handstamp
+                    “Unbestellbar / retour absender” (undeliverable/return to sender) as well as the long-bar stamp
+                    “Assen 2”.</p>
+                <p>In pencil the word “gestorben” (died) is written on the envelope, but this was crossed out later.
+                    When the letter arrived, Mrs. Goudsmit-Elias, age 78, was no longer alive. She had committed suicide
+                    the day before.</p>
+            </div>
+
+        </div>
+
+        <div class="row end-row-indent-sm new-row-indent">
+            <a name="german-concentration"></a>
+            <h1>German Concentration Camp Mail</h1>
+            <h2> Theresienstadt / Terezin </h2>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Amsterdam – Theresienstadt, September 26, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Amsterdam – Theresienstadt, September 26, 1942
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>The sender of the postcard, Gustav Meyer in Amsterdam, had done everything possible to ensure that it
+                    was delivered in Theresienstadt. Not only was it registered with confirmation of delivery requested,
+                    but it was also sent by express service.</p>
+                <p>The name of the organization returning the card speaks volumes: Zentralamt für die Regelung der
+                    Judenfrage in Bohmen und Mahren /Dienststelle Theresienstadt, Central Office for Settling the Jewish
+                    Problem in Bohemia and Moravia, Field Office Theresienstadt. It is a direct reference to the subject
+                    of the Wannsee Conference held on January 20, 1942.</p>
+                <p>Meta Lowenstien-Meyer, the addressee, had been taken to Theresienstadt on July 14, 1942 and then to
+                    Treblinka where she was killed. The sender, Gustav Meyer, and his wife Margarethe were both killed
+                    in Auschwitz on August 27, 1943.</p>
+                <p>
+                <ul>
+                    <li>Red censorship marking in Cologne (Landsmann type CP3.4.1) - Red pencil control markings;</li>
+                    <li>Blue chemical stripe;</li>
+                    <li>Handstamps UNBEKANNT ZURÜCK (return).</li>
+                </ul>
+                </p>
+            </div>
+
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Children in Theresienstadt.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Children in Theresienstadt during the Red Cross visit. Most were
+                        murdered a few months later. (Holocaust Encyclopedia)
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <p>In November 1941, Adolf Eichmann selected the village of Terezin in the Protectorate of Bohemia and
+                    Moravia (formerly Czechoslovakia) to be a Jewish ghetto. Residents were ordered to leave by June 30,
+                    1942. Theresienstadt housed prominent Jewish notables but also functioned as a transit camp for
+                    deportations to Auschwitz and Treblinka. It also served as a show settlement where organizations
+                    like the Red Cross carried out inspections. The Nazis accelerated deportations and beautified the
+                    ghetto before each visit, but once the inspectors had left, deportations resumed. Of the 4,897 Dutch
+                    Jews who were interned at Theresienstadt, 1,225 survived.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Confirmation of Delivery to Theresienstadt.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Confirmation of Delivery to Theresienstadt
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Reduced postcard tariff of 5 cents to Bohemia and Moravia
+                        (circular P.1512 of December 24, 1941); express charge 20 cents, registration 10 cents.
+                        Correctly franked with 50 cents.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Theresienstadt – Amsterdam, March 6, 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Theresienstadt – Amsterdam, March 6, 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">The Theresienstadt censor of this bilingual postcard
+                        applied blue pencil check marks. Retained for unspecified reasons, it was found after the camp’s
+                        liberation and therefore never reached Paul Mayer in Amsterdam. So far, no personal details have
+                        been found in WWII archives.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> Buchenwald / Auschwitz </h2>
+            <div class="col-lg-12">
+                <p>Buchenwald Camp was created on August 6, 1937. It was located in Weimar, known for its cultural
+                    heritage and importance in German history. Until 1944, the camp was for male prisoners, and at one
+                    time the population reached 238,000. When it was liberated by the Third US Army Division on April
+                    11, 1945, the prisoners still numbered 80,000.</p>
+                <p>Auschwitz, also known as Auschwitz /Birkenau, is the name in German for the Polish city Oświęcim
+                    located about 40 miles west of Kraków. Opened in 1940, it was the largest of the Nazi death camps.
+                    Historians estimate that about 1.1 million people perished in Auschwitz during the 5 years of its
+                    existence, the majority of which (around 1 million) were Jews.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/25 Pfennige, old international first-class letter rate, renewed on May 1, 1940..png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">25 Pfennige, old international first-class letter rate,
+                        renewed on May 1, 1940.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Auschwitz Postcard – “A View of the 11th Barrack”.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Auschwitz Postcard – “A View of the 11th Barrack”</figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Auschwitz (PL) – Apeldoorn, August 12, 1943.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Auschwitz (PL) – Apeldoorn, August 12, 1943</figcaption>
+                    <figcaption class="figure-caption unbold">Censored by Postprüfer 1, a camp censor. The camp
+                        letterform then went to Holland via regular postal channels but did not pass through the Cologne
+                        censor as would have been expected. Although prisoners were exempt from paying postage, this was
+                        routinely ignored by camp authorities.</figcaption>
+                    <figcaption class="figure-caption unbold">New international letter rate 12 Pfennige, registration 30
+                        Pf., Express fee 50 Pf., total 92 Pf, over franked 3 Pf.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Auschwitz (PL) – Apeldoorn, August 12, 1943-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+
+            <div class="col-lg-12">
+                <p>Registered express letter from a construction manager at I.G. Farbenindustrie A.G. at Auschwitz. The
+                    Farben work force consisted of slave labor from Auschwitz, leased to the company by the SS. One of
+                    the Farben subsidiaries produced Zyklon B, the gas that was used to kill over one million people in
+                    the Auschwitz gas chambers.</p>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">5</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">7</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'evolution_of_holocaust_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_9' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_9' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+</div>
+<!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

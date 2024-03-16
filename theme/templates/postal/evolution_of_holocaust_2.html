@@ -31,22 +31,29 @@
             <a href="{% url 'evolution_of_holocaust_2' %}#civil-internment"
                 class="list-group-item list-group-item-action" onclick="makeActive(event)"> Civil Internment
                 Camps</a>
-            <a href="{% url 'evolution_of_holocaust_3' %}#camp-amersfoort" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Concentration
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-amersfoort"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Concentration
                 Camp Amersfoort</a>
-            <a href="{% url 'evolution_of_holocaust_3' %}#camp-vught" class="list-group-item list-group-item-action" onclick="makeActive(event)">Concentration
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-vught" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Concentration
                 Camp Vught </a>
-            <a href="{% url 'evolution_of_holocaust_3' %}#gestapo-prison" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Gestapo Prison
+            <a href="{% url 'evolution_of_holocaust_3' %}#gestapo-prison" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Gestapo Prison
                 Scheveningen </a>
-            <a href="{% url 'evolution_of_holocaust_3' %}#german-investigation" class="list-group-item list-group-item-action" onclick="makeActive(event)"> German
+            <a href="{% url 'evolution_of_holocaust_3' %}#german-investigation"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> German
                 Investigation and Punishment Prison - Utrecht
             </a>
-            <a href="{% url 'evolution_of_holocaust_4' %}" class="list-group-item list-group-item-action" onclick="makeActive(event)"> Transit Camp
+            <a href="{% url 'evolution_of_holocaust_4' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Transit Camp
                 Westerbork
             </a>
-            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+            <a href="{% url 'evolution_of_holocaust_8' %}#german-concentration"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)">
                 German Concentration Camp Mail
             </a>
-            <a href="#" class="list-group-item list-group-item-action" onclick="makeActive(event)">
+            <a href="{% url 'evolution_of_holocaust_9' %}#post-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
                 Post War Enquiries
             </a>
         </div>
@@ -528,8 +535,8 @@
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">5</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">6</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">7</a></li>
-                <li class="page-item"><a class="page-link" href="#">8</a></li>
-                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_9' %}">9</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">Next</a></li>
             </ul>
         </nav>

@@ -103,6 +103,16 @@ def evolution_of_holocaust_7(request: HttpRequest):
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_7.html", ctx)
 
+def evolution_of_holocaust_8(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_8.html", ctx)
+
+def evolution_of_holocaust_9(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/evolution_of_holocaust_9.html", ctx)
+
 def timeline(request: HttpRequest):
     nav_links = get_nav_links("timeline")
     ctx = {"nav_links": nav_links}
@@ -112,7 +122,6 @@ def resources(request: HttpRequest):
     nav_links = get_nav_links("resources")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/resources.html", ctx)
-
 
 def mapinterface(request: HttpRequest):
     person = get_object_or_404(Person, pk=id)

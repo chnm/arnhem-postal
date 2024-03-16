@@ -1,0 +1,288 @@
+{% extends "postal/base.html" %}
+{% load static %}
+{% block extracss %}
+{% if request.path == '/exhibits/evolution-9/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Evolution of Holocaust in Holland{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'evolution_of_holocaust' %}#evolution-of-holocaust"
+                class="list-group-item list-group-item-action" aria-current="true" onclick="makeActive(event)">
+                Evolution of Holocaust in Holland
+            </a>
+            <a href="{% url 'evolution_of_holocaust' %}#pre-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Pre-War
+                Refugee Camps</a>
+            <a href="{% url 'evolution_of_holocaust' %}#central-refugee-transit"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Central
+                Refugee/Transit Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#camp-westerbork"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                Central Refugee Camp Westerbork</a>
+            <a href="{% url 'evolution_of_holocaust_2' %}#civil-internment"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Civil Internment
+                Camps</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-amersfoort"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Concentration
+                Camp Amersfoort</a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#camp-vught" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Concentration
+                Camp Vught </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#gestapo-prison" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Gestapo Prison
+                Scheveningen </a>
+            <a href="{% url 'evolution_of_holocaust_3' %}#german-investigation"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)"> German
+                Investigation and Punishment Prison - Utrecht
+            </a>
+            <a href="{% url 'evolution_of_holocaust_4' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Transit Camp
+                Westerbork
+            </a>
+            <a href="{% url 'evolution_of_holocaust_8' %}#german-concentration"
+                class="list-group-item list-group-item-action" onclick="makeActive(event)">
+                German Concentration Camp Mail
+            </a>
+            <a href="{% url 'evolution_of_holocaust_9' %}#post-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Post War Enquiries
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- German Concentration Camp Mail (continued) -->
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> German Concentration Camp Mail (continued) </h1>
+            </div>
+        </div>
+
+        <h2> Oranienburg / Sachsenhausen </h2>
+        <div class="row end-row-indent-sm">
+
+            <div class="col-lg-12">
+                <p>Oranienburg, located near Berlin, was an early Nazi concentration camp which was taken over by the SS
+                    and renamed Sachsenhausen Camp in 1936. The earlier name, Oranienburg, continued to be used as can
+                    be seen on this correspondence. Between 1936 and 1945, more than 200,000 people were held there.
+                    Some were domestic or foreign political opponents of the regime, while the camp also housed forced
+                    laborers and Allied prisoners of war. Tens of thousands died from forced labor, disease, hunger, or
+                    systematic extermination by the SS, where for example the SS killed 88 Dutch civilian hostages in
+                    May 1942. Sachsenhausen was liberated by the Red Army on April 22, 1945.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Oranienburg – Sittard, December 18, 1942.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Oranienburg – Sittard, December 18, 1942
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Jos Kusters, prisoner no. 34738, resided in Barracks 51.
+                        wrote to his wife in December 1942. By June 1944, his wife had moved to a different address.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">The tariff for a first-class letter was 12 Pfennige;
+                        internees had to pay for postage in violation of the Geneva Convention; Sachsenhausen censors
+                        initialed circular handstamps that differed in detail.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Sachsenhausen Sign.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Sachsenhausen Sign
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Prisoners who stepped outside the neutral zone were shot
+                        without warning.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/forced-labor.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Forced labor: the tree detail (FSB-Archiv Moskau)
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Oranienburg – Sittard, June 17, 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Oranienburg – Sittard, June 17, 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Although the letter had been cleared by the Sachsenhausen
+                        Camp censor, the sheet was opened again by the Cologne censor who then sealed it with label type
+                        Landsmann CV3.2 topped by a machine cancel and then applied a blue copper sulfate swipe to check
+                        for messages written in invisible ink.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+        </div>
+
+        <!-- Post War Enquiries  -->
+        <a name="post-war"></a>
+        <div class="row end-row-indent-sm new-row-indent">
+            <a name="german-concentration"></a>
+            <h1>Post War Enquiries</h1>
+            <h2> Oranienburg / Sachsenhausen </h2>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Red Cross enquiry dated February 16, 1945.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Red Cross enquiry dated February 16, 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">“How you doing? Mom died January 28 ‘in s-Herogenbosch. Suffered a
+                        lot. Am very sad. Mom died alone. Dad hotel. I am with Dick.”
+                    </p>
+                </div>
+                <p>
+                    This Red Cross form was sent from Middelburg (liberated November 6, 1944) to enquire about the van
+                    den Hil family in Utrecht (still occupied) Forms were sent via the Dutch Red Cross to its
+                    headquarters in Geneva, which then placed the large circular handstamp. The Dutch censorship marking
+                    was placed in Eindhoven. Messages were limited to 25 words.
+                </p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Dutch Red Cross National Tracing Bureau responded.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">“Considering that since the deportation nothing has been heard from
+                        or regarding the subject, it has to be concluded that David Hijman Hirsch must have died as the
+                        results of illness, exhaustion, gassing or otherwise.”
+                    </p>
+                </div>
+                <p>
+                    This Dutch Red Cross National Tracing Bureau responded to an enquiry seeking information on David
+                    Hijman Hirsch. He had been deported from Westerbork to Auschwitz on August 24, 1943. His name
+                    appears on the “Judentransport aus den Niederlanded” list maintained by the Germans.
+                </p>
+            </div>
+
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Drieberg – Amsterdam, June 21, 1945.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Drieberg – Amsterdam, June 21, 1945
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Domestic postcard tariff 5 cents (from August 20, 1940, to
+                        November 1, 1946).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <div class="alert alert-info" role="alert">
+                    <p class="remove-margin-bottom">“Can you please let me know by return if these family members are
+                        shown on any list or provide information about their fate. They lived at Noorder Amstellaan 160,
+                        Amsterdam and were transported to Westerbork.”
+                    </p>
+                </div>
+                <p>
+                    This postcard, sent by J. van Praag to Inlichtingen Joodse Aangelegenheden (Information on Jewish
+                    Affairs), sought information on the fate of his family. The answer was all too familiar: Dr. H.
+                    Limburg, his wife Rosetta Limburg-van Praag and son Nico died in Auschwitz on October 30, 1944.
+                    Another son, David Juda Limburg, died in Germany on May 31, 1945.
+                </p>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <h2> Enquiries and Endings </h2>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Local Rotterdam mail, November 24, 1941.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Local Rotterdam mail, November 24, 1941</figcaption>
+                    <figcaption class="figure-caption unbold">Local letter rate was 5 cents per 20 grams (from August
+                        20, 1940). The Type G29a envelope had a value of 7½ cents, thus the letter was over franked by 2
+                        ½ cents.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Sign of Life Card, May 25, 1945.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">“Sign of Life” Card, May 25, 1945</figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p>The Jewish Council (Joodseraad) had been created by the Germans in February 1941 to administer the
+                    Jewish community in the Netherlands. Council Directors Asscher and Cohen became accomplices in
+                    enforcing anti-Jewish measures. However, in September 1943 the members of the Jewish Council were
+                    themselves deported to Westerbork and the council ceased to exist. Joseph Sanders (b. 1861) sent
+                    this letter to the Jewish Council in Rotterdam. The content is missing but one can guess the
+                    subject. Sanders, who lived in Rotterdam, died in Sobibor on April 30, 1943.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/evolution-of-holocaust/Central Registration Bureau.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>The Central Registration Bureau for Jews was created in 1945 to coordinate information for the
+                    liberated areas of the Netherlands. This letter dated July 16, 1946 to a surviving family member con
+                    rmed his worst fears. His parents had been deported to Theresienstadt on September 4, 1944, and his
+                    in-laws to Auschwitz on January 1, 1943. The Bureau advises him that “Until now we have received no
+                    news about their return to the Netherlands.” Post-war records leave no doubt about their fate.</p>
+                <p>One way to hear news about loved ones was the “Sign of Life” card sent to family members via the
+                    Geneva Red Cross. Albertus Frederik Steffen had been captured December 1, 1944, and held as a POW at
+                    Oflag 67 in Neu Brandenburg. It is dated May 25, 1945, and sent to his wife in Arnhem. After the
+                    Battle of Arnhem, she had moved to the Hague.</p>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_8' %}">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_5' %}">5</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_8' %}">8</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'evolution_of_holocaust_9' %}">9</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+</div>
+<!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}
