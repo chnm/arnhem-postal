@@ -113,6 +113,11 @@ def evolution_of_holocaust_9(request: HttpRequest):
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_9.html", ctx)
 
+def battle_of_arnhem(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/battle_of_arnhem.html", ctx)
+
 def timeline(request: HttpRequest):
     nav_links = get_nav_links("timeline")
     ctx = {"nav_links": nav_links}

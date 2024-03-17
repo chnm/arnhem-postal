@@ -215,6 +215,12 @@ ul li {
   background-size: cover;
 }
 
+.hero-image-boa {
+  height: 500px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/hero-battle-of-arnhem.png);
+  background-size: cover;
+}
+
 .hero-image-evolution h1 {
   font-family: 'Playfair Display', serif;
   color: white;

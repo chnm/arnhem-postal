@@ -161,6 +161,10 @@
     {% include 'postal/evolution_of_holocaust_hero.html' %}
     {% endif %}
 
+    {% if request.path == '/exhibits/boa/' %}
+    {% include 'postal/battle_of_arnhem_hero.html' %}
+    {% endif %}
+
     <main class="end-row-indent">
         <div class="row">
             {% block content %}{% endblock content %}

@@ -55,6 +55,11 @@ urlpatterns = [
         views.evolution_of_holocaust_9,
         name="evolution_of_holocaust_9",
     ),
+    path(
+        "exhibits/boa/",
+        views.battle_of_arnhem,
+        name="battle_of_arnhem",
+    ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
     path("resources/", views.resources, name="resources"),
