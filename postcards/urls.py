@@ -75,6 +75,11 @@ urlpatterns = [
         views.battle_of_arnhem_4,
         name="battle_of_arnhem_4",
     ),
+    path(
+        "exhibits/boa-5/",
+        views.battle_of_arnhem_5,
+        name="battle_of_arnhem_5",
+    ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
     path("resources/", views.resources, name="resources"),
