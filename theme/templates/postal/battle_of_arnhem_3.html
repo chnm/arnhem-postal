@@ -37,6 +37,10 @@
                     onclick="makeActive(event)">Allied Losses</a>
                 <a href="{% url 'battle_of_arnhem_3' %}#german-opposition"
                     class="list-group-item list-group-item-action" onclick="makeActive(event)"> German Opposition </a>
+                <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">Allied Losses</a>
+                <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
                 <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
                     onclick="makeActive(event)"> Mail En Route During the Fighting
                 </a>
@@ -294,10 +298,10 @@
         <!-- End The Battle of Arnhem and Its Impact on Civilian Life -->
 
         <!-- Allied Losses -->
-        <div class="row  new-row-indent">
+        <div class="row new-row-indent">
             <a name="allied-losses"></a>
             <div class="col-lg-12">
-                <h1> Allied Losses </h1>
+                <h1 class="end-row-indent-sm"> Allied Losses </h1>
                 <p> On 17 September, Wing Commander P. B. Davis DSO and his crew, flying Stirling LK135 towed Horsa
                     Glider C/N 381, which was piloted by Capt J. G. Ogilvie & Lt K. F. Strathern, both of Headquarters
                     'D' Sqn (Ogilvie would not return). The 20 troops they were ferrying, together with 3 motorcycles,
@@ -377,7 +381,7 @@
         <div class="row new-row-indent">
             <a name="german-opposition"></a>
             <div class="col-lg-12">
-                <h1> German Opposition </h1>
+                <h1 class="end-row-indent-sm"> German Opposition </h1>
                 <p> Corporal Rudolf Arnold served with Air Force Flak units in Germany, Romania and the Soviet Union
                     from December 1941 to January 1943. He was then transferred to Flak unit 455 based in Germany which,
                     on 6 June 1944, was renamed Siegfried 12500b.mot., a motorized flak ‘alarm’ group for defense
@@ -454,13 +458,12 @@
         </div>
         <!-- End German Opposition -->
 
-        <!-- End Central Refugee Camp Westerbork -->
         <nav aria-label="Page navigation example" class="pagination-nav">
             <ul class="pagination justify-content-center">
                 <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
                 <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
-                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">5</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">6</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">7</a></li>

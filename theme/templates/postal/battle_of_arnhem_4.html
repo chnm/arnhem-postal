@@ -1,0 +1,362 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-4/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces
+                <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Mad Tuesday: 5 September 1944</a>
+                <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">Allied Advance</a>
+                <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">The Battle of Arnhem</a>
+                <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian"
+                    class="list-group-item list-group-item-action" onclick="makeActive(event)"> Its Impact on Civilian
+                    Life</a>
+                <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">Allied Losses</a>
+                <a href="{% url 'battle_of_arnhem_3' %}#german-opposition"
+                    class="list-group-item list-group-item-action" onclick="makeActive(event)"> German Opposition </a>
+                <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">Allied Losses</a>
+                <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)"> Mail En Route During the Fighting
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)"> Impact on Civilian Life
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Severed Connection - Returned Mail
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Evacuees
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Delayed Delivery - Überroller
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Prisoner of War Mail
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Dutch Resistance
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Role of the Red Cross
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    German Red Cross Tracing Service
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Lasting Thanks
+                </a>
+
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Allied Losses -->
+        <a name="allied-losses"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Allied Losses </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIMaritimeMailXXXXXX_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Sussex (UK) to 4th Parachute Brigade HQ Expeditionary APO, 18
+                        October 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Harold Kirkham was a Private in the Defence Platoon of the 4th Parachute Brigade (Service Number
+                    3857484). He was born on 24 April 1914, son of Alfred and Elizabeth Ann Kirkham of Bolton, UK. His
+                    brother, Sidney was a Sick Berth Attendant with HMS Aggressive, a Royal Navy shore establishment.
+                    Sidney wrote to his brother on 24 September 1944, but the letter was returned on 18 October 1944,
+                    stamped in the field by what little remained of 4th Brigade HQ, It indicated that Harold Kirkham was
+                    reported missing. <span class="bolded">It is believed that this is the only existing item to have
+                        been stamped by the 4th
+                        Brigade office in the field following the Battle of Arnhem.</span> </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIMaritimeMailXXXXXX_Reverse.jpg' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Kirkham served with the 4th Brigade Defence Platoon, whose task was to secure the drop zone
+                    rendezvous point for the vast majority of 4th Parachute Brigade who were scheduled to arrive the
+                    following day.
+                </p>
+                <p> Franked with 2d plus 1/2d adhesive stamps cancelled by red machine cancel POST OFFICE / MARITIME
+                    MAIL. On front manuscript Missing and signature in blue ink, framed cachet in purple IT IS REGRETTED
+                    etc. applied and initialed in red ink. Also, manuscript NO TRACE / IG and PTO, both in red ink. On
+                    back oval framed 4th Parachute Brigade / CAMP OFFICE 1944 in purple. The Expeditionary APO opened
+                    the cover, addressed it to the sender in red ink and closed it with white strip OFFICIALLY SEALED IN
+                    THE/ARMY POST OFFICE. Red machine cancel POST OFFICE/MARITME MAIL applied. On reaching New Haven it
+                    was re-addressed to R.N. Barracks Portsmouth, Hants, first in pencil and then in ink on brown paper
+                    strip. </p>
+                <p> The Defence Platoon was involved in heavy fighting during their advance from the DZ in the direction
+                    of Arnhem. Just before they could push on to the center of Oosterbeek, they got into a fierce fight
+                    in the woods along the Valkenburglaan. This place would later be known as 'Hacket’s Hollow'. Several
+                    members of the platoon were killed or wounded here. </p>
+                <p> L/Cpl. H. Boorman wrote in a short account after the war “.…the first I saw of them [Dolaghan and
+                    Kirkham] was on the 17th Sept, Sunday afternoon, as they were leaving the D.Z. near Oosterbeek. I
+                    was a D.Z. casualty and was taken straight to a R.A.P…. later I heard from Pte. R. Burns that he was
+                    with Pte. Kirkham, when he got wounded in the legs and he was left in a wood near Oosterbeek….” </p>
+                <p> In a letter dated 2 July 1945, Private Thomas Dolaghan described the fate of his friend Harold
+                    Kirkham: "…. I last saw Pte Kirkham about 10 minutes before I was taken prisoner. At that time we
+                    were withdrawing through some woods to a new position. He was fit and unwounded. I have since heard
+                    from Pte G. Bamborough that Kirkham was very badly wounded later on .... Kirkham asked Atkinson to
+                    leave him down as he thought he would not last much longer…" </p>
+            </div>
+
+            <div class="col-lg-2">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Harald Kirkham.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-10">
+                <p> <span class="bolded">Harald Kirkham is buried in the Oosterbeek Airborne Cemetery in grave
+                        28.B.I.</span>
+                </p>
+                <p> Most likely the body of Harold was left behind where he died. After the war the process of locating
+                    field graves, the exhumation of the remains and reburial at the cemetery in Oosterbeek started. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/October 1942 Paratroops.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Original postcard. October 1942 Paratroops on parade outside a
+                        hangar at No 1 Parachute Training School, Ringway, Manchester
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/4th Brigade Defence Platoon.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> This photo, taken by Lt Hugh Gilson Taylor, Commanding Officer
+                        of the Defence Platoon, is one of the few of the 4th Brigade Defence Platoon
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> The 4th Parachute Brigade was virtually wiped out in the
+                        fighting at Arnhem. Only 462 men were evacuated out of the Brigade's 2,170 men who arrived in
+                        Arnhem. 252 men were killed, and 1,456 were missing or prisoners of war. Their total casualties
+                        amounted to seventy-eight per cent. The Brigade was disbanded on its return to the UK.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+        </div>
+        <!-- End The Battle of Arnhem and Its Impact on Civilian Life -->
+
+        <!-- Allied Losses -->
+        <div class="row new-row-indent">
+            <a name="SS-Panzer"></a>
+            <h1 class="end-row-indent-sm"> 10. SS Panzer Division 'Frundsberg' </h1>
+
+            <div class="col-lg-8">
+                <p>
+                    SS-Sturmmann Herbert von Seelen had served with the SS missions in Serbia and the Soviet Union when
+                    he was promoted to SS-Unterscharführer (Deputy Squad Leader) on 19 April 1943, having completed an
+                    Artillery training course. From January to May 1943, he was serving in an Artillery unit in Germany
+                    after which he was transferred to the newly formed 10.SS-Panzer Division 'Frundsberg' based in
+                    Marseilles and North France. From April to June 1944 this division operated in Tarnopol (Ternopol)
+                    and Lemberg (Lviv) in Ukraine. The 'Frundsberg' Division then returned to France and fought during
+                    the Allied invasion of Normandy where it was decimated. </p>
+                <p>
+                    The remnant of the Division was then
+                    transferred to Arnhem for Rest and Recreation, but instead they quickly became involved in defending
+                    against Operation Market Garden. The Division fought against British airborne troops throughout the
+                    Arnhem area. Herbert von Seelen was transferred to a Praguebased replacement unit on 24 September
+                    1944, most likely due to an injury that he received during the Battle of Arnhem.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/German SS Polizei.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> German SS Polizei in position in the woods outside Arnhem ready
+                        to repulse Allied Airborne troops, September 1944. IWM MH3956.
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6 align-center">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original military passbook.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Original military passbook (wehrpaß) issued to
+                        SS-Unterscharführer Herbert von Seelen
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original medal certificate.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption unbold"> <span class="bolded">Original medal certificate.</span>
+                        Feldwebel (sergeant) Sergeant Rudolf
+                        Weigl of First Tank Reconnaissance Unit 9 received the Badge 1st Grade in Bronze for 15 days in
+                        close combat on 2 July 1943 from the captain of his unit. Weigl served with his Panzer unit in
+                        the Soviet Union until March 1944. His battered unit was then transferred to southern France to
+                        recover and rearm. In September 1944 it took part in the defense against Operation Market Garden
+                        in the Arnhem region.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIMauthausen091644_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Mauthausen, Germany to Arnhem (GL), 16 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> The sender appears to have been a stamp collector working
+                        at the Mauthausen Concentration Camp. He is complaining to Thoolen, a pro-German Dutch stamp
+                        dealer in Arnhem, that he did not receive stamps although he had paid for them.
+                    </figcaption>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Glider Pilot Regiment.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> A Dutch school being searched by Sgt. J. Whawell and Sgt. J.
+                        Turrell of the Glider Pilot Regiment, 20 September 1944 IWM BU1100.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Horsa and Hamilcar gliders on Landing Zone.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Photographic reconnaissance showing Horsa and Hamilcar gliders
+                        on Landing Zone (LZ) 'Z' near Wolfheze. IWM CL 1173.
+                    </figcaption>
+                </figure>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <p> Card received two primitive hand stamps: <span class="bolded">TERUG / AFZENDER</span>
+                            (return / sender) on the front and
+                            the
+                            mutilated <span class="bolded">Geen Post / verbinding</span> (no mail / connection) on the
+                            back. </p>
+                    </div>
+                    <div class="col-lg-4">
+                        <figure class="figure">
+                            <img src="{% static 'images/battle-of-arnhem/TERUG-AFZENDER.png' %}" class="img-fluid"
+                                style="height: 150px;">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIMaastricht092644_Front.jpeg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Maastricht (Limburg) to Arnhem (GL), 20 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> Censored in Berlin, Landsmann type BPV1.3 (red) in use
+                        from February to October 1944. Franked with 25 Pfennige (rate from 1 May 1940). Operation Market
+                        Garden was by now in full swing and the letter was returned with the German hand stamp:
+                        Postverbindung / Unterbrochen / Zurück Absender (postal connection / severed / return sender).
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> The card was returned to Maastricht with the <span
+                            class="bolded">elusive
+                            label: Daar verzending voorloopig niet mogelijk is, mogen de stukken aan de afzenders worden
+                            teruggegeven</span> (because dispatch is for the time being not possible, items may be
+                        returned to the
+                        sender).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>While Arnhem was the focal point of the battle, Maastricht had been liberated on 14 September 1944.
+                    From the content: “…the first guests are gone… the wildest rumors are making the rounds.… yesterday
+                    we were in the cellar 4 times… was in Eindhoven yesterday morning at 10am and by 7:30pm in
+                    Maassluis… had to flee from the train 9 times…”</p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIAmersfoort092044_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Amersfoort (UT) to Arnhem (GL), 20 September 1944, held back and
+                        erroneously routed to Apeldoorn, 27 March 1945.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>Excerpt from the card: “I received your note, it took a week. How is Cathy doing, did she stay there?
+                    I don’t think mail is still coming through… We no longer see any family because one can no longer
+                    travel. We have gas for a few hours but coal is reduced this week…”</p>
+            </div>
+
+        </div>
+        <!-- End 10. SS Panzer Division 'Frundsberg' -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'evolution_of_holocaust_3' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}
