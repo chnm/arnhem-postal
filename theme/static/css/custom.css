@@ -215,14 +215,20 @@ ul li {
   background-size: cover;
 }
 
-.hero-image-evolution h1 {
+.hero-image-boa {
+  height: 500px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/boa-hero.png);
+  background-size: cover;
+}
+
+.hero-image-evolution h1, .hero-image-boa h1 {
   font-family: 'Playfair Display', serif;
   color: white;
   font-weight: 600;
   font-size: 40px;
 }
 
-.hero-image-evolution .row {
+.hero-image-evolution .row, .hero-image-boa .row {
   align-items: center;
   height: 100%;
 }
