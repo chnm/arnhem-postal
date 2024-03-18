@@ -15,64 +15,67 @@
         <div class="list-group sticky-top">
             <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
             </li>
-            <a href="{% url 'battle_of_arnhem' %}#false-hope"
-                class="list-group-item list-group-item-action" aria-current="true" onclick="makeActive(event)">
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
                 False Hope
             </a>
             <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
                 onclick="makeActive(event)">Allied Forces</a>
-            <a href="{% url 'battle_of_arnhem' %}#german-forces"
-                class="list-group-item list-group-item-action" onclick="makeActive(event)"> German Forces
-            <a href="{% url 'battle_of_arnhem' %}"
-                class="list-group-item list-group-item-action" onclick="makeActive(event)">
-                Mad Tuesday: 5 September 1944</a>
-            <a href="{% url 'battle_of_arnhem' %}"
-                class="list-group-item list-group-item-action" onclick="makeActive(event)">Allied Advance</a>
-            <a href="{% url 'battle_of_arnhem' %}"
-                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Its Impact on Civilian Life</a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)">Allied Losses</a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)"> German Opposition </a>
-            <a href="{% url 'battle_of_arnhem' %}"
-                class="list-group-item list-group-item-action" onclick="makeActive(event)"> Mail En Route During the Fighting
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)"> Impact on Civilian Life
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}"
-                class="list-group-item list-group-item-action" onclick="makeActive(event)">
-                Severed Connection - Returned Mail
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)">
-                Evacuees
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)">
-                Delayed Delivery - Überroller 
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)">
-                Prisoner of War Mail
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)">
-                Dutch Resistance
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)">
-                Role of the Red Cross
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)">
-                German Red Cross Tracing Service
-            </a>
-            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
-                onclick="makeActive(event)">
-                Lasting Thanks
-            </a>
-            
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces
+                <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Mad Tuesday: 5 September 1944</a>
+                <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">Allied Advance</a>
+                <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">The Battle of Arnhem</a>
+                <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian"
+                    class="list-group-item list-group-item-action" onclick="makeActive(event)"> Its Impact on Civilian
+                    Life</a>
+                <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">Allied Losses</a>
+                <a href="{% url 'battle_of_arnhem_3' %}#german-opposition"
+                    class="list-group-item list-group-item-action" onclick="makeActive(event)"> German Opposition </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)"> Mail En Route During the Fighting
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)"> Impact on Civilian Life
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Severed Connection - Returned Mail
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Evacuees
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Delayed Delivery - Überroller
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Prisoner of War Mail
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Dutch Resistance
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Role of the Red Cross
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    German Red Cross Tracing Service
+                </a>
+                <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                    onclick="makeActive(event)">
+                    Lasting Thanks
+                </a>
+
         </div>
     </div>
 
@@ -192,10 +195,10 @@
         <!-- End False Hope and Lasting Thanks -->
 
         <!-- Allied Forces -->
-        <div class="row  end-row-indent-sm">
+        <div class="row new-row-indent">
             <a name="allied-forces"></a>
             <div class="col-lg-12">
-                <h1> Allied Forces </h1>
+                <h1 class="end-row-indent-sm"> Allied Forces </h1>
                 <p> Although most Allied commanders favored a broad front policy to continue the advance into
                     Germany, Field Marshal Bernard Montgomery approached General Dwight “Ike” Eisenhower, supreme
                     commander of Allied forces in western Europe, with an uncharacteristically bold plan to head north
@@ -293,10 +296,10 @@
         <!-- End Allied Forces -->
 
         <!-- German Forces -->
-        <div class="row end-row-indent-sm">
+        <div class="row new-row-indent">
             <a name="german-forces"></a>
             <div class="col-lg-12">
-                <h1> German Forces</h1>
+                <h1 class="end-row-indent-sm"> German Forces</h1>
                 <p> Although most Allied commanders favored a broad front policy to continue the advance into
                     Germany, Field Marshal Bernard Montgomery approached General Dwight “Ike” Eisenhower, supreme
                     commander of Allied forces in western Europe, with an uncharacteristically bold plan to head north
@@ -375,10 +378,8 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-4">
                 <figure class="figure">
-                    <img src="{% static 'images/battle-of-arnhem/Field Marshall Rundstedt.png' %}"
-                        class="img-fluid">
-                    <figcaption class="figure-caption">Field Marshall Rundstedt - Time Magazine 21 August 1944. Original
-                        on reverse.</figcaption>
+                    <img src="{% static 'images/battle-of-arnhem/Field Marshall Rundstedt.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Field Marshall Rundstedt - Time Magazine 21 August 1944</figcaption>
                 </figure>
             </div>
             <div class="col-lg-4">
@@ -386,7 +387,7 @@
                     <img src="{% static 'images/battle-of-arnhem/Rare handwritten letter by Generalfeldmarschall.png' %}"
                         class="img-fluid">
                     <figcaption class="figure-caption">Rare handwritten letter by Generalfeldmarschall Model, dated 16
-                        October 1940. Original on reverse.</figcaption>
+                        October 1940</figcaption>
                 </figure>
             </div>
             <div class="col-lg-2"></div>
@@ -398,8 +399,8 @@
         <nav aria-label="Page navigation example" class="pagination-nav">
             <ul class="pagination justify-content-center">
                 <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
-                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">2</a></li>
-                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">4</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">5</a></li>
                 <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">6</a></li>

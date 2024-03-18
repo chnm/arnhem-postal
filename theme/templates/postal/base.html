@@ -165,6 +165,14 @@
     {% include 'postal/battle_of_arnhem_hero.html' %}
     {% endif %}
 
+    {% if request.path == '/exhibits/boa-2/' %}
+    {% include 'postal/battle_of_arnhem_hero.html' %}
+    {% endif %}
+
+    {% if request.path == '/exhibits/boa-3/' %}
+    {% include 'postal/battle_of_arnhem_hero.html' %}
+    {% endif %}
+
     <main class="end-row-indent">
         <div class="row">
             {% block content %}{% endblock content %}

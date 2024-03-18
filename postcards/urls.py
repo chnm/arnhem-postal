@@ -60,6 +60,16 @@ urlpatterns = [
         views.battle_of_arnhem,
         name="battle_of_arnhem",
     ),
+    path(
+        "exhibits/boa-2/",
+        views.battle_of_arnhem_2,
+        name="battle_of_arnhem_2",
+    ),
+    path(
+        "exhibits/boa-3/",
+        views.battle_of_arnhem_3,
+        name="battle_of_arnhem_3",
+    ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
     path("resources/", views.resources, name="resources"),

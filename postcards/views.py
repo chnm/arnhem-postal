@@ -118,6 +118,16 @@ def battle_of_arnhem(request: HttpRequest):
     ctx = {"nav_links": nav_links}
     return render(request, "postal/battle_of_arnhem.html", ctx)
 
+def battle_of_arnhem_2(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/battle_of_arnhem_2.html", ctx)
+
+def battle_of_arnhem_3(request: HttpRequest):
+    nav_links = get_nav_links("exhibits")
+    ctx = {"nav_links": nav_links}
+    return render(request, "postal/battle_of_arnhem_3.html", ctx)
+
 def timeline(request: HttpRequest):
     nav_links = get_nav_links("timeline")
     ctx = {"nav_links": nav_links}
