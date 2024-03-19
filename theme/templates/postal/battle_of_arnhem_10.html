@@ -1,0 +1,474 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-9/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Prisoner of War Mail -->
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Prisoner of War Mail </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <p> Oflag 79 was a German POW camp for Allied officers. Many British officers were held there after they
+                    had been taken prisoner at Arnhem during Operation Market Garden. The camp was located at Waggum
+                    near Braunschweig, also known by its English name, Brunswick. It was situated in a three-story brick
+                    building that had previously housed a German parachute regiment, near the Hermann Göring aircraft
+                    engine factory. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIMühlberg092744_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Muhlberg to Braunschweig, Germany, 27 September 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Sent from the Postüberwachung (Mail monitoring) in Stalag IV, to the senior British Officer in Oflag
+                    79. The letter was checked and passed by the camp censor #28 who placed the boxed purple handstamp.
+                </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Still defiant - Lt Jack Reynolds.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Still defiant - Lt Jack Reynolds, 2 Battalion South Staffs “saluting” the German photographer as
+                        he is led into captivity. ©Jack Reynolds/BNPS
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-8">
+                <p>
+                    The 43rd (Wessex) Division, part of XXX Corps, played a major role in Operation Market Garden.
+                    Leading elements of the Division arrived in Driel on the evening of Friday, September 22. An
+                    unsuccessful attempt was made that night to put elements of the Polish brigade across the Nederrijn
+                    (Lower Rhine). British and Polish engineers on both sides of the Rhine had worked through the day to
+                    improvise a crossing using small boats linked by signals cable but the cable kept breaking, forcing
+                    the Polish troops to row across against the strong current. The attempt was made under enemy fire
+                    and only 52 soldiers of the 8th Polish Parachute Company had made the crossing before a halt was
+                    called at dawn.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/British POWs at Arnhem.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        British POWs at Arnhem. Bundesarchiv Bild 183-S73820
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p> Two companies from the 4th Battalion, The Dorsetshire Regiment, 43rd Division were put across the
+                    river, but the location of the crossing point was ill-advised and the Dorsets landed among German
+                    positions. Fragmented and immediately pinned down, only 75 of the 315 men who crossed reached the
+                    Airborne perimeter in Oosterbeek, with the remainder being taken killed or captured. As a result of
+                    this failure, it was decided to withdraw the 1st Airborne Division from its bridgehead on the
+                    northern side of the Rhine.
+                </p>
+                <p>
+                    In the aftermath of Market Garden, 43rd Wessex Div was stationed on the “island” between the Rivers
+                    Waal and Nederrijn, Overnight on 22–23 October 1944, men of the 43rd Div, together with Britain's
+                    MI9 intelligence organization, and the Dutch Resistance evacuated 138 men, mostly soldiers trapped
+                    in German-occupied territory who had been in hiding since the Battle of Arnhem a month earlier.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIFieldPostOffice102244_Front.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Letter dated 22 October 1944 to Sussex, England from FPO 504, the field post office number
+                        allocated to the 43rd Wessex Infantry Division while in Holland
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Clifford (Cliff) James Taylor, born in 1917, was promoted to Lance Corporal in the 9th Platoon of A
+                    Company in the South Staffordshire Regiment on 1 August 1944. Posted to 1st Air Landing Brigade, he
+                    served as a Bren gunner during the Battle of Arnhem. On Monday, 18 September, the 2nd day of the
+                    battle, Taylor landed by glider at Drop Zone S near Reijerskamp in Wolfheze. Originally assigned to
+                    guard Drop Zone X for parachute troops coming on a later lift, their orders were changed and they
+                    were directed to head for Arnhem and the bridge. His regiment came through Oosterbeek and joined
+                    soldiers from the 11th and 3rd Parachute Regiment that gradually worked their way along the river
+                    and finally, from “high up” in a street lined with large houses, they could see the bridge at Arnhem
+                    - Target Mike One. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Stalag IV B (Mühlberg) to Stafford (UK).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Stalag IV B (Mühlberg) to Stafford (UK), 24 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Cliff Taylor was immediately transferred by rail to Stalag IV B in Mühlberg and he writes to his
+                        mother from there on 24 October 2944. The censor placed handstamp 42 / Geprüft / Stalag IV B.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/south-staffordshire.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <p>
+                    Heavy fighting ensued for the next several days. Late on Tuesday, 19 September, the Germans attacked
+                    the South Staffs position with combined tanks and infantry. Without sleep, with little remaining
+                    food and drink, and almost out of ammo, Cliff and surviving members of his unit were captured in the
+                    top floor of a home located on Utrechtsweg, opposite the Museum, known forever afterwards to the
+                    South Staffs as the “Monastery”.
+                </p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/LCPL Cliff Taylors POW Identification Tags.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        LCPL Cliff Taylor's POW Identification Tags
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original South Stafford.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original South Stafford Regimental shoulder patch
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p> Cliff Taylor and his fellow POWs were taken in trucks to a large shed near the railway line and then
+                    were put into freight cars, having first been made to remove their boots to prevent escapes. After
+                    arriving at Stalag XII A, located near Limburg, Cliff was assigned POW nr. 89432. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Stalag IV C (Bystřice) to Stafford UK.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Stalag IV C (Bystřice) to Stafford UK, 19 November 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        By 19 November 1944 Cliff had been transferred to Stalag IV C, a POW camp in German-occupied
+                        Czechoslovakia. He writes that he is doing well, although very cold and dreaming of being home.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Excerpt from letter: <br> ”…I hope that you received my card as no doubt you heard I was
+                        missing… I
+                        know what worry it has been for you not knowing if I was dead or alive. This is my correct
+                        address and the Red Cross will tell you how to write and send things….”
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/London to Stafford (UK).png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        London to Stafford (UK), 8 December 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The Red Cross informed Mrs. Taylor that her son was now being held in Stalag XIIA, although he
+                        was actually located in Stalag IVC in Czechoslovakia. It often took the Red Cross some time to
+                        trace a POW's exact location.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Stafford (UK) to Stalag IV C (Bystřice).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Stafford (UK) to Stalag IV C (Bystřice), 14 March 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Cliff Taylor and his wife.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Cliff Taylor and his wife, Veronica visiting the Airborne Cemetery at Oosterbeek in 1994. Cliff
+                        died 2 years later at the age of 78.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <p>
+                    Mrs. Taylor wrote to her son on 14 March 1945. She wrote about day-to-day activities, gardening and
+                    how much she looked forward to him coming home.
+                </p>
+                <p>
+                    Stalag IV C was co-located with a plant that processed oil from coal. As part of the Allied bombing
+                    campaign to interrupt German oil production, it was bombed on multiple occasions between July 1944
+                    and April 1945. In the second raid on 21 July 1944, six British POWs were killed and 21 were
+                    injured.
+                </p>
+                <p>
+                    In September 1994 Cliff wrote the following: "I shall never forget the friendship and kindness of
+                    the Dutch people. .... we turned Oosterbeek and Arnhem into a battlefield and we brought them death
+                    and suffering - yet, when we return now, we find only friendship."
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Entrance to Stalag IV-B.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Entrance to Stalag IV-B
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Telegram, 22 May 1945.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Telegram, 22 May 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Stalag IV C was liberated by the Russian Army on 15 May 1945. Cliff went by train and then truck to
+                    Pilsen, before being flown by the Americans to Rheims. He was de-loused on arrival and then given an
+                    American uniform, Lance Corporal Clifford Taylor could finally send this telegram home. His war was
+                    over. </p>
+            </div>
+
+        </div>
+        <!-- End Prisoner of War Mail -->
+
+        <!-- Delayed Delivery - Überroller -->
+        <div class="row new-row-indent">
+            <a name="uberoller"></a>
+            <h1 class="end-row-indent-sm"> The Battle of Arnhem - Dutch Resistance </h1>
+
+            <div class="col-lg-12">
+                <p> Oflag 79 was a German POW camp for Allied officers. Many British officers were held there after they
+                    had been taken prisoner at Arnhem during Operation Market Garden. The camp was located at Waggum
+                    near Braunschweig, also known by its English name, Brunswick. It was situated in a three-story brick
+                    building that had previously housed a German parachute regiment, near the Hermann Göring aircraft
+                    engine factory. </p>
+            </div>
+
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Fallschirm Armee Flak Unit Volume II_0005.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original identification card issued 2 October 1944 to Hendrik Lombeers
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="new-row-indent-sm"></div>
+            <div class="col-lg-8">
+                <p>Lombeers was a Dutch member of the Intelligence Department active in Gelderland. “Authorities are
+                    kindly requested to grant him all the help and to give him all necessary admissions for
+                    duty-purposes."</p>
+                <p>By the middle of 1944, there were four major Resistance organizations in Holland. They did not
+                    coordinate their activities and for the most part, they did not answer to a central headquarters.
+                    Many members of the resistance did not learn the identity of their particular group until after the
+                    war. </p>
+                <p>
+                    OSS/SOE Jedburgh teams deployed with each Allied airborne division during Operation Market-Garden.
+                    The Jedburgh teams worked closely with their respective division commanders, performing civil
+                    affairs and unconventional warfare missions. However, they were primarily concerned with obtaining
+                    tactical intelligence provided by Resistance members.
+                </p>
+                <p>
+                    During Market Garden, intelligence supplied by the various Resistance networks was passed through
+                    the Jedburgh teams to the various tactical commanders. The commanders received intelligence on the
+                    composition and disposition of German forces, as well as information on terrain and condition of the
+                    bridges. Once the paratroopers were on the ground, this information flow continued.
+                </p>
+                <p>
+                    Some Resistance members carried out independent actions during the operation. Others actively sought
+                    out airborne soldiers and attached themselves to any unit that would take them. In cases where their
+                    loyalties were suspect, Resistance members were vetted by the Jedburgh teams. Once this was done,
+                    they were farmed out to different units. However, the British plan for using the Resistance fell
+                    apart after Col. Barlow, the officer in charge of civil affairs and of working with the Resistance
+                    in the Arnhem area, was killed.
+                </p>
+                <p>
+                    After the Oosterbeek perimeter collapsed, the resistance helped some 250 airborne soldiers, who were
+                    in hiding, escape across the Rhine, including 138 men in one night (22/23 October 1944) during
+                    Operation Pegasus.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original Commemorative Cross.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original Commemorative Cross
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The Dutch Commemorative War Cross, established on 16 March 1944, was awarded for participation
+                        in general wartime operations. Specific actions were recognized by small bars on the ribbon. In
+                        total 12 such bars were authorized, with 7 awarded for specific battles. The center shows Queen
+                        Wihelmina surrounded by the words “VOOR KRIJGSVERRICHTINGEN” FOR WAR OPERATIONS. The medal shown
+                        includes the rare “ARNHEM – NIJMEGEN / WALCHEREN 1944” bar.
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="new-row-indent-sm"></div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Heavy Fighting in Arnhem and Brabant.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        “Heavy Fighting in Arnhem and Brabant” – De Vliegende Hollander (The Flying Dutchman)
+                        Underground Newspaper – September 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="end-row-indent-sm"></div>
+
+        </div>
+        <!-- End Aftermath -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">10</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">11</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,477 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-7/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Severed Connection to Arnhem - Returned Mail (continued) -->
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Severed Connection to Arnhem - Returned Mail (continued) </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVILeeuwarden100444_Front_Back.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Leeuwarden (FR) to Velp (near Arnhem), 4 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> The letter was returned with the two hand stamps: TERUG /
+                        AFZENDER (RETURN SENDER) and Geen Post / verbinding (No postal connection)
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4"></div>
+
+            <div class="col-lg-12">
+                <p> Following Operation Market Garden postal connections were severed, not only to Arnhem, but also to
+                    nearby towns in the Province of Gelderland, such as Velp and Wageningen. </p>
+            </div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/grave of an unknown British soldier.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption "> The grave of an unknown British soldier at Arnhem, photographed
+                        after liberation, 15 April 1945. IWM BU3646
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/destruction of Oosterbeek 1945.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption "> Original post war postcard showing the destruction of
+                        Oosterbeek 1945
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIGravenhage111744_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        The Hague (SH) to Wageningen (GL), 18 October 1944
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIApeldoorn112044_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Apeldoorn (GL) to Arnhem (GL), 20 November 1944
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIAmsterdam100244_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Amsterdam (NH) to Wolfheze (GL), 2 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        When delivery was not possible, letters were returned via a larger post office, in this case via
+                        Apeldoorn on November 1. This one received two handstamps: TERUG / AFZENDER (return sender) and
+                        Geen Post / verbinding (no postal connection). The slogan cancel reflects the situation in the
+                        country: Collect refuse / Save raw materials.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12 align-center">
+                <p> Wolfheze, a village in Renkum municipality, the site of much activity by 1st Airborne Division, was
+                    finally liberated on 16 April 1945. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Pre-war Postcard - Post Office in Wolfheze.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Pre-war Postcard - Post Office in Wolfheze
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-5">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Men-of-C-Troop.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Men of 'C' Troop, 1st Airborne Reconnaissance Squadron, near Wolfheze station, 18 September
+                        1944. IWM BU1144
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-7">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Huize Vreedenhoff.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Huize Vreedenhoff
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p> On 24 October 1944, there was a roundup (“razzia”) in Bussum (North Holland). Male residents were
+                    taken to Arnhem and forced to dig trenches and create defense works for Organisation Todt, the
+                    military-engineering company that supplied industry with forced labor and built fortifications such
+                    as the Westwall and Atlantik Wall. Through the “Nooddienst” Emergency Service residents of Naarden
+                    and Bussum could send parcels and mail to the laborers in Arnhem and vicinity once a week and on the
+                    return trip the buses took mail back. Mail usually consisted of an undated postcard, a sign of life,
+                    and it received a distinctive red label. <span class="bolded">Surviving Nooddienst mail is scarce
+                        and less than 10 pieces
+                        are believed to exist.</span> </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIVelp120644_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Velp (GL) to Bussum (NH), 6 December 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The card was sent by forced laborer, Mars, to a firm, his former employer, in Bussum
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIBussum072645_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Bussum (NH) to Velp (GL), 1 January 1945
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The sender of this card, Dik den Otter, was housed with other forced laborers at Huize
+                        Vreedenhoff in Bussum
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+        <!-- End Severed Connection to Arnhem - Returned Mail (continued) -->
+
+        <!-- Aftermath -->
+        <div class="row new-row-indent">
+            <a name="aftermath"></a>
+            <h1 class="end-row-indent-sm"> Aftermath </h1>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Apeldoorn (GL) to Amsterdam (NH).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Apeldoorn (GL) to Amsterdam (NH), 12 November 1944. Delivered in Amstelveen (NH) on 4 December
+                        1944.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The card was addressed to Lady Schimmelpennick, of the Dutch noble family, who had been
+                        evacuated from Arnhem and was now living in Amsterdam. Her aunt, Countess Cornelia van Limburg
+                        Stirum, lived at the art-filled Nijenburgh Estate, Eusebiusbuitensingel 69, Arnhem.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Theo Janssen and his wife.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption unbold">
+                        Theo Janssen and his wife had lived and worked as caretakers at Nijenburgh before their
+                        evacuation to Apeldoorn. Janssen writes: “…We are now in Apeldoorn and allowed to stay here
+                        because I could no longer walk… The gentlewomen is gone from us which is a great loss… deep
+                        sympathy to you…”
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/marked with green circles.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        The school buildings, marked with green circles, were next to the Nijenburgh house, marked in
+                        red
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Lady Cornelia.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Lady Cornelia van Limburg Stirum (1868 - 1944)
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-9">
+                <p>
+                    Cornelia van Limberg Stirum had founded several schools that were located next door to her
+                    Nijenburgh residence. On the evening of 17 September, the 3-story school building, known as the Red
+                    School, was occupied by 30 men from A and B Troops, 1st Parachute Sq., Royal Engineers, having
+                    followed 2nd Battalion along the “Lion” route into Arnhem. They were joined the next day by soldiers
+                    of C Company, 3rd Battalion under Major Lewis.
+                </p>
+                <p>This combined British force of approximately 60 men set about turning the school into a defensive
+                    strong point. The next few days saw ferocious fighting with German troops gradually gaining the
+                    upper hand. They fired 51mm mortar rounds directly into the school’s north-facing windows and at
+                    about 7 pm on Tuesday, 19 September, a German tank approached to within 30 yards and blew away the
+                    northeast corner of the building.</p>
+                <p>
+                    On Wednesday morning a German tank and self-propelled gun began firing on the schoolhouse. The 45
+                    remaining defenders could do little more than watch as the German guns blew away the roof and top
+                    story of the school. Major Lewis and Captain Mackay made preparations to evacuate the burning
+                    school, but as the first men began to move, a number were killed and wounded. Major Lewis gave the
+                    order to surrender. The Germans surrounded the pitiful survivors and took them prisoner.
+                </p>
+            </div>
+
+            <div class="col-lg-12">
+                <p> Lady Cornelia, was in poor health and had been moved from her bedroom to the hallway by her maid,
+                    Lou Bos, to avoid the constant shelling. The Janssens crossed the line of fire to seek help but were
+                    unable to return. Finally, the Germans set fire to Nijenburgh, ignoring pleas from the maid that the
+                    Lady would be burnt alive. The maid dragged Lady Cornelia down on a mattress to a safe spot in the
+                    garden where she was found the next morning alive but weak, eyes and mouth covered in soot and ash.
+                    She died on 23 September 1944 at the age of 76.
+                </p>
+            </div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/The Nijenburgh Estate before the war.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        The Nijenburgh Estate before the war
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/The Nijenburgh Estate in 1945.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        The Nijenburgh Estate in 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Telegram to Lady Schimmelpennick.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Telegram to Lady Schimmelpennick dated 7 June 1945. Received 18 June 1945
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <!-- End Aftermath -->
+
+        <!-- Evacuees -->
+        <div class="row new-row-indent">
+            <a name="evacuees"></a>
+            <h1 class="end-row-indent-sm"> Evacuees </h1>
+
+            <div class="col-lg-12">
+                <p>
+                    On 23 September the German military authority ordered the immediate evacuation of the population of
+                    Arnhem. Most residents left for the northern and eastern sections of Holland, while approximately
+                    600 chose to stay close to their former homes, taking refuge in the Netherlands Open Air Museum /
+                    Nederlands Openluchtmuseum (OLM) which was located just outside the evacuation zone. </p>
+
+                <p> Most evacuees were forced to leave after a round up of men and women eligible for national labor
+                    service took
+                    place on 3 November, while a small group braved the cold and draughty conditions, staying at the
+                    museum until January 1945.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Heerenveen (FR) to Arnhem (GL).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Heerenveen (FR) to Arnhem (GL), 19 October 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>
+                    This letter was sent to Max Vogel, while he was staying at the Open Air Museum, by his wife, who had
+                    been evacuated to Heerenveen. The letter is clearly postmarked and it yet does not show any of the
+                    usual handstamps indicating non-delivery. Mrs. Vogel writes: “I sent several letters poste restante
+                    Velp but please do not try and pick them up… it is already old news by now. I heard from Riek that
+                    we too have been plundered. I am distraught, but Max, do not try and go and see for yourself because
+                    those bastards shoot just like that, as you know. </p>
+            </div>
+
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Netherlands Open Air Museum.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Netherlands Open Air Museum (Nederlands Openluchtmuseum)
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2">
+            </div>
+
+            <div class="col-lg-7">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Refugees at the Open Air Museum, 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Refugees at the Open Air Museum, 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-5">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Dutch policemen.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Dutch policemen examine a shop looted by the Germans in Arnhem. IWM BU 3639.
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Amsterdam (NH) to Arnhem (GL).png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Amsterdam (NH) to Arnhem (GL), 22 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Handstamp struck on back: AFZENDER / ONBEKEND (sender / unknown). On the front the manuscript
+                        notation in blue pencil: “Geen Postverbinding / Retour afz” (no postal connection / return
+                        sender).
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The addressee "Herr Otto Tanger" was Gustav Otto Friedrich Tanger, born 1887 and died 1952. His
+                        son, Otto Charles Tanger was the leader of TeNo (Technische Noodhulp) for the Arnhem area. TeNo
+                        was a civilian organization founded in 1941, that was modeled on similar groups in Germany. TeNo
+                        was in charge of maintaining the utilities, gas, water, electricity and other local
+                        infrastructure in the event of war or natural disaster. On 5 September 1944 (Mad Tuesday) NSB
+                        member Tanger took no chances and fled to Germany.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2">
+            </div>
+
+            <div class="end-row-indent-sm"></div>
+
+        </div>
+        <!-- End Evacuees -->
+
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">10</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">11</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

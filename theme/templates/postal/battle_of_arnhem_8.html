@@ -1,0 +1,454 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-8/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Evacuees (continued) -->
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> The Battle of Arnhem: Evacuees (continued) </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <p> After it became clear that the Allies were failing to meet the objectives of Operation Market
+                    Garden, the Germans authorities issued orders to evacuate the entire town of Arnhem, starting with
+                    the area south of the bridge on 21 September and then the old town, north of the river on 23
+                    September. Some families had already left when the fighting started but now almost 100,000 Arnhem
+                    citizens were forced to leave the town within two days. Meanwhile, the fighting would continue until
+                    the morning of 26 September. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/The Hague (SH) to Arnhem (GL).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> The Hague (SH) to Arnhem (GL), 15 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> The letter was enroute to Arnhem when Market Garden
+                        started and returned to The Hague with two primitive handstamps: TERUG / AFZENDER (front) and
+                        Geen Post / verbinding (back), i.e. return (to) sender and no postal connection. The letter was
+                        held back, then mailed to Apeldoorn where the addressee was believed to be an evacuee; having
+                        arrived there 25 January 1945. It was returned to the sender in The Hague with the manuscript
+                        notation “evacuee unknown in Apeldoorn”.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> Excerpt from the letter: “Just received your letter…
+                        thanks for the ration coupons, we can really use them. Here it is not yet as bad as it is where
+                        you are. Men are not yet being picked up, although they are in the Landweer (Landwehr) …
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original postcard Arnhem 1945 Ruine stad.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption "> Original postcard Arnhem 1945 “Ruine stad”
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4"></div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Utrecht (UT) to Arnhem (GL).png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Utrecht (UT) to Arnhem (GL), 24 November 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        By the time this letter was sent, Arnhem had long been evacuated. A section of the envelope is
+                        missing but in the Arnhem address book of 1942 Mr. Borgman is listed:
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Mr. Borgman is listed.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Even after the evacuation of Arnhem in September 1944, many houses still suffered from bombardments
+                    and artillery fire. The street in the address, Burgermeester Weertstraat, had many destroyed houses
+                    (below left) but Mr. Borgman’s residence at nr. 67 was completely restored after the war. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Burgemeester Weertstraat in 1945.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Burgemeester Weertstraat in 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> After the liberation of Arnhem (codenamed Operation Anger) by Canadian forces on 14 April 1945,
+                    refugees were gradually allowed to return home, but the repatriation efforts would continue for
+                    months. Some residents only returned in September 1945. It would take years to rebuild the city.</p>
+            </div>
+
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original circular issued by the Arnhem City.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original circular issued by the Arnhem City government- undated
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4"></div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original postcard Arnhem 1945.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original postcard Arnhem 1945 “Eusebiusbuitensingel”
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> The Arnhem to which evacuees returned in 1945 was unrecognizable. The majority of residences were
+                    empty, having been plundered or destroyed. </p>
+                <p>Excerpts from an undated circular issued by the Arnhem City government to former citizens returning
+                    home after the war: </p>
+                <p> “The reconstruction of the town of Arnhem has now progressed to the point where you can return to
+                    your residence with your baggage….In order to expedite the return of the population of Arnhem as
+                    much as possible no repairs have been carried out in the home and it needs to be accepted in the
+                    current condition…. </p>
+                <p> In most cases it must be assumed that in the homes no bedlinens, stoves, and essential domestic
+                    goods are present. We point out, that before you can enter the town … all Arnhem evacuees have to
+                    pass through the medical control post set up in the Kleuterschool (Nursery school) ….. There an
+                    examination will be conducted as to infection with vermin, scurvy, etc. If there is a reason to
+                    assume this medical examination will prevent admission to the city, the evacuees are urged to first
+                    consider getting treated in the evacuation community and also to disinfect their goods…. No
+                    distribution articles can be obtained without proof of medical examination. Due to ongoing problems
+                    with the food supply, it is seriously recommended to bring food for a few days .…” </p>
+                <p> The form also served as a permit to be carried during the evacuees return. </p>
+            </div>
+
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Reverse of the Circular Family H.C 1.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Reverse of the Circular, showing that it was issued to the Family H.C. Kinks
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/The scene at the bridge after the battle.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        The scene at the bridge after the battle
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+        </div>
+        <!-- End Evacuees -->
+
+        <!-- Delayed Delivery - Überroller -->
+        <div class="row new-row-indent">
+            <a name="uberoller"></a>
+            <h1 class="end-row-indent-sm"> Delayed Delivery - Überroller </h1>
+            <p style="margin-top: -15px;" class="bolded">(Mail posted during one regime, then confiscated and processed
+                by another) </p>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Voorburg (ZH) to Arnhem (GL).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Voorburg (ZH) to Arnhem (GL), 22 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Cover received two primitive hand stamps: TERUG / AFZENDER (return / sender) on the front and
+                        the mutilated Geen Post / verbinding (no mail / connection) on the back.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> The letter originated in St. Antoniushove Hospital in Voorburg, where the writer and mother of the
+                    addressee was hospitalized. When it was found that her daughter's family had been evacuated from
+                    Arnhem, the letter was returned to the mother's home.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Heijenoordsche Weg in Arnhem.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> <span class="bolded">Heijenoordsche Weg in Arnhem</span> was located just north of the
+                    Arnhem-Utrecht railroad line. Many homes
+                    in the area were destroyed but contemporary photos shows that Nr. 6 was not damaged. It still exists
+                    today.
+                </p>
+                <p> Excerpts from the 5 page letter: <br>
+                    Heard all the news about Arnhem … fortunately the V1 is finished,
+                    that was a horror every afternoon. Sunday they really hit it hard, the hospital was shaking as all
+                    the munitions exploded and the phosphor haze was scary… Just now the doctor stopped by and told me
+                    that the Arnhem and Nijmegen bridges are in Allied hands.”
+                </p>
+            </div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Entry in Arnhem 1942 address book.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Entry in Arnhem 1942 address book
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <p>
+                    In the Arnhem 1942 address book, the resident of Thorbeckestraat 2 (right), is listed as the widow
+                    S.W.B Lely and the addressee of the card, Miss E.L. Frings, might have rented a room. The card was
+                    intercepted by the advancing Allies and held back in the Heerlen post office until February 1945. It
+                    then passed through the Eindhoven censorship office and after 25 May 1944 an attempt was made to
+                    deliver it to Arnhem. After the location was found to have been 'verbrand' (burned down), it went
+                    'retour Heerlen', as indicated by the handwritten note.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Heerlen (LB) to Arnhem (GL).png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Heerlen (LB) to Arnhem (GL), 14 September 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Allied tanks cross the bridge at Nijmegen.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Allied tanks cross the bridge at Nijmegen 20 September 1944. IWM EA44531.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <p>
+                    Heerlen was still under occupation and the card was confiscated by the advancing Allies and returned
+                    to the sender.
+                </p>
+                <p>
+                    The addressee's mother writes in part: "…Here everything is quiet and we just have to wait.
+                    Yesterday the noise was a constant, one knows very little but the rumors are plenty… such a comfort
+                    for me to know that you are not in A(rnhem) all by yourself…”
+                </p>
+                <p>
+                    The parents lived at Caumerdalschestraat 15, in Heerlen, a semi-detached house that still exists.
+                    The father was the principal of the 'Mijnschool' Mine School for coal mining engineers.
+                </p>
+            </div>
+
+            <div class="col-lg-12">
+                <p> Boxmeer is situated in the corridor between Nijmegen and Eindhoven and during Operation Market
+                    Garden those towns were liberated on 17 and 18 September 1944 respectively. With the simultaneous
+                    start of the national railway strike, transport of people as well as mail came to a temporary halt.
+                    This letter was enroute, before being intercepted by British troops and forwarded to the censor in
+                    England where it was opened, checked, resealed with the British label, and held for the time being.
+                </p>
+                <p>
+                    Boxmeer was liberated on 26 September and immediately declared to be a “front area”. This
+                    designation, which lasted for 5 months, restricted all traffic in and out of Boxmeer. It is not
+                    possible to know when the letter was finally delivered, even after March 1945.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Rotterdam (SH) to Boxmeer (NB).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Rotterdam (SH) to Boxmeer (NB), 9 September 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> It appears the letter did not leave Rotterdam immediately after being posted and wound up in the
+                    middle of the hostilities. Boxmeer was liberated on September 26, 1944 by a small contingent of the
+                    Inns Court Regiment, nicknamed The Devil's Own. Led by Lt Angus Mitchell, eight men and three
+                    armored cars entered the village to find that the Germans had withdrawn. Lt Mitchell and his men
+                    moved through the town and went down to the River Maas, where they were fired upon from German
+                    forces on the other side. The men spent most of the winter in Boxmeer before crossing the Rhine the
+                    following spring.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVILeidschendam090444_Front.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Leidschendam (SH) to Arnhem (GL), 4 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        On 15 September 1944, the letter was in Ede (GL) and forwarded to Elst (GL). It was then
+                        confiscated by the Allies and censored by the Dutch censor in Eindhoven. After the war, it was
+                        delivered to the addressee in Elst on 22 June 1945 (hand stamp 1944 was in error).
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Allied troops enter Boxmeer.png' %}"
+                    class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Allied troops enter Boxmeer on 26 September 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="end-row-indent-sm"></div>
+
+        </div>
+        <!-- End Uberoller -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">10</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">11</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

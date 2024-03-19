@@ -80,6 +80,31 @@ urlpatterns = [
         views.battle_of_arnhem_5,
         name="battle_of_arnhem_5",
     ),
+    path(
+        "exhibits/boa-6/",
+        views.battle_of_arnhem_6,
+        name="battle_of_arnhem_6",
+    ),
+    path(
+        "exhibits/boa-7/",
+        views.battle_of_arnhem_7,
+        name="battle_of_arnhem_7",
+    ),
+    path(
+        "exhibits/boa-8/",
+        views.battle_of_arnhem_8,
+        name="battle_of_arnhem_8",
+    ),
+    path(
+        "exhibits/boa-9/",
+        views.battle_of_arnhem_9,
+        name="battle_of_arnhem_9",
+    ),
+    path(
+        "exhibits/boa-10/",
+        views.battle_of_arnhem_10,
+        name="battle_of_arnhem_10",
+    ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
     path("resources/", views.resources, name="resources"),
