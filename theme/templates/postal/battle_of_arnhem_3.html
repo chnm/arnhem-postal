@@ -1,0 +1,491 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-3/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}#prisoner-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}dutch-resistance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#role-cross" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#cross-tracing" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem_11' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- The Battle of Arnhem and Its Impact on Civilian Life -->
+        <a name="impact-on-civilian"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> The Battle of Arnhem and Its Impact on Civilian Life </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <p> The experiences of the Roza family in Oosterbeek during Operation Market Garden mirror those of
+                    others who were displaced by the fighting. They managed to escape the carnage and wound up as
+                    evacuees in Apeldoorn to the north. Huib Roza was located in the Arnhem 1942 address book, where he
+                    was described as a “deurw.” i.e., a “deurwaarder” or bailiff. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/roza (a.j).png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Schaarsbergen (GL) pt 2.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Schaarsbergen (GL) to Apeldoorn (GL).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Schaarsbergen (GL) to Apeldoorn (GL), 25 October 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p> Letter to Huib Roza, evacuated in Apeldoorn, from his brother who still lived in the village of
+                    Schaarsbergen with his family. By Wednesday, 20 September 1944 the German forces had begun to push
+                    at the eastern Oosterbeek perimeter defenses. A dozen men of 6 Platoon, B Company, KOSB were
+                    stationed at the corner of Cronjeweg and Van Dedemweg with a 6 pounder anti-tank gun of the 1st
+                    Airlanding Anti-Tank Battery. Their task was to prevent any infiltration from Stationsweg or the
+                    open parkland around Huize Dennenkamp opposite. Any infiltration would lead directly down to
+                    battalion HQ of the KOSB at the Dreijeroord Hotel (the White House), the stronghold of the KOSB.
+                </p>
+            </div>
+
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Huizse Dennenkamp in peaceful times.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Huizse Dennenkamp in peaceful times
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-9">
+                <p>The Germans were shooting at the English, who were deployed in Huisze Dennenkamp, right through the
+                    Roza house. This map from 1936 shows the situation. The purple house is Huub Roza's residence, nr.
+                    50, and adjacent to the right, in red, are numbers 48 and 46.The Roza's house went up in flames on
+                    Tuesday night, 19 September.</p>
+            </div>
+
+            <div class="col-lg-7">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Apeldoorn (GL) to Juthaas (Utrecht).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Apeldoorn (GL) to Jutphaas (Utrecht), 30 November 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-5">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Apeldoorn (GL) pt 2.png' %}" class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p>Excerpts from the content: “Tuesday night at about 6pm our house was on fire after having been shot
+                    at. .....<span class="bolded">"D"' (Duitsers/Germans) were in de 'Spoorberg' (railway), while the
+                        'E' (Engelsen/English)
+                        were in the Dennenkamp, and they were shooting at each other straight through our house</span>.
+                    Furthermore
+                    the 'E' were re-supplied by plane. A container of gasoline landed on Z's roof and was shot through,
+                    causing a leak. The gasoline streamed over the burning roof so it burned like hell. The Germans were
+                    in our house with machine guns on the stairs to the cellar and the English were a few houses down
+                    and in the Annastrat. ..... all the houses in the neighborhood were heavily damaged. Every store in
+                    the area was converted into a machine gun nest, .... It was horrendous.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Map showing the German line of fire superimposed.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Map showing the German line of fire superimposed
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>6 Platoon advanced to the crossroad. It was not long before two German tanks/self-propelled guns
+                    moved south towards them from the Oosterbeek Hoog station direction, stopping some 40 yards short of
+                    the British position. The Germans then brought their tanks slowly down Stationsweg before turning
+                    west into Cronjeweg, continuing their advance. It is testament to the anti-tank gunners' camouflage
+                    that the German tanks had travelled more than 50 yards in plain sight of their gun and was now only
+                    a short distance from it but still had not seen it. The first tank was 'brewed up' with 3 rounds.
+                    The second tank could go nowhere - the road was blocked. The German infantry began to retreat under
+                    effective fire from 6 platoon and the anti-tank gunners. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Ulft (GL) to Apeldoorn (GL).png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Ulft (GL) to Apeldoorn (GL), 3 November 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> Letter to Huib Roza from an evacuee in Ulft, probably a
+                        family member; p/a is the equivalent of c/o, an indication that this was not the person’s own
+                        home.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Parallelweg, Oosterbeek in 1945.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Parallelweg, Oosterbeek in 1945. Gelders Archief.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> Parallelweg Nr. 50 was the residence of Huib Roza, his
+                        wife Riek and their daughter, Lientje. After the war the remnants of the houses were demolished
+                        and new homes were built. The house numbers were changed at that time.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>
+                    <span class="bolded">Excerpts from the content:</span>
+                </p>
+                <p>
+                    “There was heavy shooting but miracle of miracles we arrived without a
+                    scratch in the cellar of W. van Zanten, wallpaper hanger, on Weverstraat. There we stayed from
+                    Tuesday evening to the next Monday night about 6 o'clock, so almost a week. We were there with 23
+                    people …. We managed but it was very cramped.” </p>
+
+                <p>“In one day we were taken out of the cellar 4 times
+                    by Germans who were looking for Englishmen. You could not stand it much longer. With the entire
+                    group we went via the Zweiersdal up on the Vredeberg… That is where we stood when the heavy
+                    bombardments took place.” </p>
+
+                <p>“The village was one big mess, planes being shot at, in the Utrechtseweg
+                    not one tram tower was left standing. At last we arrived at the Apeldoornseweg….. The next morning
+                    Riek found space on a farmer's cart and she had hardly sat down before 2 planes shot at it. Freed
+                    was shot through his groin, Truus Köhler through her arm, others dead or wounded. Riek received a
+                    burn on her face but that has now healed. We continued. En route we were attacked 3 more times. We
+                    are now in the Elburgerweg 69, Apeldoorn and are doing fine. Riek is all set, a baby outfit has been
+                    assembled again”.</p>
+
+                <p>“Rev. v. Ernst, v.d. Poel, Slettenaar, eldest daughter O. van Buren, Emme and Wife,
+                    the wife of the plumber Gaasbeek, Corrie Roessink (van Kaasom) are all dead.”
+                </p>
+            </div>
+
+            <div class="col-lg-7">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Apeldoorn (GL) to Tull en’t Waal (UT).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Apeldoorn (GL) to Tull en’t Waal (UT), 27 April 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-5">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Apeldoorn (GL) to Tull en’t Waal (UT)-2.png' %}"
+                        class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="new-row-indent-sm"></div>
+
+            <div class="col-lg-5">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Liberation of Apeldoorn by Canadian forces.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Liberation of Apeldoorn by Canadian forces, 17 April 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-7">
+                <p>Huib Roza used a German field post card to tell his family:</p>
+
+                <p>“Oosterb Apeldoorn, 21 Apr. 1945 <br>
+                    Dear all <br>
+                    Since Tuesday morning we are free! <br>
+                    Riek, Lientje and I are doing fine. <br>
+                    From the rest of the family no news so far. <br>
+                    Best regards and until we meet again soon <br>
+                    Huib, Riek, Lientje”<br> </p>
+            </div>
+
+        </div>
+        <!-- End The Battle of Arnhem and Its Impact on Civilian Life -->
+
+        <!-- Allied Losses -->
+        <div class="row new-row-indent">
+            <a name="allied-losses"></a>
+            <div class="col-lg-12">
+                <h1 class="end-row-indent-sm"> Allied Losses </h1>
+                <p> On 17 September, Wing Commander P. B. Davis DSO and his crew, flying Stirling LK135 towed Horsa
+                    Glider C/N 381, which was piloted by Capt J. G. Ogilvie & Lt K. F. Strathern, both of Headquarters
+                    'D' Sqn (Ogilvie would not return). The 20 troops they were ferrying, together with 3 motorcycles,
+                    18 folding cycles and a pannier, were all with 9 Field Company RE. In addition to the pilot, the
+                    crew consisted of Navigator F/Lt R. Lovegrove DFC, Bomb Aimer F/Lt F. Mason, Wireless Operator F/Lt
+                    J. Francis, Flight Engineer Sgt Auld and Air Gunner F/Lt W. R. Chalk DFC. Davis and his crew were
+                    the first off from 299 Sqn, taking off at 10:15am. The tug & glider combination followed the
+                    designated Northern route towards the LZ and arrived by map reading at 13:33pm. The glider was
+                    successfully released 1 mile due south-east of the LZ at 2500ft. W/C Davis remarked that it was a
+                    “good trip”.
+                </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original Flight Log.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Original Flight Log showing F/Lt Chalk's entries for 1-19
+                        September 1944
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Chalks original medal ribbons.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> F/Lt Chalk’s original medal ribbons
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p> The following day, W/C Davies and the same crew flew with Horsa Chalk 950 on tow on the second lift
+                    of Operation Market Garden. Again, Davis and his crew were the first off from 299 Sqn, taking off at
+                    11:25am. This time their load was: 3 troops with HQ 4 Para Brigade, 1 jeep, 1 trailer & 2
+                    motorcycles. The glider they were towing was headed to LZ 'X' and was released without incident.
+                </p>
+                <p> On the third day, the same crew and aircraft flew re-supply rather than a towing mission, and headed
+                    for DZ 'V', On reaching the DZ, Davis' Stirling took significant damage from flak. They were
+                    carrying a passenger, Squadron Leader C. A. Wingfield, a staff officer flying as an observer. The
+                    aircraft was seen going down in flames over the DZ and crashed opposite “Rust Wat” Kemperbergerweg
+                    outside Arnhem. W/C Davis, F/Lt Mason, and Wingfield died in the crash, while F/Lt's Auld, Francis,
+                    Lovegrove and Chalk were able to bail out. Bob Chalk injured his leg on landing and was soon taken
+                    prisoner. He was taken to St. Elizabeths Hospital. After a brief period of recuperation, he was sent
+                    to Stalag Luft 1, where he saw out the remainder of the war. He was discharged from the RAF on 17
+                    October, 1945. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6 align-center">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Dutch Bronze Cross.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> F.Lt Chalk’s Dutch Bronze Cross
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> Only 8 Dutch Bronze Crosses were awarded to RAF
+                        personnel; 7 of
+                        that number were awarded for actions
+                        at Arnhem and 3 of them were awarded to Chalk's crew.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Chalks Original RAF.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> F/Lt Chalk's original POW Identity Disk “5968 Stalag Luft 1”
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Identity Disk Nr. 47910.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> F/Lt Chalk's Original RAF Identity Disk Nr. 47910
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+        </div>
+        <!-- End Allied Losses -->
+
+        <!-- German Opposition -->
+        <div class="row new-row-indent">
+            <a name="german-opposition"></a>
+            <div class="col-lg-12">
+                <h1 class="end-row-indent-sm"> German Opposition </h1>
+                <p> Corporal Rudolf Arnold served with Air Force Flak units in Germany, Romania and the Soviet Union
+                    from December 1941 to January 1943. He was then transferred to Flak unit 455 based in Germany which,
+                    on 6 June 1944, was renamed Siegfried 12500b.mot., a motorized flak ‘alarm’ group for defense
+                    against the Allied invasion in Normandy. Renamed II/ Flak Regiment 18 on 12 September 1944, it took
+                    part in defending against the Allies during Operation Market Garden. The 16th Flak Division, which
+                    included Flak Regiment 18, was credited with shooting down no less than 313 planes, including 34
+                    gliders, during the period 1-22 September 1944, The 16th Flak Division remained based in Arnhem
+                    until 29 March 1945 when it was forced to withdraw along the Dutch-German border via Winterswijk and
+                    Oldenburg to the Cuxhaven area, where the unit eventually surrendered. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/service records from Rudolf Arnold.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">
+                        <span class="bolded">Original service records from Rudolf Arnold</span>, a 35 year old German
+                        conscript, initially assigned
+                        for training to East Battery II, Flak (air defense) Regiment 3, in Weimar on 18 August 1937. His
+                        “Aktiver” listings from August 1939 to August 1944 show “Im Kriege mitgemachte Gefechte,
+                        Schlachten, Unternehmungen” – the fights, battles and expeditions he took part in.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>After the war, Arnold was discharged from the Luftwaffe, the German Air Force on 17 August 1947
+                    according to a document from the Allied 'Disbandment Control Unit'.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/German soldiers at Arnhem 1.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        <span class="bolded">German soldiers at Arnhem. Bundesarchiv, Bild 183-S73822
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Originals in ID book.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        <span class="bolded">Originals in ID book
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>War records show the regiment was deployed in the Niederrhein Luftgau VI area during 1944/45. It is
+                    adjacent to the Dutch border and close to Arnhem.</p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/glued in section on page 28.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>According to the glued in section on page 28, Arnold was fighting during withdrawal from a large
+                    Dutch German area which included Arnhem. Page 38 lists his participation in later activities,
+                    although the date is covered up. It states: </p>
+
+                <p>"During the air force defense artillery as Staff II.
+                    Flak regiment. 18 (mot)</p>
+                <p>a) the defense of the air force ground operation, military, or defense
+                    economic arrangements in b) Occupied Territory HOLLAND."</p>
+            </div>
+            <div class="end-row-indent-sm"></div>
+
+        </div>
+        <!-- End German Opposition -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">10</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_11' %}">11</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

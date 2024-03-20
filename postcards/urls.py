@@ -55,6 +55,61 @@ urlpatterns = [
         views.evolution_of_holocaust_9,
         name="evolution_of_holocaust_9",
     ),
+    path(
+        "exhibits/boa/",
+        views.battle_of_arnhem,
+        name="battle_of_arnhem",
+    ),
+    path(
+        "exhibits/boa-2/",
+        views.battle_of_arnhem_2,
+        name="battle_of_arnhem_2",
+    ),
+    path(
+        "exhibits/boa-3/",
+        views.battle_of_arnhem_3,
+        name="battle_of_arnhem_3",
+    ),
+    path(
+        "exhibits/boa-4/",
+        views.battle_of_arnhem_4,
+        name="battle_of_arnhem_4",
+    ),
+    path(
+        "exhibits/boa-5/",
+        views.battle_of_arnhem_5,
+        name="battle_of_arnhem_5",
+    ),
+    path(
+        "exhibits/boa-6/",
+        views.battle_of_arnhem_6,
+        name="battle_of_arnhem_6",
+    ),
+    path(
+        "exhibits/boa-7/",
+        views.battle_of_arnhem_7,
+        name="battle_of_arnhem_7",
+    ),
+    path(
+        "exhibits/boa-8/",
+        views.battle_of_arnhem_8,
+        name="battle_of_arnhem_8",
+    ),
+    path(
+        "exhibits/boa-9/",
+        views.battle_of_arnhem_9,
+        name="battle_of_arnhem_9",
+    ),
+    path(
+        "exhibits/boa-10/",
+        views.battle_of_arnhem_10,
+        name="battle_of_arnhem_10",
+    ),
+    path(
+        "exhibits/boa-11/",
+        views.battle_of_arnhem_11,
+        name="battle_of_arnhem_11",
+    ),
     path("map/", views.mapinterface, name="map"),
     path("timeline/", views.timeline, name="timeline"),
     path("resources/", views.resources, name="resources"),

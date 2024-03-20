@@ -1,0 +1,442 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-6/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}#prisoner-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}dutch-resistance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#role-cross" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#cross-tracing" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem_11' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- The Battle of Arnhem and Its Impact on Civilian Life -->
+        <a name="impact-on-civilian"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> The Battle of Arnhem and Its Impact on Civilian Life </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVILeeuwarden092544_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Leeuwarden (Friesland) to Oosterbeek (GL), 25 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> Returned with purple stamp: Postverkeer / gestremd /
+                        retour
+                        afzend (Postal traffic / obstructed / return sender)
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/The Airborne perimeter in Oosterbeek.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> The Airborne perimeter in Oosterbeek
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-5">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Location of Utrechtseweg 69, Oosterbeek.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Location of Utrechtseweg 69, Oosterbeek
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-1"></div>
+
+            <div class="col-lg-12">
+                <p> According to the Oosterbeek 1942 phone book, the widow J. Haartsen-Heeck lived at Utrechtseweg 54.
+                    Utrechtseweg 69 was listed as the house and shop of Mr. H.J. Eichner, a local bicycle and household
+                    goods store. It is not clear why the letter was addressed to nr. 69 instead of nr. 54. The house was
+                    built in 1910 and In 2020 the house was razed and the site was redeveloped. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Velp (GL) to Doornspijk (GL), 5 November 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption ">Velp (GL) to Doornspijk (GL), 5 November 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> The writer, H.C. Maats, lived c/o Mrs. van Hengel, having been evacuated from Arnhem to Velp. From
+                    the content: </p>
+
+                <p>"We were driven from our home on 24 September, not knowing if we shall ever return.
+                    When we were permitted to go return to Arnhem for 1 1/2 hours we saw how everything had already been
+                    turned upside down and how carpets, clothing, suitcases, appliances and the entire content of my
+                    linen cabinet had disappeared.... There was fighting in the center of town ... We had plans to go to
+                    Eerbeek, but got no further than Velp .... 30,000 evacuees arrived here but 20,000 had to move on
+                    because of the limited food supply. </p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Men of the 2nd Battalion South Staffordshire Regiment.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Men of the 2nd Battalion South Staffordshire Regiment entering
+                        Oosterbeek along the Utrechtsweg on their way towards Arnhem, 18 September 1944. IWM BU 1091.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Major-General Robert E Urquhart.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Major-General Robert E Urquhart with the Pegasus Airborne pennant
+                        outside his headquarters at the Hartenstein Hotel in Oosterbeek, 22 September 1944. IWM BU1136.
+                    </figcaption>
+                </figure>
+            </div>
+
+        </div>
+        <!-- End The Battle of Arnhem and Its Impact on Civilian Life -->
+
+        <!-- Severed Connection to Arnhem - Returned Mail -->
+        <div class="row new-row-indent">
+            <a name="severed-connection"></a>
+            <h1 class="end-row-indent-sm"> Severed Connection to Arnhem - Returned Mail </h1>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIDeventer101844_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Deventer (OV) to Arnhem (GL), 18 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The postcard was returned with the hand stamp: Postverkeer gestremd / Retour afzender (Postal
+                        traffic obstructed / Return sender). A note on the face reads: “if not present, please pass this
+                        card onto the Red Cross for further information.”
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original postcard Arnhem 1945 “Eusebiusbuitensingel”.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original postcard. Arnhem 1945 “Steenstraat.”
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Arnhem had been evacuated on orders of the Germans after their defeat of the Allies. News of
+                        this forced evacuation had apparently not reached family members in other areas because attempts
+                        to reach Arnhem by mail continued.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIRhoon102344_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Rhoon (SH) to Arnhem (GL), 23 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        This letter too was returned with the two hand stamps: TERUG / AFZENDER (RETURN SENDER) and Geen
+                        Post / verbinding (No postal connection). In this instance they were placed on the front of the
+                        envelope, which had been re-used because of the paper scarcity. It was received back in Rhoon on
+                        7 November.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">“We have not heard anything from you and have no idea
+                        where you are. Write as soon as
+                        possible. Rotterdam is also asking about you.”</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVINieuwersluis100444_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Nieuwersluis (UT) to Arnhem (GL), 4 October 1944
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Utrecht (UT) to Bemmel (GL), 14 September 1944.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Utrecht (UT) to Bemmel (GL), 14 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Returned to the sender as Bemmel could not be reached as a result of the intense fighting. Red
+                        handstamp: Terug afzender / wegens verbroken / postverbinding (Return sender / due to severed /
+                        postal connection).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> The village of Bemmel (GL), located just 6 miles (10 km) north of Nijmegen saw heavy fighting. On 24
+                    September, the British 69th Infantry Brigade was charged with liberating Bemmel along with two other
+                    villages in the area, One of its units, the 5th Battalion East Yorkshire Regiment, entered Bommel on
+                    25 September but it would take until 28 September before the village was firmly in Allied hands.
+                </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Queen Wilhelmina.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Queen Wilhelmina viewing the destruction in Bemmel in 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIUtrecht091244_Front (1).jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Utrecht to (unknown), 12 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The delivery address is obscured by the typed label, which showed that the folded letter was to
+                        be returned to Utrecht: Terug afzender / Postverbinding met de plaats / van bestemming
+                        verbroken. (Return sender / Postal connection with the place / of destination severed).
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Excerpt from the content: <br> "... of course you know about the bombing of Soesterberg ... here
+                        too
+                        the planes fly over but we hera different stories about what they hit. It is quite a sound,
+                        those machine guns in the air, you can see it, first they dive and then the rattling ... Did you
+                        hear that Mr. Gelderman's youngest son was executed?"
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Ede (GL) to Hoensbroek (LB).png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Ede (GL) to Hoensbroek (LB), 27 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        While advancing Allies liberated Hoensbroek on 18 September 1944, the 2nd day of Operation
+                        Market Garden, Ede would have to wait until 17 April 1945.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Excerpt from the card: <br> "We are tense and fearful about all family members, especially about
+                        you
+                        and the others in Arnhem. Write, if possible, how it is there and if you are safe. Here all is
+                        fine and as far as we know it is the same in Apeldoorn. Lots of refugees are arriving from
+                        Arnhem. Harm went over there to help transport them...."
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/German soldiers marching to Arnhem.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        German soldiers marching to Arnhem. Bundesarchiv, Bild 101I-590-2333-03
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Although efforts to deliver mail continued despite the fighting, connections with smaller post
+                    offices often became impossible as they were either closed or unreachable. There are countless
+                    varieties in the hand stamps that were used to indicate the piece was to be returned to the sender.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Lunteren (GL) to Ede (GL).png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Lunteren (GL) to Ede (GL), 10 October 1944
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Both Lunteren and Ede are located in the province of Gelderland (GL), about 30 mils northwest of
+                    liberated Nijmegen. Having been so close to freedom, Lunteren and Ede would have to wait until April
+                    1945 for liberation. Because they remained under German control the mail connection was restored:
+                </p>
+                <p>From the content:</p>
+                <p>
+                    “I noticed that the connection was restored, so, when will we hear something from
+                    you? On my birthday we were waiting for you in vain… it is very scary here, the nonstop stream of
+                    evacuees, night and day, all their possessions on all kinds of vehicles, one has to weep, all this
+                    misery…”
+                </p>
+                <p>Although the volume of mail traffic remained fairly consistent during the German occupation (about 1
+                    billion pieces per year), the speed with which the mail items were delivered decreased significantly
+                    in 1944. This was mainly due to the scarcity of fuel. As a result, vans were no longer motorized and
+                    mail was delivered by horse and wagon and postmen on foot.</p>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <div class="col-lg-2">
+                    <figure class="figure">
+                        <img src="{% static 'images/battle-of-arnhem/Renkum was ordered.png' %}" class="img-fluid">
+                    </figure>
+                </div>
+                <div class="col-lg-10">
+                    <p style="margin-left: 20px;"> Renkum was ordered to evacuate by the Germans on September 23. The
+                        card was returned to Terwolde
+                        with
+                        the elusive hand stamp: GEEVACUEERD / ADRES ONBEKEND / TERUG (evacuated / address unknown /
+                        return).
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/The destroyed post office in Ede.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        The destroyed post office in Ede
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/War time photograph horse drawn wagons.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        War time photograph showing post delivered by horse drawn wagons. 
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVITerwolde100144_Front (2).jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Terwolde (GL) to Doorwerth/Renkum (GL), 1 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        From the content: “…Tuesday 26 September, Mother, Liesbeth, Mina and I left Oosterbeek for
+                        Beekbergen… found shelter at Liesbeth's brother… then on to Terwolde where we still are…mother
+                        is in bed with pneumonia…how are you in Doorwerth?"
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Orange Nassau Sanatorium Renkum.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original pre-war postcard - Orange Nassau Sanatorium Renkum
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="end-row-indent-sm"></div>
+
+        </div>
+        <!-- End Severed Connection to Arnhem - Returned Mail -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">10</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_11' %}">11</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,359 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-2/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}#prisoner-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}dutch-resistance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#role-cross" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#cross-tracing" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem_11' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Mad Tuesday -->
+        <a name="mad-tuesday"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Mad Tuesday: 5 September 1944 <br> Dutch Collaborators Escape to Germany </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <p> <span class="bolded">Dolle Dinsdag</span> (Mad Tuesday) is the Dutch name given to Tuesday, 5
+                    September 1944. On this day, rumors
+                    spread that liberation by Allied forces was at hand. On 4 September 1944, the Allies had finally
+                    liberated Antwerp and many Dutchmen prepared to receive the liberators. Unfortunately, the Allied
+                    advance came to a halt in southern Netherlands and the rest of Holland would not be liberated until
+                    May 1945. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Haarlem (NH) to the transit office.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Haarlem (NH) to the transit office in Hengelo (GL), ‘for further
+                        transmission’ to Thüringen, Germany, 28 February 1945
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Label: Domestic letter tariff 7½
+                        cents (from August 20, 1940, to November 1, 1946). In Hengelo the letter was put into an
+                        envelope with other such mail and sent on to Germany after it had been checked by the SS
+                        Censor.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Domestic letter tarrif Hengelo.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">The encircled AS handstamp was placed by the SS
+                        Zweigstelle
+                        NordWest, the Northwest Branch of the SS
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/60,000 Dutch NSB.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">60,000 Dutch National Socialist Members (NSB) fled to
+                        Germany in fear of reprisals. Surviving items are extremely rare because letters were mostly
+                        destroyed later to hide any NSB connection
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Allied plan.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Operation Market Garden – Allied plan
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+        <!-- End Mad Tuesday -->
+
+        <!-- Allied Advance -->
+        <div class="row  new-row-indent">
+            <a name="allied-advance"></a>
+            <div class="col-lg-12">
+                <h1 class="end-row-indent-sm"> Allied Advance </h1>
+                <p> After Mad Tuesday, many Germans and Nazi sympathizers fled east to Germany believing a German defeat
+                    was near. On Wednesday, 6 September a train filled with women and children of NSB members headed
+                    towards Germany. Outside Amsterdam the train came under fire from Allied planes, resulting in 30
+                    dead and many seriously wounded.
+                </p>
+                <p> To maintain contact with NSB members who had escaped to Germany, the Deutsch Niederlȁndische
+                    Gesellschaft Evakuiertenbetreuung created a service in Hengelo (OV) that operated until the end of
+                    the war. Mail was censored by the SS Zweigstelle NordWest. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIKolbermoorXXXXXX_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Bavaria to Haarlem (NH) via the transit office in Hengelo (GL).
+                        Undated. </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIKolbermoorXXXXXX_Reverse.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption unbold"> The SS censorship label and handstamp are from the “SS
+                        Feldpostprüfstelle” identifiable by the letter “g” </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+        <!-- End Allied Advance -->
+
+        <!-- Battle of Arnhem -->
+        <div class="row new-row-indent">
+            <a name="battle-of-arnhem"></a>
+            <div class="col-lg-12">
+                <h1 class="end-row-indent-sm"> The Battle of Arnhem </h1>
+                <p> Sunday, 17 September saw 500 gliders and 1,500 aircraft with the British 1st Airborne Division
+                    taking the northern of two routes. The aircraft armada stretched 94 miles (150 km) in length and 3
+                    miles (5 km) in width. Fighter escorts, consisting of 371 Spitfires, Tempests and Mosquitos,
+                    protected the fleet of aircraft. </p>
+                <p> The 21st Independent Parachute Company jumped first at 12:40 to mark the landing zones for the main
+                    force of gliders and parachutists. Among the 180 men and 6 officers who dropped in with the 21st
+                    Independent Company, there were 21 Jewish refugees from Germany and Austria who had somehow managed
+                    to escape the Nazis and had joined the 1st Airborne Division. All but 5 traveled under assumed names
+                    so as to avoid execution as both a traitor and a Jew if captured. Four of them had already spent
+                    time in a concentration camp and most had not heard from family and friends for years. Five men from
+                    this group were killed during the Battle of Arnhem. The subsequent landings were largely unopposed
+                    and the battalions were formed up in good order and ready to carry out their tasks by 14:45. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Christmas 1942 card.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Christmas 1942 card from 21st Independent Parachute Company. Only
+                        known copy extant</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/British landings and defensive perimeter.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">The planned British landings and defensive perimeter at Arnhem
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/British paratroops inside a C-47.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">British paratroops inside a C-47 transport plane on their way to
+                        Arnhem, 17 September 1944. © IWM K7570.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Letter from Lt Peter Allenby.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">Letter from Lt Peter Allenby en route to Arnhem, to his wife, 17
+                        September 1944. Unfortunately the original letter was destroyed in a fire. </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p>Lieutenant Peter Allenby jumped into Arnhem with the 1st Lift, on Sunday, 17 September 1944, with 117
+                    men of the 16 Para Field Ambulance RAMC (3 additional 16 Para men came by glider). He wrote this
+                    letter to his wife from the C-47 Dakota aircraft en route.</p>
+                <p> “Well, excuse what will inevitably be bad writing but this is it! We took off 20 minutes ago and I
+                    am sitting in the plane exactly opposite the door. Poor Charles sitting next to the door became
+                    rather quiet after a few minutes, then suddenly called for a “bag, grease proof paper, vomit,
+                    paratroops for the use of”. Six others have been sick already…. Darling, the sky seems to be full of
+                    planes …. I’ve never felt so calm & collected before a jump and this time we are going into action….
+                    I must stop writing now and start to tie on my kit bag onto my leg…” </p>
+            </div>
+
+        </div>
+        <!-- End Battle of Arnhem -->
+
+        <!-- Battle of Arnhem -->
+        <div class="row new-row-indent">
+            <a name="battle-of-arnhem"></a>
+            <div class="col-lg-12">
+                <h1 class="end-row-indent-sm"> The Battle of Arnhem </h1>
+                <p> The 1st Parachute Brigade, comprising the 1st, 2nd and 3rd Parachute Battalions and commanded by
+                    Brigadier G.W. Lathbury, landed with little fanfare. The three parachute battalions formed up and
+                    disappeared into the Dutch countryside, leaving members of the South Staffords, 1st Battalion Border
+                    Regiment and 7th Battalion Kings Own Scottish Borderers to secure the landing zones for the balance
+                    of the Division who were scheduled to arrive the next day. By 15:00 two platoons of the South
+                    Staffords, together with a section of Glider Pilots cleared the nearby village of Wolfheze. </p>
+                <p> Private Robert Edwards (Service Nr. 5118991) served with 21 Platoon D Company, 2nd Battalion, South
+                    Staffordshire Regiment, 1st Airlanding Brigade. D Company, led by Major J.E. Phillip, arrived by
+                    glider on LZ S at approximately 13:30 on 17 September. </p>
+                <p> By that evening troops of the 1st Parachute Brigade were locked in a desperate battle to break
+                    through German strongpoints ringing the western perimeter of Arnhem. Only the 2nd Battalion, under
+                    Lt. Co. John Frost, following the lower “Lion” route had reached the road bridge over the Rhine,
+                    while the 1st and 3rd Battalions, on the more northern “Leopard” and “Tiger” routes, were held up by
+                    the 16th SS Training Battalion under Sept Krafft. The following morning, Maj. Gen. Urquhart and
+                    Brig. Lathbury were cut off and surrounded in forward positions, and command of the division passed
+                    to Brig. Hicks. Seeing that the parachute brigade was bogged down as it attempted to reach the
+                    bridge, Hicks sent the South Staffords and the 11th Parachute Battalion into the city to support the
+                    attack. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Private Edwards 1944 Pocket Diary.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Original Private Edwards 1944 Pocket Diary, showing his entries
+                        for 17-24 September 1944 </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/The road bridge in Arnhem.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> The road bridge in Arnhem – Target “Mike One” </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Allied Advance and German “blocking” lines.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Allied Advance and German “blocking” lines </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="new-row-indent-sm"></div>
+            <div class="col-lg-9">
+                <p>By 19:00 D Company of the South Staffs, the lead element, had taken up positions north of the
+                    Utrechtsweg, in and around houses west of the St. Elizabeths hospital. At 04:30 on the 19th
+                    September, the company took the lead as the 340 remaining members of the regiment advanced. The
+                    company reached the open space east of the hospital when suddenly, all hell broke loose. Private
+                    Edwards recalled “We must have looked like targets in a shooting gallery. All Jerry had to do was
+                    line up his guns on this one gap and fire…He couldn’t miss.” Despite the heavy fire, the South
+                    Staffs advanced about 300 yards before heavy losses forced them to ground. About 60 percent of the
+                    company had become casualties.</p>
+            </div>
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/South Staffords Cap Badge.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Original Private Edwards South Staffords Cap Badge </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Robert Edwards and Kathleen Crockett.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Robert Edwards and his future wife, Kathleen Crockett
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-9">
+                <p>Soon British positions around the museum were in danger of being overrun. Orders were given to
+                    evacuate. It was now every man for himself and the few remaining South Staffs fell back to the
+                    gardens and houses of Oosterbeek for the next 5 days. From 21-25 September most of the men had
+                    nothing to eat and little to drink. The divisional perimeter was under almost continuous fire from
+                    mortars and selfpropelled guns that gradually moved closer. </p>
+                <p> The decision to evacuate the Oosterbeek perimeter was made on 24 September and “Operation Berlin”
+                    was put into action the next evening. The perimeter started thinning out after dark and the river
+                    crossings started at 22:00. The Glider Pilots acted as guides for the troops, who travelled down two
+                    routes towards the Rhine. All of the medical staff and chaplains remained behind to tend to the
+                    wounded. </p>
+                <p> The South Staffs had gone into battle with 47 officers and 820 other ranks. Only 6 officers and 133
+                    enlisted men returned. Private Edwards was one of the fortunate ones, returning across the river
+                    with Operation Berlin. </p>
+            </div>
+            <div class="end-row-indent-sm"></div>
+
+        </div>
+        <!-- End Battle of Arnhem -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">10</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_11' %}">11</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

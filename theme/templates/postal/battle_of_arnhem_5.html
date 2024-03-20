@@ -1,0 +1,352 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-5/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}#prisoner-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}dutch-resistance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#role-cross" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#cross-tracing" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem_11' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Mail en Route During the Fighting -->
+        <a name="mail-en-route"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Mail en Route During the Fighting </h1>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <p>After connections via the postal service were disrupted, senders were sometimes able to have a letter
+                posted in another town by people traveling the countryside. In this case, the letter was taken along
+                from Amsterdam and posted in Apeldoorn 13 days after it was written.</p>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIApeldoorn093044_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Amsterdam (NH) to Apeldoorn (GL), written 17 September and
+                        mailed 30 September 1944
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIApeldoorn093044_Reverse.jpg' %}" class="img-fluid">
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Airborne soldiers.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Airborne soldiers use parachutes to signal Allied supply
+                        aircraft from the grounds of Division HQ at the Hartenstein Hotel in Oosterbeek, 23 September
+                        1944. IWM BU1119.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/D-Troop.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> 75mm howitzer of 'D' Troop, 2nd Battery, 1st Airlanding Light
+                        Regiment in the Oosterbeek perimeter, 21 September 1944. IWM BU1101.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Two Dutch commandos.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Two Dutch commandos, serving with the 1st Airborne Division,
+                        being welcomed by Dutch women. They are holding the Dutch flag. IWM BU 1153.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIWinschoten092144_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> Winschoten (Groningen) to Nijmegan (GL), 21 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> This printed matter piece, an ad for tulip bulbs, was
+                        returned with the <span class="bolded">elusive hand stamp: Postverkeer / gestremd / retour
+                            afzender </span>(postal traffic /
+                        obstructed / return sender).
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+
+            <div class="col-lg-12">
+                <p> Nijmegen had finally been liberated on the evening of the fourth day of Operation Market Garden, 21
+                    September 1944 and the postal connection to the north had been severed. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Nijmegen road bridge.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption ">Original pre-war postcard of the Nijmegen road bridge
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIUtrecht091544_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Utrecht (UT) to Elden / Arnhem (GL), 15 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold ">Card received primitive hand stamp: TERUG / AFZENDER
+                        (return / sender).The letter could not be delivered because of the fighting and was returned to
+                        Utrecht via Apeldoorn on 12 March 1945. Apeldoorn was liberated on 17 April. Utrecht on 5 May
+                        1945.</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Twentol Monument.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption ">Twentol Monument to the resistance fighters who gave their lives
+                        on 10 April 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <p>This letter was sent by Twentol Company in Deventer. Twentol traded in imported oil products, such as
+                    lubricating oil. On 10 April 1945, the day of Deventer’s liberation, a number of young Dutch
+                    resistance fighters attempted to capture the bridge over the Ijssel. Five resistance members were
+                    discovered hiding in the Twentol building and were summarily executed by the Germans, together with
+                    a German medic, Ernst Gräwe, who refused to participate in the firing squad. He was shot by his own
+                    commander. </p>
+            </div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/South Arnhem in 1937.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption ">South Arnhem in 1937. Kees Adema’s family home (nr. 13) is shown
+                        in red. The road bridge is shown at top right.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <p> The road bridge which was fought over in September 1944, was the 'Rijnbrug’ Rhine Bridge.
+                    Construction of the bridge had begun in 1932 and was completed in 1935. During the German invasion
+                    in May 1940, Dutch army engineers blew the bridge to slow the German advance. The Germans then
+                    rebuilt the bridge during their occupation of the Netherlands. Work on the road bridge was only just
+                    completed in the summer of 1944. </p>
+            </div>
+
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/XVIDeventer091644_Front.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">Deventer (OV) to Arnhem (GL), 16 September 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">Card received two primitive hand stamps: TERUG / AFZENDER
+                        (return / sender) on the front and the mutilated Geen Post / verbinding (no mail / connection)
+                        on the back.Returned to Deventer via Apeldoorn on 27 March 1945. Envelope re-used because of
+                        their paper scarcity.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/greenpost.png' %}" class="img-fluid">
+                </figure>
+            </div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Kees Adema.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Kees Adema as a young child with his aunt outside his family’s home in Arnhem during the war
+                    </figcaption>
+                </figure>
+
+            </div>
+            <div class="col-lg-8">
+                <p><span class="bolded">Kees Adema RDP FRPSL</span> lived with his family at Huissensestraat 13
+                    in Arnhem, just some 300 meters from the southern end of the road bridge. His brother, Piet, was
+                    born in the family’s cellar on 17 September 1944, the first day of Operation Market Garden.
+                    Their house was taken over by the Germans and used as a lazarett (field hospital), treating
+                    wounded German soldiers.</p>
+            </div>
+
+
+        </div>
+        <!-- End Mail en Route During the Fighting -->
+
+        <!-- 1. Fallschirm-Armee (1st Parachute Army) -->
+        <div class="row new-row-indent">
+            <a name="armee"></a>
+            <h1 class="end-row-indent-sm"> 1. Fallschirm-Armee
+                (1st Parachute Army) </h1>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/id book Rudolf Gante.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption unbold">
+                        <span class="bolded">Original ID book.</span> Rudolf Gante was 22 and serving as a driver for 1.
+                        FallschirmJäger
+                        Kraftfahrzeug Ausbildung Abteilung, the 1st Paratroopers Automotive Training Department, when
+                        his Soldbuch and personal records were destroyed by enemy action. This replacement was issued on
+                        1 September 1943. Until May 1944 he served as a driver with several Air Force Corps units,
+                        including the XI. Fliegerkorps based in Germany and France and subsequently with the motorized
+                        transport of the First Parachute Army, seeing action in Arnhem and Nijmegen.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/German infantry battalion.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> A German infantry battalion on alert as they search the suburbs
+                        of Arnhem for Allied troops, September 1944. IWM HU2126.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/General Kurt Student.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-5">
+                <p> <span class="bolded">General Kurt Student</span> (12 May 1890 - 1 July 1978) was in overall command
+                    of the Fallschirmjäger, and
+                    commanded it throughout the war. In 1944, following the Normandy landings, he was put in charge of
+                    the First Paratroop Army and took part in countering the Allied forces near Arnhem.</p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original in ID book 1.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption"> (Original in ID book)
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Box 3_Operation Market Garden.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">
+                        On 7 July 1945 Rudolf Gante was employed by the Allies: ‘The holder of this document belongs to
+                        a unit formed from discharged Wehrmacht personnel and is employed under the control of the
+                        Allied Authorities.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+            <div class="end-row-indent-sm"></div>
+        </div>
+        <!-- End 1. Fallschirm-Armee (1st Parachute Army) -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">10</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_11' %}">11</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

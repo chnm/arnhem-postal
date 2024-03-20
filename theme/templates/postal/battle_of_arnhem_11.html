@@ -1,0 +1,489 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-11/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}#prisoner-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}dutch-resistance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#role-cross" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#cross-tracing" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem_11' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Role of the Red Cross -->
+        <a name="role-cross"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> The Battle of Arnhem - Lasting Thanks </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <p> Despite the 1st British Airborne's failure to hold the Arnhem bridge and the resulting devastation
+                    incurred by the local population, memorial events have been held in Arnhem and Oosterbeek on the
+                    anniversary of the battle since 1945. These include wreath laying ceremonies, parades, concerts, and
+                    other commemorative activities, honoring all those who fought and died in the battle. </p>
+                <p>
+                    Every September a joint Anglo-Dutch Service of Remembrance is held at the Oosterbeek War Cemetery,
+                    where local school children each lay a flower on the grave of a British paratrooper.
+                </p>
+                <p>
+                    The Airborne Museum Hartenstein in Oosterbeek is dedicated to the battle and tells the story from
+                    the perspective of the British airborne forces. It attracts many visitors interested in this
+                    important WWII battle.
+                </p>
+                <p>
+                    Books, films and TV programs about Operation Market Garden and the Battle of Arnhem continue to be
+                    produced, educating new generations about this battle. The 1977 film A Bridge Too Far brought wider
+                    attention to the battle.
+                </p>
+                <p>
+                    Arnhem today embraces its connection to the battle as part of the city's heritage, despite the
+                    destruction that it wrought. Streets and bridges are named after elements of the battle, keeping the
+                    memory alive. While it was a significant defeat for the Allies late in WWII and dashed hopes of an
+                    early end to the war, the story of holding out against the odds still captures interest. The battle
+                    epitomizes the courage of British airborne soldiers who held on heroically against a much larger
+                    German force. The battle has intrigued military historians due to the many controversies and "what
+                    ifs" about the plans and tactics. The debates keep scholarly attention on Arnhem.
+                </p>
+            </div>
+
+            <figure class="row align-items-center d-flex justify-content-center">
+                <div class="1"></div>
+                <div class="col-lg-5">
+                    <img src="{% static 'images/battle-of-arnhem/Theirs_is_the_Glory.png' %}" class="img-fluid">
+                </div>
+                <div class="col-lg-5">
+                    <img src="{% static 'images/battle-of-arnhem/ticket the premiere of the 1946 film.png' %}"
+                        class="img-fluid">
+                </div>
+                <div class="1"></div>
+                <figcaption class="figure-caption"> Original "ticket" from the premiere of the 1946 film "Theirs is
+                    the Glory"
+                </figcaption>
+                <figcaption class="figure-caption unbold"> The tickets were made of metal from some of the crashed
+                    gliders which carried the British 1st Airborne Division into battle at Arnhem
+                </figcaption>
+            </figure>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Dutch children lay flowers.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Dutch children lay flowers on graves of the fallen, September 1945
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <p>
+                    After hostilities ceased, children living in the vicinity of the battle were each assigned a grave
+                    in the Airborne War Cemetery in Oosterbeek to maintain. It was in the summer of 1945 when several
+                    hundred veterans attended the first commemoration, which has been repeated ever since. Over a
+                    thousand young people have laid flowers on the graves of the fallen soldiers in the annual
+                    remembrance ceremony. The Commonwealth War Graves Commission runs the cemetery which holds the
+                    remains of more than 1764 WWII casualties of the battle.
+                </p>
+            </div>
+
+            <div class="col-lg-12">
+                <p>
+                    This unofficial medal was issued to commemorate the 50th anniversary of the Battle of Arnhem,
+                    presented by the Town Council of Oosterbeek, Netherlands, to those involved in Operation Market
+                    Garden.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original Pvt Edwards Arnhem 50th Anniversary Medal.png' %}"
+                        class="img-fluid" style="height: 300px;">
+                    <figcaption class="figure-caption">
+                        Original Pvt Edwards Arnhem 50th Anniversary Medal
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Arnhem Remembrance_ train ticket _1974.png' %}"
+                        class="img-fluid" style="height: 300px;">
+                    <figcaption class="figure-caption">
+                        Original special "Arnhem Remembrance" train ticket 1974
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> <span class="bolded">Theirs Is the Glory</span> was a 1946 British war film about the British 1st
+                    Airborne Division's involvement
+                    in the Battle of Arnhem. It was the first film to be made about this battle, and the biggest
+                    grossing UK war film for nearly a decade. The later film A Bridge Too Far depicts Operation Market
+                    Garden as a whole and includes the British, Polish and American Airborne forces, while Theirs Is the
+                    Glory focuses solely on the British forces, and their fight at Oosterbeek and Arnhem. Using the
+                    original locations of the battle, the film featured veterans who were actual participants in the
+                    battle. Though no credits appear before or after the film, over 200 veterans of the battle appeared
+                    as actors. The film was directed by Brian Desmond Hurst, who was himself a veteran of the First
+                    World War. </p>
+            </div>
+
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Theirs Is the Glory.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Major Freddie Gough.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Major “Freddie” Gough, Commander of the 1st Airborne Reconnaissance Squadron at Arnhem, as he
+                        appears in the film "Theirs is the Glory"
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-12">
+                <p> The 506th Regiment, US 101st Airborne Division, was tasked with securing
+                    bridges and sections of highway near the city of Eindhoven. Landing on Drop Zone C, near the
+                    town of Son, the 506th's first objective was to secure Son's bridges to Eindhoven in order to
+                    provide a route for the British Armored Guards to quickly reinforce the units dropped further
+                    north. </p>
+            </div>
+
+            <div class="col-lg-3"> </div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/dutch children.png' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Dutch children greet paratroopers of the 506th Parachute Infantry Regiment shortly after they
+                        landed on DZ 'B' near Son, 17 September 1944. The original photograph was used for the design of
+                        the stamp commemorating the 50th anniversary of Operation Market Garden.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"> </div>
+
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/90 cent stamp - Market Garden Memorial Issue.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        90 cent stamp - Market Garden Memorial Issue (1994)
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-9">
+                <p>
+                    This photograph shows men of the US 506th Parachute Regiment assembling at the Merks farm in
+                    Sonniuswijk. PFC Park H. Appler of Company G is walking towards the camera, carrying an M1903
+                    Springfield rifle (unusual for paratroopers at this date) adapted for grenade launching. The girl on
+                    the left looking into the camera is Betsie Pijnenburg, and the tall man in the dark jacket is Jan
+                    Pijnenburg.
+                </p>
+                <p>
+                    In 1994 the Dutch postal service selected Jones' picture for a special 50th Anniversary stamp. This
+                    led to a somewhat painful argument when two veterans - former PFC Appler of the 506th and former
+                    Staff Sergeant Arthur H. Bittner of Company A of the 326th Engineers - both claimed to be the man in
+                    the picture. However, since it is certain that the picture was taken on the 17th, and since Company
+                    A of the 326th only arrived by glider on the 18th (the 3rd platoon had parachuted in on the 17th,
+                    but at Veghel), it can only be PFC Appler.
+                </p>
+            </div>
+
+            <figure class="row align-items-center d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <img src="{% static 'images/battle-of-arnhem/veterans from the 1st Airborne.png' %}"
+                        class="img-fluid">
+                </div>
+                <div class="col-lg-6">
+                    <img src="{% static 'images/battle-of-arnhem/veterans from the 1st Airborne label-2.png' %}"
+                        class="img-fluid">
+                </div>
+                <figcaption class="figure-caption"> Original press photograph from 17 September 1946, showing British
+                    veterans from the 1st Airborne Division and their families as they pay their respects to the Dutch
+                    Resistance members who gave their lives during the war
+                </figcaption>
+            </figure>
+
+            <figure class="row align-items-center d-flex justify-content-center">
+               
+                <div class="col-lg-5">
+                    <img src="{% static 'images/battle-of-arnhem/Major General Urquhart.png' %}" class="img-fluid">
+                </div>
+                <div class="col-lg-7">
+                    <img src="{% static 'images/battle-of-arnhem/Major General Urquhart label.png' %}"
+                        class="img-fluid">
+                </div>
+               
+                <figcaption class="figure-caption"> Original press photograph from 17 September 1946, showing Major
+                    General Urquhart, CB, DSO, Commander of the 1st Airborne Division, as he accepts a gift from a Dutch
+                    civilian
+                </figcaption>
+            </figure>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Box 3_Operation Market Garden Special Comm.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Commemorative Cover 40th Anniversary 1st Polish Independent Parachute Brigade
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>
+                    The 1st (Polish) Independent Parachute Brigade was a parachute infantry brigade of the Polish Armed
+                    Forces under the command of Major General Stanisław Sosabowski. The Poles were initially landed by
+                    glider on 18 September, while the parachute section of the Brigade was held up due to bad weather
+                    over England, and only jumped on 21 September at Driel on the South bank of the Rhine. The Poles
+                    suffered significant casualties during the next few days of fighting.
+                </p>
+            </div>
+
+            <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Gen. Stanisław F. Sosabowski_.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Gen. Stanisław F. Sosabowski (1892-1967) Commemorative Polish 2 Złote coin – issued 2004.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Airborne Walking Tour medal-2.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original "Airborne Walking Tour' medal
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The annual Airborne Walking Tour was started in 1947 to honor those who fought
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+            </div>
+
+            <div class="col-lg-12">
+                <p>
+                    The epic war film <span class="bolded">A Bridge Too Far</span> was released in 1977. Based on a
+                    non-fiction book of the same
+                    name by historian Cornelius Ryan, the film was directed by Richard Attenborough and featured an
+                    all-star cast featuring Dirk Bogarde, James Caan, Michael Caine, Sean Connery, Edward Fox, Elliott
+                    Gould, Gene Hackman, Anthony Hopkins, Hardy Krüger, Laurence Olivier, Ryan O'Neal, Robert Redford,
+                    Maximilian Schell and Liv Ullmann.
+                </p>
+            </div>
+
+            <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-7">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/A Bridge Too Far.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-3">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/A Bridge Too Far-2.png' %}" class="img-fluid">
+                </figure>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Garden Special Comm. Covers Volume III_0022.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Commemorative Cover 37th Anniversary
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        This is the fourth in a series of commemorative covers issued by the Airborne Museum at
+                        Oosterbeek on the anniversary of the battle. In 1981 homage was paid to three well-known heroes
+                        of the battle: Lt Col D. Dobie, Sqn Leader F.S. Cleaver and Lt. J.P. Barnett, each a recipient
+                        of the Dutch Military Order of William, the highest award the Kingdom of the Netherlands can
+                        bestow.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Special Comm. Covers Volume III_0014.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Escape from Arnhem Commemorative Cover 40th Anniversary = Signed By Brig. Gen. Sir John Hackett,
+                        Dr. Elsa Caspers, Koos Meyer and Hen Idenburg
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>
+                    <span class="bolded">Gen. Sir John Winthrop Hackett, GCB, CBE, DSO & Bar, MC</span>, commanded 4th
+                    Parachute Brigade at Arnhem.
+                    He was severely wounded in the stomach but managed to escape with the help of the Dutch underground.
+                </p>
+
+                <p> <span class="bolded"> Hen Idenburg </span>was a member of the Dutch resistance, who assisted with
+                    Gen Hackett's escape. Another
+                    39 Allied soldiers and airmen followed the same escape route and arrived home safely. </p>
+
+                <p> <span class="bolded">Dr. Elsa Caspers</span> was a member of the resistance, who initially helped
+                    Jewish children avoid deportation. On
+                    February 3, 1945 she accompanied Brigadier Hackett on his escape as they traveled more than 50 miles
+                    (80 km) by bicycle. </p>
+
+                <p>
+                    <span class="bolded"> Koos Meyer </span>, a former barge captain and member of the Albrecht
+                    resistance group,
+                    developed the escape route through the Biesbosch, a region of waterways, creeks and marshes, that
+                    was taken by Brig. Hackett on the night of 4/5 February 1945. The Albrecht group made 374
+                    clandestine crossings; Koos participated in 29 of them.
+                </p>
+
+                <p>
+                    <span class="bolded">Flight Lieutenant David Lord </span> captained
+                    Dakota KG374 on 19 September 1944. This was his third mission over Arnhem. Once over Arnhem, the
+                    plane was immediately hit by flak and the starboard engine burst into flames. Lord, hearing that
+                    they were only 4 minutes out from the drop zone, decided to continue with the mission. The aircraft
+                    was again hit and the starboard wing caught fire. All but two panniers of ammunition were dropped
+                    from the blazing Dakota, so Lord flew around a second time to deliver the remainder. Flying Officer
+                    King was thrown clear of the plane and safely landed by parachute, but the remaining 3 crew members
+                    and 4 Army despatchers were killed as the aircraft crashed in flames. Fit Lt Lord was posthumously
+                    awarded the Victoria Cross for “supreme valor and self sacrifice”.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Market Garden Special Comm. Covers Volume III_0055.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Commemorative Flt Lt Lord Cover - Signed By SS Obergruppenführer Wilhelm Bittrich and Maj.
+                        Gerald Johnson, 56th Fighter Group
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Market Garden Special Comm. Covers Volume III_0048.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Commemorative Cover 25th Anniversary - Signed By Field Marshall Montgomery
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+        <!-- End Lasting Thanks -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">9</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">10</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_11' %}">11</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}

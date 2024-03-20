@@ -1,0 +1,397 @@
+{% extends "postal/base.html" %}
+{% load static %}
+
+{% block extracss %}
+{% if request.path == '/exhibits/boa-10/' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/exhibit_individual_pages.css' %}">
+{% endif %}
+{% endblock %}
+
+{% block title %}Battle of Arnhem{% endblock title %}
+{% block content %}
+
+<div class="row add-exhibit-padding new-row-indent">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <div class="list-group sticky-top">
+            <li class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">CONTENTS
+            </li>
+            <a href="{% url 'battle_of_arnhem' %}#false-hope" class="list-group-item list-group-item-action"
+                aria-current="true" onclick="makeActive(event)">
+                False Hope
+            </a>
+            <a href="{% url 'battle_of_arnhem' %}#allied-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Forces</a>
+            <a href="{% url 'battle_of_arnhem' %}#german-forces" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Forces </a>
+            <a href="{% url 'battle_of_arnhem_2' %}#mad-tuesday" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Mad Tuesday: 5 September 1944</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#allied-advance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Advance</a>
+            <a href="{% url 'battle_of_arnhem_2' %}#battle-of-arnhem" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">The Battle of Arnhem</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_3' %}#german-opposition" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> German Opposition </a>
+            <a href="{% url 'battle_of_arnhem_4' %}#allied-losses" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">Allied Losses</a>
+            <a href="{% url 'battle_of_arnhem_4' %}#SS-Panzer" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">10. SS Panzer Division 'Frundsberg'</a>
+            <a href="{% url 'battle_of_arnhem_5' %}#mail-en-route" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Mail En Route During the Fighting
+            </a>
+            <a href="{% url 'battle_of_arnhem_5' %}#armee" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> 1. Fallschirm-Armee (1st Parachute Army)
+            </a>
+            <a href="{% url 'battle_of_arnhem_6' %}#impact-on-civilian" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)"> Impact on Civilian
+                Life</a>
+            <a href="{% url 'battle_of_arnhem_6' %}#severed-connection" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Severed Connection - Returned Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#aftermath" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Aftermath
+            </a>
+            <a href="{% url 'battle_of_arnhem_7' %}#evacuees" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Evacuees
+            </a>
+            <a href="{% url 'battle_of_arnhem_8' %}#uberoller" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Delayed Delivery - Überroller
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}#prisoner-war" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Prisoner of War Mail
+            </a>
+            <a href="{% url 'battle_of_arnhem_9' %}dutch-resistance" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Dutch Resistance
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#role-cross" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Role of the Red Cross
+            </a>
+            <a href="{% url 'battle_of_arnhem_10' %}#cross-tracing" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                German Red Cross Tracing Service
+            </a>
+            <a href="{% url 'battle_of_arnhem_11' %}" class="list-group-item list-group-item-action"
+                onclick="makeActive(event)">
+                Lasting Thanks
+            </a>
+        </div>
+    </div>
+
+    <!-- exhibit content -->
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <!-- Role of the Red Cross -->
+        <a name="role-cross"></a>
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <h1> Role of the Red Cross </h1>
+            </div>
+        </div>
+
+        <div class="row end-row-indent-sm">
+            <div class="col-lg-12">
+                <p> After Operation Market Garden Dutch railway personnel remained on strike for the remainder of the
+                    war. As a result, postal service was severely restricted because trains and postal vans were no
+                    longer available. The Red Cross was initially able to transport mail. Rheden (10 miles east of
+                    Arnhem) was situated in the German defense zone and the population had not been evacuated. Its Red
+                    Cross branch performed a crucial role carrying mail to those places where it could still be
+                    delivered locally. The Rheden Red Cross used two different hand stamps. </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Box 3_Red Cross 1940-1944 Volume I_0059.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Bronbeek (GL) - Amsterdam (NH), undated
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> Excerpt from the card: <br> "Dear friends, we are in
+                        Bronbeek
+                        as refugees …. Our house was completely burned down. We have nothing left but we are still
+                        alive! …. Every day new horrors …. In Oosterbeek we both thought we were going to die. "
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The card was sent via the Rheden branch of the Red Cross. The handstamp is unusually clear. Red
+                        Cross stamps did not have dates and could not legally be used to cancel postage stamps or, in
+                        this case, the 5 cents franking on postal stationery.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Original postcard Arnhem 1945 Stationplein.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Original postcard Arnhem 1945 “Stationplein”
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Box 3_Red Cross 1940-1944 Volume I_0091.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Velp (GL) to Schoonhoven (SH), 4 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold"> The Rheden Red Cross carried the letter to Schoonhoven,
+                        where it was posted for local delivery by the national postal service, PTT, after having
+                        cancelled the stamps. Most such correspondence enabled Gelderland residents who had lost homes
+                        and possessions, to notify family and friends that they had survived the fighting and were now
+                        living elsewhere.“…everything happened so fast that I was unable to send a message, all I could
+                        do was flee.”
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Box 3_Red Cross 1944-1946 Post War Enquiries.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption"> Velp (GL) to Harderwijk (GL), mailed 14 October 1944 – delivered
+                        28 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">The addressee, Heer ter Hoeven, is an “evacuee from Velp”
+                        and a former patient at the Sanatorium Sonnevanck, where he is now “unknown”. The letter is sent
+                        back “retour Velp.”
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p>
+                    On 17 September 1944, 30,000 Dutch railway workers went on strike, stopping all train and bus
+                    traffic, while the national postal service, PTT, was seriously hampered. The Red Cross in Rheden
+                    (GL) immediately began to transport mail until it was banned by the Germans on 14 October 14. All
+                    Red Cross vans were confiscated on 17 November 1944.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Box 3_Red Cross 1940-1944 Volume I_0085.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Velp (GL) to Utrecht (UT), 10 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The Rheden Red Cross delivered the letter to the Utrecht branch which then posted it for
+                        processing by the PTT. The slogan cancel refers to “sand and water being the best means to
+                        extinguish fires created by bombs.”
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Arnhem 1945-Telefooncentrale.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original postcard Arnhem 1945 “Telefooncentrale”
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Box 3_Red Cross 1944-1946.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Denmark to Arnhem (GL) undated but post Market Garden.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        There is no indication as to whether the letter was delivered or not.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-4">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/No child without a guide-Red Cross poster.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        "No child without a guide" Red Cross poster
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        During World War II, the Red Cross set up the Information Bureau to trace missing Dutch
+                        citizens.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/1944-1946 Post War Enquiries Volume II.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Soest (UT) to Apeldoorn (GL), undated
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        The letter was hand carried to Apeldoorn and there mailed and cancelled upon arrival on 27
+                        October 1944. Two different Red Cross units were involved, the national organization and the
+                        local chapter in Soest.
+                    </figcaption>
+                </figure>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/1940-1944 Volume I_0097.jpg' %}" class="img-fluid">
+                    <figcaption class="figure-caption">
+                        's-Heerenberg (GL) to Utrecht (UT), delivered on 21 October 1944
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        This letter was sent to Utrecht by a bank in 's- Heerenberg (GL), which was located in an area
+                        that had been seriously disrupted by Operation Market Garden. The stamp was cancelled - against
+                        regulations - by the Red Cross “Comité voor den Ouden IJssel” and probably delivered by the
+                        local Red Cross branch without any obvious involvement by the postal service.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-12">
+                <p> Red Cross assistance with mail delivery often occurred without any involvement from the Dutch postal
+                    service (PTT). At other times, the Red Cross only delivered an item to the addressee at the end
+                    stage.
+                </p>
+            </div>
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/De Steeg (GL) to Leeuwarden (FR).png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        De Steeg (GL) to Leeuwarden (FR), 2 November 1944
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/De Steeg (GL) to Leeuwarden (FR)-2.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">
+                        This letter was sent by an evacuee who was now housed in De Steeg, a village about 8 miles (12
+                        km) east of Arnhem. The letter was sent to Mr and Mrs A. Heeck, who appear to have been related
+                        to the sender and who lived in Leeuwarden, in the northern province of Friesland. It seems that
+                        the sender was also related to the widow J. Haartsen-Heeck who was staying at Utrechtseweg 69,
+                        where the letter dated September 25 showed the same return address as the addressee. A third
+                        letter in the collection, sent from Leeuwarden to Velp on 4 October 1944 also shares the same
+                        return address.
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/1944-1946 Post War Enquiries II_0046.jpg' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Velp (GL) to Amsterdam (NH), undated
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        This letter was posted by the Rhoden Red Cross in Maarsbergen (GL) on 6 November 1944 and then
+                        delivered by the Dutch post office
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/1945 “nieuwe bruggen” - The new bridges.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        Original postcard Arnhem 1945 “nieuwe bruggen” - The new bridges
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+        <!-- End Role of the Red Cross -->
+
+        <!-- German Red Cross Tracing Service -->
+        <div class="row new-row-indent">
+            <a name="#cross-tracing"></a>
+            <h1 class="end-row-indent-sm"> German Red Cross Tracing Service </h1>
+
+            <div class="col-lg-12">
+                <p> These declarations were given by German soldiers returning home after the war from POW camps or
+                    prisons. In them they provided information about soldiers in their former units who were still
+                    classed as missing in action. These accounts date from 1957 and 1958. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/Testimony dated 29 September 1958 given by Gefr.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">
+                        <span class="bolded">Testimony dated 29 September 1958 given by Gefr.
+                            (PFC) Walter Schaffroth</span>,
+                        who had served in 21 Fallschirmjärger (Parachute) Regiment, Division Erdmann, formed in August
+                        1944 from a collection of training units and remnants of other formation, named for its
+                        commanding officer, Generalleutnant Wolfgang Erdmann.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-12">
+                <p> Schaffroth's testimony was given in connection to Gefr. (PFC) Martin Kessler, who was still recorded
+                    as missing. He testifies that: </p>
+                <p>
+                    “Martin was seen in Thomas bunker near Goch …. Moved from there to
+                    another bunker that was then assaulted by the British with flamethrowers…. Presume Martin was burnt
+                    alive as he was not seen afterwards.” </p>
+                <p>
+                    Goch is a German town in the district of Kleve, south east of
+                    Nijmegen, close to the Dutch border. </p>
+            </div>
+
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/War Relief for the German Red Cross, Poster 1941.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption">
+                        “War Relief for the German Red Cross,” Poster 1941
+                    </figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="{% static 'images/battle-of-arnhem/2 August 1958 given by Boda Günther.png' %}"
+                        class="img-fluid">
+                    <figcaption class="figure-caption unbold">
+                        <span class="bolded">Testimony dated 2 August 1958 given by Boda Günther </span>regarding the
+                        fate of
+                        Dr. Gerhard Schmerwitz, who served with the SS Defense Geologist Staff. 500 (motorized). This
+                        group was formed on 15 September 1944 under the command of Hauptsturmführer Marquardt.
+                    </figcaption>
+                    <figcaption class="figure-caption unbold">
+                        Excerpt from form: <br> “I heard that the missing person (Dr. Schmerwitz) was taken prisoner in
+                        Aug/Sept 1944 in Nijmegen, and according to other comrades he was apparently wounded.” German
+                        Red Cross Tracing Service 3
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-3"></div>
+
+            <div class="end-row-indent-sm"></div>
+
+        </div>
+        <!-- End German Red Cross Tracing Service -->
+
+        <nav aria-label="Page navigation example" class="pagination-nav">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem' %}">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_2' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_3' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_4' %}">4</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_5' %}">5</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_6' %}">6</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_7' %}">7</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_8' %}">8</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_9' %}">9</a></li>
+                <li class="page-item active"><a class="page-link" href="{% url 'battle_of_arnhem_10' %}">10</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_11' %}">11</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'battle_of_arnhem_11' %}">Next</a></li>
+            </ul>
+        </nav>
+
+    </div>
+    <!-- end exhibit content -->
+</div>
+
+
+{% endblock content %}
