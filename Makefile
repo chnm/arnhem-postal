@@ -39,6 +39,9 @@ dumpdata :
 graph_illustrate :
 	poetry run python3 manage.py graph_models -a -g -o models.png
 
+docs : 
+	poetry run sphinx-build -b html docs/source/ docs/build/
+
 # Docker helpers
 docker-up : 
 	docker-compose up -d
