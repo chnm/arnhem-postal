@@ -110,8 +110,8 @@ Server Installation
 
 10. Once the database and dependencies are ready, we need to load in the data. There are two ways to do this. 
 
-Loading data from spreadsheets
--------------------------------
+1. Loading data from spreadsheets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you are loading data from spreadsheets, the following steps are necessary.  See more details below under the heading "Data Importing."
 
@@ -136,8 +136,8 @@ If you are loading data from spreadsheets, the following steps are necessary.  S
 
 4. Once these steps are complete, the current set of working data should be available.
 
-Loading data from the PostgreSQL dump
---------------------------------------
+2. Loading data from the PostgreSQL dump
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. If you are loading data from a PostgreSQL dump, you will need to have access to the dump file (``arnhem.sql``). The dump file should be placed in the root directory of the project.
 2. To load the data, run the following command:
