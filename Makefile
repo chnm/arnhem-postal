@@ -10,6 +10,9 @@ preview :
 check : 
 	poetry run python3 manage.py check
 
+test : 
+	poetry run python3 manage.py test
+
 loadlocations :
 	poetry run python manage.py load_locations --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
 
@@ -36,9 +39,6 @@ dumpdata :
 # Zip the collectstatic files
 	zip -r collectstatic.zip staticfiles
 
-graph_illustrate :
-	poetry run python3 manage.py graph_models -a -g -o models.png
-
 docs : 
 	poetry run sphinx-build -b html docs/source/ docs/build/
 
@@ -54,8 +54,4 @@ rebuild :
 	docker-compose build
 	docker-compose up
 
-# Django helpers
-createsuper : 
-	docker-compose exec web poetry run python manage.py createsuperuser
-
-.PHONY : preview graph_illustrate docker-up docker-down docker-build
+.PHONY : preview loadobjects loadtags loadimages loadtags loadlanguages loadtranscriptions dumpdata docker-up docker-down docker-build
