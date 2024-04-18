@@ -1,0 +1,42 @@
+name: sphinx docs
+on:
+  push:
+      branches:
+      - main
+  pull_request:
+
+env:
+  DJANGO_ENV: docs
+
+jobs:
+  docs:
+    name: sphinx documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      # Python version to use is stored in the .python-version file, which is the
+      # convention for pyenv: https://github.com/pyenv/pyenv
+      - name: Get Python version
+        run: echo "PYTHON_VERSION=$(cat .python-version)" >> $GITHUB_ENV
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2
+      - name: Install dependencies
+        run: poetry install
+      - name: Build documentation
+        run: |
+          mkdir gh-pages
+          touch gh-pages/.nojekyll
+          cd docs/
+          poetry run sphinx-build -b html source/ build/
+          cp -r docs/build/* ../gh-pages/
+      - name: Deploy built docs to github pages
+        if: ${{ github.event_name == 'push' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build/html
