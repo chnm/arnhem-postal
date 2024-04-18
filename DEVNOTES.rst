@@ -89,7 +89,7 @@ The ``Makefile`` contains several common tasks for development. The following ar
 Unit Tests
 ----------
 
-Python tests are written with `py.test <http://doc.pytest.org/>`_ and should be run with ``pytest``. To run a test, make sure to call pytest with poetry (e.g., ``poetry run pytest``).
+To run a test, make sure to call Django's ``test`` with poetry (e.g., ``poetry run python manage.py test``) or use the supplied Makefile command ``make test``.
 
 Server Installation 
 ===================
