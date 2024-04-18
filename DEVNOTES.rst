@@ -143,6 +143,7 @@ Loading data from the PostgreSQL dump
 2. To load the data, run the following command:
 
 .. code-block:: bash
+
   psql -U <username> -d <database> -f arnhem.sql
 
 3. The data should now be loaded into the database. You may have to run the ``populate_images`` command to associate images with their appropriate records.
@@ -195,15 +196,18 @@ To get started, the following steps are necessary.
 1. First, build the Docker stack with the following command (you can also consult the Makefile for frequently used Docker commands):
 
 .. code-block:: bash
+
   docker-compose build
 
 2. Then, you can run the stack with the following command, which will start the Django application and the PostgreSQL database:
 
 .. code-block:: bash
+
   docker-compose up
 
 To run the Docker container in detached mode, run the following command: 
 
 .. code-block:: bash
+
   docker-compose up -d
 
