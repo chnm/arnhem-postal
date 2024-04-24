@@ -222,6 +222,8 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
                         "last_name_unknown",
                         "last_name_unclear",
                     ),
+                    "date_of_birth",
+                    "date_of_death",
                 ),
             },
         ),
@@ -259,8 +261,14 @@ class PostmarkAdmin(ExportMixin, admin.ModelAdmin):
 
 class PrimarySourceAdmin(admin.ModelAdmin):
     model = PrimarySource
-    list_display = ("document_type", "date", "description")
+    list_display = (
+        "title",
+        "date",
+        "document_type",
+        "printer",
+    )
     filter_horizontal = ("person",)
+    inlines = [ImageInline]
 
 
 # Register our models with the admin panel ---------------------------------------------
