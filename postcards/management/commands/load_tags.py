@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 from taggit.models import Tag
 
-from postcards.models import Language, Object, Transcription
+from postcards.models import Object
 
 logger = logging.getLogger(__name__)
 
