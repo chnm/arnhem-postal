@@ -12,15 +12,6 @@ from taggit_selectize.managers import TaggableManager
 logger = logging.getLogger(__name__)
 
 
-class Archive(models.Model):
-    """The location of the postcard in an archival collection (folder/box)"""
-
-    location = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.location
-
-
 class Image(models.Model):
     """The image of an object, photograph, or historical source. The Image model
     has a foreign key relationship with the Object model, and each Object object
@@ -35,9 +26,17 @@ class Image(models.Model):
     )
     postcard = models.ForeignKey(
         "Object",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="images",
         null=True,
+        blank=True,
+    )
+    primary_source = models.ForeignKey(
+        "PrimarySource",
+        on_delete=models.SET_NULL,
+        related_name="images",
+        null=True,
+        blank=True,
     )
 
     def __str__(self):
@@ -753,7 +752,7 @@ class PrimarySource(models.Model):
         max_length=50,
         help_text="Record the file name of the image here.",
     )
-    document_type = models.CharField(max_length=50, choices=DOC_TYPE)
+    document_type = models.CharField(max_length=255, choices=DOC_TYPE)
     person = models.ManyToManyField(
         Person,
         verbose_name="Person",
@@ -768,7 +767,7 @@ class PrimarySource(models.Model):
         verbose_name="Printer",
         help_text="Name of the printer.",
     )
-    date = models.DateField(
+    date = models.CharField(
         null=True,
         blank=True,
     )
@@ -847,7 +846,8 @@ class PrimarySource(models.Model):
         null=True, blank=True, help_text="Enter the date this item was cataloged."
     )
     collection = models.ForeignKey(
-        Archive,
+        Collection,
+        verbose_name="collection",
         on_delete=models.PROTECT,
         blank=True,
         null=True,
@@ -856,6 +856,8 @@ class PrimarySource(models.Model):
         max_length=255,
         verbose_name="collection location",
         help_text="The location in the collection (folder and box).",
+        blank=True,
+        null=True,
     )
 
     created_at = models.DateTimeField(
