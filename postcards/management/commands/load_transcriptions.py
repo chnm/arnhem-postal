@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    help = "Load data from an Excel file for the postal objects."
+    help = "Load data from an Excel file for the transcriptions."
 
     def add_arguments(self, parser):
         parser.add_argument(
