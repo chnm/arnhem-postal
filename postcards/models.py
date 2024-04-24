@@ -756,9 +756,8 @@ class PrimarySource(models.Model):
     document_type = models.CharField(max_length=50, choices=DOC_TYPE)
     person = models.ManyToManyField(
         Person,
-        verbose_name="person",
+        verbose_name="Person",
         related_name="person",
-        # optional
         help_text="Select the person(s) this document is about. If the person does not exist, click the plus and add the new person.",
         blank=True,
     )
@@ -773,6 +772,11 @@ class PrimarySource(models.Model):
         null=True,
         blank=True,
     )
+    is_date_known_or_precise = models.BooleanField(
+        default=False,
+        verbose_name="Is the date unknown or imprecise?",
+        help_text="Check this box if the date is unknown or not precise.",
+    )
     file = models.ForeignKey(
         Image,
         on_delete=models.CASCADE,
@@ -781,11 +785,29 @@ class PrimarySource(models.Model):
         verbose_name="Upload images",
         help_text="Upload images of the document.",
     )
+    title = models.CharField(
+        blank=True,
+        null=True,
+        verbose_name="Title",
+        help_text="Title of the document.",
+        max_length=255,
+    )
     description = models.TextField(
         blank=True,
         null=True,
         verbose_name="Description",
         help_text="Describe the document.",
+    )
+    medium = models.CharField(
+        blank=True,
+        null=True,
+        help_text="The medium of the document.",
+    )
+    number_of_pages = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Number of pages",
+        help_text="How many pages does the document have?",
     )
     transcription = models.TextField(
         blank=True,
@@ -793,12 +815,11 @@ class PrimarySource(models.Model):
         verbose_name="Transcription",
         help_text="Transcribe the document.",
     )
-    # related_postal_items = models.ManyToManyField(
-    #     Object,
-    #     blank=True,
-    #     verbose_name="Related postal items",
-    #     help_text="If necessary, link to postal items related to this document. Hold down “Control”, or “Command” on a Mac, to select more than one.",
-    # )
+    has_document_been_translated = models.BooleanField(
+        blank=True,
+        null=True,
+        default=False,
+    )
     tags = TaggableManager(
         blank=True, related_name="tagged_source", verbose_name="Keywords"
     )
@@ -814,6 +835,28 @@ class PrimarySource(models.Model):
         verbose_name="Public notes",
         help_text="These notes are visible to the public.",
     )
+    cataloger = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="cataloger",
+        help_text="Select the user who cataloged or indexed this document.",
+    )
+    date_cataloged = models.DateField(
+        null=True, blank=True, help_text="Enter the date this item was cataloged."
+    )
+    collection = models.ForeignKey(
+        Archive,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+    )
+    collection_location = models.CharField(
+        max_length=255,
+        verbose_name="collection location",
+        help_text="The location in the collection (folder and box).",
+    )
 
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name="date created", blank=False, null=False
@@ -823,16 +866,7 @@ class PrimarySource(models.Model):
     )
 
     def __str__(self):
-        return (
-            self.document_type
-            + " for "
-            + self.person.first_name
-            + " "
-            + self.person.last_name
-        )
-
-    def get_absolute_url(self):
-        return reverse("ancillary_detail", kwargs={"pk": self.pk})
+        return self.title
 
     def image_canvas(self):
         if self.file:
@@ -841,8 +875,6 @@ class PrimarySource(models.Model):
             )
         else:
             return "None attached"
-
-    image_canvas.short_description = "Image"
 
     class Meta:
         verbose_name = "Document"
