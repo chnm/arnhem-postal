@@ -100,7 +100,6 @@ LOCAL_APPS = [
     "theme",
     "users",
     "postcards",
-    "pages",
     "maps",
     "docs",
 ]
