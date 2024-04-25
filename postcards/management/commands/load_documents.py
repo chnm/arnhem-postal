@@ -51,17 +51,32 @@ class Command(BaseCommand):
         # strip white space; lowercase columns names and replace spaces with underscores
         df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
 
+        # handle whitespace in data
+        df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+        df = df.applymap(lambda x: None if str(x).strip() == "\xa0" else x)
+
         for index, row in df.iterrows():
             item_id = row["item_number"]
             title = row["title"]
             document_type = str(row["type"]).lower()
             printer = row["printer"]
             date = row["date"]
+            if pd.isnull(date):
+                date = None
             number_of_pages = row["number_of_pages"]
+            if number_of_pages == "":
+                number_of_pages = 0
             translated = row["translated_(yes/no)"]
             medium = row["medium"]
             notes = row["notes"]
             date_of_indexing = row["date_entered"]
+            if pd.isnull(date_of_indexing):
+                date_of_indexing = None
+            if date_of_indexing == "#########":
+                date_of_indexing = None
+            # convert to yyyy-mm-dd format
+            if date_of_indexing:
+                date_of_indexing = date_of_indexing.strftime("%Y-%m-%d")
             keywords = row["keywords"]
             collection, _ = Collection.objects.get_or_create(
                 name="Tim Gale"
@@ -76,11 +91,6 @@ class Command(BaseCommand):
                 translated = False
             else:
                 translated = None
-
-            # strip all whitespace from all data
-            for key in row.keys():
-                if isinstance(row[key], str):
-                    row[key] = row[key].strip()
 
             DOC_TYPE_DICT = {
                 "service record": "Service Record",
