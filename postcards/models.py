@@ -744,7 +744,7 @@ class PrimarySource(models.Model):
     id = models.AutoField(primary_key=True)
     item_id = models.CharField(
         default="N/A",
-        max_length=50,
+        max_length=255,
         help_text="Record the file name of the image here.",
     )
     document_type = models.CharField(max_length=255, choices=DOC_TYPE)
@@ -770,14 +770,6 @@ class PrimarySource(models.Model):
         default=False,
         verbose_name="Is the date unknown or imprecise?",
         help_text="Check this box if the date is unknown or not precise.",
-    )
-    file = models.ForeignKey(
-        Image,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        verbose_name="Upload images",
-        help_text="Upload images of the document.",
     )
     title = models.CharField(
         blank=True,
