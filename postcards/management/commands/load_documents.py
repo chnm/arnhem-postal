@@ -77,6 +77,11 @@ class Command(BaseCommand):
             else:
                 translated = None
 
+            # strip all whitespace from all data
+            for key in row.keys():
+                if isinstance(row[key], str):
+                    row[key] = row[key].strip()
+
             DOC_TYPE_DICT = {
                 "service record": "Service Record",
                 "military record": "Military Record",
