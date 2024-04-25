@@ -40,12 +40,7 @@ class Image(models.Model):
     )
 
     def __str__(self):
-        return str(
-            "Image for postal object "
-            + self.postcard.item_id
-            + " captioned: "
-            + str(self.image_caption)
-        )
+        return str(self.image_id)
 
     def image_preview(self):
         if self.image:
@@ -868,7 +863,7 @@ class PrimarySource(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     def image_canvas(self):
         if self.file:
