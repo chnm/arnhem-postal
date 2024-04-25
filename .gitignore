@@ -1,7 +1,15 @@
+# Custom local
 .idea/
 models.png
 cliff.toml
+staticfiles
+arnhem.backup.sql
+todo.taskpaper
+export.sql
+static/upload
+arnhem_data.sql
 
+# Generated from gibo
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -440,10 +448,3 @@ flycheck_*.el
 /network-security.data
 
 
-
-staticfiles
-arnhem.backup.sql
-todo.taskpaper
-export.sql
-static/upload
-arnhem_data.sql
