@@ -13,23 +13,28 @@ check :
 test : 
 	poetry run python3 manage.py test
 
-loadlocations :
-	poetry run python manage.py load_locations --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
-
+# Data importing
 loadlanguages :
 	poetry run python manage.py loaddata languages.yaml
 
+loadlocations :
+	poetry run python manage.py load_locations --filepath="./arnhemv2.xlsx" --sheetname="Database ready"
+
+
 loadtranscriptions : 
-	poetry run python manage.py load_transcriptions --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
+	poetry run python manage.py load_transcriptions --filepath="./arnhemv2.xlsx" --sheetname="Database ready"
 
 loadtags :
-	poetry run python manage.py load_tags --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
+	poetry run python manage.py load_tags --filepath="./arnhemv2.xlsx" --sheetname="Database ready"
 
 loadobjects :
-	poetry run python manage.py load_objects --filepath="~/Downloads/arnhemv2.xlsx" --sheet="Database ready"
+	poetry run python manage.py load_objects --filepath="./arnhemv2.xlsx" --sheetname="Database ready"
 
 loadimages : 
 	poetry run python manage.py populate_images
+
+loaddocuments : 
+	poetry run python manage.py load_documents --filepath="./arnhemv2.xlsx" --sheetname="Documents Database Ready"
 
 dumpdata : 
 # Dump the data
