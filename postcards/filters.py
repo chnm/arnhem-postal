@@ -1,5 +1,6 @@
 import django_filters
 from dateutil.parser import parse
+from django.contrib.admin import SimpleListFilter
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -49,6 +50,27 @@ class ProvinceStateFilter(django_filters.ModelChoiceFilter):
         self.field.queryset = Location.objects.values_list(
             "province_state", flat=True
         ).distinct()
+
+
+class DuplicateFilter(SimpleListFilter):
+    """this filter is used inside of django-admin to find duplicate files"""
+
+    title = "Duplicates"
+    parameter_name = "item_id"
+
+    def lookups(self, request, model_admin):
+        return (("true", "Duplicates"),)
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset
+        if self.value() is not None:
+            if self.value().lower() == "duplicates":
+                return queryset.filter().exclude(
+                    id__in=[
+                        i.id for i in queryset.distinct("item_id").order_by("item_id")
+                    ]
+                )
 
 
 class ObjectFilter(django_filters.FilterSet):

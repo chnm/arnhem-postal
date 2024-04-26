@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from import_export.admin import ExportMixin
 
+from .filters import DuplicateFilter
 from .models import (
     Censor,
     Image,
@@ -159,6 +160,7 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
         "date_of_correspondence",
         "regime_censor",
         "regime_location",
+        DuplicateFilter,
     )
     filter_horizontal = ("postmark",)
     extra = 1
