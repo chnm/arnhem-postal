@@ -3,7 +3,7 @@ from dateutil.parser import parse
 from django.db.models import Q
 from django.shortcuts import render
 
-from postcards.models import Collection, Location, Object, Person, Postmark
+from postcards.models import Collection, Location, Object, PrimarySource
 
 
 def get_names(field_prefix):
@@ -212,5 +212,63 @@ class ObjectFilter(django_filters.FilterSet):
             return self.filter_by_collection(queryset, value)
         elif name == "keywords":
             return self.filter_by_all_fields(queryset, value)
+        else:
+            return queryset
+
+
+class PrimarySourceFilter(django_filters.FilterSet):
+    class Meta:
+        model = PrimarySource
+        fields = [
+            "query",
+            "title",
+            "document_type",
+            "date",
+            "medium",
+            "collection",
+            "all_fields",
+        ]
+
+    title = django_filters.CharFilter(
+        field_name="title", lookup_expr="icontains", label="Title"
+    )
+    document_type = django_filters.CharFilter(
+        field_name="document_type", lookup_expr="icontains", label="Document Type"
+    )
+    date = django_filters.CharFilter(
+        field_name="date", lookup_expr="icontains", label="Date"
+    )
+    medium = django_filters.CharFilter(
+        field_name="medium", lookup_expr="icontains", label="Medium"
+    )
+    collection = django_filters.ModelChoiceFilter(
+        field_name="collection",
+        queryset=Collection.objects.all(),
+        to_field_name="name",
+    )
+    query = django_filters.CharFilter(
+        method="filter_query",
+        label="Keyword search",
+    )
+    all_fields = django_filters.CharFilter(
+        method="filter_by_all_fields", label="Keyword search"
+    )
+
+    def filter_by_all_fields(self, queryset, name, value):
+        words = value.split(" ")
+        queries = Q()
+        for word in words:
+            queries |= (
+                Q(title__icontains=word)
+                | Q(document_type__icontains=word)
+                | Q(date__icontains=word)
+                | Q(medium__icontains=word)
+                | Q(collection__name__icontains=word)
+            )
+        return queryset.filter(queries)
+
+    def filter_query(self, queryset, name, value):
+        if name == "keywords":
+            return self.filter_by_all_fields(queryset, name, value)
         else:
             return queryset

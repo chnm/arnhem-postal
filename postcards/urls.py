@@ -60,10 +60,9 @@ urlpatterns = [
     path("resources/", views.resources, name="resources"),
     path("items/", views.ItemHtmxTableView.as_view(), name="table"),
     path("items/<int:id>/", views.object_details, name="items"),
+    path("documents/", views.DocumentsHtmxTableView.as_view(), name="documents_table"),
+    path("documents/<int:id>/", views.document_details, name="document"),
     path("person/<int:id>/", views.person_details, name="person"),
-    # path('login/', auth_views.LoginView.as_view(template_name='postal/login.html'), name='login'),
-    # path('logout/', auth_views.LogoutView.as_view(template_name='postal/logout.html'), name='logout'),
-    # path('profile/', users_views.profile, name='profile'),
     path("taggit/", include("taggit_selectize.urls")),
     path("api/", include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

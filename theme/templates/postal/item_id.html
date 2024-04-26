@@ -1,3 +1,5 @@
 {% load static %}
 
-<a href="{% url 'items' id=record.id %}">{{ record.item_id }}</a>
+<a href="{% if request.resolver_match.url_name == 'items' %}{% url 'items' id=record.id %}{% elif request.resolver_match.url_name == 'documents_table' %}{% url 'document' id=record.id %}{% endif %}">
+    {{ record.item_id }}
+</a>

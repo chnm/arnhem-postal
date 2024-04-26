@@ -10,120 +10,185 @@
     <div class="row d-flex overflow-scroll" style="justify-content: center;">
         <div class="col-sm-12 col-md-6 col-lg-6 db-column">
             <div class="row">
-                <h1 style="margin-bottom: 25px;"> Items Table </h1>
+                <h1 style="margin-bottom: 25px;">
+                    {% if request.resolver_match.url_name == 'table' %}
+                        Postal Items Table
+                    {% elif request.resolver_match.url_name == 'documents_table' %}
+                        Documents Table
+                    {% endif %}
+                </h1>
 
                 <div id="table-container" class="table-container">
 
-                    <form class="form-inline"
-                          hx-get="{% url 'table' %}"
-                          hx-target=".table-body-container"
-                          hx-trigger="input, select, sort-initiated, pagination-initiated"
-                          hx-swap="outerHTML"
-                          hx-indicator=".progress"
-                          x-data="{ sort_by: '', page_by: 1 }">
+                    {% if request.resolver_match.url_name == 'table' %}
 
-                        <input type="hidden" name="sort" x-ref="sort_input" x-model="sort_by"
-                               x-init="$watch('sort_by',
-                                       () => $refs.sort_input.dispatchEvent(
-                                       new Event('sort-initiated', { bubbles: true })))">
+                        <form class="form-inline" hx-get="{% url 'table' %}" hx-target=".table-body-container"
+                              hx-trigger="input, select, sort-initiated, pagination-initiated" hx-swap="outerHTML"
+                              hx-indicator=".progress" x-data="{ sort_by: '', page_by: 1 }">
 
-                        <input type="hidden" name="page" x-ref="paginate_input" x-model="page_by"
-                               x-init="$watch('page_by',
-                                       () => $refs.paginate_input.dispatchEvent(
-                                       new Event('pagination-initiated', { bubbles: true })))" >
+                            <input type="hidden" name="sort" x-ref="sort_input" x-model="sort_by" x-init="$watch('sort_by',
+                                                                                                          () => $refs.sort_input.dispatchEvent(
+                                                                                                          new Event('sort-initiated', { bubbles: true })))">
 
-                        <div class="row">
-                            <div class="col-4">
-                                <label name="all_fields" for="{{ filter.form.all_fields.id_for_label}}" class="labelCSS">Search by keywords</label>
-                                <div class="input-group mb-3">
-                                    <input name="{{ filter.form.all_fields.html_name }}" type="text" class="form-control" placeholder="Enter your search term" aria-label="Search by keywords" aria-describedby="button-addon2">
-                                    <button class="btn btn-primary" type="button" id="button-addon2">search</button>
-                                </div>
-                            </div>
-                        </div>
+                            <input type="hidden" name="page" x-ref="paginate_input" x-model="page_by" x-init="$watch('page_by',
+                                                                                                              () => $refs.paginate_input.dispatchEvent(
+                                                                                                              new Event('pagination-initiated', { bubbles: true })))">
 
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="{{ filter.form.correspondence.id_for_label }}" class="form-label labelCSS">Writer</label>
-                                    <select id="{{ filter.form.correspondence.id_for_label }}" name="{{ filter.form.correspondence.html_name }}" class="form-select custom-select">
-                                        {% for value, name in filter.form.correspondence.field.choices %}
-                                            <option value="{{ value }}">{{ name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-
-                                <label for="{{ filter.form.date.id_for_label }}" class="labelCSS">Date of Correspondence</label>
-                                <div class="row form-group">
-                                    <div class="input-group date" id="datepicker">
-                                        <input type="text" class="form-control" placeholder="Enter date" name="date">
-                                        <span class="input-group-append">
-                                            <span class="input-group-text bg-white d-block">
-                                                <i class="fa-regular fa-calendar"></i>
-                                            </span>
-                                        </span>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label name="all_fields" for="{{ filter.form.all_fields.id_for_label}}"
+                                           class="labelCSS">Search by keywords</label>
+                                    <div class="input-group mb-3">
+                                        <input name="{{ filter.form.all_fields.html_name }}" type="text" class="form-control"
+                                               placeholder="Enter your search term" aria-label="Search by keywords"
+                                               aria-describedby="button-addon2">
+                                        <button class="btn btn-primary" type="button" id="button-addon2">search</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="{{ filter.form.collection.id_for_label }}" class="form-label labelCSS">Collection</label>
-                                    <select id="{{ filter.form.collection.id_for_label }}" name="{{ filter.form.collection.html_name }}" class="form-select custom-select">
-                                        {% for value, name in filter.form.collection.field.choices %}
-                                            <option value="{{ value }}">{{ name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="{{ filter.form.town_city.id_for_label }}" class="form-label labelCSS">City</label>
-                                    <select id="{{ filter.form.town_city.id_for_label }}" name="{{ filter.form.town_city.html_name }}" class="form-select custom-select">
-                                        <option value="">---------</option>
-                                        {% for city in cities_list %}
-                                            <option value="{{ city }}">{{ city }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="{{ filter.form.province_state.id_for_label }}" class="form-label labelCSS">State</label>
-                                    <select id="{{ filter.form.province_state.id_for_label }}" name="{{ filter.form.province_state.html_name }}" class="form-select custom-select">
-                                        <option value="">---------</option>
-                                        {% for state in states_list %}
-                                            <option value="{{ state }}">{{ state }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="{{ filter.form.postmark.id_for_label }}" class="form-label labelCSS">Postmark</label>
-                                    <select id="{{ filter.form.postmark.id_for_label }}" name="{{ filter.form.postmark.html_name }}" class="form-select custom-select">
-                                        <option value="">---------</option>
-                                        {% for postmark in postmarks %}
-                                            <option value="{{ postmark }}">{{ postmark }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
 
-                        {# Progress indicator #}
-                        <div class="progress">
-                            <div class="indeterminate"></div>
-                        </div>
-                        {% render_table table %}
-                    </form>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="{{ filter.form.correspondence.id_for_label }}"
+                                               class="form-label labelCSS">Writer</label>
+                                        <select id="{{ filter.form.correspondence.id_for_label }}"
+                                                name="{{ filter.form.correspondence.html_name }}" class="form-select custom-select">
+                                            {% for value, name in filter.form.correspondence.field.choices %}
+                                                <option value="{{ value }}">{{ name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+
+                                    <label for="{{ filter.form.date.id_for_label }}" class="labelCSS">Date of
+                                        Correspondence</label>
+                                    <div class="row form-group">
+                                        <div class="input-group date" id="datepicker">
+                                            <input type="text" class="form-control" placeholder="Enter date" name="date">
+                                            <span class="input-group-append">
+                                                <span class="input-group-text bg-white d-block">
+                                                    <i class="fa-regular fa-calendar"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="{{ filter.form.collection.id_for_label }}"
+                                               class="form-label labelCSS">Collection</label>
+                                        <select id="{{ filter.form.collection.id_for_label }}"
+                                                name="{{ filter.form.collection.html_name }}" class="form-select custom-select">
+                                            {% for value, name in filter.form.collection.field.choices %}
+                                                <option value="{{ value }}">{{ name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="{{ filter.form.town_city.id_for_label }}"
+                                               class="form-label labelCSS">City</label>
+                                        <select id="{{ filter.form.town_city.id_for_label }}"
+                                                name="{{ filter.form.town_city.html_name }}" class="form-select custom-select">
+                                            <option value="">---------</option>
+                                            {% for city in cities_list %}
+                                                <option value="{{ city }}">{{ city }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="{{ filter.form.province_state.id_for_label }}"
+                                               class="form-label labelCSS">State</label>
+                                        <select id="{{ filter.form.province_state.id_for_label }}"
+                                                name="{{ filter.form.province_state.html_name }}" class="form-select custom-select">
+                                            <option value="">---------</option>
+                                            {% for state in states_list %}
+                                                <option value="{{ state }}">{{ state }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="{{ filter.form.postmark.id_for_label }}"
+                                               class="form-label labelCSS">Postmark</label>
+                                        <select id="{{ filter.form.postmark.id_for_label }}"
+                                                name="{{ filter.form.postmark.html_name }}" class="form-select custom-select">
+                                            <option value="">---------</option>
+                                            {% for postmark in postmarks %}
+                                                <option value="{{ postmark }}">{{ postmark }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                    {# Progress indicator #}
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                            {% render_table table %}
+                        </form>
+
+                    {% elif request.resolver_match.url_name == 'documents_table' %}
+                        <form class="form-inline" hx-get="{% url 'documents_table' %}" hx-target=".table-body-container"
+                              hx-trigger="input, select, sort-initiated, pagination-initiated" hx-swap="outerHTML"
+                              hx-indicator=".progress" x-data="{ sort_by: '', page_by: 1 }">
+
+                            <input type="hidden" name="sort" x-ref="sort_input" x-model="sort_by" x-init="$watch('sort_by',
+                                                                                                          () => $refs.sort_input.dispatchEvent(
+                                                                                                          new Event('sort-initiated', { bubbles: true })))">
+
+                            <input type="hidden" name="page" x-ref="paginate_input" x-model="page_by" x-init="$watch('page_by',
+                                                                                                              () => $refs.paginate_input.dispatchEvent(
+                                                                                                              new Event('pagination-initiated', { bubbles: true })))">
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <label name="all_fields" for="{{ filter.form.all_fields.id_for_label}}" class="labelCSS">
+                                        Search by keywords
+                                    </label>
+                                    <div class="input-group mb-3">
+                                        <input name="{{ filter.form.all_fields.html_name }}" type="text" class="form-control"
+                                               placeholder="Enter your search term" aria-label="Search by keywords"
+                                               aria-describedby="button-addon2">
+                                        <button class="btn btn-primary" type="button" id="button-addon2">search</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="{{ filter.form.date.id_for_label }}" class="labelCSS">Date</label>
+                                    <div class="row form-group">
+                                        <div class="input-group date" id="datepicker">
+                                            <input type="text" class="form-control" placeholder="Enter date" name="date">
+                                            <span class="input-group-append">
+                                                <span class="input-group-text bg-white d-block">
+                                                    <i class="fa-regular fa-calendar"></i>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    {# Progress indicator #}
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                            {% render_table table %}
+                        </form>
+                    {% endif %}
                 </div>
             </div>
-
         </div>
     <!-- finding aid -->
         <div class="col-sm-12 col-md-5 col-lg-5 db-finding-aid overflow-scroll" style="height: 250vh;">
@@ -615,7 +680,8 @@
                                     <td>LVI</td>
                                     <td>Autographs</td>
                                     <td>N/A</td>
-                                    <td>This folder contains autographs of notable people associated with the period. </td>
+                                    <td>This folder contains autographs of notable people associated with the period.
+                                    </td>
                                     <td>TBD</td>
                                 </tr>
                                 <tr>
@@ -623,7 +689,8 @@
                                     <td>LIV</td>
                                     <td>Miscellaneous</td>
                                     <td>TBD</td>
-                                    <td>This folder holds both philately and cultural artifacts that do not fall into the other subject areas. </td>
+                                    <td>This folder holds both philately and cultural artifacts that do not fall into
+                                        the other subject areas. </td>
                                     <td>TBD</td>
                                 </tr>
                             </tbody>
@@ -636,14 +703,4 @@
 
     </div>
     </div>
-
-
-
-
-
-
-
-
-
-
 {% endblock %}

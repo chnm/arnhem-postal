@@ -1,0 +1,58 @@
+{% extends 'postal/base.html' %}
+
+{% block title %}Viewing item {{document.item_id}}{% endblock title %}
+
+{% block content %}
+    <div class="row add-padding new-row-indent">
+        <h1 class="text-lg font-bold">{{document.title}}</h1>
+        <div class="col-md-8">
+                <!-- Scanned Document -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    {% if document.images.all %}
+                        {% for image in document.images.all %}
+                            <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.image_caption }}">
+                            {% if image.image_caption == "None" %}
+                                <p class="text-center">No caption available</p>
+                            {% else %}
+                                <p class="text-center">{{ image.image_caption }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p>No images available</p>
+                    {% endif %}
+                </div>
+            </div>
+                {# Transcriptions #}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Transcription</h5>
+                    {% if document.transcriptions.all %}
+                        {% for transcription in document.transcriptions.all %}
+                            <p>{{ transcription.transcription }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No transcriptions available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+                <!-- Metadata -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Metadata</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Collection:</strong> {{ document.collection }}</li>
+                        <li class="list-group-item"><strong>Collection Location:</strong> {{ document.collection_location }}</li>
+                        <li class="list-group-item"><strong>Item ID:</strong> {{ document.item_id }}</li>
+                        <li class="list-group-item"><strong>Date:</strong> {{ document.date }}</li>
+                        <li class="list-group-item"><strong>Notes:</strong> {{ document.public_notes }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

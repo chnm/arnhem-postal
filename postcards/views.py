@@ -4,9 +4,9 @@ from django.shortcuts import get_object_or_404, render
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
 
-from postcards.filters import ObjectFilter
-from postcards.models import Location, Object, Person, Postmark
-from postcards.tables import ItemHtmxTable
+from postcards.filters import ObjectFilter, PrimarySourceFilter
+from postcards.models import Location, Object, Person, Postmark, PrimarySource
+from postcards.tables import DocumentsHtmxTable, ItemHtmxTable
 
 
 def filtered_person_data(request):
@@ -68,60 +68,72 @@ def exhibits(request: HttpRequest):
     ctx = {"nav_links": nav_links}
     return render(request, "postal/exhibits.html", ctx)
 
+
 def evolution_of_holocaust(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust.html", ctx)
+
 
 def evolution_of_holocaust_2(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_2.html", ctx)
 
+
 def evolution_of_holocaust_3(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_3.html", ctx)
+
 
 def evolution_of_holocaust_4(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_4.html", ctx)
 
+
 def evolution_of_holocaust_5(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_5.html", ctx)
+
 
 def evolution_of_holocaust_6(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_6.html", ctx)
 
+
 def evolution_of_holocaust_7(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_7.html", ctx)
+
 
 def evolution_of_holocaust_8(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_8.html", ctx)
 
+
 def evolution_of_holocaust_9(request: HttpRequest):
     nav_links = get_nav_links("exhibits")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/evolution_of_holocaust_9.html", ctx)
+
 
 def timeline(request: HttpRequest):
     nav_links = get_nav_links("timeline")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/timeline.html", ctx)
 
+
 def resources(request: HttpRequest):
     nav_links = get_nav_links("resources")
     ctx = {"nav_links": nav_links}
     return render(request, "postal/resources.html", ctx)
+
 
 def mapinterface(request: HttpRequest):
     person = get_object_or_404(Person, pk=id)
@@ -160,6 +172,16 @@ def object_details(request: HttpRequest, id: int):
         "nav_links": nav_links,
     }
     return render(request, "postal/object_details.html", ctx)
+
+
+def document_details(request: HttpRequest, id: int):
+    document = get_object_or_404(PrimarySource, pk=id)
+    nav_links = get_nav_links("")
+    ctx = {
+        "document": document,
+        "nav_links": nav_links,
+    }
+    return render(request, "postal/document_details.html", ctx)
 
 
 def person_details(request: HttpRequest, id: int):
@@ -219,6 +241,28 @@ class ItemHtmxTableView(SingleTableMixin, FilterView):
         context["postmarks"] = self.get_postmarks()
         context["cities_list"] = self.get_location_data("town_city")
         context["states_list"] = self.get_location_data("province_state")
+        return context
+
+    # adjust the template depending on whether an htmx request was made
+    def get_template_names(self):
+        if self.request.htmx:
+            template_name = "postal/item_table_partial.html"
+        else:
+            template_name = "postal/item_base_table.html"
+
+        return template_name
+
+
+class DocumentsHtmxTableView(SingleTableMixin, FilterView):
+    table_class = DocumentsHtmxTable
+    queryset = PrimarySource.objects.all()
+    filterset_class = PrimarySourceFilter
+    paginate_by = 10
+    paginator_class = CustomPaginator
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["is_database_page"] = True
         return context
 
     # adjust the template depending on whether an htmx request was made

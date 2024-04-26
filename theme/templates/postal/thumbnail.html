@@ -1,8 +1,18 @@
 {% load static %}
 {% if record.images.first %}
-    <a href="{% url 'items' id=record.id %}"><img class="mx-auto d-block" src="{{ record.images.first.image.url }}" alt="Thumbnail" width="50" height="50"/></a>
-    <p class="text-center"><a class="table-caption" href="{% url 'items' id=record.id %}">{{ record.item_id }}</a></p>
+    <a href="{% if request.resolver_match.url_name == 'items' %}{% url 'items' id=record.id %}{% elif request.resolver_match.url_name == 'documents_table' %}{% url 'document' id=record.id %}{% endif %}">
+        <img class="mx-auto d-block" src="{{ record.images.first.image.url }}" alt="Thumbnail" width="50" height="50"/>
+    </a>
+    <p class="text-center">
+        <a class="table-caption" href="{% if request.resolver_match.url_name == 'items' %}{% url 'items' id=record.id %}{% elif request.resolver_match.url_name == 'documents_table' %}{% url 'document' id=record.id %}{% endif %}">
+            {{ record.item_id }}
+        </a>
+    </p>
 {% else %}
     <span class="text-center">No image available</span>
-    <p class="text-center"><a class="table-caption" href="{% url 'items' id=record.id %}">{{ record.item_id }}</a></p>
+    <p class="text-center">
+        <a class="table-caption" href="{% if request.resolver_match.url_name == 'items' %}{% url 'items' id=record.id %}{% elif request.resolver_match.url_name == 'documents_table' %}{% url 'document' id=record.id %}{% endif %}">
+            {{ record.item_id }}
+        </a>
+    </p>
 {% endif %}
