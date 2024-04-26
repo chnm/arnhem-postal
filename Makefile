@@ -36,6 +36,9 @@ loadimages :
 loaddocuments : 
 	poetry run python manage.py load_documents --filepath="./arnhemv2.xlsx" --sheetname="Documents Database Ready"
 
+fixnames : 
+	poetry run python manage.py update_names
+
 dumpdata : 
 # Dump the data
 	pg_dump arnhem > arnhem_data.sql
