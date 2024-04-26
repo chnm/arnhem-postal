@@ -34,24 +34,25 @@ class Command(BaseCommand):
                 ).strip()  # Join the parts of the item_id back into a string
                 caption = parts[-1].strip()  # The last part is the caption
                 try:
-                    obj = Object.objects.get(item_id=item_id)
+                    obj = Object.objects.filter(item_id=item_id)
                     with open(os.path.join(filepath, filename), "rb") as f:
-                        if caption == "Front":
-                            img = Image(
-                                postcard=obj, image_caption="Front"
-                            )  # Set the image_caption field to 'Front'
-                        elif caption == "Reverse":
-                            img = Image(
-                                postcard=obj, image_caption="Reverse"
-                            )  # Set the image_caption field to 'Reverse'
-                        else:
-                            img = Image(
-                                postcard=obj
-                            )  # If neither 'Front' nor 'Reverse' is in the filename, don't set the image_caption field
-                        img.image.save(
-                            filename, File(f)
-                        )  # Save the image file to the Image instance
-                        img.save()  # Save the Image instance
+                        for mail in obj:
+                            if caption == "Front":
+                                img = Image(
+                                    postcard=mail, image_caption="Front"
+                                )  # Set the image_caption field to 'Front'
+                            elif caption == "Reverse":
+                                img = Image(
+                                    postcard=mail, image_caption="Reverse"
+                                )  # Set the image_caption field to 'Reverse'
+                            else:
+                                img = Image(
+                                    postcard=mail
+                                )  # If neither 'Front' nor 'Reverse' is in the filename, don't set the image_caption field
+                            img.image.save(
+                                filename, File(f)
+                            )  # Save the image file to the Image instance
+                            img.save()  # Save the Image instance
                         self.stdout.write(
                             self.style.SUCCESS(
                                 f"Successfully updated image for Object "
