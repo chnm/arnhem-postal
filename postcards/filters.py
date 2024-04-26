@@ -63,14 +63,13 @@ class DuplicateFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            return queryset
-        if self.value() is not None:
             if self.value().lower() == "duplicates":
-                return queryset.filter().exclude(
-                    id__in=[
-                        i.id for i in queryset.distinct("item_id").order_by("item_id")
-                    ]
-                )
+                # Annotate each object in the queryset with a count of how many objects have the same item_id
+                queryset = queryset.annotate(item_id_count=Count("item_id"))
+
+                # Filter the queryset to include only objects where item_id_count is greater than 1
+                return queryset.filter(item_id_count__gt=1)
+        return queryset
 
 
 class ObjectFilter(django_filters.FilterSet):
