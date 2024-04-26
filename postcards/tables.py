@@ -41,7 +41,7 @@ class ItemHtmxTable(tables.Table):
 
 class DocumentsHtmxTable(tables.Table):
     thumbnail = tables.TemplateColumn(
-        template_name="postal/thumbnail.html", orderable=False
+        template_name="postal/document_thumbnail.html", orderable=False
     )
     title = tables.Column(accessor="title", verbose_name="Title")
     doc_type = tables.Column(accessor="document_type", verbose_name="Document Type")
