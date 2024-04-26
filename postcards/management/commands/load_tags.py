@@ -43,7 +43,7 @@ class Command(BaseCommand):
             keywords = row["key_words"]
 
             try:
-                document = Object.objects.get(item_id=item_id)
+                document = Object.objects.filter(item_id=item_id)
             except Object.DoesNotExist:
                 self.stdout.write(
                     self.style.ERROR(f"No Object found with item_id {item_id}")
@@ -54,8 +54,9 @@ class Command(BaseCommand):
                 tags = [tag.strip() for tag in str(keywords).split(",")]
                 for tag_name in tags:
                     tag, created = Tag.objects.get_or_create(name=tag_name)
-                    document.tags.add(tag)
-                    document.save()
+                    for doc in document:
+                        doc.tags.add(tag)
+                        doc.save()
                     self.stdout.write(
                         self.style.SUCCESS(
                             f"Successfully added tag {tag_name} to object {item_id}."

@@ -44,7 +44,7 @@ class Command(BaseCommand):
             translation = row["translation"]
 
             try:
-                postal_object = Object.objects.get(item_id=item_id)
+                postal_object = Object.objects.filter(item_id=item_id)
             except Object.DoesNotExist:
                 self.stdout.write(
                     self.style.ERROR(f"No Object found with item_id {item_id}")
@@ -55,11 +55,12 @@ class Command(BaseCommand):
             if pd.notna(transcription) and transcription != "nan":
                 try:
                     german_language = Language.objects.get(language="German")
-                    Transcription.manager.create(
-                        postal_object=postal_object,
-                        transcription=transcription,
-                        language=german_language,
-                    )
+                    for mail in postal_object:
+                        Transcription.manager.create(
+                            postal_object=mail,
+                            transcription=transcription,
+                            language=german_language,
+                        )
                     self.stdout.write(
                         self.style.SUCCESS(
                             f"German Transcription for Object {item_id} created successfully"
@@ -76,11 +77,12 @@ class Command(BaseCommand):
             if pd.notna(translation) and translation != "nan":
                 try:
                     english_language = Language.objects.get(language="English")
-                    Transcription.manager.create(
-                        postal_object=postal_object,
-                        transcription=translation,
-                        language=english_language,
-                    )
+                    for mail in postal_object:
+                        Transcription.manager.create(
+                            postal_object=mail,
+                            transcription=translation,
+                            language=english_language,
+                        )
                     self.stdout.write(
                         self.style.SUCCESS(
                             f"English Transcription for Object {item_id} created successfully"
