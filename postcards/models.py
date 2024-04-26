@@ -378,7 +378,7 @@ class Transcription(models.Model):
         "Object",
         blank=True,
         null=True,
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
         related_name="transcriptions",
         help_text="Link a document to the transcription.",
     )
