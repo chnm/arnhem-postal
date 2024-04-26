@@ -1,7 +1,7 @@
 import django_filters
 from dateutil.parser import parse
 from django.contrib.admin import SimpleListFilter
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.shortcuts import render
 
 from postcards.models import Collection, Location, Object, PrimarySource
@@ -62,14 +62,14 @@ class DuplicateFilter(SimpleListFilter):
         return (("true", "Duplicates"),)
 
     def queryset(self, request, queryset):
-        if self.value():
-            if self.value().lower() == "duplicates":
-                # Annotate each object in the queryset with a count of how many objects have the same item_id
-                queryset = queryset.annotate(item_id_count=Count("item_id"))
-
-                # Filter the queryset to include only objects where item_id_count is greater than 1
-                return queryset.filter(item_id_count__gt=1)
-        return queryset
+        """find the duplicates to display"""
+        if self.value() == "true":
+            return queryset.filter(
+                item_id__in=Object.objects.values("item_id")
+                .annotate(item_count=Count("item_id"))
+                .filter(item_count__gt=1)
+                .values_list("item_id", flat=True)
+            )
 
 
 class ObjectFilter(django_filters.FilterSet):
