@@ -98,8 +98,6 @@ class Command(BaseCommand):
                         )
                         return_to_sender = str(row["return to sender"]).lower() == "yes"
 
-                        date_of_correspondence = row["date of correspondence"]
-
                         # Check for NaT and 'NA' before converting to datetime
                         date_returned = row["date returned to sender"]
                         if pd.notna(date_returned) and date_returned not in [
@@ -346,23 +344,6 @@ class Command(BaseCommand):
                         #     language=language,
                         # )
 
-                        # Create or update keywords
-                        # -------------------------
-                        keywords = str(row["key words"])
-                        if keywords:
-                            try:
-                                keyword_list = [
-                                    keyword.strip() for keyword in keywords.split(",")
-                                ]
-                                obj.keywords.add(*keyword_list)
-                            except Exception as e:
-                                logger.exception(
-                                    "Error processing keywords for row %s: %s",
-                                    index + 2,
-                                    str(e),
-                                )
-
-                        # Create or update postmarks
                         # --------------------------
                         try:
                             self.stdout.write(
@@ -475,18 +456,20 @@ class Command(BaseCommand):
                             try:
                                 # we look up the postmark by date and location
                                 if postmark_1_location:
-                                    postmark_1 = Postmark.objects.get(
+                                    postmark_1 = Postmark.objects.filter(
                                         date=postmark_1_date,
                                         location=postmark_1_location,
                                     )
-                                    obj.postmark.add(postmark_1)
+                                    for postmark in postmark_1:
+                                        obj.postmark.add(postmark)
 
                                 if postmark_2_location:
-                                    postmark_2 = Postmark.objects.get(
+                                    postmark_2 = Postmark.objects.filter(
                                         date=postmark_2_date,
                                         location=postmark_2_location,
                                     )
-                                    obj.postmark.add(postmark_2)
+                                    for postmark in postmark_2:
+                                        obj.postmark.add(postmark)
 
                             except Postmark.DoesNotExist as e:
                                 print(
