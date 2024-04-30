@@ -150,7 +150,13 @@ class ObjectAdmin(ExportMixin, admin.ModelAdmin):
         "translated",
     )
     inlines = [TranscriptionInline, ImageInline]
-    search_fields = ["item_id", "sender_name", "addressee_name"]
+    search_fields = [
+        "item_id",
+        "sender_name__last_name",
+        "sender_name__first_name",
+        "addressee_name__last_name",
+        "addressee_name__first_name",
+    ]
     list_filter = (
         "collection",
         "letter_enclosed",
