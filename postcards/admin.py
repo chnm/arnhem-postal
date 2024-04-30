@@ -266,6 +266,7 @@ class PostmarkAdmin(ExportMixin, admin.ModelAdmin):
 class PrimarySourceAdmin(admin.ModelAdmin):
     model = PrimarySource
     list_display = (
+        "item_id",
         "title",
         "date",
         "document_type",
