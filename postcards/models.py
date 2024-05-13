@@ -211,8 +211,9 @@ class Person(models.Model):
                 location = geolocator.geocode(location_string)
                 logger.info(f"Geocoding: {location_string}")
 
-                self.latitude = str(location.latitude)
-                self.longitude = str(location.longitude)
+                if location is not None:
+                    self.latitude = str(location.latitude)
+                    self.longitude = str(location.longitude)
             except Exception as e:
                 logger.warning("Warning in geocoding a Person: " + str(e) + str(self))
         super().save(*args, **kwargs)
