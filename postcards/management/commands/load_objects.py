@@ -83,10 +83,10 @@ class Command(BaseCommand):
                         # Extract data from the row
                         addressee_correspodnence_type = (
                             row["addressee correspondence type"] or "Person"
-                        )
+                        ).lower()
                         sender_correspondence_type = (
                             row["sender correspondence type"] or "Person"
-                        )
+                        ).lower()
                         item_number = str(row["item number"])
                         collection_location = str(row["location in collection"])
                         sensitive_content = str(row["sensitive"]).lower() == "yes"
