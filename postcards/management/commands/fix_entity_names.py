@@ -72,7 +72,7 @@ class Command(BaseCommand):
                             )
                         )
 
-                        item_number = str(row["item number"])
+                        # item_number = str(row["item number"])
                         sender_entity_name = str(row["entitiy"])
                         sender_entity_type = str(
                             row["sender correspondence type"]
@@ -82,28 +82,82 @@ class Command(BaseCommand):
                             row["addresse correspondence type"]
                         ).lower()
 
-                        # Get the Object with the given item_number
-                        objs = Object.objects.filter(item_id=item_number)
+                        # Get the sender's first_name and last_name
+                        sender_first_name = str(row["sender first name"])
+                        sender_last_name = str(row["sender last name"])
 
-                        for obj in objs:
-                            obj.sender_name.entity_name = sender_entity_name
-                            obj.sender_name.entity_type = sender_entity_type
-                            obj.sender_name.save()
+                        sender = None
+                        if sender_first_name or sender_last_name:
+                            sender = Person.objects.filter(
+                                first_name=sender_first_name, last_name=sender_last_name
+                            ).first()
+                        self.stdout.write(
+                            f"Found sender {sender}, {sender_first_name}, {sender_last_name} -- now updating their record:"
+                        )
+                        # if addressee_first_name and addressee_last_name are None, we then create an entity
+                        if (
+                            sender_first_name is None
+                            and sender_last_name is None
+                            and not sender_entity_name
+                        ):
+                            sender = Person.objects.create(
+                                entity_name=sender_entity_name,
+                                entity_type=sender_entity_type,
+                            )
+                        if not sender and sender_entity_name:
+                            sender = Person.objects.create(
+                                first_name=sender_first_name,
+                                last_name=sender_last_name,
+                                entity_name=sender_entity_name,
+                                entity_type=sender_entity_type,
+                            )
+                        elif sender:
+                            sender.entity_name = sender_entity_name
+                            sender.entity_type = sender_entity_type
+                            sender.save()
 
                             self.stdout.write(
                                 self.style.SUCCESS(
-                                    f"|- Updated sender entity name for object {item_number} ({obj.sender_name})"
+                                    f"|- Updated sender entity name for person {sender_first_name} {sender_last_name} ({sender})"
                                     f"\n|-- {sender_entity_name} - {sender_entity_type}"
                                 )
                             )
 
-                            obj.addressee_name.entity_name = addressee_entity_name
-                            obj.addressee_name.entity_type = addressee_entity_type
-                            obj.addressee_name.save()
+                        # Get the addressee's first_name and last_name
+                        addressee_first_name = str(row["addressee first name"])
+                        addressee_last_name = str(row["addressee last name"])
+
+                        addressee = None
+                        if addressee_first_name or addressee_last_name:
+                            addressee = Person.objects.filter(
+                                first_name=addressee_first_name,
+                                last_name=addressee_last_name,
+                            ).first()
+                        # if addressee_first_name and addressee_last_name are None, we then create an entity
+                        if (
+                            not addressee
+                            and not addressee_first_name
+                            and not addressee_last_name
+                        ):
+                            addressee = Person.objects.create(
+                                entity_name=addressee_entity_name,
+                                entity_type=addressee_entity_type,
+                            )
+                        if not addressee and addressee_entity_name:
+                            addressee = Person.objects.create(
+                                first_name=addressee_first_name,
+                                last_name=addressee_last_name,
+                                entity_name=addressee_entity_name,
+                                entity_type=addressee_entity_type,
+                            )
+                        elif addressee:
+                            addressee.entity_name = addressee_entity_name
+                            addressee.entity_type = addressee_entity_type
+                            addressee.save()
 
                             self.stdout.write(
                                 self.style.SUCCESS(
-                                    f"|- Updated addressee entity name for object {item_number} ({obj.addressee_name})"
+                                    f"|- Updated addressee entity name for person {addressee_first_name} {addressee_last_name} ({addressee})"
                                     f"\n|-- {addressee_entity_name} - {addressee_entity_type}"
                                 )
                             )
