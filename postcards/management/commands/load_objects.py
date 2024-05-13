@@ -81,9 +81,6 @@ class Command(BaseCommand):
                         )
 
                         # Extract data from the row
-                        # entity_type = str(
-                        #     row.get("correspondence_type") or "Person"
-                        # ).lower()
                         addressee_correspodnence_type = (
                             row["addressee correspondence type"] or "Person"
                         )
@@ -141,9 +138,6 @@ class Command(BaseCommand):
 
                         regime_censor = str(row["censor"])
 
-                        # transcription_original = str(row["transcription"])
-                        # transcription_english = str(row["translation"])
-
                         # Create or update Persons
                         addressee_title = str(row["addressee title"])
                         addressee_first_name = str(row["addressee first name"])
@@ -153,6 +147,7 @@ class Command(BaseCommand):
                         addressee_town_city = str(row["addressee town/city"])
                         addressee_province_state = str(row["addressee province/state"])
                         addressee_country = str(row["addressee country"])
+                        addressee_entity_name = str(row["addressee entity"])
 
                         sender_title = str(row["sender title"])
                         sender_first_name = str(row["sender first name"])
@@ -162,6 +157,7 @@ class Command(BaseCommand):
                         sender_town_city = str(row["sender town/city"])
                         sender_province_state = str(row["sender province/state"])
                         sender_country = str(row["sender country"])
+                        sender_entity_name = str(row["entitiy"])
 
                         postmark_1_date = row["postmark 1 date"]
                         postmark_1_location_name = row["postmark 1 location"]
@@ -239,6 +235,7 @@ class Command(BaseCommand):
                                 title=addressee_title,
                                 first_name=addressee_first_name,
                                 last_name=addressee_last_name,
+                                entity_name=addressee_entity_name,
                                 house_number=addressee_house_number,
                                 street=addressee_street,
                                 location=Location.objects.filter(
@@ -262,6 +259,7 @@ class Command(BaseCommand):
                                 title=sender_title,
                                 first_name=sender_first_name,
                                 last_name=sender_last_name,
+                                entity_name=sender_entity_name,
                                 house_number=sender_house_number,
                                 street=sender_street,
                                 location=Location.objects.filter(
@@ -331,20 +329,6 @@ class Command(BaseCommand):
                             public_notes=public_notes,
                         )
 
-                        # if transcription_original:
-                        #     language = Language.objects.get(language="German")
-                        #     transcription_text = transcription_original
-                        # else:
-                        #     language = Language.objects.get(language="English")
-                        #     transcription_text = transcription_english
-
-                        # transcription, created = Transcription.manager.update_or_create(
-                        #     postal_object=obj,
-                        #     transcription=transcription_text,
-                        #     language=language,
-                        # )
-
-                        # --------------------------
                         try:
                             self.stdout.write(
                                 self.style.SUCCESS(
