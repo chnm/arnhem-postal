@@ -82,7 +82,7 @@ class Command(BaseCommand):
 
                         # Extract data from the row
                         addressee_correspodnence_type = (
-                            row["addressee correspondence type"] or "Person"
+                            row["addresse correspondence type"] or "Person"
                         ).lower()
                         sender_correspondence_type = (
                             row["sender correspondence type"] or "Person"
@@ -220,16 +220,13 @@ class Command(BaseCommand):
                         else:
                             postmark_2_location = None
 
-                        addressee = Person.objects.filter(
-                            first_name=addressee_first_name,
-                            last_name=addressee_last_name,
-                        ).first()
-                        if not addressee:
-                            self.stdout.write(
-                                self.style.SUCCESS(
-                                    f"Creating addressee {addressee_first_name} {addressee_last_name}"
-                                )
-                            )
+                        addressee = None
+                        if addressee_first_name or addressee_last_name:
+                            addressee = Person.objects.filter(
+                                first_name=addressee_first_name,
+                                last_name=addressee_last_name,
+                            ).first()
+                        if not addressee and addressee_entity_name:
                             addressee = Person.objects.create(
                                 entity_type=addressee_correspodnence_type,
                                 title=addressee_title,
@@ -244,16 +241,22 @@ class Command(BaseCommand):
                                     country=addressee_country,
                                 ).first(),
                             )
+                        elif addressee:
+                            addressee.entity_name = addressee_entity_name
+                            addressee.save()
 
-                        sender = Person.objects.filter(
-                            first_name=sender_first_name, last_name=sender_last_name
-                        ).first()
-                        if not sender:
                             self.stdout.write(
                                 self.style.SUCCESS(
-                                    f"Creating sender {sender_first_name} {sender_last_name}"
+                                    f"Creating addressee {addressee_first_name} {addressee_last_name}"
                                 )
                             )
+
+                        sender = None
+                        if sender_first_name or sender_last_name:
+                            sender = Person.objects.filter(
+                                first_name=sender_first_name, last_name=sender_last_name
+                            ).first()
+                        if not sender and sender_entity_name:
                             sender = Person.objects.create(
                                 entity_type=sender_correspondence_type,
                                 title=sender_title,
@@ -267,6 +270,15 @@ class Command(BaseCommand):
                                     province_state=sender_province_state,
                                     country=sender_country,
                                 ).first(),
+                            )
+                        elif sender:
+                            sender.entity_name = sender_entity_name
+                            sender.save()
+
+                            self.stdout.write(
+                                self.style.SUCCESS(
+                                    f"Creating sender {sender_first_name} {sender_last_name}"
+                                )
                             )
 
                         letter_type_mapping = {
@@ -300,14 +312,6 @@ class Command(BaseCommand):
                         collection, _ = Collection.objects.get_or_create(
                             name="Tim Gale"
                         )  # Default to "Tim Gale"
-
-                        # Before we write the data to the obj, we replace the None
-                        # values with empty strings. This is done throughout all of the
-                        # data. So, we find any instance where the value is None and
-                        # replace it with an empty string.
-                        # for key, value in row.items():
-                        #     if value is None:
-                        #         row[key] = ""
 
                         # Create or update Objects instance
                         obj, _ = Object.objects.get_or_create(
