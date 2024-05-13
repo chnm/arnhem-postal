@@ -189,9 +189,13 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
         )
         return format_html('<a href="{}">View recieved postal items</a>', url)
 
+    def get_full_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}"
+
+    get_full_name.short_description = "Full Name"
+
     list_display = (
-        "last_name",
-        "first_name",
+        "get_full_name",
         "title",
         "entity_type",
         "view_sent_objects",
