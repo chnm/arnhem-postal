@@ -10,6 +10,7 @@ static/upload
 arnhem_data.sql
 docs/
 media/img_bak/
+exports/
 
 # Generated from gibo
 # Byte-compiled / optimized / DLL files
