@@ -5,11 +5,14 @@ from postcards.models import Person
 
 
 class Command(BaseCommand):
-    help = "Update the names in the Person model from the Object model."
+    help = "Removes None values from names."
 
     def handle(slef, *args, **options):
         people = Person.objects.filter(
-            Q(first_name="None") | Q(last_name="None") | Q(title="None")
+            Q(first_name="None")
+            | Q(last_name="None")
+            | Q(title="None")
+            | Q(entity_name="None")
         )
 
         for person in people:

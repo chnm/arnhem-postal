@@ -81,11 +81,11 @@ class Command(BaseCommand):
                         )
 
                         # Extract data from the row
-                        addressee_correspodnence_type = (
-                            row["addresse correspondence type"] or "Person"
+                        addressee_correspodnence_type = str(
+                            row["addresse correspondence type"]
                         ).lower()
-                        sender_correspondence_type = (
-                            row["sender correspondence type"] or "Person"
+                        sender_correspondence_type = str(
+                            row["sender correspondence type"]
                         ).lower()
                         item_number = str(row["item number"])
                         collection_location = str(row["location in collection"])
@@ -129,6 +129,7 @@ class Command(BaseCommand):
                         reason_for_return_translated = str(
                             row["reason for return (english)"]
                         )
+                        translated = str(row["translated"]).lower()
                         # if reason_for_return_original or reason_for_return_translated includes the string "NA"
                         # then set the value to None
                         if "NA" in reason_for_return_original:
@@ -136,7 +137,7 @@ class Command(BaseCommand):
                         if "NA" in reason_for_return_translated:
                             reason_for_return_translated = None
 
-                        regime_censor = str(row["censor"])
+                        regime_censor = str(row["censor"]).lower()
 
                         # Create or update Persons
                         addressee_title = str(row["addressee title"])
@@ -221,28 +222,59 @@ class Command(BaseCommand):
                             postmark_2_location = None
 
                         addressee = None
-                        if addressee_first_name or addressee_last_name:
-                            addressee = Person.objects.filter(
-                                first_name=addressee_first_name,
-                                last_name=addressee_last_name,
-                            ).first()
-                        if not addressee and addressee_entity_name:
+                        if (
+                            addressee_first_name == "None"
+                            and addressee_last_name == "None"
+                            and addressee_entity_name
+                        ):
                             addressee = Person.objects.create(
+                                entity_name=addressee_entity_name,
                                 entity_type=addressee_correspodnence_type,
                                 title=addressee_title,
-                                first_name=addressee_first_name,
-                                last_name=addressee_last_name,
-                                entity_name=addressee_entity_name,
                                 house_number=addressee_house_number,
                                 street=addressee_street,
                                 location=Location.objects.filter(
                                     town_city=addressee_town_city,
                                     province_state=addressee_province_state,
-                                    country=addressee_country,
+                                ).first(),
+                            )
+                        elif (
+                            addressee_first_name != "None"
+                            or addressee_last_name != "None"
+                        ):
+                            addressee = Person.objects.filter(
+                                first_name=addressee_first_name,
+                                last_name=addressee_last_name,
+                            ).first()
+
+                        if not addressee and addressee_entity_name:
+                            addressee = Person.objects.create(
+                                first_name=addressee_first_name
+                                if addressee_first_name != "None"
+                                else None,
+                                last_name=addressee_last_name
+                                if addressee_last_name != "None"
+                                else None,
+                                entity_name=addressee_entity_name,
+                                entity_type=addressee_correspodnence_type,
+                                title=addressee_title,
+                                house_number=addressee_house_number,
+                                street=addressee_street,
+                                location=Location.objects.filter(
+                                    town_city=addressee_town_city,
+                                    province_state=addressee_province_state,
                                 ).first(),
                             )
                         elif addressee:
                             addressee.entity_name = addressee_entity_name
+                            addressee.entity_type = addressee_correspodnence_type
+                            addressee.title = addressee_title
+                            addressee.house_number = addressee_house_number
+                            addressee.street = addressee_street
+                            addressee.location = Location.objects.filter(
+                                town_city=addressee_town_city,
+                                province_state=addressee_province_state,
+                            ).first()
                             addressee.save()
 
                             self.stdout.write(
@@ -252,17 +284,39 @@ class Command(BaseCommand):
                             )
 
                         sender = None
-                        if sender_first_name or sender_last_name:
+                        if (
+                            sender_first_name == "None"
+                            and sender_last_name == "None"
+                            and sender_entity_name
+                        ):
+                            sender = Person.objects.create(
+                                entity_name=sender_entity_name,
+                                entity_type=sender_correspondence_type,
+                                title=sender_title,
+                                house_number=sender_house_number,
+                                street=sender_street,
+                                location=Location.objects.filter(
+                                    town_city=sender_town_city,
+                                    province_state=sender_province_state,
+                                    country=sender_country,
+                                ).first(),
+                            )
+                        elif sender_first_name != "None" or sender_last_name != "None":
                             sender = Person.objects.filter(
                                 first_name=sender_first_name, last_name=sender_last_name
                             ).first()
+
                         if not sender and sender_entity_name:
                             sender = Person.objects.create(
+                                first_name=sender_first_name
+                                if sender_first_name != "None"
+                                else None,
+                                last_name=sender_last_name
+                                if sender_last_name != "None"
+                                else None,
+                                entity_name=sender_entity_name,
                                 entity_type=sender_correspondence_type,
                                 title=sender_title,
-                                first_name=sender_first_name,
-                                last_name=sender_last_name,
-                                entity_name=sender_entity_name,
                                 house_number=sender_house_number,
                                 street=sender_street,
                                 location=Location.objects.filter(
@@ -273,8 +327,16 @@ class Command(BaseCommand):
                             )
                         elif sender:
                             sender.entity_name = sender_entity_name
+                            sender.entity_type = sender_correspondence_type
+                            sender.title = sender_title
+                            sender.house_number = sender_house_number
+                            sender.street = sender_street
+                            sender.location = Location.objects.filter(
+                                town_city=sender_town_city,
+                                province_state=sender_province_state,
+                                country=sender_country,
+                            ).first()
                             sender.save()
-
                             self.stdout.write(
                                 self.style.SUCCESS(
                                     f"Creating sender {sender_first_name} {sender_last_name}"
@@ -328,6 +390,7 @@ class Command(BaseCommand):
                             addressee_name=addressee,
                             sender_name=sender,
                             letter_type=letter_type,
+                            translated=translated,
                             date_of_correspondence=date_of_correspondence,
                             other=other,
                             public_notes=public_notes,
@@ -359,10 +422,10 @@ class Command(BaseCommand):
                                 )
 
                             print(
-                                f"Initial postmark_1_date: {postmark_1_date} (type: {type(postmark_1_date)})",
-                                f"Initial postmark_1_location: {postmark_1_location} (type: {type(postmark_1_location)})",
-                                f"Initial postmark_2_date: {postmark_2_date} (type: {type(postmark_2_date)})",
-                                f"Initial postmark_2_location: {postmark_2_location} (type: {type(postmark_2_location)})",
+                                f"|- Initial postmark_1_date: {postmark_1_date} (type: {type(postmark_1_date)})\n",
+                                f"|- Initial postmark_1_location: {postmark_1_location} (type: {type(postmark_1_location)})\n",
+                                f"|- Initial postmark_2_date: {postmark_2_date} (type: {type(postmark_2_date)})\n",
+                                f"|- Initial postmark_2_location: {postmark_2_location} (type: {type(postmark_2_location)})",
                             )
                             # Create or update postmarks and associate them with the object
                             if postmark_1_location:
@@ -393,7 +456,7 @@ class Command(BaseCommand):
                                     postmark_1_date = None
 
                                 print(
-                                    f"Final postmark_1_date: {postmark_1_date} (type: {type(postmark_1_date)})"
+                                    f"|-> Final postmark_1_date: {postmark_1_date} (type: {type(postmark_1_date)})"
                                 )
                                 postmark_1, _ = Postmark.objects.get_or_create(
                                     date=postmark_1_date,
