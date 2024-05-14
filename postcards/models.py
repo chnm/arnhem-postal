@@ -141,7 +141,7 @@ class Person(models.Model):
         verbose_name="Last name unclear",
         help_text="Check this box if the last name is unclear or illegible.",
     )
-    entity_name = models.CharField(max_length=255, null=True, blank=True)
+    entity_name = models.CharField(max_length=450, null=True, blank=True)
     house_number = models.CharField(max_length=50, null=True, blank=True)
     street = models.CharField(max_length=255, null=True, blank=True)
     location = models.ForeignKey(
@@ -167,14 +167,16 @@ class Person(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        if self.first_name and self.last_name:
+        if self.first_name is None and self.last_name is None and self.entity_name:
+            return self.entity_name
+        elif self.first_name and self.last_name and self.entity_name:
+            return f"{self.first_name} {self.last_name} ({self.entity_name})"
+        elif self.first_name and self.last_name:
             return self.first_name + " " + self.last_name
         elif self.first_name:
             return self.first_name
         elif self.last_name:
             return self.last_name
-        elif self.entity_name:
-            return self.entity_name
         else:
             return "No name provided"
 

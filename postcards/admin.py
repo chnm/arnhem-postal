@@ -190,9 +190,21 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
         return format_html('<a href="{}">View recieved postal items</a>', url)
 
     def get_full_name(self, obj):
-        return f"{obj.first_name} {obj.last_name}"
+        if obj.first_name is None and obj.last_name is None and obj.entity_name:
+            return obj.entity_name
+        elif obj.first_name and obj.last_name and obj.entity_name:
+            return f"{obj.first_name} {obj.last_name} ({obj.entity_name})"
+        elif obj.first_name and obj.last_name:
+            return f"{obj.first_name} {obj.last_name}"
+        elif obj.first_name:
+            return obj.first_name
+        elif obj.last_name:
+            return obj.last_name
+        else:
+            return "No name provided"
 
     get_full_name.short_description = "Full Name"
+    get_full_name.admin_order_field = "last_name"
 
     list_display = (
         "get_full_name",
@@ -257,7 +269,7 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
         ),
     )
     resource_class = PersonResource
-    search_fields = ["first_name", "last_name"]
+    search_fields = ["first_name", "last_name", "entity_name"]
 
 
 class PostmarkAdmin(ExportMixin, admin.ModelAdmin):
