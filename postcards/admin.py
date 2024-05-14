@@ -207,6 +207,7 @@ class PersonAdmin(ExportMixin, admin.ModelAdmin):
     get_full_name.admin_order_field = "last_name"
 
     list_display = (
+        "person_id",
         "get_full_name",
         "title",
         "entity_type",
